@@ -1,20 +1,20 @@
 @extends('layout.main') @section('content')
 @if(session()->has('message'))
-  <div class="alert alert-success alert-dismissible text-center"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>{{ session()->get('message') }}</div> 
+  <div class="relative px-3 py-3 mb-4 border rounded bg-green-200 border-green-300 text-green-800  text-center"><button type="button" class="absolute top-0 bottom-0 right-0 px-4 py-3" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>{{ session()->get('message') }}</div> 
 @endif
 @if(session()->has('not_permitted'))
-  <div class="alert alert-danger alert-dismissible text-center"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>{{ session()->get('not_permitted') }}</div> 
+  <div class="relative px-3 py-3 mb-4 border rounded bg-red-200 border-red-300 text-red-800  text-center"><button type="button" class="absolute top-0 bottom-0 right-0 px-4 py-3" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>{{ session()->get('not_permitted') }}</div> 
 @endif
 
 <section>
-    <div class="container-fluid">
+    <div class="container mx-auto sm:px-4 max-w-full mx-auto sm:px-4">
         @if(in_array("transfers-add", $all_permission))
-            <a href="{{route('transfers.create')}}" class="btn btn-info"><i class="dripicons-plus"></i> {{trans('file.add')}} {{trans('file.Transfer')}}</a>
-            <a href="{{url('transfers/transfer_by_csv')}}" class="btn btn-primary"><i class="dripicons-copy"></i> {{trans('file.import')}} {{trans('file.Transfer')}}</a>
+            <a href="{{route('transfers.create')}}" class="inline-block align-middle text-center select-none border font-normal whitespace-no-wrap rounded py-1 px-3 leading-normal no-underline bg-teal-500 text-white hover:bg-teal-600"><i class="dripicons-plus"></i> {{trans('file.add')}} {{trans('file.Transfer')}}</a>
+            <a href="{{url('transfers/transfer_by_csv')}}" class="inline-block align-middle text-center select-none border font-normal whitespace-no-wrap rounded py-1 px-3 leading-normal no-underline bg-blue-600 text-white hover:bg-blue-600"><i class="dripicons-copy"></i> {{trans('file.import')}} {{trans('file.Transfer')}}</a>
         @endif
     </div>
-    <div class="table-responsive">
-        <table id="transfer-table" class="table transfer-list">
+    <div class="block w-full overflow-auto scrolling-touch">
+        <table id="transfer-table" class="w-full max-w-full mb-4 bg-transparent transfer-list">
             <thead>
                 <tr>
                     <th class="not-exported"></th>
@@ -49,30 +49,30 @@
                     <td class="total-tax">{{ $transfer->total_tax }}</td>
                     <td class="grand-total">{{ $transfer->grand_total }}</td>
                     @if($transfer->status == 1)
-                        <td><div class="badge badge-success">{{$status}}</div></td>
+                        <td><div class="inline-block p-1 text-center font-semibold text-sm align-baseline leading-none rounded bg-green-500 text-white hover:green-600">{{$status}}</div></td>
                     @elseif($transfer->status == 2)
-                        <td><div class="badge badge-danger">{{$status}}</div></td>
+                        <td><div class="inline-block p-1 text-center font-semibold text-sm align-baseline leading-none rounded bg-red-600 text-white hover:bg-red-700">{{$status}}</div></td>
                     @else
-                        <td><div class="badge badge-warning">{{$status}}</div></td>
+                        <td><div class="inline-block p-1 text-center font-semibold text-sm align-baseline leading-none rounded bg-orange-400 text-black hover:bg-orange-500">{{$status}}</div></td>
                     @endif
                     <td>
-                        <div class="btn-group">
-                            <button type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{trans('file.action')}}<span class="caret"></span><span class="sr-only">Toggle Dropdown</span>
+                        <div class="relative inline-flex align-middle">
+                            <button type="button" class="inline-block align-middle text-center select-none border font-normal whitespace-no-wrap rounded  no-underline btn-default py-1 px-2 leading-tight text-xs   inline-block w-0 h-0 ml-1 align border-b-0 border-t-1 border-r-1 border-l-1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{trans('file.action')}}<span class="caret"></span><span class="sr-only">Toggle Dropdown</span>
                             </button>
-                            <ul class="dropdown-menu edit-options dropdown-menu-right dropdown-default" user="menu">
+                            <ul class=" absolute left-0 z-50 float-left hidden list-reset	 py-2 mt-1 text-base bg-white border border-gray-300 rounded edit-options dropdown-menu-right dropdown-default" user="menu">
                                 <li>
-                                    <button type="button" class="btn btn-link view"><i class="fa fa-eye"></i> {{trans('file.View')}}</button>
+                                    <button type="button" class="inline-block align-middle text-center select-none border font-normal whitespace-no-wrap rounded py-1 px-3 leading-normal no-underline font-normal text-blue-700 bg-transparent view"><i class="fa fa-eye"></i> {{trans('file.View')}}</button>
                                 </li>
                                 @if(in_array("transfers-edit", $all_permission))
                                 <li>
-                                    <a href="{{ route('transfers.edit', $transfer->id) }}" class="btn btn-link"><i class="dripicons-document-edit"></i> {{trans('file.edit')}}</a> 
+                                    <a href="{{ route('transfers.edit', $transfer->id) }}" class="inline-block align-middle text-center select-none border font-normal whitespace-no-wrap rounded py-1 px-3 leading-normal no-underline font-normal text-blue-700 bg-transparent"><i class="dripicons-document-edit"></i> {{trans('file.edit')}}</a> 
                                 </li>
                                 @endif
                                 <li class="divider"></li>
                                 @if(in_array("transfers-delete", $all_permission))
                                 {{ Form::open(['route' => ['transfers.destroy', $transfer->id], 'method' => 'DELETE'] ) }}
                                 <li>
-                                    <button type="submit" class="btn btn-link" onclick="return confirmDelete()"><i class="dripicons-trash"></i> {{trans('file.delete')}}</button>
+                                    <button type="submit" class="inline-block align-middle text-center select-none border font-normal whitespace-no-wrap rounded py-1 px-3 leading-normal no-underline font-normal text-blue-700 bg-transparent" onclick="return confirmDelete()"><i class="dripicons-trash"></i> {{trans('file.delete')}}</button>
                                 </li>
                                 {{ Form::close() }}
                                 @endif
@@ -98,21 +98,21 @@
     </div>
 </section>
 
-<div id="transfer-details" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" class="modal fade text-left">
+<div id="transfer-details" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" class="modal opacity-0 text-left">
     <div role="document" class="modal-dialog">
       <div class="modal-content">
-        <div class="container mt-3 pb-2 border-bottom">
-            <div class="row">
-                <div class="col-md-3">
-                    <button id="print-btn" type="button" class="btn btn-default btn-sm d-print-none"><i class="dripicons-print"></i> {{trans('file.Print')}}</button>
+        <div class="container mx-auto sm:px-4 mt-3 pb-2 border-b">
+            <div class="flex flex-wrap ">
+                <div class="md:w-1/4 pr-4 pl-4">
+                    <button id="print-btn" type="button" class="inline-block align-middle text-center select-none border font-normal whitespace-no-wrap rounded  no-underline btn-default py-1 px-2 leading-tight text-xs  print:hidden"><i class="dripicons-print"></i> {{trans('file.Print')}}</button>
                 </div>
-                <div class="col-md-6">
-                    <h3 id="exampleModalLabel" class="modal-title text-center container-fluid">{{$general_setting->site_title}}</h3>
+                <div class="md:w-1/2 pr-4 pl-4">
+                    <h3 id="exampleModalLabel" class="modal-title text-center container mx-auto sm:px-4 max-w-full mx-auto sm:px-4">{{$general_setting->site_title}}</h3>
                 </div>
-                <div class="col-md-3">
-                    <button type="button" id="close-btn" data-dismiss="modal" aria-label="Close" class="close d-print-none"><span aria-hidden="true"><i class="dripicons-cross"></i></span></button>
+                <div class="md:w-1/4 pr-4 pl-4">
+                    <button type="button" id="close-btn" data-dismiss="modal" aria-label="Close" class="absolute top-0 bottom-0 right-0 px-4 py-3 print:hidden"><span aria-hidden="true"><i class="dripicons-cross"></i></span></button>
                 </div>
-                <div class="col-md-12 text-center">
+                <div class="md:w-full pr-4 pl-4 text-center">
                     <i style="font-size: 15px;">{{trans('file.Transfer Details')}}</i>
                 </div>
             </div>
@@ -120,7 +120,7 @@
             <div id="transfer-content" class="modal-body">
             </div>
             <br>
-            <table class="table table-bordered product-transfer-list">
+            <table class="w-full max-w-full mb-4 bg-transparent table-bordered product-transfer-list">
                 <thead>
                     <th>#</th>
                     <th>{{trans('file.product')}}</th>
@@ -315,7 +315,7 @@
     }
 
     function transferDetails(transfer) {
-        var htmltext = '<strong>{{trans("file.Date")}}: </strong>'+transfer[0]+'<br><strong>{{trans("file.reference")}}: </strong>'+transfer[1]+'<br><strong> {{trans("file.Transfer")}} {{trans("file.Status")}}: </strong>'+transfer[2]+'<br><br><div class="row"><div class="col-md-6"><strong>{{trans("file.From")}}:</strong><br>'+transfer[4]+'<br>'+transfer[5]+'<br>'+transfer[6]+'</div><div class="col-md-6"><div class="float-right"><strong>{{trans("file.To")}}:</strong><br>'+transfer[7]+'<br>'+transfer[8]+'<br>'+transfer[9]+'</div></div></div>';
+        var htmltext = '<strong>{{trans("file.Date")}}: </strong>'+transfer[0]+'<br><strong>{{trans("file.reference")}}: </strong>'+transfer[1]+'<br><strong> {{trans("file.Transfer")}} {{trans("file.Status")}}: </strong>'+transfer[2]+'<br><br><div class="flex flex-wrap "><div class="md:w-1/2 pr-4 pl-4"><strong>{{trans("file.From")}}:</strong><br>'+transfer[4]+'<br>'+transfer[5]+'<br>'+transfer[6]+'</div><div class="md:w-1/2 pr-4 pl-4"><div class="float-right"><strong>{{trans("file.To")}}:</strong><br>'+transfer[7]+'<br>'+transfer[8]+'<br>'+transfer[9]+'</div></div></div>';
 
         $.get('transfers/product_transfer/' + transfer[3], function(data) {
             $(".product-transfer-list tbody").remove();

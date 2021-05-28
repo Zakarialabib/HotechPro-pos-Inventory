@@ -1,17 +1,17 @@
 @extends('layout.main') @section('content')
 @if(session()->has('message'))
-  <div class="alert alert-success alert-dismissible text-center"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>{!! session()->get('message') !!}</div> 
+  <div class="relative px-3 py-3 mb-4 border rounded bg-green-200 border-green-300 text-green-800  text-center"><button type="button" class="absolute top-0 bottom-0 right-0 px-4 py-3" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>{!! session()->get('message') !!}</div> 
 @endif
 @if(session()->has('not_permitted'))
-  <div class="alert alert-danger alert-dismissible text-center"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>{{ session()->get('not_permitted') }}</div> 
+  <div class="relative px-3 py-3 mb-4 border rounded bg-red-200 border-red-300 text-red-800  text-center"><button type="button" class="absolute top-0 bottom-0 right-0 px-4 py-3" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>{{ session()->get('not_permitted') }}</div> 
 @endif
 
 <section>
-    <div class="container-fluid">
-        <button class="btn btn-info" data-toggle="modal" data-target="#activity-modal"><i class="dripicons-plus"></i> {{trans('file.Add Activity')}} </button>
+    <div class="container mx-auto sm:px-4 max-w-full mx-auto sm:px-4">
+        <button class="inline-block align-middle text-center select-none border font-normal whitespace-no-wrap rounded py-1 px-3 leading-normal no-underline bg-teal-500 text-white hover:bg-teal-600" data-toggle="modal" data-target="#activity-modal"><i class="dripicons-plus"></i> {{trans('file.Add Activity')}} </button>
     </div>
-    <div class="table-responsive">
-        <table id="activity-table" class="table">
+    <div class="block w-full overflow-auto scrolling-touch">
+        <table id="activity-table" class="w-full max-w-full mb-4 bg-transparent">
             <thead>
                 <tr>
                     <th class="not-exported"></th>
@@ -39,16 +39,16 @@
                     <td>{{ $activity->place }}</td>
                     <td>{{$activity->expense}}</td>
                     @if($activity->status)
-                        <td><div class="badge badge-success">{{trans('file.Not Paid')}}</div></td>
+                        <td><div class="inline-block p-1 text-center font-semibold text-sm align-baseline leading-none rounded bg-green-500 text-white hover:green-600">{{trans('file.Not Paid')}}</div></td>
                     @else()
-                        <td><div class="badge badge-danger">{{trans('file.Paid')}}</div></td>
+                        <td><div class="inline-block p-1 text-center font-semibold text-sm align-baseline leading-none rounded bg-red-600 text-white hover:bg-red-700">{{trans('file.Paid')}}</div></td>
                     @endif
                     <td>
-                        <div class="btn-group">
-                        <a class="btn btn-sm btn-primary btn-edit" href="{{ route('activity.show',$activity->id) }}"><i class="dripicons-expand"></i></a>
-                        <button type="button" class="btn btn-sm btn-primary btn-edit" title="{{trans('file.edit')}}" data-id="{{$activity->id}}"  data-toggle="modal" data-target="#editModal"><i class="dripicons-document-edit"></i></button>
+                        <div class="relative inline-flex align-middle">
+                        <a class="inline-block align-middle text-center select-none border font-normal whitespace-no-wrap rounded  no-underline py-1 px-2 leading-tight text-xs  bg-blue-600 text-white hover:bg-blue-600 btn-edit" href="{{ route('activity.show',$activity->id) }}"><i class="dripicons-expand"></i></a>
+                        <button type="button" class="inline-block align-middle text-center select-none border font-normal whitespace-no-wrap rounded  no-underline py-1 px-2 leading-tight text-xs  bg-blue-600 text-white hover:bg-blue-600 btn-edit" title="{{trans('file.edit')}}" data-id="{{$activity->id}}"  data-toggle="modal" data-target="#editModal"><i class="dripicons-document-edit"></i></button>
                             {{ Form::open(['route' => ['activity.destroy', $activity->id], 'method' => 'DELETE'] ) }}
-                            <button type="submit" class="btn btn-sm btn-danger" onclick="return confirmDelete()" title="{{trans('file.delete')}}"><i class="dripicons-trash"></i></button>
+                            <button type="submit" class="inline-block align-middle text-center select-none border font-normal whitespace-no-wrap rounded  no-underline py-1 px-2 leading-tight text-xs  bg-red-600 text-white hover:bg-red-700" onclick="return confirmDelete()" title="{{trans('file.delete')}}"><i class="dripicons-trash"></i></button>
                             {{ Form::close() }}
                         </div>
                     </td>
@@ -63,28 +63,28 @@
 
 
 
-<div id="editModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" class="modal fade text-left">
+<div id="editModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" class="modal opacity-0 text-left">
     <div role="document" class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 id="exampleModalLabel" class="modal-title">{{trans('file.Update Activity')}}</h5>
-                <button type="button" data-dismiss="modal" aria-label="Close" class="close"><span aria-hidden="true"><i class="dripicons-cross"></i></span></button>
+                <button type="button" data-dismiss="modal" aria-label="Close" class="absolute top-0 bottom-0 right-0 px-4 py-3"><span aria-hidden="true"><i class="dripicons-cross"></i></span></button>
             </div>
             <div class="modal-body">
               <p class="italic"><small>{{trans('file.The field labels marked with * are required input fields')}}.</small></p>
                 {!! Form::open(['route' => ['activity.update', 1], 'method' => 'put']) !!}
-                <div class="row">
+                <div class="flex flex-wrap ">
                 <input type="hidden" name="activity_id">
-                    <div class="col-md-12 form-group">
+                    <div class="md:w-full pr-4 pl-4 mb-4">
                         <label>{{trans('file.Status')}} *</label>
-                        <select id="status" name="status" class="form-control" required>
+                        <select id="status" name="status" class="block appearance-none w-full py-1 px-2 mb-1 text-base leading-normal bg-white text-gray-800 border border-gray-200 rounded" required>
                         <option value="1">{{trans('file.Not Paid')}}</option>
                         <option value="0">{{trans('file.Paid')}}</option>
                         </select>
                     </div>
                 </div>
-                <div class="form-group">
-                    <button type="submit" class="btn btn-primary">{{trans('file.submit')}}</button>
+                <div class="mb-4">
+                    <button type="submit" class="inline-block align-middle text-center select-none border font-normal whitespace-no-wrap rounded py-1 px-3 leading-normal no-underline bg-blue-600 text-white hover:bg-blue-600">{{trans('file.submit')}}</button>
                 </div>
                 {{ Form::close() }}
             </div>

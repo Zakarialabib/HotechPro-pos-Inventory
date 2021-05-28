@@ -1,30 +1,30 @@
 @extends('layout.main') @section('content')
 <section class="forms">
-    <div class="container-fluid">
-        <div class="card">
-            <div class="card-header mt-2">
+    <div class="container mx-auto sm:px-4 max-w-full mx-auto sm:px-4">
+        <div class="relative flex flex-col min-w-0 rounded break-words border bg-white border-1 border-gray-300">
+            <div class="py-3 px-6 mb-0 bg-gray-200 border-b-1 border-gray-300 text-gray-900 mt-2">
                 <h3 class="text-center">{{trans('file.User Report')}}</h3>
             </div>
             {!! Form::open(['route' => 'report.user', 'method' => 'post']) !!}
-            <div class="row mb-3">
-                <div class="col-md-4 offset-md-2 mt-3">
-                    <div class="form-group row">
+            <div class="flex flex-wrap  mb-3">
+                <div class="md:w-1/3 pr-4 pl-4 md:mx-1/5 mt-3">
+                    <div class="mb-4 flex flex-wrap ">
                         <label class="d-tc mt-2"><strong>{{trans('file.Choose Your Date')}}</strong> &nbsp;</label>
                         <div class="d-tc">
-                            <div class="input-group">
-                                <input type="text" class="daterangepicker-field form-control" value="{{$start_date}} To {{$end_date}}" required />
+                            <div class="relative flex items-stretch w-full">
+                                <input type="text" class="daterangepicker-field block appearance-none w-full py-1 px-2 mb-1 text-base leading-normal bg-white text-gray-800 border border-gray-200 rounded" value="{{$start_date}} To {{$end_date}}" required />
                                 <input type="hidden" name="start_date" value="{{$start_date}}" />
                                 <input type="hidden" name="end_date" value="{{$end_date}}" />
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="col-md-4 mt-3">
-                    <div class="form-group row">
+                <div class="md:w-1/3 pr-4 pl-4 mt-3">
+                    <div class="mb-4 flex flex-wrap ">
                         <label class="d-tc mt-2"><strong>{{trans('file.Choose User')}}</strong> &nbsp;</label>
                         <div class="d-tc">
                             <input type="hidden" name="user_id_hidden" value="{{$user_id}}" />
-                            <select id="user_id" name="user_id" class="selectpicker form-control" data-live-search="true" data-live-search-style="begins">
+                            <select id="user_id" name="user_id" class="selectpicker block appearance-none w-full py-1 px-2 mb-1 text-base leading-normal bg-white text-gray-800 border border-gray-200 rounded" data-live-search="true" data-live-search-style="begins">
                                 @foreach($lims_user_list as $user)
                                 <option value="{{$user->id}}">{{$user->name}} ({{$user->phone}})</option>
                                 @endforeach
@@ -32,9 +32,9 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-2 mt-3">
-                    <div class="form-group">
-                        <button class="btn btn-primary" type="submit">{{trans('file.submit')}}</button>
+                <div class="md:w-1/5 pr-4 pl-4 mt-3">
+                    <div class="mb-4">
+                        <button class="inline-block align-middle text-center select-none border font-normal whitespace-no-wrap rounded py-1 px-3 leading-normal no-underline bg-blue-600 text-white hover:bg-blue-600" type="submit">{{trans('file.submit')}}</button>
                     </div>
                 </div>
             </div>
@@ -42,34 +42,34 @@
             {!! Form::close() !!}
         </div>
     </div>
-    <ul class="nav nav-tabs ml-4 mt-3" role="tablist">
-        <li class="nav-item">
-            <a class="nav-link active" href="#user-sale" role="tab" data-toggle="tab">{{trans('file.Sale')}}</a>
+    <ul class="flex flex-wrap list-none pl-0 mb-0 border border-t-0 border-r-0 border-l-0 border-b-1 border-gray-200 ml-4 mt-3" role="tablist">
+        <li class="">
+            <a class="inline-block py-2 px-4 no-underline active" href="#user-sale" role="tab" data-toggle="tab">{{trans('file.Sale')}}</a>
         </li>
-        <li class="nav-item">
-            <a class="nav-link" href="#user-purchase" role="tab" data-toggle="tab">{{trans('file.Purchase')}}</a>
+        <li class="">
+            <a class="inline-block py-2 px-4 no-underline" href="#user-purchase" role="tab" data-toggle="tab">{{trans('file.Purchase')}}</a>
         </li>
-        <li class="nav-item">
-            <a class="nav-link" href="#user-quotation" role="tab" data-toggle="tab">{{trans('file.Quotation')}}</a>
+        <li class="">
+            <a class="inline-block py-2 px-4 no-underline" href="#user-quotation" role="tab" data-toggle="tab">{{trans('file.Quotation')}}</a>
         </li>
-        <li class="nav-item">
-            <a class="nav-link" href="#user-transfer" role="tab" data-toggle="tab">{{trans('file.Transfer')}}</a>
+        <li class="">
+            <a class="inline-block py-2 px-4 no-underline" href="#user-transfer" role="tab" data-toggle="tab">{{trans('file.Transfer')}}</a>
         </li>
-        <li class="nav-item">
-            <a class="nav-link" href="#user-payments" role="tab" data-toggle="tab">{{trans('file.Payment')}}</a>
+        <li class="">
+            <a class="inline-block py-2 px-4 no-underline" href="#user-payments" role="tab" data-toggle="tab">{{trans('file.Payment')}}</a>
         </li>
-        <li class="nav-item">
-            <a class="nav-link" href="#user-expense" role="tab" data-toggle="tab">{{trans('file.Expense')}}</a>
+        <li class="">
+            <a class="inline-block py-2 px-4 no-underline" href="#user-expense" role="tab" data-toggle="tab">{{trans('file.Expense')}}</a>
         </li>
-        <li class="nav-item">
-            <a class="nav-link" href="#user-payroll" role="tab" data-toggle="tab">{{trans('file.Payroll')}}</a>
+        <li class="">
+            <a class="inline-block py-2 px-4 no-underline" href="#user-payroll" role="tab" data-toggle="tab">{{trans('file.Payroll')}}</a>
         </li>
     </ul>
 
     <div class="tab-content">
-        <div role="tabpanel" class="tab-pane fade show active" id="user-sale">
-            <div class="table-responsive mb-4">
-                <table id="sale-table" class="table table-hover">
+        <div role="tabpanel" class="tab-pane opacity-0 opacity-100 block active" id="user-sale">
+            <div class="block w-full overflow-auto scrolling-touch mb-4">
+                <table id="sale-table" class="w-full max-w-full mb-4 bg-transparent table-hover">
                     <thead>
                         <tr>
                             <th class="not-exported-sale"></th>
@@ -118,9 +118,9 @@
                             @endif
                             <td>{{number_format((float)($sale->grand_total - $sale->paid_amount), 2, '.', '')}}</td>
                             @if($sale->sale_status == 1)
-                            <td><div class="badge badge-success">{{trans('file.Completed')}}</div></td>
+                            <td><div class="inline-block p-1 text-center font-semibold text-sm align-baseline leading-none rounded bg-green-500 text-white hover:green-600">{{trans('file.Completed')}}</div></td>
                             @else
-                            <td><div class="badge badge-danger">{{trans('file.Pending')}}</div></td>
+                            <td><div class="inline-block p-1 text-center font-semibold text-sm align-baseline leading-none rounded bg-red-600 text-white hover:bg-red-700">{{trans('file.Pending')}}</div></td>
                             @endif
                         </tr>
                         @endforeach
@@ -143,9 +143,9 @@
             </div>
         </div>
 
-        <div role="tabpanel" class="tab-pane fade" id="user-purchase">
-            <div class="table-responsive mb-4">
-                <table id="purchase-table" class="table table-hover">
+        <div role="tabpanel" class="tab-pane opacity-0" id="user-purchase">
+            <div class="block w-full overflow-auto scrolling-touch mb-4">
+                <table id="purchase-table" class="w-full max-w-full mb-4 bg-transparent table-hover">
                     <thead>
                         <tr>
                             <th class="not-exported-purchase"></th>
@@ -197,13 +197,13 @@
                             <td>{{number_format((float)($purchase->paid_amount), 2, '.', '')}}</td>
                             <td>{{number_format((float)($purchase->grand_total - $purchase->paid_amount), 2, '.', '')}}</td>
                             @if($purchase->status == 1)
-                               <td><div class="badge badge-success">{{trans('file.Recieved')}}</div></td>
+                               <td><div class="inline-block p-1 text-center font-semibold text-sm align-baseline leading-none rounded bg-green-500 text-white hover:green-600">{{trans('file.Recieved')}}</div></td>
                             @elseif($purchase->status == 2)
-                               <td><div class="badge badge-success">{{trans('file.Partial')}}</div></td>
+                               <td><div class="inline-block p-1 text-center font-semibold text-sm align-baseline leading-none rounded bg-green-500 text-white hover:green-600">{{trans('file.Partial')}}</div></td>
                             @elseif($purchase->status == 3)
-                                <td><div class="badge badge-danger">{{trans('file.Pending')}}</div></td>
+                                <td><div class="inline-block p-1 text-center font-semibold text-sm align-baseline leading-none rounded bg-red-600 text-white hover:bg-red-700">{{trans('file.Pending')}}</div></td>
                             @elseif($purchase->status == 4)
-                                <td><div class="badge badge-danger">{{trans('file.Ordered')}}</div></td>
+                                <td><div class="inline-block p-1 text-center font-semibold text-sm align-baseline leading-none rounded bg-red-600 text-white hover:bg-red-700">{{trans('file.Ordered')}}</div></td>
                             @endif
                         </tr>
                         @endforeach
@@ -226,9 +226,9 @@
             </div>
         </div>
 
-        <div role="tabpanel" class="tab-pane fade" id="user-quotation">
-            <div class="table-responsive mb-4">
-                <table id="quotation-table" class="table table-hover">
+        <div role="tabpanel" class="tab-pane opacity-0" id="user-quotation">
+            <div class="block w-full overflow-auto scrolling-touch mb-4">
+                <table id="quotation-table" class="w-full max-w-full mb-4 bg-transparent table-hover">
                     <thead>
                         <tr>
                             <th class="not-exported-quotation"></th>
@@ -270,9 +270,9 @@
                             <td>{{number_format((float) $quotation->grand_total, 2, '.', '')}}</td>
                             
                             @if($quotation->quotation_status == 2)
-                            <td><div class="badge badge-success">{{trans('file.Sent')}}</div></td>
+                            <td><div class="inline-block p-1 text-center font-semibold text-sm align-baseline leading-none rounded bg-green-500 text-white hover:green-600">{{trans('file.Sent')}}</div></td>
                             @else
-                            <td><div class="badge badge-danger">{{trans('file.Pending')}}</div></td>
+                            <td><div class="inline-block p-1 text-center font-semibold text-sm align-baseline leading-none rounded bg-red-600 text-white hover:bg-red-700">{{trans('file.Pending')}}</div></td>
                             @endif
                         </tr>
                         @endforeach
@@ -293,9 +293,9 @@
             </div>
         </div>
 
-        <div role="tabpanel" class="tab-pane fade" id="user-transfer">
-            <div class="table-responsive mb-4">
-                <table id="transfer-table" class="table table-hover">
+        <div role="tabpanel" class="tab-pane opacity-0" id="user-transfer">
+            <div class="block w-full overflow-auto scrolling-touch mb-4">
+                <table id="transfer-table" class="w-full max-w-full mb-4 bg-transparent table-hover">
                     <thead>
                         <tr>
                             <th class="not-exported-transfer"></th>
@@ -337,11 +337,11 @@
                             <td>{{number_format((float) $transfer->grand_total, 2, '.', '')}}</td>
 
                             @if($transfer->status == 1)
-                            <td><div class="badge badge-success">{{trans('file.Completed')}}</div></td>
+                            <td><div class="inline-block p-1 text-center font-semibold text-sm align-baseline leading-none rounded bg-green-500 text-white hover:green-600">{{trans('file.Completed')}}</div></td>
                             @elseif($transfer->status == 2)
-                            <td><div class="badge badge-danger">{{trans('file.Pending')}}</div></td>
+                            <td><div class="inline-block p-1 text-center font-semibold text-sm align-baseline leading-none rounded bg-red-600 text-white hover:bg-red-700">{{trans('file.Pending')}}</div></td>
                             @else
-                            <td><div class="badge badge-warning">{{trans('file.Sent')}}</div></td>
+                            <td><div class="inline-block p-1 text-center font-semibold text-sm align-baseline leading-none rounded bg-orange-400 text-black hover:bg-orange-500">{{trans('file.Sent')}}</div></td>
                             @endif
                         </tr>
                         @endforeach
@@ -362,9 +362,9 @@
             </div>
         </div>
 
-        <div role="tabpanel" class="tab-pane fade" id="user-payments">
-            <div class="table-responsive mb-4">
-                <table id="payment-table" class="table table-hover">
+        <div role="tabpanel" class="tab-pane opacity-0" id="user-payments">
+            <div class="block w-full overflow-auto scrolling-touch mb-4">
+                <table id="payment-table" class="w-full max-w-full mb-4 bg-transparent table-hover">
                     <thead>
                         <tr>
                             <th class="not-exported-payment"></th>
@@ -398,9 +398,9 @@
             </div>
         </div>
 
-        <div role="tabpanel" class="tab-pane fade" id="user-expense">
-            <div class="table-responsive mb-4">
-                <table id="expense-table" class="table table-hover">
+        <div role="tabpanel" class="tab-pane opacity-0" id="user-expense">
+            <div class="block w-full overflow-auto scrolling-touch mb-4">
+                <table id="expense-table" class="w-full max-w-full mb-4 bg-transparent table-hover">
                     <thead>
                         <tr>
                             <th class="not-exported-expense"></th>
@@ -440,9 +440,9 @@
             </div>
         </div>
 
-        <div role="tabpanel" class="tab-pane fade" id="user-payroll">
-            <div class="table-responsive mb-4">
-                <table id="payroll-table" class="table table-hover">
+        <div role="tabpanel" class="tab-pane opacity-0" id="user-payroll">
+            <div class="block w-full overflow-auto scrolling-touch mb-4">
+                <table id="payroll-table" class="w-full max-w-full mb-4 bg-transparent table-hover">
                     <thead>
                         <tr>
                             <th class="not-exported-payroll"></th>

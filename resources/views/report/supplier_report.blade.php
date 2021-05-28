@@ -1,30 +1,30 @@
 @extends('layout.main') @section('content')
 <section class="forms">
-    <div class="container-fluid">
-        <div class="card">
-            <div class="card-header mt-2">
+    <div class="container mx-auto sm:px-4 max-w-full mx-auto sm:px-4">
+        <div class="relative flex flex-col min-w-0 rounded break-words border bg-white border-1 border-gray-300">
+            <div class="py-3 px-6 mb-0 bg-gray-200 border-b-1 border-gray-300 text-gray-900 mt-2">
                 <h3 class="text-center">{{trans('file.Supplier Report')}}</h3>
             </div>
             {!! Form::open(['route' => 'report.supplier', 'method' => 'post']) !!}
-            <div class="row mb-3">
-                <div class="col-md-4 offset-md-1 mt-3">
-                    <div class="form-group row">
+            <div class="flex flex-wrap  mb-3">
+                <div class="md:w-1/3 pr-4 pl-4 md:mx-1/6 mt-3">
+                    <div class="mb-4 flex flex-wrap ">
                         <label class="d-tc mt-2"><strong>{{trans('file.Choose Your Date')}}</strong> &nbsp;</label>
                         <div class="d-tc">
-                            <div class="input-group">
-                                <input type="text" class="daterangepicker-field form-control" value="{{$start_date}} To {{$end_date}}" required />
+                            <div class="relative flex items-stretch w-full">
+                                <input type="text" class="daterangepicker-field block appearance-none w-full py-1 px-2 mb-1 text-base leading-normal bg-white text-gray-800 border border-gray-200 rounded" value="{{$start_date}} To {{$end_date}}" required />
                                 <input type="hidden" name="start_date" value="{{$start_date}}" />
                                 <input type="hidden" name="end_date" value="{{$end_date}}" />
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="col-md-4 mt-3">
-                    <div class="form-group row">
+                <div class="md:w-1/3 pr-4 pl-4 mt-3">
+                    <div class="mb-4 flex flex-wrap ">
                         <label class="d-tc mt-2"><strong>{{trans('file.Choose Supplier')}}</strong> &nbsp;</label>
                         <div class="d-tc">
                             <input type="hidden" name="supplier_id_hidden" value="{{$supplier_id}}" />
-                            <select id="supplier_id" name="supplier_id" class="selectpicker form-control" data-live-search="true" data-live-search-style="begins" >
+                            <select id="supplier_id" name="supplier_id" class="selectpicker block appearance-none w-full py-1 px-2 mb-1 text-base leading-normal bg-white text-gray-800 border border-gray-200 rounded" data-live-search="true" data-live-search-style="begins" >
                                 @foreach($lims_supplier_list as $supplier)
                                 <option value="{{$supplier->id}}">{{$supplier->name}} ({{$supplier->phone_number}})</option>
                                 @endforeach
@@ -32,33 +32,33 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-3 mt-3">
-                    <div class="form-group">
-                        <button class="btn btn-primary" type="submit">{{trans('file.submit')}}</button>
+                <div class="md:w-1/4 pr-4 pl-4 mt-3">
+                    <div class="mb-4">
+                        <button class="inline-block align-middle text-center select-none border font-normal whitespace-no-wrap rounded py-1 px-3 leading-normal no-underline bg-blue-600 text-white hover:bg-blue-600" type="submit">{{trans('file.submit')}}</button>
                     </div>
                 </div>
             </div>
             {!! Form::close() !!}
         </div>
     </div>
-    <ul class="nav nav-tabs ml-4 mt-3" role="tablist">
-      <li class="nav-item">
-        <a class="nav-link active" href="#supplier-purchase" role="tab" data-toggle="tab">{{trans('file.Purchase')}}</a>
+    <ul class="flex flex-wrap list-none pl-0 mb-0 border border-t-0 border-r-0 border-l-0 border-b-1 border-gray-200 ml-4 mt-3" role="tablist">
+      <li class="">
+        <a class="inline-block py-2 px-4 no-underline active" href="#supplier-purchase" role="tab" data-toggle="tab">{{trans('file.Purchase')}}</a>
       </li>
-      <li class="nav-item">
-        <a class="nav-link" href="#supplier-payments" role="tab" data-toggle="tab">{{trans('file.Payment')}}</a>
+      <li class="">
+        <a class="inline-block py-2 px-4 no-underline" href="#supplier-payments" role="tab" data-toggle="tab">{{trans('file.Payment')}}</a>
       </li>
-      <li class="nav-item">
-        <a class="nav-link" href="#supplier-return" role="tab" data-toggle="tab">{{trans('file.Return')}}</a>
+      <li class="">
+        <a class="inline-block py-2 px-4 no-underline" href="#supplier-return" role="tab" data-toggle="tab">{{trans('file.Return')}}</a>
       </li>
-      <li class="nav-item">
-        <a class="nav-link" href="#supplier-quotation" role="tab" data-toggle="tab">{{trans('file.Quotation')}}</a>
+      <li class="">
+        <a class="inline-block py-2 px-4 no-underline" href="#supplier-quotation" role="tab" data-toggle="tab">{{trans('file.Quotation')}}</a>
       </li>
     </ul>
     <div class="tab-content">
-        <div role="tabpanel" class="tab-pane fade show active" id="supplier-purchase">
-            <div class="table-responsive mb-4">
-                <table id="purchase-table" class="table table-hover">
+        <div role="tabpanel" class="tab-pane opacity-0 opacity-100 block active" id="supplier-purchase">
+            <div class="block w-full overflow-auto scrolling-touch mb-4">
+                <table id="purchase-table" class="w-full max-w-full mb-4 bg-transparent table-hover">
                     <thead>
                         <tr>
                             <th class="not-exported-purchase"></th>
@@ -126,9 +126,9 @@
             </div>
         </div>
 
-        <div role="tabpanel" class="tab-pane fade" id="supplier-payments">
-            <div class="table-responsive mb-4">
-                <table id="payment-table" class="table table-hover">
+        <div role="tabpanel" class="tab-pane opacity-0" id="supplier-payments">
+            <div class="block w-full overflow-auto scrolling-touch mb-4">
+                <table id="payment-table" class="w-full max-w-full mb-4 bg-transparent table-hover">
                     <thead>
                         <tr>
                             <th class="not-exported-payment"></th>
@@ -165,9 +165,9 @@
             </div>
         </div>
 
-        <div role="tabpanel" class="tab-pane fade" id="supplier-return">
-            <div class="table-responsive mb-4">
-                <table id="return-table" class="table table-hover">
+        <div role="tabpanel" class="tab-pane opacity-0" id="supplier-return">
+            <div class="block w-full overflow-auto scrolling-touch mb-4">
+                <table id="return-table" class="w-full max-w-full mb-4 bg-transparent table-hover">
                     <thead>
                         <tr>
                             <th class="not-exported-return"></th>
@@ -221,9 +221,9 @@
             </div>
         </div>
 
-        <div role="tabpanel" class="tab-pane fade" id="supplier-quotation">
-            <div class="table-responsive mb-4">
-                <table id="quotation-table" class="table table-hover">
+        <div role="tabpanel" class="tab-pane opacity-0" id="supplier-quotation">
+            <div class="block w-full overflow-auto scrolling-touch mb-4">
+                <table id="quotation-table" class="w-full max-w-full mb-4 bg-transparent table-hover">
                     <thead>
                         <tr>
                             <th class="not-exported-quotation"></th>

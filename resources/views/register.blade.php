@@ -31,10 +31,10 @@
   </head>
   <body>
     <div class="page login-page">
-      <div class="container">
-        <div class="form-outer text-center d-flex align-items-center">
+      <div class="container mx-auto sm:px-4">
+        <div class="form-outer text-center flex items-center">
           <div class="form-inner">
-            <div class="logo text-uppercase"><span>Dash</span><strong class="text-primary">Express</strong></div>
+            <div class="logo uppercase"><span>Dash</span><strong class="text-blue-600">Express</strong></div>
             <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud.</p>
             <form id="register-form">
               <div class="form-group-material">
@@ -49,11 +49,11 @@
                 <input id="register-passowrd" type="password" name="registerPassword" required class="input-material">
                 <label for="register-passowrd" class="label-material">Password        </label>
               </div>
-              <div class="terms-conditions d-flex justify-content-center">
+              <div class="terms-conditions flex justify-center">
                 <input id="license" type="checkbox" class="form-control-custom">
                 <label for="license">Agree the terms and policy</label>
               </div>
-              <input id="register" type="submit" value="Register" class="btn btn-primary">
+              <input id="register" type="submit" value="Register" class="inline-block align-middle text-center select-none border font-normal whitespace-no-wrap rounded py-1 px-3 leading-normal no-underline bg-blue-600 text-white hover:bg-blue-600">
             </form><small>Already have an account? </small><a href="login.html" class="signup">Login</a>
           </div>
           <div class="copyrights text-center">

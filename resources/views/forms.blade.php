@@ -34,13 +34,13 @@
     <nav class="side-navbar">
       <div class="side-navbar-wrapper">
         <!-- Sidebar Header    -->
-        <div class="sidenav-header d-flex align-items-center justify-content-center">
+        <div class="sidenav-header flex items-center justify-center">
           <!-- User Info-->
-          <div class="sidenav-header-inner text-center"><img src="img/avatar-1.jpg" alt="person" class="img-fluid rounded-circle">
+          <div class="sidenav-header-inner text-center"><img src="img/avatar-1.jpg" alt="person" class="max-w-full h-auto rounded-full">
             <h2 class="h5">Anderson Hardy</h2><span>Web Developer</span>
           </div>
           <!-- Small Brand information, appears on minimized sidebar-->
-          <div class="sidenav-header-logo"><a href="index.html" class="brand-small text-center"> <strong>B</strong><strong class="text-primary">D</strong></a></div>
+          <div class="sidenav-header-logo"><a href="index.html" class="brand-small text-center"> <strong>B</strong><strong class="text-blue-600">D</strong></a></div>
         </div>
         <!-- Sidebar Navigation Menus-->
         <div class="main-menu">
@@ -51,7 +51,7 @@
             <li><a href="charts.html"> <i class="fa fa-bar-chart"></i>Charts                             </a></li>
             <li><a href="tables.html"> <i class="icon-grid"></i>Tables                             </a></li>
             <li><a href="#exampledropdownDropdown" aria-expanded="false" data-toggle="collapse"> <i class="icon-interface-windows"></i>Example dropdown </a>
-              <ul id="exampledropdownDropdown" class="collapse list-unstyled ">
+              <ul id="exampledropdownDropdown" class="hidden list-unstyled ">
                 <li><a href="#">Page</a></li>
                 <li><a href="#">Page</a></li>
                 <li><a href="#">Page</a></li>
@@ -59,7 +59,7 @@
             </li>
             <li><a href="login.html"> <i class="icon-interface-windows"></i>Login page                             </a></li>
             <li> <a href="#"> <i class="icon-mail"></i>Demo
-                <div class="badge badge-warning">6 New</div></a></li>
+                <div class="inline-block p-1 text-center font-semibold text-sm align-baseline leading-none rounded bg-orange-400 text-black hover:bg-orange-500">6 New</div></a></li>
           </ul>
         </div>
         <div class="admin-menu">
@@ -67,7 +67,7 @@
           <ul id="side-admin-menu" class="side-menu list-unstyled"> 
             <li> <a href="#"> <i class="icon-screen"> </i>Demo</a></li>
             <li> <a href="#"> <i class="icon-flask"> </i>Demo
-                <div class="badge badge-info">Special</div></a></li>
+                <div class="inline-block p-1 text-center font-semibold text-sm align-baseline leading-none rounded bg-teal-500 text-white hover:bg-teal-600">Special</div></a></li>
             <li> <a href=""> <i class="icon-flask"> </i>Demo</a></li>
             <li> <a href=""> <i class="icon-picture"> </i>Demo</a></li>
           </ul>
@@ -77,58 +77,58 @@
     <div class="page">
       <!-- navbar-->
       <header class="header">
-        <nav class="navbar">
-          <div class="container-fluid">
-            <div class="navbar-holder d-flex align-items-center justify-content-between">
-              <div class="navbar-header"><a id="toggle-btn" href="#" class="menu-btn"><i class="icon-bars"> </i></a><a href="index.html" class="navbar-brand">
-                  <div class="brand-text d-none d-md-inline-block"><span>Bootstrap </span><strong class="text-primary">Dashboard</strong></div></a></div>
-              <ul class="nav-menu list-unstyled d-flex flex-md-row align-items-md-center">
-                <li class="nav-item dropdown"> <a id="notifications" rel="nofollow" data-target="#" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link"><i class="fa fa-bell"></i><span class="badge badge-warning">12</span></a>
-                  <ul aria-labelledby="notifications" class="dropdown-menu">
-                    <li><a rel="nofollow" href="#" class="dropdown-item"> 
-                        <div class="notification d-flex justify-content-between">
+        <nav class="relative flex flex-wrap items-center content-between py-3 px-4">
+          <div class="container mx-auto sm:px-4 max-w-full mx-auto sm:px-4">
+            <div class="navbar-holder flex items-center justify-between">
+              <div class="navbar-header"><a id="toggle-btn" href="#" class="menu-btn"><i class="icon-bars"> </i></a><a href="index.html" class="inline-block pt-1 pb-1 mr-4 text-lg whitespace-no-wrap">
+                  <div class="brand-text hidden md:inline-block"><span>Bootstrap </span><strong class="text-blue-600">Dashboard</strong></div></a></div>
+              <ul class="nav-menu list-unstyled flex md:flex-row md:items-center">
+                <li class=" relative"> <a id="notifications" rel="nofollow" data-target="#" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="inline-block py-2 px-4 no-underline"><i class="fa fa-bell"></i><span class="inline-block p-1 text-center font-semibold text-sm align-baseline leading-none rounded bg-orange-400 text-black hover:bg-orange-500">12</span></a>
+                  <ul aria-labelledby="notifications" class=" absolute left-0 z-50 float-left hidden list-reset	 py-2 mt-1 text-base bg-white border border-gray-300 rounded">
+                    <li><a rel="nofollow" href="#" class="block w-full py-1 px-6 font-normal text-gray-900 whitespace-no-wrap border-0"> 
+                        <div class="notification flex justify-between">
                           <div class="notification-content"><i class="dripicons-mail"></i>You have 6 new messages </div>
                           <div class="notification-time"><small>4 minutes ago</small></div>
                         </div></a></li>
-                    <li><a rel="nofollow" href="#" class="dropdown-item"> 
-                        <div class="notification d-flex justify-content-between">
+                    <li><a rel="nofollow" href="#" class="block w-full py-1 px-6 font-normal text-gray-900 whitespace-no-wrap border-0"> 
+                        <div class="notification flex justify-between">
                           <div class="notification-content"><i class="fa fa-twitter"></i>You have 2 followers</div>
                           <div class="notification-time"><small>4 minutes ago</small></div>
                         </div></a></li>
-                    <li><a rel="nofollow" href="#" class="dropdown-item"> 
-                        <div class="notification d-flex justify-content-between">
+                    <li><a rel="nofollow" href="#" class="block w-full py-1 px-6 font-normal text-gray-900 whitespace-no-wrap border-0"> 
+                        <div class="notification flex justify-between">
                           <div class="notification-content"><i class="fa fa-upload"></i>Server Rebooted</div>
                           <div class="notification-time"><small>4 minutes ago</small></div>
                         </div></a></li>
-                    <li><a rel="nofollow" href="#" class="dropdown-item"> 
-                        <div class="notification d-flex justify-content-between">
+                    <li><a rel="nofollow" href="#" class="block w-full py-1 px-6 font-normal text-gray-900 whitespace-no-wrap border-0"> 
+                        <div class="notification flex justify-between">
                           <div class="notification-content"><i class="fa fa-twitter"></i>You have 2 followers</div>
                           <div class="notification-time"><small>10 minutes ago</small></div>
                         </div></a></li>
-                    <li><a rel="nofollow" href="#" class="dropdown-item all-notifications text-center"> <strong> <i class="fa fa-bell"></i>view all notifications                                            </strong></a></li>
+                    <li><a rel="nofollow" href="#" class="block w-full py-1 px-6 font-normal text-gray-900 whitespace-no-wrap border-0 all-notifications text-center"> <strong> <i class="fa fa-bell"></i>view all notifications                                            </strong></a></li>
                   </ul>
                 </li>
-                <li class="nav-item dropdown"> <a id="messages" rel="nofollow" data-target="#" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link"><i class="dripicons-mail"></i><span class="badge badge-info">10</span></a>
-                  <ul aria-labelledby="notifications" class="dropdown-menu">
-                    <li><a rel="nofollow" href="#" class="dropdown-item d-flex"> 
-                        <div class="msg-profile"> <img src="img/avatar-1.jpg" alt="..." class="img-fluid rounded-circle"></div>
+                <li class=" relative"> <a id="messages" rel="nofollow" data-target="#" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="inline-block py-2 px-4 no-underline"><i class="dripicons-mail"></i><span class="inline-block p-1 text-center font-semibold text-sm align-baseline leading-none rounded bg-teal-500 text-white hover:bg-teal-600">10</span></a>
+                  <ul aria-labelledby="notifications" class=" absolute left-0 z-50 float-left hidden list-reset	 py-2 mt-1 text-base bg-white border border-gray-300 rounded">
+                    <li><a rel="nofollow" href="#" class="block w-full py-1 px-6 font-normal text-gray-900 whitespace-no-wrap border-0 flex"> 
+                        <div class="msg-profile"> <img src="img/avatar-1.jpg" alt="..." class="max-w-full h-auto rounded-full"></div>
                         <div class="msg-body">
                           <h3 class="h5">Jason Doe</h3><span>sent you a direct message</span><small>3 days ago at 7:58 pm - 10.06.2014</small>
                         </div></a></li>
-                    <li><a rel="nofollow" href="#" class="dropdown-item d-flex"> 
-                        <div class="msg-profile"> <img src="img/avatar-2.jpg" alt="..." class="img-fluid rounded-circle"></div>
+                    <li><a rel="nofollow" href="#" class="block w-full py-1 px-6 font-normal text-gray-900 whitespace-no-wrap border-0 flex"> 
+                        <div class="msg-profile"> <img src="img/avatar-2.jpg" alt="..." class="max-w-full h-auto rounded-full"></div>
                         <div class="msg-body">
                           <h3 class="h5">Frank Williams</h3><span>sent you a direct message</span><small>3 days ago at 7:58 pm - 10.06.2014</small>
                         </div></a></li>
-                    <li><a rel="nofollow" href="#" class="dropdown-item d-flex"> 
-                        <div class="msg-profile"> <img src="img/avatar-3.jpg" alt="..." class="img-fluid rounded-circle"></div>
+                    <li><a rel="nofollow" href="#" class="block w-full py-1 px-6 font-normal text-gray-900 whitespace-no-wrap border-0 flex"> 
+                        <div class="msg-profile"> <img src="img/avatar-3.jpg" alt="..." class="max-w-full h-auto rounded-full"></div>
                         <div class="msg-body">
                           <h3 class="h5">Ashley Wood</h3><span>sent you a direct message</span><small>3 days ago at 7:58 pm - 10.06.2014</small>
                         </div></a></li>
-                    <li><a rel="nofollow" href="#" class="dropdown-item all-notifications text-center"> <strong> <i class="dripicons-mail"></i>Read all messages    </strong></a></li>
+                    <li><a rel="nofollow" href="#" class="block w-full py-1 px-6 font-normal text-gray-900 whitespace-no-wrap border-0 all-notifications text-center"> <strong> <i class="dripicons-mail"></i>Read all messages    </strong></a></li>
                   </ul>
                 </li>
-                <li class="nav-item"><a href="login.html" class="nav-link logout">Logout<i class="fa fa-sign-out"></i></a></li>
+                <li class=""><a href="login.html" class="inline-block py-2 px-4 no-underline logout">Logout<i class="fa fa-sign-out"></i></a></li>
               </ul>
             </div>
           </div>
@@ -136,128 +136,128 @@
       </header>
       <!-- Breadcrumb-->
       <div class="breadcrumb-holder">
-        <div class="container-fluid">
-          <ul class="breadcrumb">
-            <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-            <li class="breadcrumb-item active">Forms       </li>
+        <div class="container mx-auto sm:px-4 max-w-full mx-auto sm:px-4">
+          <ul class="flex flex-wrap list-reset pt-3 pb-3 py-4 px-4 mb-4 bg-gray-200 rounded">
+            <li class="inline-block px-2 py-2 text-gray-700"><a href="index.html">Home</a></li>
+            <li class="inline-block px-2 py-2 text-gray-700 active">Forms       </li>
           </ul>
         </div>
       </div>
       <section class="forms">
-        <div class="container-fluid">
+        <div class="container mx-auto sm:px-4 max-w-full mx-auto sm:px-4">
           <!-- Page Header-->
           <header> 
             <h1 class="h3 display">Forms            </h1>
           </header>
-          <div class="row">
-            <div class="col-md-6">
-              <div class="card">
-                <div class="card-header d-flex align-items-center">
+          <div class="flex flex-wrap ">
+            <div class="md:w-1/2 pr-4 pl-4">
+              <div class="relative flex flex-col min-w-0 rounded break-words border bg-white border-1 border-gray-300">
+                <div class="py-3 px-6 mb-0 bg-gray-200 border-b-1 border-gray-300 text-gray-900 flex items-center">
                   <h4>Basic Form</h4>
                 </div>
-                <div class="card-body">
+                <div class="flex-auto p-6">
                   <p>Lorem ipsum dolor sit amet consectetur.</p>
                   <form>
-                    <div class="form-group">
+                    <div class="mb-4">
                       <label>Email</label>
-                      <input type="email" placeholder="Email Address" class="form-control">
+                      <input type="email" placeholder="Email Address" class="block appearance-none w-full py-1 px-2 mb-1 text-base leading-normal bg-white text-gray-800 border border-gray-200 rounded">
                     </div>
-                    <div class="form-group">       
+                    <div class="mb-4">       
                       <label>Password</label>
-                      <input type="password" placeholder="Password" class="form-control">
+                      <input type="password" placeholder="Password" class="block appearance-none w-full py-1 px-2 mb-1 text-base leading-normal bg-white text-gray-800 border border-gray-200 rounded">
                     </div>
-                    <div class="form-group">       
-                      <input type="submit" value="Signin" class="btn btn-primary">
+                    <div class="mb-4">       
+                      <input type="submit" value="Signin" class="inline-block align-middle text-center select-none border font-normal whitespace-no-wrap rounded py-1 px-3 leading-normal no-underline bg-blue-600 text-white hover:bg-blue-600">
                     </div>
                   </form>
                 </div>
               </div>
             </div>
-            <div class="col-md-6">
-              <div class="card">
-                <div class="card-header d-flex align-items-center">
+            <div class="md:w-1/2 pr-4 pl-4">
+              <div class="relative flex flex-col min-w-0 rounded break-words border bg-white border-1 border-gray-300">
+                <div class="py-3 px-6 mb-0 bg-gray-200 border-b-1 border-gray-300 text-gray-900 flex items-center">
                   <h4>Horizontal Form</h4>
                 </div>
-                <div class="card-body">
+                <div class="flex-auto p-6">
                   <p>Lorem ipsum dolor sit amet consectetur.</p>
                   <form class="form-horizontal">
-                    <div class="form-group row">
-                      <label class="col-sm-2">Email</label>
-                      <div class="col-sm-10">
-                        <input id="inputHorizontalSuccess" type="email" placeholder="Email Address" class="form-control form-control-success"><small class="form-text">Example help text that remains unchanged.</small>
+                    <div class="mb-4 flex flex-wrap ">
+                      <label class="sm:w-1/5 pr-4 pl-4">Email</label>
+                      <div class="sm:w-4/5 pr-4 pl-4">
+                        <input id="inputHorizontalSuccess" type="email" placeholder="Email Address" class="block appearance-none w-full py-1 px-2 mb-1 text-base leading-normal bg-white text-gray-800 border border-gray-200 rounded form-control-success"><small class="block mt-1">Example help text that remains unchanged.</small>
                       </div>
                     </div>
-                    <div class="form-group row">
-                      <label class="col-sm-2">Password</label>
-                      <div class="col-sm-10">
-                        <input id="inputHorizontalWarning" type="password" placeholder="Pasword" class="form-control form-control-warning"><small class="form-text">Example help text that remains unchanged.</small>
+                    <div class="mb-4 flex flex-wrap ">
+                      <label class="sm:w-1/5 pr-4 pl-4">Password</label>
+                      <div class="sm:w-4/5 pr-4 pl-4">
+                        <input id="inputHorizontalWarning" type="password" placeholder="Pasword" class="block appearance-none w-full py-1 px-2 mb-1 text-base leading-normal bg-white text-gray-800 border border-gray-200 rounded form-control-warning"><small class="block mt-1">Example help text that remains unchanged.</small>
                       </div>
                     </div>
-                    <div class="form-group row">       
-                      <div class="col-sm-10 offset-sm-2">
-                        <input type="submit" value="Signin" class="btn btn-primary">
+                    <div class="mb-4 flex flex-wrap ">       
+                      <div class="sm:w-4/5 pr-4 pl-4 sm:mx-1/5">
+                        <input type="submit" value="Signin" class="inline-block align-middle text-center select-none border font-normal whitespace-no-wrap rounded py-1 px-3 leading-normal no-underline bg-blue-600 text-white hover:bg-blue-600">
                       </div>
                     </div>
                   </form>
                 </div>
               </div>
             </div>
-            <div class="col-md-8">
-              <div class="card">
-                <div class="card-header d-flex align-items-center">
+            <div class="md:w-2/3 pr-4 pl-4">
+              <div class="relative flex flex-col min-w-0 rounded break-words border bg-white border-1 border-gray-300">
+                <div class="py-3 px-6 mb-0 bg-gray-200 border-b-1 border-gray-300 text-gray-900 flex items-center">
                   <h4>Inline Form</h4>
                 </div>
-                <div class="card-body">
-                  <form class="form-inline">
-                    <div class="form-group">
+                <div class="flex-auto p-6">
+                  <form class="flex items-center">
+                    <div class="mb-4">
                       <label for="inlineFormInput" class="sr-only">Name</label>
-                      <input id="inlineFormInput" type="text" placeholder="Jane Doe" class="mr-3 form-control">
+                      <input id="inlineFormInput" type="text" placeholder="Jane Doe" class="mr-3 block appearance-none w-full py-1 px-2 mb-1 text-base leading-normal bg-white text-gray-800 border border-gray-200 rounded">
                     </div>
-                    <div class="form-group">
+                    <div class="mb-4">
                       <label for="inlineFormInputGroup" class="sr-only">Username</label>
-                      <input id="inlineFormInputGroup" type="text" placeholder="Username" class="mr-3 form-control form-control">
+                      <input id="inlineFormInputGroup" type="text" placeholder="Username" class="mr-3 block appearance-none w-full py-1 px-2 mb-1 text-base leading-normal bg-white text-gray-800 border border-gray-200 rounded block appearance-none w-full py-1 px-2 mb-1 text-base leading-normal bg-white text-gray-800 border border-gray-200 rounded">
                     </div>
-                    <div class="form-group">
-                      <input type="submit" value="Submit" class="mr-3 btn btn-primary">
+                    <div class="mb-4">
+                      <input type="submit" value="Submit" class="mr-3 inline-block align-middle text-center select-none border font-normal whitespace-no-wrap rounded py-1 px-3 leading-normal no-underline bg-blue-600 text-white hover:bg-blue-600">
                     </div>
                   </form>
                 </div>
               </div>
             </div>
-            <div class="col-md-4">
-              <div class="card">
-                <div class="card-header d-flex align-items-center">
+            <div class="md:w-1/3 pr-4 pl-4">
+              <div class="relative flex flex-col min-w-0 rounded break-words border bg-white border-1 border-gray-300">
+                <div class="py-3 px-6 mb-0 bg-gray-200 border-b-1 border-gray-300 text-gray-900 flex items-center">
                   <h4>Modal Form</h4>
                 </div>
-                <div class="card-body text-center">
-                  <button type="button" data-toggle="modal" data-target="#myModal" class="btn btn-primary">Form in simple modal </button>
+                <div class="flex-auto p-6 text-center">
+                  <button type="button" data-toggle="modal" data-target="#myModal" class="inline-block align-middle text-center select-none border font-normal whitespace-no-wrap rounded py-1 px-3 leading-normal no-underline bg-blue-600 text-white hover:bg-blue-600">Form in simple modal </button>
                   <!-- Modal-->
-                  <div id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" class="modal fade text-left">
+                  <div id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" class="modal opacity-0 text-left">
                     <div role="document" class="modal-dialog">
                       <div class="modal-content">
                         <div class="modal-header">
                           <h5 id="exampleModalLabel" class="modal-title">Signin Modal</h5>
-                          <button type="button" data-dismiss="modal" aria-label="Close" class="close"><span aria-hidden="true"><i class="dripicons-cross"></i></span></button>
+                          <button type="button" data-dismiss="modal" aria-label="Close" class="absolute top-0 bottom-0 right-0 px-4 py-3"><span aria-hidden="true"><i class="dripicons-cross"></i></span></button>
                         </div>
                         <div class="modal-body">
                           <p>Lorem ipsum dolor sit amet consectetur.</p>
                           <form>
-                            <div class="form-group">
+                            <div class="mb-4">
                               <label>Email</label>
-                              <input type="email" placeholder="Email Address" class="form-control">
+                              <input type="email" placeholder="Email Address" class="block appearance-none w-full py-1 px-2 mb-1 text-base leading-normal bg-white text-gray-800 border border-gray-200 rounded">
                             </div>
-                            <div class="form-group">       
+                            <div class="mb-4">       
                               <label>Password</label>
-                              <input type="password" placeholder="Password" class="form-control">
+                              <input type="password" placeholder="Password" class="block appearance-none w-full py-1 px-2 mb-1 text-base leading-normal bg-white text-gray-800 border border-gray-200 rounded">
                             </div>
-                            <div class="form-group">       
-                              <input type="submit" value="Signin" class="btn btn-primary">
+                            <div class="mb-4">       
+                              <input type="submit" value="Signin" class="inline-block align-middle text-center select-none border font-normal whitespace-no-wrap rounded py-1 px-3 leading-normal no-underline bg-blue-600 text-white hover:bg-blue-600">
                             </div>
                           </form>
                         </div>
                         <div class="modal-footer">
-                          <button type="button" data-dismiss="modal" class="btn btn-secondary">Close</button>
-                          <button type="button" class="btn btn-primary">Save changes</button>
+                          <button type="button" data-dismiss="modal" class="inline-block align-middle text-center select-none border font-normal whitespace-no-wrap rounded py-1 px-3 leading-normal no-underline bg-gray-600 text-white hover:bg-gray-700">Close</button>
+                          <button type="button" class="inline-block align-middle text-center select-none border font-normal whitespace-no-wrap rounded py-1 px-3 leading-normal no-underline bg-blue-600 text-white hover:bg-blue-600">Save changes</button>
                         </div>
                       </div>
                     </div>
@@ -265,51 +265,51 @@
                 </div>
               </div>
             </div>
-            <div class="col-md-12">
-              <div class="card">
-                <div class="card-header d-flex align-items-center">
+            <div class="md:w-full pr-4 pl-4">
+              <div class="relative flex flex-col min-w-0 rounded break-words border bg-white border-1 border-gray-300">
+                <div class="py-3 px-6 mb-0 bg-gray-200 border-b-1 border-gray-300 text-gray-900 flex items-center">
                   <h4>All form elements</h4>
                 </div>
-                <div class="card-body">
+                <div class="flex-auto p-6">
                   <form class="form-horizontal">
-                    <div class="form-group row">
-                      <label class="col-sm-2 form-control-label">Normal</label>
-                      <div class="col-sm-10">
-                        <input type="text" class="form-control">
+                    <div class="mb-4 flex flex-wrap ">
+                      <label class="sm:w-1/5 pr-4 pl-4 form-control-label">Normal</label>
+                      <div class="sm:w-4/5 pr-4 pl-4">
+                        <input type="text" class="block appearance-none w-full py-1 px-2 mb-1 text-base leading-normal bg-white text-gray-800 border border-gray-200 rounded">
                       </div>
                     </div>
                     <div class="line"></div>
-                    <div class="form-group row">
-                      <label class="col-sm-2 form-control-label">Help text</label>
-                      <div class="col-sm-10">
-                        <input type="text" class="form-control"><span class="text-small text-gray help-block-none">A block of help text that breaks onto a new line and may extend beyond one line.</span>
+                    <div class="mb-4 flex flex-wrap ">
+                      <label class="sm:w-1/5 pr-4 pl-4 form-control-label">Help text</label>
+                      <div class="sm:w-4/5 pr-4 pl-4">
+                        <input type="text" class="block appearance-none w-full py-1 px-2 mb-1 text-base leading-normal bg-white text-gray-800 border border-gray-200 rounded"><span class="text-small text-gray help-block-none">A block of help text that breaks onto a new line and may extend beyond one line.</span>
                       </div>
                     </div>
                     <div class="line"></div>
-                    <div class="form-group row">
-                      <label class="col-sm-2 form-control-label">Password</label>
-                      <div class="col-sm-10">
-                        <input type="password" name="password" class="form-control">
+                    <div class="mb-4 flex flex-wrap ">
+                      <label class="sm:w-1/5 pr-4 pl-4 form-control-label">Password</label>
+                      <div class="sm:w-4/5 pr-4 pl-4">
+                        <input type="password" name="password" class="block appearance-none w-full py-1 px-2 mb-1 text-base leading-normal bg-white text-gray-800 border border-gray-200 rounded">
                       </div>
                     </div>
                     <div class="line"></div>
-                    <div class="form-group row">
-                      <label class="col-sm-2 form-control-label">Placeholder</label>
-                      <div class="col-sm-10">
-                        <input type="text" placeholder="placeholder" class="form-control">
+                    <div class="mb-4 flex flex-wrap ">
+                      <label class="sm:w-1/5 pr-4 pl-4 form-control-label">Placeholder</label>
+                      <div class="sm:w-4/5 pr-4 pl-4">
+                        <input type="text" placeholder="placeholder" class="block appearance-none w-full py-1 px-2 mb-1 text-base leading-normal bg-white text-gray-800 border border-gray-200 rounded">
                       </div>
                     </div>
                     <div class="line"></div>
-                    <div class="form-group row">
-                      <label class="col-md-2 form-control-label">Disabled</label>
-                      <div class="col-md-10">
-                        <input type="text" disabled="" placeholder="Disabled input here..." class="form-control">
+                    <div class="mb-4 flex flex-wrap ">
+                      <label class="md:w-1/5 pr-4 pl-4 form-control-label">Disabled</label>
+                      <div class="md:w-4/5 pr-4 pl-4">
+                        <input type="text" disabled="" placeholder="Disabled input here..." class="block appearance-none w-full py-1 px-2 mb-1 text-base leading-normal bg-white text-gray-800 border border-gray-200 rounded">
                       </div>
                     </div>
                     <div class="line"></div>
-                    <div class="form-group row">
-                      <label class="col-sm-2 form-control-label">Checkboxes and radios <br><small class="text-primary">Normal Bootstrap elements</small></label>
-                      <div class="col-sm-10">
+                    <div class="mb-4 flex flex-wrap ">
+                      <label class="sm:w-1/5 pr-4 pl-4 form-control-label">Checkboxes and radios <br><small class="text-blue-600">Normal Bootstrap elements</small></label>
+                      <div class="sm:w-4/5 pr-4 pl-4">
                         <div>
                           <input id="option" type="checkbox" value="">
                           <label for="option">Option one is this and that—be sure to include why it's great</label>
@@ -325,9 +325,9 @@
                       </div>
                     </div>
                     <div class="line"></div>
-                    <div class="form-group row">
-                      <label class="col-sm-2 form-control-label">Inline checkboxes</label>
-                      <div class="col-sm-10">
+                    <div class="mb-4 flex flex-wrap ">
+                      <label class="sm:w-1/5 pr-4 pl-4 form-control-label">Inline checkboxes</label>
+                      <div class="sm:w-4/5 pr-4 pl-4">
                         <label class="checkbox-inline">
                           <input id="inlineCheckbox1" type="checkbox" value="option1"> a
                         </label>
@@ -340,9 +340,9 @@
                       </div>
                     </div>
                     <div class="line"></div>
-                    <div class="form-group row">
-                      <label class="col-sm-2 form-control-label">Checkboxes &amp; radios <br><small class="text-primary">Custom elements</small></label>
-                      <div class="col-sm-10">
+                    <div class="mb-4 flex flex-wrap ">
+                      <label class="sm:w-1/5 pr-4 pl-4 form-control-label">Checkboxes &amp; radios <br><small class="text-blue-600">Custom elements</small></label>
+                      <div class="sm:w-4/5 pr-4 pl-4">
                         <div class="i-checks">
                           <input id="checkboxCustom1" type="checkbox" value="" class="form-control-custom">
                           <label for="checkboxCustom1">Option one</label>
@@ -378,18 +378,18 @@
                       </div>
                     </div>
                     <div class="line"></div>
-                    <div class="form-group row">
-                      <label class="col-sm-2 form-control-label">Select</label>
-                      <div class="col-sm-10 mb-3">
-                        <select name="account" class="form-control">
+                    <div class="mb-4 flex flex-wrap ">
+                      <label class="sm:w-1/5 pr-4 pl-4 form-control-label">Select</label>
+                      <div class="sm:w-4/5 pr-4 pl-4 mb-3">
+                        <select name="account" class="block appearance-none w-full py-1 px-2 mb-1 text-base leading-normal bg-white text-gray-800 border border-gray-200 rounded">
                           <option>option 1</option>
                           <option>option 2</option>
                           <option>option 3</option>
                           <option>option 4</option>
                         </select>
                       </div>
-                      <div class="col-sm-10 offset-sm-2">
-                        <select multiple="" class="form-control">
+                      <div class="sm:w-4/5 pr-4 pl-4 sm:mx-1/5">
+                        <select multiple="" class="block appearance-none w-full py-1 px-2 mb-1 text-base leading-normal bg-white text-gray-800 border border-gray-200 rounded">
                           <option>option 1</option>
                           <option>option 2</option>
                           <option>option 3</option>
@@ -398,56 +398,56 @@
                       </div>
                     </div>
                     <div class="line"></div>
-                    <div class="form-group row has-success">
-                      <label class="col-sm-2 form-control-label">Input with success</label>
-                      <div class="col-sm-10">
-                        <input type="text" class="form-control is-valid">
+                    <div class="mb-4 flex flex-wrap  has-success">
+                      <label class="sm:w-1/5 pr-4 pl-4 form-control-label">Input with success</label>
+                      <div class="sm:w-4/5 pr-4 pl-4">
+                        <input type="text" class="block appearance-none w-full py-1 px-2 mb-1 text-base leading-normal bg-white text-gray-800 border border-gray-200 rounded bg-green-700">
                       </div>
                     </div>
                     <div class="line"></div>
-                    <div class="form-group row has-danger">
-                      <label class="col-sm-2 form-control-label">Input with error</label>
-                      <div class="col-sm-10">
-                        <input type="text" class="form-control is-invalid">
-                        <div class="invalid-feedback">Please provide your name.</div>
+                    <div class="mb-4 flex flex-wrap  has-danger">
+                      <label class="sm:w-1/5 pr-4 pl-4 form-control-label">Input with error</label>
+                      <div class="sm:w-4/5 pr-4 pl-4">
+                        <input type="text" class="block appearance-none w-full py-1 px-2 mb-1 text-base leading-normal bg-white text-gray-800 border border-gray-200 rounded bg-red-700">
+                        <div class="hidden mt-1 text-sm text-red">Please provide your name.</div>
                       </div>
                     </div>
                     <div class="line"></div>
-                    <div class="form-group row">
-                      <label class="col-sm-2 form-control-label">Control sizing</label>
-                      <div class="col-sm-10">
-                        <div class="form-group">
-                          <input type="text" placeholder=".input-lg" class="form-control form-control-lg">
+                    <div class="mb-4 flex flex-wrap ">
+                      <label class="sm:w-1/5 pr-4 pl-4 form-control-label">Control sizing</label>
+                      <div class="sm:w-4/5 pr-4 pl-4">
+                        <div class="mb-4">
+                          <input type="text" placeholder=".input-lg" class="block appearance-none w-full py-1 px-2 mb-1 text-base leading-normal bg-white text-gray-800 border border-gray-200 rounded py-2 px-4 text-lg leading-normal rounded">
                         </div>
-                        <div class="form-group">
-                          <input type="text" placeholder="Default input" class="form-control">
+                        <div class="mb-4">
+                          <input type="text" placeholder="Default input" class="block appearance-none w-full py-1 px-2 mb-1 text-base leading-normal bg-white text-gray-800 border border-gray-200 rounded">
                         </div>
-                        <div class="form-group">
-                          <input type="text" placeholder=".input-sm" class="form-control form-control-sm">
+                        <div class="mb-4">
+                          <input type="text" placeholder=".input-sm" class="block appearance-none w-full py-1 px-2 mb-1 text-base leading-normal bg-white text-gray-800 border border-gray-200 rounded py-1 px-2 text-sm leading-normal rounded">
                         </div>
                       </div>
                     </div>
                     <div class="line"></div>
-                    <div class="form-group row">
-                      <label class="col-sm-2 form-control-label">Column sizing</label>
-                      <div class="col-sm-10">
-                        <div class="row">
-                          <div class="col-md-2">
-                            <input type="text" placeholder=".col-md-2" class="form-control">
+                    <div class="mb-4 flex flex-wrap ">
+                      <label class="sm:w-1/5 pr-4 pl-4 form-control-label">Column sizing</label>
+                      <div class="sm:w-4/5 pr-4 pl-4">
+                        <div class="flex flex-wrap ">
+                          <div class="md:w-1/5 pr-4 pl-4">
+                            <input type="text" placeholder=".col-md-2" class="block appearance-none w-full py-1 px-2 mb-1 text-base leading-normal bg-white text-gray-800 border border-gray-200 rounded">
                           </div>
-                          <div class="col-md-3">
-                            <input type="text" placeholder=".col-md-3" class="form-control">
+                          <div class="md:w-1/4 pr-4 pl-4">
+                            <input type="text" placeholder=".col-md-3" class="block appearance-none w-full py-1 px-2 mb-1 text-base leading-normal bg-white text-gray-800 border border-gray-200 rounded">
                           </div>
-                          <div class="col-md-4">
-                            <input type="text" placeholder=".col-md-4" class="form-control">
+                          <div class="md:w-1/3 pr-4 pl-4">
+                            <input type="text" placeholder=".col-md-4" class="block appearance-none w-full py-1 px-2 mb-1 text-base leading-normal bg-white text-gray-800 border border-gray-200 rounded">
                           </div>
                         </div>
                       </div>
                     </div>
                     <div class="line"> </div>
-                    <div class="row">
-                      <label class="col-sm-2 form-control-label">Material Inputs</label>
-                      <div class="col-sm-10">
+                    <div class="flex flex-wrap ">
+                      <label class="sm:w-1/5 pr-4 pl-4 form-control-label">Material Inputs</label>
+                      <div class="sm:w-4/5 pr-4 pl-4">
                         <div class="form-group-material">
                           <input id="register-username" type="text" name="registerUsername" required class="input-material">
                           <label for="register-username" class="label-material">Username</label>
@@ -463,92 +463,92 @@
                       </div>
                     </div>
                     <div class="line"></div>
-                    <div class="form-group row">
-                      <label class="col-sm-2 form-control-label">Input groups</label>
-                      <div class="col-sm-10">
-                        <div class="form-group">
-                          <div class="input-group">
+                    <div class="mb-4 flex flex-wrap ">
+                      <label class="sm:w-1/5 pr-4 pl-4 form-control-label">Input groups</label>
+                      <div class="sm:w-4/5 pr-4 pl-4">
+                        <div class="mb-4">
+                          <div class="relative flex items-stretch w-full">
                             <div class="input-group-prepend"><span class="input-group-text">@</span></div>
-                            <input type="text" placeholder="Username" class="form-control">
+                            <input type="text" placeholder="Username" class="block appearance-none w-full py-1 px-2 mb-1 text-base leading-normal bg-white text-gray-800 border border-gray-200 rounded">
                           </div>
                         </div>
-                        <div class="form-group">
-                          <div class="input-group">
-                            <input type="text" class="form-control">
+                        <div class="mb-4">
+                          <div class="relative flex items-stretch w-full">
+                            <input type="text" class="block appearance-none w-full py-1 px-2 mb-1 text-base leading-normal bg-white text-gray-800 border border-gray-200 rounded">
                             <div class="input-group-append"><span class="input-group-text">.00</span></div>
                           </div>
                         </div>
-                        <div class="form-group">
-                          <div class="input-group">
+                        <div class="mb-4">
+                          <div class="relative flex items-stretch w-full">
                             <div class="input-group-prepend"><span class="input-group-text">$</span></div>
-                            <input type="text" class="form-control">
+                            <input type="text" class="block appearance-none w-full py-1 px-2 mb-1 text-base leading-normal bg-white text-gray-800 border border-gray-200 rounded">
                             <div class="input-group-append"><span class="input-group-text">.00</span></div>
                           </div>
                         </div>
-                        <div class="form-group">
-                          <div class="input-group">
+                        <div class="mb-4">
+                          <div class="relative flex items-stretch w-full">
                             <div class="input-group-prepend">
                               <div class="input-group-text">
                                 <input type="checkbox">
                               </div>
                             </div>
-                            <input type="text" class="form-control">
+                            <input type="text" class="block appearance-none w-full py-1 px-2 mb-1 text-base leading-normal bg-white text-gray-800 border border-gray-200 rounded">
                           </div>
                         </div>
-                        <div class="form-group">
-                          <div class="input-group">
+                        <div class="mb-4">
+                          <div class="relative flex items-stretch w-full">
                             <div class="input-group-prepend">
                               <div class="input-group-text">
                                 <input type="radio">
                               </div>
                             </div>
-                            <input type="text" class="form-control">
+                            <input type="text" class="block appearance-none w-full py-1 px-2 mb-1 text-base leading-normal bg-white text-gray-800 border border-gray-200 rounded">
                           </div>
                         </div>
                       </div>
                     </div>
                     <div class="line"></div>
-                    <div class="form-group row">
-                      <label class="col-sm-2 form-control-label">Button addons</label>
-                      <div class="col-sm-10">
-                        <div class="form-group">
-                          <div class="input-group">
+                    <div class="mb-4 flex flex-wrap ">
+                      <label class="sm:w-1/5 pr-4 pl-4 form-control-label">Button addons</label>
+                      <div class="sm:w-4/5 pr-4 pl-4">
+                        <div class="mb-4">
+                          <div class="relative flex items-stretch w-full">
                             <div class="input-group-prepend">
-                              <button type="button" class="btn btn-primary">Go!</button>
+                              <button type="button" class="inline-block align-middle text-center select-none border font-normal whitespace-no-wrap rounded py-1 px-3 leading-normal no-underline bg-blue-600 text-white hover:bg-blue-600">Go!</button>
                             </div>
-                            <input type="text" class="form-control">
+                            <input type="text" class="block appearance-none w-full py-1 px-2 mb-1 text-base leading-normal bg-white text-gray-800 border border-gray-200 rounded">
                           </div>
                         </div>
-                        <div class="form-group">
-                          <div class="input-group">
-                            <input type="text" class="form-control">
+                        <div class="mb-4">
+                          <div class="relative flex items-stretch w-full">
+                            <input type="text" class="block appearance-none w-full py-1 px-2 mb-1 text-base leading-normal bg-white text-gray-800 border border-gray-200 rounded">
                             <div class="input-group-append">
-                              <button type="button" class="btn btn-primary">Go!</button>
+                              <button type="button" class="inline-block align-middle text-center select-none border font-normal whitespace-no-wrap rounded py-1 px-3 leading-normal no-underline bg-blue-600 text-white hover:bg-blue-600">Go!</button>
                             </div>
                           </div>
                         </div>
                       </div>
                     </div>
                     <div class="line"></div>
-                    <div class="form-group row">
-                      <label class="col-sm-2 form-control-label">With dropdowns</label>
-                      <div class="col-sm-10">
-                        <div class="input-group">
+                    <div class="mb-4 flex flex-wrap ">
+                      <label class="sm:w-1/5 pr-4 pl-4 form-control-label">With dropdowns</label>
+                      <div class="sm:w-4/5 pr-4 pl-4">
+                        <div class="relative flex items-stretch w-full">
                           <div class="input-group-prepend">
-                            <button data-toggle="dropdown" type="button" class="btn btn-outline-secondary dropdown-toggle">Action <span class="caret"></span></button>
-                            <div class="dropdown-menu"><a href="#" class="dropdown-item">Action</a><a href="#" class="dropdown-item">Another action</a><a href="#" class="dropdown-item">Something else here</a>
-                              <div class="dropdown-divider"></div><a href="#" class="dropdown-item">Separated link</a>
+                            <button data-toggle="dropdown" type="button" class="inline-block align-middle text-center select-none border font-normal whitespace-no-wrap rounded py-1 px-3 leading-normal no-underline text-gray-600 border-gray-600 hover:bg-gray-600 hover:text-white bg-white hover:bg-gray-700  inline-block w-0 h-0 ml-1 align border-b-0 border-t-1 border-r-1 border-l-1">Action <span class="caret"></span></button>
+                            <div class=" absolute left-0 z-50 float-left hidden list-reset	 py-2 mt-1 text-base bg-white border border-gray-300 rounded"><a href="#" class="block w-full py-1 px-6 font-normal text-gray-900 whitespace-no-wrap border-0">Action</a><a href="#" class="block w-full py-1 px-6 font-normal text-gray-900 whitespace-no-wrap border-0">Another action</a><a href="#" class="block w-full py-1 px-6 font-normal text-gray-900 whitespace-no-wrap border-0">Something else here</a>
+                              <div class="h-0 my-2 overflow-hidden border-t-1 border-gray-300"></div><a href="#" class="block w-full py-1 px-6 font-normal text-gray-900 whitespace-no-wrap border-0">Separated link</a>
                             </div>
                           </div>
-                          <input type="text" class="form-control">
+                          <input type="text" class="block appearance-none w-full py-1 px-2 mb-1 text-base leading-normal bg-white text-gray-800 border border-gray-200 rounded">
                         </div>
                       </div>
                     </div>
                     <div class="line"></div>
-                    <div class="form-group row">
-                      <div class="col-sm-4 offset-sm-2">
-                        <button type="submit" class="btn btn-secondary">Cancel</button>
-                        <button type="submit" class="btn btn-primary">Save changes</button>
+                    <div class="mb-4 flex flex-wrap ">
+                      <div class="sm:w-1/3 pr-4 pl-4 sm:mx-1/5">
+                        <button type="submit" class="inline-block align-middle text-center select-none border font-normal whitespace-no-wrap rounded py-1 px-3 leading-normal no-underline bg-gray-600 text-white hover:bg-gray-700">Cancel</button>
+                        <button type="submit" class="inline-block align-middle text-center select-none border font-normal whitespace-no-wrap rounded py-1 px-3 leading-normal no-underline bg-blue-600 text-white hover:bg-blue-600">Save changes</button>
                       </div>
                     </div>
                   </form>
@@ -559,12 +559,12 @@
         </div>
       </section>
       <footer class="main-footer">
-        <div class="container-fluid">
-          <div class="row">
-            <div class="col-sm-6">
+        <div class="container mx-auto sm:px-4 max-w-full mx-auto sm:px-4">
+          <div class="flex flex-wrap ">
+            <div class="sm:w-1/2 pr-4 pl-4">
               <p>Your company &copy; 2017-2019</p>
             </div>
-            <div class="col-sm-6 text-right">
+            <div class="sm:w-1/2 pr-4 pl-4 text-right">
               <p>Design by <a href="https://bootstrapious.com" class="external">Bootstrapious</a></p>
               <!-- Please do not remove the backlink to us unless you support further theme's development at https://bootstrapious.com/donate. It is part of the license conditions. Thank you for understanding :)-->
             </div>

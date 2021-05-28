@@ -124,16 +124,16 @@ text-align: right; padding-right: 20px;
     <div class="hidden-print">
         <table>
             <tr>
-                <td><a href="{{$url}}" class="btn btn-info"><i class="fa fa-arrow-left"></i> {{trans('file.Back')}}</a> </td>
-                <td><button onclick="window.print();" class="btn btn-primary"><i class="dripicons-print"></i> {{trans('file.Print')}}</button></td>
+                <td><a href="{{$url}}" class="inline-block align-middle text-center select-none border font-normal whitespace-no-wrap rounded py-1 px-3 leading-normal no-underline bg-teal-500 text-white hover:bg-teal-600"><i class="fa fa-arrow-left"></i> {{trans('file.Back')}}</a> </td>
+                <td><button onclick="window.print();" class="inline-block align-middle text-center select-none border font-normal whitespace-no-wrap rounded py-1 px-3 leading-normal no-underline bg-blue-600 text-white hover:bg-blue-600"><i class="dripicons-print"></i> {{trans('file.Print')}}</button></td>
             </tr>
         </table>
         <br>
     </div>
         
     <div id="receipt-data" style="max-height:29.7cm;">
-    <div class="row">
-        <div class="col-6">
+    <div class="flex flex-wrap ">
+        <div class="w-1/2">
             @if($general_setting->site_logo)
                 <img src="{{url('public/logo', $general_setting->site_logo)}}" width="120" height="70" style="margin:10px 0">
             @endif
@@ -142,20 +142,20 @@ text-align: right; padding-right: 20px;
             Date d’émission: {{$lims_quotation_data->created_at->toDateString()}}<br>
             </p>
         </div>
-        <div class="col-6" style="text-align: center;">
+        <div class="w-1/2" style="text-align: center;">
         <?php echo '<img style="margin-top:50px;" src="data:image/png;base64,' . DNS2D::getBarcodePNG($lims_quotation_data->reference_no, 'QRCODE') . '" alt="barcode"   />';?>    
         </div>
         </div>
         <hr />
-        <div class="row">
-        <div class="col-6">
+        <div class="flex flex-wrap ">
+        <div class="w-1/2">
              {{$lims_warehouse_data->address}}
             <br>{{trans('file.VAT Number')}}: {{$lims_biller_data->vat_number}}
             <br>{{trans('file.Email')}}: {{$lims_biller_data->email}}
             <br>{{trans('file.Phone Number')}}: {{$lims_warehouse_data->phone}}
             </p>
         </div>
-        <div class="col-6">
+        <div class="w-1/2">
          <p>
             {{trans('file.customer')}}: {{$lims_customer_data->name}}<br>
             {{$lims_customer_data->address}}<br>
@@ -195,19 +195,19 @@ text-align: right; padding-right: 20px;
                 @endforeach
             </tbody>
             </table>
-            <div class="row">
-        <div class="col-6">
+            <div class="flex flex-wrap ">
+        <div class="w-1/2">
         <p style="font-size: 18px;">Bon pour accord</p> 
         <p style="font-size: 13px;">Merci d'apposer votre signature avec la mention 'Bon pour accord'</p>
         </div>
-        <div class="col-6" style="background: #c0c0c045;padding-bottom: 100px;">
+        <div class="w-1/2" style="background: #c0c0c045;padding-bottom: 100px;">
             <p class="right">Total HT : {{number_format((float)$lims_quotation_data->order_tax, 2, '.', '')}}<br>
             TVA :  {{number_format((float)$lims_quotation_data->order_tax, 2, '.', '')}}<br>
             TOTAL TTC : {{number_format((float)$lims_quotation_data->grand_total, 2, '.', '')}}</p>
        </div>
        </div>
        <div 
-       class="col-12 centered"
+       class="w-full centered"
        style="position: fixed;
        bottom: 20px;
        width: 600px;">

@@ -1,17 +1,17 @@
 @extends('layout.main') @section('content')
 
-<div class="row">
-    <div class="col-md-6 offset-3">
+<div class="flex flex-wrap ">
+    <div class="md:w-1/2 pr-4 pl-4 offset-3">
         <form action="{{route('product.galleryImage')}}"  id="imageUploadForm">
             @csrf
             <label>Name:</label>
-            <input type="text" name="name" class="form-control" required>
+            <input type="text" name="name" class="block appearance-none w-full py-1 px-2 mb-1 text-base leading-normal bg-white text-gray-800 border border-gray-200 rounded" required>
             <label class="mt-2">Mobile:</label>
-            <input type="text" name="mobile" class="form-control" required>
+            <input type="text" name="mobile" class="block appearance-none w-full py-1 px-2 mb-1 text-base leading-normal bg-white text-gray-800 border border-gray-200 rounded" required>
             <span style="color: red;" id="mobile-error"></span>
             <label class="mt-2">Upload Image:</label>
             <div id="imageUpload" class="dropzone mt-2"></div>
-            <button id="uploaderBtn" type="button" class="btn btn-primary">Save</button>
+            <button id="uploaderBtn" type="button" class="inline-block align-middle text-center select-none border font-normal whitespace-no-wrap rounded py-1 px-3 leading-normal no-underline bg-blue-600 text-white hover:bg-blue-600">Save</button>
         </form>
     </div>
 </div>

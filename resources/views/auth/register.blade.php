@@ -44,8 +44,8 @@
   </head>
   <body>
     <div class="page login-page">
-      <div class="container">
-        <div class="form-outer text-center d-flex align-items-center">
+      <div class="container mx-auto sm:px-4">
+        <div class="form-outer text-center flex items-center">
           <div class="form-inner">
             <div class="logo"><span>{{$general_setting->site_title}}</span></div>
             <form method="POST" action="{{ route('register') }}">
@@ -77,7 +77,7 @@
                 <label for="register-company" class="label-material">{{trans('file.Company Name')}}</label>
               </div>
               <div class="form-group-material">
-                <select name="role_id" id="role-id" required class="selectpicker form-control" data-live-search="true" data-live-search-style="begins" title="Select Role...">
+                <select name="role_id" id="role-id" required class="selectpicker block appearance-none w-full py-1 px-2 mb-1 text-base leading-normal bg-white text-gray-800 border border-gray-200 rounded" data-live-search="true" data-live-search-style="begins" title="Select Role...">
                   @foreach($lims_role_list as $role)
                       <option value="{{$role->id}}">{{$role->name}}</option>
                   @endforeach
@@ -89,7 +89,7 @@
                     <label for="customer-name" class="label-material">{{trans('file.name')}} *</label>
                   </div>
                   <div class="form-group-material">
-                    <select name="customer_group_id" required class="selectpicker form-control customer-field" data-live-search="true" data-live-search-style="begins" title="Select customer group...">
+                    <select name="customer_group_id" required class="selectpicker block appearance-none w-full py-1 px-2 mb-1 text-base leading-normal bg-white text-gray-800 border border-gray-200 rounded customer-field" data-live-search="true" data-live-search-style="begins" title="Select customer group...">
                       @foreach($lims_customer_group_list as $customer_group)
                           <option value="{{$customer_group->id}}">{{$customer_group->name}}</option>
                       @endforeach
@@ -121,14 +121,14 @@
                   </div>
               </div>
               <div class="form-group-material" id="biller-id">
-                <select name="biller_id" class="selectpicker form-control" data-live-search="true" data-live-search-style="begins" title="Select Biller*...">
+                <select name="biller_id" class="selectpicker block appearance-none w-full py-1 px-2 mb-1 text-base leading-normal bg-white text-gray-800 border border-gray-200 rounded" data-live-search="true" data-live-search-style="begins" title="Select Biller*...">
                   @foreach($lims_biller_list as $biller)
                       <option value="{{$biller->id}}">{{$biller->name}} ({{$biller->phone_number}})</option>
                   @endforeach
                 </select>
               </div>
               <div class="form-group-material" id="warehouse-id">
-                <select name="warehouse_id" class="selectpicker form-control" data-live-search="true" data-live-search-style="begins" title="Select Warehouse*...">
+                <select name="warehouse_id" class="selectpicker block appearance-none w-full py-1 px-2 mb-1 text-base leading-normal bg-white text-gray-800 border border-gray-200 rounded" data-live-search="true" data-live-search-style="begins" title="Select Warehouse*...">
                   @foreach($lims_warehouse_list as $warehouse)
                       <option value="{{$warehouse->id}}">{{$warehouse->name}}</option>
                   @endforeach
@@ -147,7 +147,7 @@
                 <input id="password-confirm" type="password" name="password_confirmation" required class="input-material">
                 <label for="password-confirm" class="label-material">{{trans('file.Confirm Password')}} *</label>
               </div>
-              <input id="register" type="submit" value="Register" class="btn btn-primary">
+              <input id="register" type="submit" value="Register" class="inline-block align-middle text-center select-none border font-normal whitespace-no-wrap rounded py-1 px-3 leading-normal no-underline bg-blue-600 text-white hover:bg-blue-600">
             </form><p>{{trans('file.Already have an account')}}? </p><a href="{{url('login')}}" class="signup">{{trans('file.LogIn')}}</a>
           </div>
         </div>

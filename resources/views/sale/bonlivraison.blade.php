@@ -118,27 +118,27 @@ border:1px #00000029 solid;
     <div class="hidden-print">
         <table class="print-back">
             <tr>
-                <td><a href="{{$url}}" class="btn btn-info"><i class="fa fa-arrow-left"></i> {{trans('file.Back')}}</a> </td>
-                <td><button onclick="window.print();" class="btn btn-primary"><i class="dripicons-print"></i> {{trans('file.Print')}}</button></td>
+                <td><a href="{{$url}}" class="inline-block align-middle text-center select-none border font-normal whitespace-no-wrap rounded py-1 px-3 leading-normal no-underline bg-teal-500 text-white hover:bg-teal-600"><i class="fa fa-arrow-left"></i> {{trans('file.Back')}}</a> </td>
+                <td><button onclick="window.print();" class="inline-block align-middle text-center select-none border font-normal whitespace-no-wrap rounded py-1 px-3 leading-normal no-underline bg-blue-600 text-white hover:bg-blue-600"><i class="dripicons-print"></i> {{trans('file.Print')}}</button></td>
             </tr>
         </table>
         <br>
     </div>
     <div id="receipt-data">
-            <div class="col-12">
+            <div class="w-full">
             @if($general_setting->site_logo)
                 <img src="{{url('public/logo', $general_setting->site_logo)}}" width="150">
             @endif
             </div>
-     <div class="row">
-        <div class="col-6">
+     <div class="flex flex-wrap ">
+        <div class="w-1/2">
             <div class="data-box">
                 {{trans('file.Date')}}: {{$lims_sale_data->created_at->toDateString()}}<br>
                 {{trans('file.Phone Number')}}: {{$lims_warehouse_data->phone}}<br>
                 {{trans('file.Biller')}} {{$lims_biller_data->name}} : {{$lims_biller_data->phone_number}}
             </div>
         </div>
-       <div class="col-6">
+       <div class="w-1/2">
             <div class="data-box">
                         {{trans('file.reference')}}: {{$lims_sale_data->reference_no}}<br>
                         {{trans('file.customer')}}: {{$lims_customer_data->name}}

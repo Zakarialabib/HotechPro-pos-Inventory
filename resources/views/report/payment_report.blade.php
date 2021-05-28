@@ -1,22 +1,22 @@
 @extends('layout.main') @section('content')
 
 <section class="forms">
-    <div class="container-fluid">
-        <div class="card">
-            <div class="card-header mt-2">
+    <div class="container mx-auto sm:px-4 max-w-full mx-auto sm:px-4">
+        <div class="relative flex flex-col min-w-0 rounded break-words border bg-white border-1 border-gray-300">
+            <div class="py-3 px-6 mb-0 bg-gray-200 border-b-1 border-gray-300 text-gray-900 mt-2">
                 <h3 class="text-center">{{trans('file.Payment Report')}}</h3>
             </div>
             {!! Form::open(['route' => 'report.paymentByDate', 'method' => 'post']) !!}
-            <div class="col-md-6 offset-md-3 mt-3 mb-3">
-                <div class="form-group row">
+            <div class="md:w-1/2 pr-4 pl-4 md:mx-1/4 mt-3 mb-3">
+                <div class="mb-4 flex flex-wrap ">
                     <label class="d-tc mt-2"><strong>{{trans('file.Choose Your Date')}}</strong> &nbsp;</label>
                     <div class="d-tc">
-                        <div class="input-group">
-                            <input type="text" class="daterangepicker-field form-control" value="{{$start_date}} To {{$end_date}}" required />
+                        <div class="relative flex items-stretch w-full">
+                            <input type="text" class="daterangepicker-field block appearance-none w-full py-1 px-2 mb-1 text-base leading-normal bg-white text-gray-800 border border-gray-200 rounded" value="{{$start_date}} To {{$end_date}}" required />
                             <input type="hidden" name="start_date" />
                             <input type="hidden" name="end_date" />
                             <div class="input-group-append">
-                                <button class="btn btn-primary" type="submit">{{trans('file.submit')}}</button>
+                                <button class="inline-block align-middle text-center select-none border font-normal whitespace-no-wrap rounded py-1 px-3 leading-normal no-underline bg-blue-600 text-white hover:bg-blue-600" type="submit">{{trans('file.submit')}}</button>
                             </div>
                         </div>
                     </div>
@@ -25,8 +25,8 @@
             {!! Form::close() !!}
         </div>
     </div>
-    <div class="table-responsive mb-4">
-        <table id="report-table" class="table table-hover">
+    <div class="block w-full overflow-auto scrolling-touch mb-4">
+        <table id="report-table" class="w-full max-w-full mb-4 bg-transparent table-hover">
             <thead>
                 <tr>
                     <th class="not-exported"></th>

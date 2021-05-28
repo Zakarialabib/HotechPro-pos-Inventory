@@ -2,14 +2,14 @@
 @section('content')
 
 @if(session()->has('not_permitted'))
-  <div class="alert alert-danger alert-dismissible text-center"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>{{ session()->get('not_permitted') }}</div> 
+  <div class="relative px-3 py-3 mb-4 border rounded bg-red-200 border-red-300 text-red-800  text-center"><button type="button" class="absolute top-0 bottom-0 right-0 px-4 py-3" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>{{ session()->get('not_permitted') }}</div> 
 @endif
 @if(session()->has('message'))
-  <div class="alert alert-success alert-dismissible text-center"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>{{ session()->get('message') }}</div> 
+  <div class="relative px-3 py-3 mb-4 border rounded bg-green-200 border-green-300 text-green-800  text-center"><button type="button" class="absolute top-0 bottom-0 right-0 px-4 py-3" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>{{ session()->get('message') }}</div> 
 @endif
-<div class="row">
-  <div class="container-fluid">
-    <div class="col-md-12">
+<div class="flex flex-wrap ">
+  <div class="container mx-auto sm:px-4 max-w-full mx-auto sm:px-4">
+    <div class="md:w-full pr-4 pl-4">
       <div class="brand-text float-left mt-4">
           <h3>{{trans('file.welcome')}} <span>{{Auth::user()->name}}</span> </h3>
       </div>
@@ -19,30 +19,30 @@
 <!-- Counts Section -->
 <section class="dashboard-counts">
   
-  <div class="container-fluid">
-    <div class="row">
-      <div class="col-md-12">
-        <div class="card">
+  <div class="container mx-auto sm:px-4 max-w-full mx-auto sm:px-4">
+    <div class="flex flex-wrap ">
+      <div class="md:w-full pr-4 pl-4">
+        <div class="relative flex flex-col min-w-0 rounded break-words border bg-white border-1 border-gray-300">
           
-          <ul class="nav nav-tabs mt-2" role="tablist">
-            <li class="nav-item">
-              <a class="nav-link active" href="#customer-sale" role="tab" data-toggle="tab">{{trans('file.Sale')}}</a>
+          <ul class="flex flex-wrap list-none pl-0 mb-0 border border-t-0 border-r-0 border-l-0 border-b-1 border-gray-200 mt-2" role="tablist">
+            <li class="">
+              <a class="inline-block py-2 px-4 no-underline active" href="#customer-sale" role="tab" data-toggle="tab">{{trans('file.Sale')}}</a>
             </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#customer-payment" role="tab" data-toggle="tab">{{trans('file.Payment')}}</a>
+            <li class="">
+              <a class="inline-block py-2 px-4 no-underline" href="#customer-payment" role="tab" data-toggle="tab">{{trans('file.Payment')}}</a>
             </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#customer-quotation" role="tab" data-toggle="tab">{{trans('file.Quotation')}}</a>
+            <li class="">
+              <a class="inline-block py-2 px-4 no-underline" href="#customer-quotation" role="tab" data-toggle="tab">{{trans('file.Quotation')}}</a>
             </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#customer-return" role="tab" data-toggle="tab">{{trans('file.Return')}}</a>
+            <li class="">
+              <a class="inline-block py-2 px-4 no-underline" href="#customer-return" role="tab" data-toggle="tab">{{trans('file.Return')}}</a>
             </li>
           </ul>
 
           <div class="tab-content">
-            <div role="tabpanel" class="tab-pane fade show active" id="customer-sale">
-                <div class="table-responsive">
-                  <table id="sale-table" class="table">
+            <div role="tabpanel" class="tab-pane opacity-0 opacity-100 block active" id="customer-sale">
+                <div class="block w-full overflow-auto scrolling-touch">
+                  <table id="sale-table" class="w-full max-w-full mb-4 bg-transparent">
                     <thead>
                       <tr>
                         <th class="not-exported"></th>
@@ -85,25 +85,25 @@
                         <td>{{$sale->biller->name}}</td>
                         <td>{{$sale->warehouse->name}}</td>
                         @if($sale->sale_status == 1)
-                        <td><div class="badge badge-success">{{$status}}</div></td>
+                        <td><div class="inline-block p-1 text-center font-semibold text-sm align-baseline leading-none rounded bg-green-500 text-white hover:green-600">{{$status}}</div></td>
                         @elseif($sale->sale_status == 2)
-                        <td><div class="badge badge-danger">{{$status}}</div></td>
+                        <td><div class="inline-block p-1 text-center font-semibold text-sm align-baseline leading-none rounded bg-red-600 text-white hover:bg-red-700">{{$status}}</div></td>
                         @else
-                        <td><div class="badge badge-warning">{{$status}}</div></td>
+                        <td><div class="inline-block p-1 text-center font-semibold text-sm align-baseline leading-none rounded bg-orange-400 text-black hover:bg-orange-500">{{$status}}</div></td>
                         @endif
                         @if($sale->payment_status == 1)
-                        <td><div class="badge badge-danger">{{trans('file.Pending')}}</div></td>
+                        <td><div class="inline-block p-1 text-center font-semibold text-sm align-baseline leading-none rounded bg-red-600 text-white hover:bg-red-700">{{trans('file.Pending')}}</div></td>
                         @elseif($sale->payment_status == 2)
-                        <td><div class="badge badge-danger">{{trans('file.Due')}}</div></td>
+                        <td><div class="inline-block p-1 text-center font-semibold text-sm align-baseline leading-none rounded bg-red-600 text-white hover:bg-red-700">{{trans('file.Due')}}</div></td>
                         @elseif($sale->payment_status == 3)
-                        <td><div class="badge badge-success">{{trans('file.Partial')}}</div></td>
+                        <td><div class="inline-block p-1 text-center font-semibold text-sm align-baseline leading-none rounded bg-green-500 text-white hover:green-600">{{trans('file.Partial')}}</div></td>
                         @else
-                        <td><div class="badge badge-success">{{trans('file.Paid')}}</div></td>
+                        <td><div class="inline-block p-1 text-center font-semibold text-sm align-baseline leading-none rounded bg-green-500 text-white hover:green-600">{{trans('file.Paid')}}</div></td>
                         @endif
                         <td>{{number_format($sale->grand_total, 2)}}</td>
                         <td>{{number_format($sale->paid_amount, 2)}}</td>
                         <td>{{number_format($sale->grand_total - $sale->paid_amount, 2)}}</td>
-                        <td><button type="button" class="btn btn-info btn-sm sale-view-btn" title="{{trans('file.View')}}"><i class="dripicons-preview"></i></button></td>
+                        <td><button type="button" class="inline-block align-middle text-center select-none border font-normal whitespace-no-wrap rounded  no-underline bg-teal-500 text-white hover:bg-teal-600 py-1 px-2 leading-tight text-xs  sale-view-btn" title="{{trans('file.View')}}"><i class="dripicons-preview"></i></button></td>
                       </tr>
                       @endforeach
                     </tbody>
@@ -126,9 +126,9 @@
                 </div>
             </div>
 
-            <div role="tabpanel" class="tab-pane fade" id="customer-payment">
-                <div class="table-responsive mb-4">
-                    <table id="payment-table" class="table table-hover">
+            <div role="tabpanel" class="tab-pane opacity-0" id="customer-payment">
+                <div class="block w-full overflow-auto scrolling-touch mb-4">
+                    <table id="payment-table" class="w-full max-w-full mb-4 bg-transparent table-hover">
                         <thead>
                             <tr>
                                 <th class="not-exported-payment"></th>
@@ -165,9 +165,9 @@
                 </div>
             </div>
 
-            <div role="tabpanel" class="tab-pane fade" id="customer-quotation">
-                <div class="table-responsive mb-4">
-                    <table id="quotation-table" class="table quotation-list">
+            <div role="tabpanel" class="tab-pane opacity-0" id="customer-quotation">
+                <div class="block w-full overflow-auto scrolling-touch mb-4">
+                    <table id="quotation-table" class="w-full max-w-full mb-4 bg-transparent quotation-list">
                         <thead>
                             <tr>
                                 <th class="not-exported"></th>
@@ -201,12 +201,12 @@
                                 <td>N/A</td>
                                 @endif
                                 @if($quotation->quotation_status == 1)
-                                    <td><div class="badge badge-danger">{{$status}}</div></td>
+                                    <td><div class="inline-block p-1 text-center font-semibold text-sm align-baseline leading-none rounded bg-red-600 text-white hover:bg-red-700">{{$status}}</div></td>
                                 @else
-                                    <td><div class="badge badge-success">{{$status}}</div></td>
+                                    <td><div class="inline-block p-1 text-center font-semibold text-sm align-baseline leading-none rounded bg-green-500 text-white hover:green-600">{{$status}}</div></td>
                                 @endif
                                 <td>{{ $quotation->grand_total }}</td>
-                                <td><button type="button" class="btn btn-info btn-sm quotation-view-btn" title="{{trans('file.View')}}"><i class="dripicons-preview"></i></button></td>
+                                <td><button type="button" class="inline-block align-middle text-center select-none border font-normal whitespace-no-wrap rounded  no-underline bg-teal-500 text-white hover:bg-teal-600 py-1 px-2 leading-tight text-xs  quotation-view-btn" title="{{trans('file.View')}}"><i class="dripicons-preview"></i></button></td>
                             </tr>
                             @endforeach
                         </tbody>
@@ -225,9 +225,9 @@
                 </div>
             </div>
 
-            <div role="tabpanel" class="tab-pane fade" id="customer-return">
-                <div class="table-responsive mb-4">
-                    <table id="return-table" class="table return-list">
+            <div role="tabpanel" class="tab-pane opacity-0" id="customer-return">
+                <div class="block w-full overflow-auto scrolling-touch mb-4">
+                    <table id="return-table" class="w-full max-w-full mb-4 bg-transparent return-list">
                         <thead>
                             <tr>
                                 <th class="not-exported"></th>
@@ -250,7 +250,7 @@
                                 <td>{{ $return->customer->name }}</td>
                                 <td>{{$return->warehouse->name}}</td>
                                 <td class="grand-total">{{ $return->grand_total }}</td>
-                                <td><button type="button" class="btn btn-info btn-sm return-view-btn" title="{{trans('file.View')}}"><i class="dripicons-preview"></i></button></td>
+                                <td><button type="button" class="inline-block align-middle text-center select-none border font-normal whitespace-no-wrap rounded  no-underline bg-teal-500 text-white hover:bg-teal-600 py-1 px-2 leading-tight text-xs  return-view-btn" title="{{trans('file.View')}}"><i class="dripicons-preview"></i></button></td>
                             </tr>
                             @endforeach
                         </tbody>
@@ -274,21 +274,21 @@
   </div>
 </section>
 
-<div id="sale-details" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" class="modal fade text-left">
+<div id="sale-details" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" class="modal opacity-0 text-left">
     <div role="document" class="modal-dialog">
         <div class="modal-content">
-            <div class="container mt-3 pb-2 border-bottom">
-                <div class="row">
-                    <div class="col-md-3">
-                        <button id="sale-print-btn" type="button" class="btn btn-default btn-sm d-print-none"><i class="dripicons-print"></i> {{trans('file.Print')}}</button>
+            <div class="container mx-auto sm:px-4 mt-3 pb-2 border-b">
+                <div class="flex flex-wrap ">
+                    <div class="md:w-1/4 pr-4 pl-4">
+                        <button id="sale-print-btn" type="button" class="inline-block align-middle text-center select-none border font-normal whitespace-no-wrap rounded  no-underline btn-default py-1 px-2 leading-tight text-xs  print:hidden"><i class="dripicons-print"></i> {{trans('file.Print')}}</button>
                     </div>
-                    <div class="col-md-6">
-                        <h3 id="exampleModalLabel" class="modal-title text-center container-fluid">{{$general_setting->site_title}}</h3>
+                    <div class="md:w-1/2 pr-4 pl-4">
+                        <h3 id="exampleModalLabel" class="modal-title text-center container mx-auto sm:px-4 max-w-full mx-auto sm:px-4">{{$general_setting->site_title}}</h3>
                     </div>
-                    <div class="col-md-3">
-                        <button type="button" id="close-btn" data-dismiss="modal" aria-label="Close" class="close d-print-none"><span aria-hidden="true"><i class="dripicons-cross"></i></span></button>
+                    <div class="md:w-1/4 pr-4 pl-4">
+                        <button type="button" id="close-btn" data-dismiss="modal" aria-label="Close" class="absolute top-0 bottom-0 right-0 px-4 py-3 print:hidden"><span aria-hidden="true"><i class="dripicons-cross"></i></span></button>
                     </div>
-                    <div class="col-md-12 text-center">
+                    <div class="md:w-full pr-4 pl-4 text-center">
                         <i style="font-size: 15px;">{{trans('file.Sale Details')}}</i>
                     </div>
                 </div>
@@ -296,7 +296,7 @@
             <div id="sale-content" class="modal-body">
             </div>
             <br>
-            <table class="table table-bordered product-sale-list">
+            <table class="w-full max-w-full mb-4 bg-transparent table-bordered product-sale-list">
                 <thead>
                     <th>#</th>
                     <th>{{trans('file.product')}}</th>
@@ -314,21 +314,21 @@
     </div>
 </div>
 
-<div id="quotation-details" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" class="modal fade text-left">
+<div id="quotation-details" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" class="modal opacity-0 text-left">
     <div role="document" class="modal-dialog">
       <div class="modal-content">
-        <div class="container mt-3 pb-2 border-bottom">
-            <div class="row">
-                <div class="col-md-3">
-                    <button id="quotation-print-btn" type="button" class="btn btn-default btn-sm d-print-none"><i class="dripicons-print"></i> {{trans('file.Print')}}</button>
+        <div class="container mx-auto sm:px-4 mt-3 pb-2 border-b">
+            <div class="flex flex-wrap ">
+                <div class="md:w-1/4 pr-4 pl-4">
+                    <button id="quotation-print-btn" type="button" class="inline-block align-middle text-center select-none border font-normal whitespace-no-wrap rounded  no-underline btn-default py-1 px-2 leading-tight text-xs  print:hidden"><i class="dripicons-print"></i> {{trans('file.Print')}}</button>
                 </div>
-                <div class="col-md-6">
-                    <h3 id="exampleModalLabel" class="modal-title text-center container-fluid">{{$general_setting->site_title}}</h3>
+                <div class="md:w-1/2 pr-4 pl-4">
+                    <h3 id="exampleModalLabel" class="modal-title text-center container mx-auto sm:px-4 max-w-full mx-auto sm:px-4">{{$general_setting->site_title}}</h3>
                 </div>
-                <div class="col-md-3">
-                    <button type="button" id="close-btn" data-dismiss="modal" aria-label="Close" class="close d-print-none"><span aria-hidden="true"><i class="dripicons-cross"></i></span></button>
+                <div class="md:w-1/4 pr-4 pl-4">
+                    <button type="button" id="close-btn" data-dismiss="modal" aria-label="Close" class="absolute top-0 bottom-0 right-0 px-4 py-3 print:hidden"><span aria-hidden="true"><i class="dripicons-cross"></i></span></button>
                 </div>
-                <div class="col-md-12 text-center">
+                <div class="md:w-full pr-4 pl-4 text-center">
                     <i style="font-size: 15px;">{{trans('file.Quotation Details')}}</i>
                 </div>
             </div>
@@ -336,7 +336,7 @@
             <div id="quotation-content" class="modal-body">
             </div>
             <br>
-            <table class="table table-bordered product-quotation-list">
+            <table class="w-full max-w-full mb-4 bg-transparent table-bordered product-quotation-list">
                 <thead>
                     <th>#</th>
                     <th>{{trans('file.product')}}</th>
@@ -354,21 +354,21 @@
     </div>
 </div>
 
-<div id="return-details" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" class="modal fade text-left">
+<div id="return-details" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" class="modal opacity-0 text-left">
     <div role="document" class="modal-dialog">
       <div class="modal-content">
-        <div class="container mt-3 pb-2 border-bottom">
-        <div class="row">
-            <div class="col-md-3">
-                <button id="print-btn" type="button" class="btn btn-default btn-sm d-print-none"><i class="dripicons-print"></i> {{trans('file.Print')}}</button>
+        <div class="container mx-auto sm:px-4 mt-3 pb-2 border-b">
+        <div class="flex flex-wrap ">
+            <div class="md:w-1/4 pr-4 pl-4">
+                <button id="print-btn" type="button" class="inline-block align-middle text-center select-none border font-normal whitespace-no-wrap rounded  no-underline btn-default py-1 px-2 leading-tight text-xs  print:hidden"><i class="dripicons-print"></i> {{trans('file.Print')}}</button>
             </div>
-            <div class="col-md-6">
-                <h3 id="exampleModalLabel" class="modal-title text-center container-fluid">{{$general_setting->site_title}}</h3>
+            <div class="md:w-1/2 pr-4 pl-4">
+                <h3 id="exampleModalLabel" class="modal-title text-center container mx-auto sm:px-4 max-w-full mx-auto sm:px-4">{{$general_setting->site_title}}</h3>
             </div>
-            <div class="col-md-3">
-                <button type="button" id="close-btn" data-dismiss="modal" aria-label="Close" class="close d-print-none"><span aria-hidden="true"><i class="dripicons-cross"></i></span></button>
+            <div class="md:w-1/4 pr-4 pl-4">
+                <button type="button" id="close-btn" data-dismiss="modal" aria-label="Close" class="absolute top-0 bottom-0 right-0 px-4 py-3 print:hidden"><span aria-hidden="true"><i class="dripicons-cross"></i></span></button>
             </div>
-            <div class="col-md-12 text-center">
+            <div class="md:w-full pr-4 pl-4 text-center">
                 <i style="font-size: 15px;">{{trans('file.Return Details')}}</i>
             </div>
         </div>
@@ -376,7 +376,7 @@
             <div id="return-content" class="modal-body">
             </div>
             <br>
-            <table class="table table-bordered product-return-list">
+            <table class="w-full max-w-full mb-4 bg-transparent table-bordered product-return-list">
                 <thead>
                     <th>#</th>
                     <th>{{trans('file.product')}}</th>
@@ -438,7 +438,7 @@
     });
 
     function saleDetails(sale){
-        var htmltext = '<strong>{{trans("file.Date")}}: </strong>'+sale[0]+'<br><strong>{{trans("file.reference")}}: </strong>'+sale[1]+'<br><strong>{{trans("file.Warehouse")}}: </strong>'+sale[27]+'<br><strong>{{trans("file.Sale Status")}}: </strong>'+sale[2]+'<br><br><div class="row"><div class="col-md-6"><strong>{{trans("file.From")}}:</strong><br>'+sale[3]+'<br>'+sale[4]+'<br>'+sale[5]+'<br>'+sale[6]+'<br>'+sale[7]+'<br>'+sale[8]+'</div><div class="col-md-6"><div class="float-right"><strong>{{trans("file.To")}}:</strong><br>'+sale[9]+'<br>'+sale[10]+'<br>'+sale[11]+'<br>'+sale[12]+'</div></div></div>';
+        var htmltext = '<strong>{{trans("file.Date")}}: </strong>'+sale[0]+'<br><strong>{{trans("file.reference")}}: </strong>'+sale[1]+'<br><strong>{{trans("file.Warehouse")}}: </strong>'+sale[27]+'<br><strong>{{trans("file.Sale Status")}}: </strong>'+sale[2]+'<br><br><div class="flex flex-wrap "><div class="md:w-1/2 pr-4 pl-4"><strong>{{trans("file.From")}}:</strong><br>'+sale[3]+'<br>'+sale[4]+'<br>'+sale[5]+'<br>'+sale[6]+'<br>'+sale[7]+'<br>'+sale[8]+'</div><div class="md:w-1/2 pr-4 pl-4"><div class="float-right"><strong>{{trans("file.To")}}:</strong><br>'+sale[9]+'<br>'+sale[10]+'<br>'+sale[11]+'<br>'+sale[12]+'</div></div></div>';
         $.get('sales/product_sale/' + sale[13], function(data){
             $(".product-sale-list tbody").remove();
             var name_code = data[0];
@@ -532,7 +532,7 @@
 
     function quotationDetails(quotation){
         $('input[name="quotation_id"]').val(quotation[13]);
-        var htmltext = '<strong>{{trans("file.Date")}}: </strong>'+quotation[0]+'<br><strong>{{trans("file.reference")}}: </strong>'+quotation[1]+'<br><strong>{{trans("file.Status")}}: </strong>'+quotation[2]+'<br><br><div class="row"><div class="col-md-6"><strong>{{trans("file.From")}}:</strong><br>'+quotation[3]+'<br>'+quotation[4]+'<br>'+quotation[5]+'<br>'+quotation[6]+'<br>'+quotation[7]+'<br>'+quotation[8]+'</div><div class="col-md-6"><div class="float-right"><strong>{{trans("file.To")}}:</strong><br>'+quotation[9]+'<br>'+quotation[10]+'<br>'+quotation[11]+'<br>'+quotation[12]+'</div></div></div>';
+        var htmltext = '<strong>{{trans("file.Date")}}: </strong>'+quotation[0]+'<br><strong>{{trans("file.reference")}}: </strong>'+quotation[1]+'<br><strong>{{trans("file.Status")}}: </strong>'+quotation[2]+'<br><br><div class="flex flex-wrap "><div class="md:w-1/2 pr-4 pl-4"><strong>{{trans("file.From")}}:</strong><br>'+quotation[3]+'<br>'+quotation[4]+'<br>'+quotation[5]+'<br>'+quotation[6]+'<br>'+quotation[7]+'<br>'+quotation[8]+'</div><div class="md:w-1/2 pr-4 pl-4"><div class="float-right"><strong>{{trans("file.To")}}:</strong><br>'+quotation[9]+'<br>'+quotation[10]+'<br>'+quotation[11]+'<br>'+quotation[12]+'</div></div></div>';
         $.get('quotations/product_quotation/' + quotation[13], function(data){
             $(".product-quotation-list tbody").remove();
             var name_code = data[0];
@@ -604,7 +604,7 @@
 
     function returnDetails(returns){
         $('input[name="return_id"]').val(returns[13]);
-        var htmltext = '<strong>{{trans("file.Date")}}: </strong>'+returns[0]+'<br><strong>{{trans("file.reference")}}: </strong>'+returns[1]+'<br><strong>{{trans("file.Warehouse")}}: </strong>'+returns[2]+'<br><br><div class="row"><div class="col-md-6"><strong>{{trans("file.From")}}:</strong><br>'+returns[3]+'<br>'+returns[4]+'<br>'+returns[5]+'<br>'+returns[6]+'<br>'+returns[7]+'<br>'+returns[8]+'</div><div class="col-md-6"><div class="float-right"><strong>{{trans("file.To")}}:</strong><br>'+returns[9]+'<br>'+returns[10]+'<br>'+returns[11]+'<br>'+returns[12]+'</div></div></div>';
+        var htmltext = '<strong>{{trans("file.Date")}}: </strong>'+returns[0]+'<br><strong>{{trans("file.reference")}}: </strong>'+returns[1]+'<br><strong>{{trans("file.Warehouse")}}: </strong>'+returns[2]+'<br><br><div class="flex flex-wrap "><div class="md:w-1/2 pr-4 pl-4"><strong>{{trans("file.From")}}:</strong><br>'+returns[3]+'<br>'+returns[4]+'<br>'+returns[5]+'<br>'+returns[6]+'<br>'+returns[7]+'<br>'+returns[8]+'</div><div class="md:w-1/2 pr-4 pl-4"><div class="float-right"><strong>{{trans("file.To")}}:</strong><br>'+returns[9]+'<br>'+returns[10]+'<br>'+returns[11]+'<br>'+returns[12]+'</div></div></div>';
         $.get('return-sale/product_return/' + returns[13], function(data){
             $(".product-return-list tbody").remove();
             var name_code = data[0];

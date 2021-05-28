@@ -6,7 +6,7 @@
 <body>
 <form action="/charge" method="post" id="payment-form">
   @csrf
-  <div class="form-row">
+  <div class="flex flex-wrap -mr-1 -ml-1">
     <label for="card-element">
       Credit or debit card
     </label>

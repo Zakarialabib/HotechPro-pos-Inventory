@@ -46,14 +46,14 @@
 <script type="text/javascript" src="<?php echo asset('public/js/front.js') ?>"></script>
   </head>
   <body>
-    <!-- <div class="alert alert-danger alert-dismissible text-center"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>Please close the envato preview window from the top-right corner before accessing the demo. Thank you.</div> -->
+    <!-- <div class="relative px-3 py-3 mb-4 border rounded bg-red-200 border-red-300 text-red-800  text-center"><button type="button" class="absolute top-0 bottom-0 right-0 px-4 py-3" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>Please close the envato preview window from the top-right corner before accessing the demo. Thank you.</div> -->
     <div class="page login-page">
-      <div class="container">
-        <div class="form-outer text-center d-flex align-items-center">
+      <div class="container mx-auto sm:px-4">
+        <div class="form-outer text-center flex items-center">
           <div class="form-inner">
             <div class="logo"><span>{{$general_setting->site_title}}</span></div>
             @if(session()->has('delete_message'))
-            <div class="alert alert-danger alert-dismissible text-center"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>{{ session()->get('delete_message') }}</div> 
+            <div class="relative px-3 py-3 mb-4 border rounded bg-red-200 border-red-300 text-red-800  text-center"><button type="button" class="absolute top-0 bottom-0 right-0 px-4 py-3" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>{{ session()->get('delete_message') }}</div> 
             @endif
             <form method="POST" action="{{ route('login') }}" id="login-form">
               @csrf
@@ -76,12 +76,12 @@
                     </p>
                 @endif
               </div>
-              <button type="submit" class="btn btn-primary btn-block">{{trans('file.LogIn')}}</button>
+              <button type="submit" class="inline-block align-middle text-center select-none border font-normal whitespace-no-wrap rounded py-1 px-3 leading-normal no-underline bg-blue-600 text-white hover:bg-blue-600 block w-full">{{trans('file.LogIn')}}</button>
             </form>
             <!-- This three button for demo only-->
-            <!-- <button type="submit" class="btn btn-success admin-btn">LogIn as Admin</button>
-            <button type="submit" class="btn btn-info staff-btn">LogIn as Staff</button>
-            <button type="submit" class="btn btn-dark customer-btn">LogIn as Customer</button>
+            <!-- <button type="submit" class="inline-block align-middle text-center select-none border font-normal whitespace-no-wrap rounded py-1 px-3 leading-normal no-underline bg-green-500 text-white hover:bg-green-600 admin-btn">LogIn as Admin</button>
+            <button type="submit" class="inline-block align-middle text-center select-none border font-normal whitespace-no-wrap rounded py-1 px-3 leading-normal no-underline bg-teal-500 text-white hover:bg-teal-600 staff-btn">LogIn as Staff</button>
+            <button type="submit" class="inline-block align-middle text-center select-none border font-normal whitespace-no-wrap rounded py-1 px-3 leading-normal no-underline bg-gray-900 text-white hover:bg-gray-900 customer-btn">LogIn as Customer</button>
             <br><br> -->
             <a href="{{ route('password.request') }}" class="forgot-pass">{{trans('file.Forgot Password?')}}</a>
             <p>{{trans('file.Do not have an account?')}}</p><a href="{{url('register')}}" class="signup">{{trans('file.Register')}}</a>

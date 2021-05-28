@@ -126,7 +126,7 @@
               ?>
               @if($category_permission_active || $index_permission_active || $print_barcode_active || $stock_count_active || $adjustment_active)
               <li><a href="#product" aria-expanded="false" data-toggle="collapse"> <i class="dripicons-list"></i><span>{{__('file.product')}}</span><span></a>
-                <ul id="product" class="collapse list-unstyled ">
+                <ul id="product" class="hidden list-unstyled ">
                   @if($category_permission_active)
                   <li id="category-menu"><a href="{{route('category.index')}}">{{__('file.category')}}</a></li>
                   @endif
@@ -162,7 +162,7 @@
               ?>
               @if($index_permission_active)
               <li><a href="#purchase" aria-expanded="false" data-toggle="collapse"> <i class="dripicons-card"></i><span>{{trans('file.Purchase')}}</span></a>
-                <ul id="purchase" class="collapse list-unstyled ">
+                <ul id="purchase" class="hidden list-unstyled ">
                   <li id="purchase-list-menu"><a href="{{route('purchases.index')}}">{{trans('file.Purchase List')}}</a></li>
                   <?php 
                     $add_permission = DB::table('permissions')->where('name', 'purchases-add')->first();
@@ -187,7 +187,7 @@
               ?>
               @if($index_permission_active)
               <li><a href="#quotation" aria-expanded="false" data-toggle="collapse"> <i class="dripicons-document"></i><span>{{trans('file.Quotation')}}</span><span></a>
-                <ul id="quotation" class="collapse list-unstyled ">
+                <ul id="quotation" class="hidden list-unstyled ">
                   <li id="quotation-list-menu"><a href="{{route('quotations.index')}}">{{trans('file.Quotation List')}}</a></li>
                   <?php 
                     $add_permission = DB::table('permissions')->where('name', 'quotes-add')->first();
@@ -224,7 +224,7 @@
               ?>
               @if($sale_index_permission_active || $delivery_permission_active)
               <li><a href="#sale" aria-expanded="false" data-toggle="collapse"> <i class="dripicons-cart"></i><span>{{trans('file.Sale')}}</span></a>
-                <ul id="sale" class="collapse list-unstyled ">
+                <ul id="sale" class="hidden list-unstyled ">
                   @if($sale_index_permission_active)
                   <li id="sale-list-menu"><a href="{{route('sales.index')}}">{{trans('file.Sale List')}}</a></li>
                     @if($sale_add_permission_active)
@@ -249,7 +249,7 @@
               ?>
               @if($index_permission_active)
               <li><a href="#expense" aria-expanded="false" data-toggle="collapse"> <i class="dripicons-wallet"></i><span>{{trans('file.Expense')}}</span></a>
-                <ul id="expense" class="collapse list-unstyled ">
+                <ul id="expense" class="hidden list-unstyled ">
                   <li id="exp-cat-menu"><a href="{{route('expense_categories.index')}}">{{trans('file.Expense Category')}}</a></li>
                   <li id="exp-list-menu"><a href="{{route('expenses.index')}}">{{trans('file.Expense List')}}</a></li>
                   <?php 
@@ -295,7 +295,7 @@
               ?>
               @if($index_permission_active || $balance_sheet_permission_active || $account_statement_permission_active)
               <li class=""><a href="#account" aria-expanded="false" data-toggle="collapse"> <i class="dripicons-briefcase"></i><span>{{trans('file.Accounting')}}</span></a>
-                <ul id="account" class="collapse list-unstyled ">
+                <ul id="account" class="hidden list-unstyled ">
                   @if($index_permission_active)
                   <li id="account-list-menu"><a href="{{route('accounts.index')}}">{{trans('file.Account List')}}</a></li>
                   <li><a id="add-account" href="">{{trans('file.Add Account')}}</a></li>
@@ -347,7 +347,7 @@
 
               @if(Auth::user()->role_id != 5)
               <li class=""><a href="#hrm" aria-expanded="false" data-toggle="collapse"> <i class="dripicons-user-group"></i><span>{{trans('file.HRM')}}</span></a>
-                <ul id="hrm" class="collapse list-unstyled ">
+                <ul id="hrm" class="hidden list-unstyled ">
                   @if($department_active)
                   <li id="dept-menu"><a href="{{route('departments.index')}}">{{trans('file.Department')}}</a></li>
                   @endif
@@ -407,7 +407,7 @@
               ?>
               @if($user_index_permission_active || $customer_index_permission_active || $biller_index_permission_active || $supplier_index_permission_active)
               <li><a href="#people" aria-expanded="false" data-toggle="collapse"> <i class="dripicons-user"></i><span>{{trans('file.People')}}</span></a>
-                <ul id="people" class="collapse list-unstyled ">
+                <ul id="people" class="hidden list-unstyled ">
                   
                   @if($user_index_permission_active)
                   <li id="user-list-menu"><a href="{{route('user.index')}}">{{trans('file.User List')}}</a></li>
@@ -559,7 +559,7 @@
               ?>
               @if($profit_loss_active || $best_seller_active || $warehouse_report_active || $warehouse_stock_report_active || $product_report_active || $daily_sale_active || $monthly_sale_active || $daily_purchase_active || $monthly_purchase_active || $purchase_report_active || $sale_report_active || $payment_report_active || $product_qty_alert_active || $user_report_active || $customer_report_active || $supplier_report_active || $due_report_active)
               <li><a href="#report" aria-expanded="false" data-toggle="collapse"> <i class="dripicons-document-remove"></i><span>{{trans('file.Reports')}}</span></a>
-                <ul id="report" class="collapse list-unstyled ">
+                <ul id="report" class="hidden list-unstyled ">
                   @if($profit_loss_active)
                   <li id="profit-loss-report-menu">
                     {!! Form::open(['route' => 'report.profitLoss', 'method' => 'post', 'id' => 'profitLoss-report-form']) !!}
@@ -676,7 +676,7 @@
               </li>
               @endif
               <li><a href="#setting" aria-expanded="false" data-toggle="collapse"> <i class="dripicons-gear"></i><span>{{trans('file.settings')}}</span></a>
-                <ul id="setting" class="collapse list-unstyled ">
+                <ul id="setting" class="hidden list-unstyled ">
                   <?php
                       $send_notification_permission = DB::table('permissions')->where('name', 'send_notification')->first();
                       $send_notification_permission_active = DB::table('role_has_permissions')->where([
@@ -782,13 +782,13 @@
       </nav>
       <!-- navbar-->
       <header class="header">
-        <nav class="navbar">
-          <div class="container-fluid">
-            <div class="navbar-holder d-flex align-items-center justify-content-between">
+        <nav class="relative flex flex-wrap items-center content-between py-3 px-4">
+          <div class="container mx-auto sm:px-4 max-w-full mx-auto sm:px-4">
+            <div class="navbar-holder flex items-center justify-between">
               <a id="toggle-btn" href="#" class="menu-btn"><i class="fa fa-bars"> </i></a>
               <span class="brand-big"><a href="{{url('/')}}">@if($general_setting->site_logo)<img src="{{url('public/logo', $general_setting->site_logo)}}" width="120">&nbsp;&nbsp;@endif</a></span>
               
-              <ul class="nav-menu list-unstyled d-flex flex-md-row align-items-md-center">
+              <ul class="nav-menu list-unstyled flex md:flex-row md:items-center">
                 <?php 
                   $add_permission = DB::table('permissions')->where('name', 'sales-add')->first();
                   $add_permission_active = DB::table('role_has_permissions')->where([
@@ -802,61 +802,61 @@
                       ['role_id', $role->id]
                   ])->first();
                 ?>     
-                <li class="nav-item"><a class="nav-link dropdown-item"  id="btnFullscreen"><i class="dripicons-expand"></i></a></li>
+                <li class=""><a class="inline-block py-2 px-4 no-underline block w-full py-1 px-6 font-normal text-gray-900 whitespace-no-wrap border-0"  id="btnFullscreen"><i class="dripicons-expand"></i></a></li>
                 @if(\Auth::user()->role_id <= 2)
-                  <li class="nav-item"><a  href="{{route('cashRegister.index')}}" title="{{trans('file.Cash Register List')}}"><i class="dripicons-archive"></i></a></li>
+                  <li class=""><a  href="{{route('cashRegister.index')}}" title="{{trans('file.Cash Register List')}}"><i class="dripicons-archive"></i></a></li>
                 @endif
                 @if($product_qty_alert_active)
                   @if(($alert_product + count(\Auth::user()->unreadNotifications)) > 0)
-                  <li class="nav-item" id="notification-icon">
-                        <a rel="nofollow" data-target="#" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link dropdown-item"><i class="dripicons-bell"></i><span class="badge badge-danger notification-number">{{$alert_product + count(\Auth::user()->unreadNotifications)}}</span>
+                  <li class="" id="notification-icon">
+                        <a rel="nofollow" data-target="#" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="inline-block py-2 px-4 no-underline block w-full py-1 px-6 font-normal text-gray-900 whitespace-no-wrap border-0"><i class="dripicons-bell"></i><span class="inline-block p-1 text-center font-semibold text-sm align-baseline leading-none rounded bg-red-600 text-white hover:bg-red-700 notification-number">{{$alert_product + count(\Auth::user()->unreadNotifications)}}</span>
                         </a>
-                        <ul class="dropdown-menu edit-options dropdown-menu-right dropdown-default notifications" user="menu">
+                        <ul class=" absolute left-0 z-50 float-left hidden list-reset	 py-2 mt-1 text-base bg-white border border-gray-300 rounded edit-options dropdown-menu-right dropdown-default notifications" user="menu">
                             <li class="notifications">
-                              <a href="{{route('report.qtyAlert')}}" class="btn btn-link"> {{$alert_product}} - {{trans('file.Product alert quantity')}}</a>
+                              <a href="{{route('report.qtyAlert')}}" class="inline-block align-middle text-center select-none border font-normal whitespace-no-wrap rounded py-1 px-3 leading-normal no-underline font-normal text-blue-700 bg-transparent"> {{$alert_product}} - {{trans('file.Product alert quantity')}}</a>
                             </li>
                             @foreach(\Auth::user()->unreadNotifications as $key => $notification)
                                 <li class="notifications">
-                                    <a href="#" class="btn btn-link">{{ $notification->data['message'] }}</a>
+                                    <a href="#" class="inline-block align-middle text-center select-none border font-normal whitespace-no-wrap rounded py-1 px-3 leading-normal no-underline font-normal text-blue-700 bg-transparent">{{ $notification->data['message'] }}</a>
                                 </li>
                             @endforeach
                         </ul>
                   </li>
                   @elseif(count(\Auth::user()->unreadNotifications) > 0)
-                  <li class="nav-item" id="notification-icon">
-                        <a rel="nofollow" data-target="#" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link dropdown-item"><i class="dripicons-bell"></i><span class="badge badge-danger notification-number">{{count(\Auth::user()->unreadNotifications)}}</span>
+                  <li class="" id="notification-icon">
+                        <a rel="nofollow" data-target="#" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="inline-block py-2 px-4 no-underline block w-full py-1 px-6 font-normal text-gray-900 whitespace-no-wrap border-0"><i class="dripicons-bell"></i><span class="inline-block p-1 text-center font-semibold text-sm align-baseline leading-none rounded bg-red-600 text-white hover:bg-red-700 notification-number">{{count(\Auth::user()->unreadNotifications)}}</span>
                         </a>
-                        <ul class="dropdown-menu edit-options dropdown-menu-right dropdown-default notifications" user="menu">
+                        <ul class=" absolute left-0 z-50 float-left hidden list-reset	 py-2 mt-1 text-base bg-white border border-gray-300 rounded edit-options dropdown-menu-right dropdown-default notifications" user="menu">
                             @foreach(\Auth::user()->unreadNotifications as $key => $notification)
                                 <li class="notifications">
-                                    <a href="#" class="btn btn-link">{{ $notification->data['message'] }}</a>
+                                    <a href="#" class="inline-block align-middle text-center select-none border font-normal whitespace-no-wrap rounded py-1 px-3 leading-normal no-underline font-normal text-blue-700 bg-transparent">{{ $notification->data['message'] }}</a>
                                 </li>
                             @endforeach
                         </ul>
                   </li>
                   @endif
                 @endif
-                <li class="nav-item">
-                      <a rel="nofollow" data-target="#" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link dropdown-item"><i class="dripicons-web"></i> <span>{{__('file.language')}}</span> <i class="fa fa-angle-down"></i></a>
-                      <ul class="dropdown-menu edit-options dropdown-menu-right dropdown-default" user="menu">
+                <li class="">
+                      <a rel="nofollow" data-target="#" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="inline-block py-2 px-4 no-underline block w-full py-1 px-6 font-normal text-gray-900 whitespace-no-wrap border-0"><i class="dripicons-web"></i> <span>{{__('file.language')}}</span> <i class="fa fa-angle-down"></i></a>
+                      <ul class=" absolute left-0 z-50 float-left hidden list-reset	 py-2 mt-1 text-base bg-white border border-gray-300 rounded edit-options dropdown-menu-right dropdown-default" user="menu">
                       <li>
-                            <a href="{{ url('language_switch/fr') }}" class="btn btn-link"> Français</a>
+                            <a href="{{ url('language_switch/fr') }}" class="inline-block align-middle text-center select-none border font-normal whitespace-no-wrap rounded py-1 px-3 leading-normal no-underline font-normal text-blue-700 bg-transparent"> Français</a>
                           </li>
 
                           <li>
-                            <a href="{{ url('language_switch/en') }}" class="btn btn-link"> English</a>
+                            <a href="{{ url('language_switch/en') }}" class="inline-block align-middle text-center select-none border font-normal whitespace-no-wrap rounded py-1 px-3 leading-normal no-underline font-normal text-blue-700 bg-transparent"> English</a>
                           </li>
                     
                           <li>
-                            <a href="{{ url('language_switch/ar') }}" class="btn btn-link"> عربى</a>
+                            <a href="{{ url('language_switch/ar') }}" class="inline-block align-middle text-center select-none border font-normal whitespace-no-wrap rounded py-1 px-3 leading-normal no-underline font-normal text-blue-700 bg-transparent"> عربى</a>
                           </li>
 
                       </ul>
                 </li>
-                <li class="nav-item">
-                  <a rel="nofollow" data-target="#" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link dropdown-item"><i class="dripicons-user"></i> <span>{{ucfirst(Auth::user()->name)}}</span> <i class="fa fa-angle-down"></i>
+                <li class="">
+                  <a rel="nofollow" data-target="#" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="inline-block py-2 px-4 no-underline block w-full py-1 px-6 font-normal text-gray-900 whitespace-no-wrap border-0"><i class="dripicons-user"></i> <span>{{ucfirst(Auth::user()->name)}}</span> <i class="fa fa-angle-down"></i>
                   </a>
-                  <ul class="dropdown-menu edit-options dropdown-menu-right dropdown-default" user="menu">
+                  <ul class=" absolute left-0 z-50 float-left hidden list-reset	 py-2 mt-1 text-base bg-white border border-gray-300 rounded edit-options dropdown-menu-right dropdown-default" user="menu">
                       <li> 
                         <a href="{{route('user.profile', ['id' => Auth::id()])}}"><i class="dripicons-user"></i> {{trans('file.profile')}}</a>
                       </li>
@@ -898,38 +898,38 @@
     <div class="page">
 
       <!-- notification modal -->
-      <div id="notification-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" class="modal fade text-left">
+      <div id="notification-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" class="modal opacity-0 text-left">
         <div role="document" class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 id="exampleModalLabel" class="modal-title">{{trans('file.Send Notification')}}</h5>
-                    <button type="button" data-dismiss="modal" aria-label="Close" class="close"><span aria-hidden="true"><i class="dripicons-cross"></i></span></button>
+                    <button type="button" data-dismiss="modal" aria-label="Close" class="absolute top-0 bottom-0 right-0 px-4 py-3"><span aria-hidden="true"><i class="dripicons-cross"></i></span></button>
                 </div>
                 <div class="modal-body">
                   <p class="italic"><small>{{trans('file.The field labels marked with * are required input fields')}}.</small></p>
                     {!! Form::open(['route' => 'notifications.store', 'method' => 'post']) !!}
-                      <div class="row">
+                      <div class="flex flex-wrap ">
                           <?php 
                               $lims_user_list = DB::table('users')->where([
                                 ['is_active', true],
                                 ['id', '!=', \Auth::user()->id]
                               ])->get();
                           ?>
-                          <div class="col-md-6 form-group">
+                          <div class="md:w-1/2 pr-4 pl-4 mb-4">
                               <label>{{trans('file.User')}} *</label>
-                              <select name="user_id" class="selectpicker form-control" required data-live-search="true" data-live-search-style="begins" title="Select user...">
+                              <select name="user_id" class="selectpicker block appearance-none w-full py-1 px-2 mb-1 text-base leading-normal bg-white text-gray-800 border border-gray-200 rounded" required data-live-search="true" data-live-search-style="begins" title="Select user...">
                                   @foreach($lims_user_list as $user)
                                   <option value="{{$user->id}}">{{$user->name . ' (' . $user->email. ')'}}</option>
                                   @endforeach
                               </select>
                           </div>
-                          <div class="col-md-12 form-group">
+                          <div class="md:w-full pr-4 pl-4 mb-4">
                               <label>{{trans('file.Message')}} *</label>
-                              <textarea rows="5" name="message" class="form-control" required></textarea>
+                              <textarea rows="5" name="message" class="block appearance-none w-full py-1 px-2 mb-1 text-base leading-normal bg-white text-gray-800 border border-gray-200 rounded" required></textarea>
                           </div>
                       </div>
-                      <div class="form-group">
-                          <button type="submit" class="btn btn-primary">{{trans('file.submit')}}</button>
+                      <div class="mb-4">
+                          <button type="submit" class="inline-block align-middle text-center select-none border font-normal whitespace-no-wrap rounded py-1 px-3 leading-normal no-underline bg-blue-600 text-white hover:bg-blue-600">{{trans('file.submit')}}</button>
                       </div>
                     {{ Form::close() }}
                 </div>
@@ -938,12 +938,12 @@
       </div>
 
       <!-- expense modal -->
-      <div id="expense-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" class="modal fade text-left">
+      <div id="expense-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" class="modal opacity-0 text-left">
         <div role="document" class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 id="exampleModalLabel" class="modal-title">{{trans('file.Add Expense')}}</h5>
-                    <button type="button" data-dismiss="modal" aria-label="Close" class="close"><span aria-hidden="true"><i class="dripicons-cross"></i></span></button>
+                    <button type="button" data-dismiss="modal" aria-label="Close" class="absolute top-0 bottom-0 right-0 px-4 py-3"><span aria-hidden="true"><i class="dripicons-cross"></i></span></button>
                 </div>
                 <div class="modal-body">
                   <p class="italic"><small>{{trans('file.The field labels marked with * are required input fields')}}.</small></p>
@@ -960,30 +960,30 @@
                       $lims_account_list = \App\Account::where('is_active', true)->get();
                     
                     ?>
-                      <div class="row">
-                        <div class="col-md-6 form-group">
+                      <div class="flex flex-wrap ">
+                        <div class="md:w-1/2 pr-4 pl-4 mb-4">
                             <label>{{trans('file.Expense Category')}} *</label>
-                            <select name="expense_category_id" class="selectpicker form-control" data-live-search="true" data-live-search-style="begins" title="Select Expense Category...">
+                            <select name="expense_category_id" class="selectpicker block appearance-none w-full py-1 px-2 mb-1 text-base leading-normal bg-white text-gray-800 border border-gray-200 rounded" data-live-search="true" data-live-search-style="begins" title="Select Expense Category...">
                                 @foreach($lims_expense_category_list as $expense_category)
                                 <option value="{{$expense_category->id}}">{{$expense_category->name . ' (' . $expense_category->code. ')'}}</option>
                                 @endforeach
                             </select>
                         </div>
-                        <div class="col-md-6 form-group">
+                        <div class="md:w-1/2 pr-4 pl-4 mb-4">
                             <label>{{trans('file.Warehouse')}} *</label>
-                            <select name="warehouse_id" class="selectpicker form-control" data-live-search="true" data-live-search-style="begins" title="Select Warehouse...">
+                            <select name="warehouse_id" class="selectpicker block appearance-none w-full py-1 px-2 mb-1 text-base leading-normal bg-white text-gray-800 border border-gray-200 rounded" data-live-search="true" data-live-search-style="begins" title="Select Warehouse...">
                                 @foreach($lims_warehouse_list as $warehouse)
                                 <option value="{{$warehouse->id}}">{{$warehouse->name}}</option>
                                 @endforeach
                             </select>
                         </div>
-                        <div class="col-md-6 form-group">
+                        <div class="md:w-1/2 pr-4 pl-4 mb-4">
                             <label>{{trans('file.Amount')}} *</label>
-                            <input type="number" name="amount" step="any" required class="form-control">
+                            <input type="number" name="amount" step="any" required class="block appearance-none w-full py-1 px-2 mb-1 text-base leading-normal bg-white text-gray-800 border border-gray-200 rounded">
                         </div>
-                        <div class="col-md-6 form-group">
+                        <div class="md:w-1/2 pr-4 pl-4 mb-4">
                             <label> {{trans('file.Account')}}</label>
-                            <select class="form-control selectpicker" name="account_id">
+                            <select class="block appearance-none w-full py-1 px-2 mb-1 text-base leading-normal bg-white text-gray-800 border border-gray-200 rounded selectpicker" name="account_id">
                             @foreach($lims_account_list as $account)
                                 @if($account->is_default)
                                 <option selected value="{{$account->id}}">{{$account->name}} [{{$account->account_no}}]</option>
@@ -994,12 +994,12 @@
                             </select>
                         </div>
                       </div>
-                      <div class="form-group">
+                      <div class="mb-4">
                           <label>{{trans('file.Note')}}</label>
-                          <textarea name="note" rows="3" class="form-control"></textarea>
+                          <textarea name="note" rows="3" class="block appearance-none w-full py-1 px-2 mb-1 text-base leading-normal bg-white text-gray-800 border border-gray-200 rounded"></textarea>
                       </div>
-                      <div class="form-group">
-                          <button type="submit" class="btn btn-primary">{{trans('file.submit')}}</button>
+                      <div class="mb-4">
+                          <button type="submit" class="inline-block align-middle text-center select-none border font-normal whitespace-no-wrap rounded py-1 px-3 leading-normal no-underline bg-blue-600 text-white hover:bg-blue-600">{{trans('file.submit')}}</button>
                       </div>
                     {{ Form::close() }}
                 </div>
@@ -1008,34 +1008,34 @@
       </div>
 
       <!-- account modal -->
-      <div id="account-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" class="modal fade text-left">
+      <div id="account-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" class="modal opacity-0 text-left">
         <div role="document" class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 id="exampleModalLabel" class="modal-title">{{trans('file.Add Account')}}</h5>
-                    <button type="button" data-dismiss="modal" aria-label="Close" class="close"><span aria-hidden="true"><i class="dripicons-cross"></i></span></button>
+                    <button type="button" data-dismiss="modal" aria-label="Close" class="absolute top-0 bottom-0 right-0 px-4 py-3"><span aria-hidden="true"><i class="dripicons-cross"></i></span></button>
                 </div>
                 <div class="modal-body">
                   <p class="italic"><small>{{trans('file.The field labels marked with * are required input fields')}}.</small></p>
                     {!! Form::open(['route' => 'accounts.store', 'method' => 'post']) !!}
-                      <div class="form-group">
+                      <div class="mb-4">
                           <label>{{trans('file.Account No')}} *</label>
-                          <input type="text" name="account_no" required class="form-control">
+                          <input type="text" name="account_no" required class="block appearance-none w-full py-1 px-2 mb-1 text-base leading-normal bg-white text-gray-800 border border-gray-200 rounded">
                       </div>
-                      <div class="form-group">
+                      <div class="mb-4">
                           <label>{{trans('file.name')}} *</label>
-                          <input type="text" name="name" required class="form-control">
+                          <input type="text" name="name" required class="block appearance-none w-full py-1 px-2 mb-1 text-base leading-normal bg-white text-gray-800 border border-gray-200 rounded">
                       </div>
-                      <div class="form-group">
+                      <div class="mb-4">
                           <label>{{trans('file.Initial Balance')}}</label>
-                          <input type="number" name="initial_balance" step="any" class="form-control">
+                          <input type="number" name="initial_balance" step="any" class="block appearance-none w-full py-1 px-2 mb-1 text-base leading-normal bg-white text-gray-800 border border-gray-200 rounded">
                       </div>
-                      <div class="form-group">
+                      <div class="mb-4">
                           <label>{{trans('file.Note')}}</label>
-                          <textarea name="note" rows="3" class="form-control"></textarea>
+                          <textarea name="note" rows="3" class="block appearance-none w-full py-1 px-2 mb-1 text-base leading-normal bg-white text-gray-800 border border-gray-200 rounded"></textarea>
                       </div>
-                      <div class="form-group">
-                          <button type="submit" class="btn btn-primary">{{trans('file.submit')}}</button>
+                      <div class="mb-4">
+                          <button type="submit" class="inline-block align-middle text-center select-none border font-normal whitespace-no-wrap rounded py-1 px-3 leading-normal no-underline bg-blue-600 text-white hover:bg-blue-600">{{trans('file.submit')}}</button>
                       </div>
                     {{ Form::close() }}
                 </div>
@@ -1044,44 +1044,44 @@
       </div>
 
       <!-- account statement modal -->
-      <div id="account-statement-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" class="modal fade text-left">
+      <div id="account-statement-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" class="modal opacity-0 text-left">
         <div role="document" class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 id="exampleModalLabel" class="modal-title">{{trans('file.Account Statement')}}</h5>
-                    <button type="button" data-dismiss="modal" aria-label="Close" class="close"><span aria-hidden="true"><i class="dripicons-cross"></i></span></button>
+                    <button type="button" data-dismiss="modal" aria-label="Close" class="absolute top-0 bottom-0 right-0 px-4 py-3"><span aria-hidden="true"><i class="dripicons-cross"></i></span></button>
                 </div>
                 <div class="modal-body">
                   <p class="italic"><small>{{trans('file.The field labels marked with * are required input fields')}}.</small></p>
                     {!! Form::open(['route' => 'accounts.statement', 'method' => 'post']) !!}
-                      <div class="row">
-                        <div class="col-md-6 form-group">
+                      <div class="flex flex-wrap ">
+                        <div class="md:w-1/2 pr-4 pl-4 mb-4">
                             <label> {{trans('file.Account')}}</label>
-                            <select class="form-control selectpicker" name="account_id">
+                            <select class="block appearance-none w-full py-1 px-2 mb-1 text-base leading-normal bg-white text-gray-800 border border-gray-200 rounded selectpicker" name="account_id">
                             @foreach($lims_account_list as $account)
                                 <option value="{{$account->id}}">{{$account->name}} [{{$account->account_no}}]</option>
                             @endforeach
                             </select>
                         </div>
-                        <div class="col-md-6 form-group">
+                        <div class="md:w-1/2 pr-4 pl-4 mb-4">
                             <label> {{trans('file.Type')}}</label>
-                            <select class="form-control selectpicker" name="type">
+                            <select class="block appearance-none w-full py-1 px-2 mb-1 text-base leading-normal bg-white text-gray-800 border border-gray-200 rounded selectpicker" name="type">
                                 <option value="0">{{trans('file.All')}}</option>
                                 <option value="1">{{trans('file.Debit')}}</option>
                                 <option value="2">{{trans('file.Credit')}}</option>
                             </select>
                         </div>
-                        <div class="col-md-12 form-group">
+                        <div class="md:w-full pr-4 pl-4 mb-4">
                             <label>{{trans('file.Choose Your Date')}}</label>
-                            <div class="input-group">
-                                <input type="text" class="daterangepicker-field form-control" required />
+                            <div class="relative flex items-stretch w-full">
+                                <input type="text" class="daterangepicker-field block appearance-none w-full py-1 px-2 mb-1 text-base leading-normal bg-white text-gray-800 border border-gray-200 rounded" required />
                                 <input type="hidden" name="start_date" />
                                 <input type="hidden" name="end_date" />
                             </div>
                         </div>
                       </div>
-                      <div class="form-group">
-                          <button type="submit" class="btn btn-primary">{{trans('file.submit')}}</button>
+                      <div class="mb-4">
+                          <button type="submit" class="inline-block align-middle text-center select-none border font-normal whitespace-no-wrap rounded py-1 px-3 leading-normal no-underline bg-blue-600 text-white hover:bg-blue-600">{{trans('file.submit')}}</button>
                       </div>
                     {{ Form::close() }}
                 </div>
@@ -1090,12 +1090,12 @@
       </div>
 
       <!-- warehouse modal -->
-      <div id="warehouse-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" class="modal fade text-left">
+      <div id="warehouse-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" class="modal opacity-0 text-left">
         <div role="document" class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 id="exampleModalLabel" class="modal-title">{{trans('file.Warehouse Report')}}</h5>
-                    <button type="button" data-dismiss="modal" aria-label="Close" class="close"><span aria-hidden="true"><i class="dripicons-cross"></i></span></button>
+                    <button type="button" data-dismiss="modal" aria-label="Close" class="absolute top-0 bottom-0 right-0 px-4 py-3"><span aria-hidden="true"><i class="dripicons-cross"></i></span></button>
                 </div>
                 <div class="modal-body">
                   <p class="italic"><small>{{trans('file.The field labels marked with * are required input fields')}}.</small></p>
@@ -1103,9 +1103,9 @@
                     <?php 
                       $lims_warehouse_list = DB::table('warehouses')->where('is_active', true)->get();
                     ?>
-                      <div class="form-group">
+                      <div class="mb-4">
                           <label>{{trans('file.Warehouse')}} *</label>
-                          <select name="warehouse_id" class="selectpicker form-control" required data-live-search="true" id="warehouse-id" data-live-search-style="begins" title="Select warehouse...">
+                          <select name="warehouse_id" class="selectpicker block appearance-none w-full py-1 px-2 mb-1 text-base leading-normal bg-white text-gray-800 border border-gray-200 rounded" required data-live-search="true" id="warehouse-id" data-live-search-style="begins" title="Select warehouse...">
                               @foreach($lims_warehouse_list as $warehouse)
                               <option value="{{$warehouse->id}}">{{$warehouse->name}}</option>
                               @endforeach
@@ -1115,8 +1115,8 @@
                       <input type="hidden" name="start_date" value="1988-04-18" />
                       <input type="hidden" name="end_date" value="{{date('Y-m-d')}}" />
 
-                      <div class="form-group">
-                          <button type="submit" class="btn btn-primary">{{trans('file.submit')}}</button>
+                      <div class="mb-4">
+                          <button type="submit" class="inline-block align-middle text-center select-none border font-normal whitespace-no-wrap rounded py-1 px-3 leading-normal no-underline bg-blue-600 text-white hover:bg-blue-600">{{trans('file.submit')}}</button>
                       </div>
                     {{ Form::close() }}
                 </div>
@@ -1125,12 +1125,12 @@
       </div>
 
       <!-- user modal -->
-      <div id="user-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" class="modal fade text-left">
+      <div id="user-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" class="modal opacity-0 text-left">
         <div role="document" class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 id="exampleModalLabel" class="modal-title">{{trans('file.User Report')}}</h5>
-                    <button type="button" data-dismiss="modal" aria-label="Close" class="close"><span aria-hidden="true"><i class="dripicons-cross"></i></span></button>
+                    <button type="button" data-dismiss="modal" aria-label="Close" class="absolute top-0 bottom-0 right-0 px-4 py-3"><span aria-hidden="true"><i class="dripicons-cross"></i></span></button>
                 </div>
                 <div class="modal-body">
                   <p class="italic"><small>{{trans('file.The field labels marked with * are required input fields')}}.</small></p>
@@ -1138,9 +1138,9 @@
                     <?php 
                       $lims_user_list = DB::table('users')->where('is_active', true)->get();
                     ?>
-                      <div class="form-group">
+                      <div class="mb-4">
                           <label>{{trans('file.User')}} *</label>
-                          <select name="user_id" class="selectpicker form-control" required data-live-search="true" id="user-id" data-live-search-style="begins" title="Select user...">
+                          <select name="user_id" class="selectpicker block appearance-none w-full py-1 px-2 mb-1 text-base leading-normal bg-white text-gray-800 border border-gray-200 rounded" required data-live-search="true" id="user-id" data-live-search-style="begins" title="Select user...">
                               @foreach($lims_user_list as $user)
                               <option value="{{$user->id}}">{{$user->name . ' (' . $user->phone. ')'}}</option>
                               @endforeach
@@ -1150,8 +1150,8 @@
                       <input type="hidden" name="start_date" value="1988-04-18" />
                       <input type="hidden" name="end_date" value="{{date('Y-m-d')}}" />
 
-                      <div class="form-group">
-                          <button type="submit" class="btn btn-primary">{{trans('file.submit')}}</button>
+                      <div class="mb-4">
+                          <button type="submit" class="inline-block align-middle text-center select-none border font-normal whitespace-no-wrap rounded py-1 px-3 leading-normal no-underline bg-blue-600 text-white hover:bg-blue-600">{{trans('file.submit')}}</button>
                       </div>
                     {{ Form::close() }}
                 </div>
@@ -1160,12 +1160,12 @@
       </div>
 
       <!-- customer modal -->
-      <div id="customer-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" class="modal fade text-left">
+      <div id="customer-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" class="modal opacity-0 text-left">
         <div role="document" class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 id="exampleModalLabel" class="modal-title">{{trans('file.Customer Report')}}</h5>
-                    <button type="button" data-dismiss="modal" aria-label="Close" class="close"><span aria-hidden="true"><i class="dripicons-cross"></i></span></button>
+                    <button type="button" data-dismiss="modal" aria-label="Close" class="absolute top-0 bottom-0 right-0 px-4 py-3"><span aria-hidden="true"><i class="dripicons-cross"></i></span></button>
                 </div>
                 <div class="modal-body">
                   <p class="italic"><small>{{trans('file.The field labels marked with * are required input fields')}}.</small></p>
@@ -1173,9 +1173,9 @@
                     <?php 
                       $lims_customer_list = DB::table('customers')->where('is_active', true)->get();
                     ?>
-                      <div class="form-group">
+                      <div class="mb-4">
                           <label>{{trans('file.customer')}} *</label>
-                          <select name="customer_id" class="selectpicker form-control" required data-live-search="true" id="customer-id" data-live-search-style="begins" title="Select customer...">
+                          <select name="customer_id" class="selectpicker block appearance-none w-full py-1 px-2 mb-1 text-base leading-normal bg-white text-gray-800 border border-gray-200 rounded" required data-live-search="true" id="customer-id" data-live-search-style="begins" title="Select customer...">
                               @foreach($lims_customer_list as $customer)
                               <option value="{{$customer->id}}">{{$customer->name . ' (' . $customer->phone_number. ')'}}</option>
                               @endforeach
@@ -1185,8 +1185,8 @@
                       <input type="hidden" name="start_date" value="1988-04-18" />
                       <input type="hidden" name="end_date" value="{{date('Y-m-d')}}" />
 
-                      <div class="form-group">
-                          <button type="submit" class="btn btn-primary">{{trans('file.submit')}}</button>
+                      <div class="mb-4">
+                          <button type="submit" class="inline-block align-middle text-center select-none border font-normal whitespace-no-wrap rounded py-1 px-3 leading-normal no-underline bg-blue-600 text-white hover:bg-blue-600">{{trans('file.submit')}}</button>
                       </div>
                     {{ Form::close() }}
                 </div>
@@ -1195,12 +1195,12 @@
       </div>
 
       <!-- supplier modal -->
-      <div id="supplier-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" class="modal fade text-left">
+      <div id="supplier-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" class="modal opacity-0 text-left">
         <div role="document" class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 id="exampleModalLabel" class="modal-title">{{trans('file.Supplier Report')}}</h5>
-                    <button type="button" data-dismiss="modal" aria-label="Close" class="close"><span aria-hidden="true"><i class="dripicons-cross"></i></span></button>
+                    <button type="button" data-dismiss="modal" aria-label="Close" class="absolute top-0 bottom-0 right-0 px-4 py-3"><span aria-hidden="true"><i class="dripicons-cross"></i></span></button>
                 </div>
                 <div class="modal-body">
                   <p class="italic"><small>{{trans('file.The field labels marked with * are required input fields')}}.</small></p>
@@ -1208,9 +1208,9 @@
                     <?php 
                       $lims_supplier_list = DB::table('suppliers')->where('is_active', true)->get();
                     ?>
-                      <div class="form-group">
+                      <div class="mb-4">
                           <label>{{trans('file.Supplier')}} *</label>
-                          <select name="supplier_id" class="selectpicker form-control" required data-live-search="true" id="supplier-id" data-live-search-style="begins" title="Select Supplier...">
+                          <select name="supplier_id" class="selectpicker block appearance-none w-full py-1 px-2 mb-1 text-base leading-normal bg-white text-gray-800 border border-gray-200 rounded" required data-live-search="true" id="supplier-id" data-live-search-style="begins" title="Select Supplier...">
                               @foreach($lims_supplier_list as $supplier)
                               <option value="{{$supplier->id}}">{{$supplier->name . ' (' . $supplier->phone_number. ')'}}</option>
                               @endforeach
@@ -1220,8 +1220,8 @@
                       <input type="hidden" name="start_date" value="1988-04-18" />
                       <input type="hidden" name="end_date" value="{{date('Y-m-d')}}" />
 
-                      <div class="form-group">
-                          <button type="submit" class="btn btn-primary">{{trans('file.submit')}}</button>
+                      <div class="mb-4">
+                          <button type="submit" class="inline-block align-middle text-center select-none border font-normal whitespace-no-wrap rounded py-1 px-3 leading-normal no-underline bg-blue-600 text-white hover:bg-blue-600">{{trans('file.submit')}}</button>
                       </div>
                     {{ Form::close() }}
                 </div>
@@ -1230,12 +1230,12 @@
       </div>
 
       <!-- activity modal -->
-      <div id="activity-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" class="modal fade text-left">
+      <div id="activity-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" class="modal opacity-0 text-left">
     <div role="document" class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 id="exampleModalLabel" class="modal-title">{{trans('file.Add Activity')}}</h5>
-                <button type="button" data-dismiss="modal" aria-label="Close" class="close"><span aria-hidden="true"><i class="dripicons-cross"></i></span></button>
+                <button type="button" data-dismiss="modal" aria-label="Close" class="absolute top-0 bottom-0 right-0 px-4 py-3"><span aria-hidden="true"><i class="dripicons-cross"></i></span></button>
             </div>
             <div class="modal-body">
               <p class="italic"><small>{{trans('file.The field labels marked with * are required input fields')}}.</small></p>
@@ -1243,58 +1243,58 @@
                 <?php 
                       $lims_employee_list = DB::table('employees')->where('is_active', true)->get();
                     ?>
-                <div class="row">
-                    <div class="col-md-6 form-group">
+                <div class="flex flex-wrap ">
+                    <div class="md:w-1/2 pr-4 pl-4 mb-4">
                         <label>{{trans('file.Employee')}} *</label>
-                        <select class="form-control selectpicker" name="employee_id[]" required data-live-search="true" data-live-search-style="begins" title="Selection..." multiple>
+                        <select class="block appearance-none w-full py-1 px-2 mb-1 text-base leading-normal bg-white text-gray-800 border border-gray-200 rounded selectpicker" name="employee_id[]" required data-live-search="true" data-live-search-style="begins" title="Selection..." multiple>
                             @foreach($lims_employee_list as $employee)
                             <option value="{{$employee->id}}">{{$employee->name}}</option>
                             @endforeach
                         </select>
                     </div>
-                    <div class="col-md-6 form-group">
+                    <div class="md:w-1/2 pr-4 pl-4 mb-4">
                         <label>{{trans('file.Date')}} *</label>
-                        <input type="text" name="date" class="form-control date" value="{{date($general_setting->date_format)}}" required>
+                        <input type="text" name="date" class="block appearance-none w-full py-1 px-2 mb-1 text-base leading-normal bg-white text-gray-800 border border-gray-200 rounded date" value="{{date($general_setting->date_format)}}" required>
                     </div>
-                    <div class="col-md-6 form-group">
+                    <div class="md:w-1/2 pr-4 pl-4 mb-4">
                         <label>{{trans('file.Hour')}} *</label>
-                        <input type="text" id="hour" name="hour" class="form-control time" required>
+                        <input type="text" id="hour" name="hour" class="block appearance-none w-full py-1 px-2 mb-1 text-base leading-normal bg-white text-gray-800 border border-gray-200 rounded time" required>
                     </div>
-                    <div class="col-md-6 form-group">
+                    <div class="md:w-1/2 pr-4 pl-4 mb-4">
                         <label>{{trans('file.customer')}} *</label>
-                        <select class="form-control selectpicker" name="customer_id[]" required data-live-search="true" data-live-search-style="begins" title="Selection..." multiple>
+                        <select class="block appearance-none w-full py-1 px-2 mb-1 text-base leading-normal bg-white text-gray-800 border border-gray-200 rounded selectpicker" name="customer_id[]" required data-live-search="true" data-live-search-style="begins" title="Selection..." multiple>
                             @foreach($lims_customer_list as $customer)
                             <option value="{{$customer->id}}">{{$customer->name}}</option>
                             @endforeach
                         </select>
                     </div>
-                    <div class="col-md-6 form-group">
+                    <div class="md:w-1/2 pr-4 pl-4 mb-4">
                         <label>{{trans('file.Object')}} *</label>
-                        <input type="text" id="object" name="object" class="form-control" required>
+                        <input type="text" id="object" name="object" class="block appearance-none w-full py-1 px-2 mb-1 text-base leading-normal bg-white text-gray-800 border border-gray-200 rounded" required>
                     </div>
-                    <div class="col-md-6 form-group">
+                    <div class="md:w-1/2 pr-4 pl-4 mb-4">
                         <label>{{trans('file.Duration')}} *</label>
-                        <input type="text" id="duration" name="duration" class="form-control"  required>
+                        <input type="text" id="duration" name="duration" class="block appearance-none w-full py-1 px-2 mb-1 text-base leading-normal bg-white text-gray-800 border border-gray-200 rounded"  required>
                     </div>
-                    <div class="col-md-6 form-group">
+                    <div class="md:w-1/2 pr-4 pl-4 mb-4">
                         <label>{{trans('file.Transportation')}} *</label>
-                        <input type="text" id="transportation" name="transportation" class="form-control"  required>
+                        <input type="text" id="transportation" name="transportation" class="block appearance-none w-full py-1 px-2 mb-1 text-base leading-normal bg-white text-gray-800 border border-gray-200 rounded"  required>
                     </div>
-                    <div class="col-md-6 form-group">
+                    <div class="md:w-1/2 pr-4 pl-4 mb-4">
                         <label>{{trans('file.Expense')}} *</label>
-                        <input type="text" id="expense" name="expense" class="form-control" required>
+                        <input type="text" id="expense" name="expense" class="block appearance-none w-full py-1 px-2 mb-1 text-base leading-normal bg-white text-gray-800 border border-gray-200 rounded" required>
                     </div>
-                    <div class="col-md-6 form-group">
+                    <div class="md:w-1/2 pr-4 pl-4 mb-4">
                         <label>{{trans('file.Place')}} *</label>
-                        <input type="text" id="place" name="place" class="form-control" required>
+                        <input type="text" id="place" name="place" class="block appearance-none w-full py-1 px-2 mb-1 text-base leading-normal bg-white text-gray-800 border border-gray-200 rounded" required>
                     </div>
-                    <div class="col-md-12 form-group">
+                    <div class="md:w-full pr-4 pl-4 mb-4">
                         <label>{{trans('file.Note')}}</label>
-                        <textarea name="note" rows="3" class="form-control"></textarea>
+                        <textarea name="note" rows="3" class="block appearance-none w-full py-1 px-2 mb-1 text-base leading-normal bg-white text-gray-800 border border-gray-200 rounded"></textarea>
                     </div>
                 </div>
-                <div class="form-group">
-                    <button type="submit" class="btn btn-primary">{{trans('file.submit')}}</button>
+                <div class="mb-4">
+                    <button type="submit" class="inline-block align-middle text-center select-none border font-normal whitespace-no-wrap rounded py-1 px-3 leading-normal no-underline bg-blue-600 text-white hover:bg-blue-600">{{trans('file.submit')}}</button>
                 </div>
                 {{ Form::close() }}
             </div>
@@ -1307,9 +1307,9 @@
       </div>
 
       <footer class="main-footer">
-        <div class="container-fluid">
-          <div class="row">
-            <div class="col-sm-12">
+        <div class="container mx-auto sm:px-4 max-w-full mx-auto sm:px-4">
+          <div class="flex flex-wrap ">
+            <div class="sm:w-full pr-4 pl-4">
               <p>&copy; {{$general_setting->site_title}} | {{trans('file.Developed')}} {{trans('file.By')}} <span class="external">Zakaria Labib</span></p>
             </div>
           </div>

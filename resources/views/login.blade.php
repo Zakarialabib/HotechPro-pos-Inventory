@@ -31,10 +31,10 @@
   </head>
   <body>
     <div class="page login-page">
-      <div class="container">
-        <div class="form-outer text-center d-flex align-items-center">
+      <div class="container mx-auto sm:px-4">
+        <div class="form-outer text-center flex items-center">
           <div class="form-inner">
-            <div class="logo text-uppercase"><span>Bootstrap</span><strong class="text-primary">Dashboard</strong></div>
+            <div class="logo uppercase"><span>Bootstrap</span><strong class="text-blue-600">Dashboard</strong></div>
             <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud.</p>
             <form id="login-form" method="post">
               <div class="form-group-material">
@@ -44,7 +44,7 @@
               <div class="form-group-material">
                 <input id="login-password" type="password" name="loginPassword" required class="input-material">
                 <label for="login-password" class="label-material">Password</label>
-              </div><a id="login" href="index.html" class="btn btn-primary">Login</a>
+              </div><a id="login" href="index.html" class="inline-block align-middle text-center select-none border font-normal whitespace-no-wrap rounded py-1 px-3 leading-normal no-underline bg-blue-600 text-white hover:bg-blue-600">Login</a>
               <!-- This should be submit button but I replaced it with <a> for demo purposes-->
             </form><a href="#" class="forgot-pass">Forgot Password?</a><small>Do not have an account? </small><a href="register.html" class="signup">Signup</a>
           </div>

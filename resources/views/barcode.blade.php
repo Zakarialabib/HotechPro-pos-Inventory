@@ -7,14 +7,14 @@
 		padding-left: 20px;
 	}
 </style>
-<div class="row">
-    <div class="col-md-8 col-md-offset-2">
-        <h1 class="text-primary" style="text-align: center;">Laravel 5 Barcode Generator Using milon/barcode</h1>
+<div class="flex flex-wrap ">
+    <div class="md:w-2/3 pr-4 pl-4 col-md-offset-2">
+        <h1 class="text-blue-600" style="text-align: center;">Laravel 5 Barcode Generator Using milon/barcode</h1>
     </div>
 </div>
 
 
-<div class="container text-center" style="border: 1px solid #a1a1a1;padding: 15px;width: 70%;">
+<div class="container mx-auto sm:px-4 text-center" style="border: 1px solid #a1a1a1;padding: 15px;width: 70%;">
 	<p>this is for ashfaq92: </p>
 	<img src="data:image/png;base64,{{DNS1D::getBarcodePNG('ashfaq92', 'C128')}}" alt="barcode" />
 	<p>this is for 11+</p>

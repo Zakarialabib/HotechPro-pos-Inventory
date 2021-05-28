@@ -1,11 +1,11 @@
 @extends('layout.main') @section('content')
 
 <section class="forms">
-    <div class="container-fluid">
+    <div class="container mx-auto sm:px-4 max-w-full mx-auto sm:px-4">
 	    <h4 class="text-center">{{trans('file.Product Quantity Alert')}}</h4>
     </div>
-    <div class="table-responsive mb-4">
-        <table id="report-table" class="table table-hover">
+    <div class="block w-full overflow-auto scrolling-touch mb-4">
+        <table id="report-table" class="w-full max-w-full mb-4 bg-transparent table-hover">
             <thead>
                 <tr>
                     <th class="not-exported"></th>

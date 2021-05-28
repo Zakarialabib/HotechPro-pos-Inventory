@@ -1,17 +1,17 @@
 @extends('layout.main') @section('content')
 @if(session()->has('message'))
-  <div class="alert alert-success alert-dismissible text-center"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>{{ session()->get('message') }}</div> 
+  <div class="relative px-3 py-3 mb-4 border rounded bg-green-200 border-green-300 text-green-800  text-center"><button type="button" class="absolute top-0 bottom-0 right-0 px-4 py-3" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>{{ session()->get('message') }}</div> 
 @endif
 @if(session()->has('not_permitted'))
-  <div class="alert alert-danger alert-dismissible text-center"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>{{ session()->get('not_permitted') }}</div> 
+  <div class="relative px-3 py-3 mb-4 border rounded bg-red-200 border-red-300 text-red-800  text-center"><button type="button" class="absolute top-0 bottom-0 right-0 px-4 py-3" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>{{ session()->get('not_permitted') }}</div> 
 @endif
 
 <section>
-    <div class="container-fluid">
-        <button class="btn btn-info" data-toggle="modal" data-target="#createModal"><i class="dripicons-plus"></i> {{trans('file.Count Stock')}} </button>
+    <div class="container mx-auto sm:px-4 max-w-full mx-auto sm:px-4">
+        <button class="inline-block align-middle text-center select-none border font-normal whitespace-no-wrap rounded py-1 px-3 leading-normal no-underline bg-teal-500 text-white hover:bg-teal-600" data-toggle="modal" data-target="#createModal"><i class="dripicons-plus"></i> {{trans('file.Count Stock')}} </button>
     </div>
-    <div class="table-responsive">
-        <table id="stock-count-table" class="table stock-count-list">
+    <div class="block w-full overflow-auto scrolling-touch">
+        <table id="stock-count-table" class="w-full max-w-full mb-4 bg-transparent stock-count-list">
             <thead>
                 <tr>
                     <th class="not-exported"></th>
@@ -72,10 +72,10 @@
                     </td>
                     @if($stock_count->type == 'full')
                         @php $type = trans('file.Full') @endphp
-                        <td><div class="badge badge-primary">{{trans('file.Full')}}</div></td>
+                        <td><div class="inline-block p-1 text-center font-semibold text-sm align-baseline leading-none rounded bg-blue-500 text-white hover:bg-blue-600">{{trans('file.Full')}}</div></td>
                     @else
                         @php $type = trans('file.Partial') @endphp
-                        <td><div class="badge badge-info">{{trans('file.Partial')}}</div></td>
+                        <td><div class="inline-block p-1 text-center font-semibold text-sm align-baseline leading-none rounded bg-teal-500 text-white hover:bg-teal-600">{{trans('file.Partial')}}</div></td>
                     @endif
                     <td class="text-center">
                         <a download href="{{'public/stock_count/'.$stock_count->initial_file}}" title="{{trans('file.Download')}}"><i class="dripicons-copy"></i></a>
@@ -87,10 +87,10 @@
                     </td>
                     <td>
                         @if($stock_count->final_file)
-                            <div class="badge badge-success final-report" data-stock_count='["{{date($general_setting->date_format, strtotime($stock_count->created_at->toDateString()))}}", "{{$stock_count->reference_no}}", "{{$warehouse->name}}", "{{$type}}", "{{implode(", ", $category_name)}}", "{{implode(", ", $brand_name)}}", "{{$initial_file}}", "{{$final_file}}", "{{$stock_count->id}}"]'>{{trans('file.Final Report')}}
+                            <div class="inline-block p-1 text-center font-semibold text-sm align-baseline leading-none rounded bg-green-500 text-white hover:green-600 final-report" data-stock_count='["{{date($general_setting->date_format, strtotime($stock_count->created_at->toDateString()))}}", "{{$stock_count->reference_no}}", "{{$warehouse->name}}", "{{$type}}", "{{implode(", ", $category_name)}}", "{{implode(", ", $brand_name)}}", "{{$initial_file}}", "{{$final_file}}", "{{$stock_count->id}}"]'>{{trans('file.Final Report')}}
                             </div>
                         @else
-                            <div class="badge badge-primary finalize" data-id="{{$stock_count->id}}">{{trans('file.Finalize')}}
+                            <div class="inline-block p-1 text-center font-semibold text-sm align-baseline leading-none rounded bg-blue-500 text-white hover:bg-blue-600 finalize" data-id="{{$stock_count->id}}">{{trans('file.Finalize')}}
                             </div>
                         @endif
                     </td>
@@ -113,51 +113,51 @@
     </div>
 </section>
 
-<div id="createModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" class="modal fade text-left">
+<div id="createModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" class="modal opacity-0 text-left">
     <div role="document" class="modal-dialog">
       <div class="modal-content">
         {!! Form::open(['route' => 'stock-count.store', 'method' => 'post', 'files' => true]) !!}
         <div class="modal-header">
           <h5 id="exampleModalLabel" class="modal-title">{{trans('file.Count Stock')}}</h5>
-          <button type="button" data-dismiss="modal" aria-label="Close" class="close"><span aria-hidden="true"><i class="dripicons-cross"></i></span></button>
+          <button type="button" data-dismiss="modal" aria-label="Close" class="absolute top-0 bottom-0 right-0 px-4 py-3"><span aria-hidden="true"><i class="dripicons-cross"></i></span></button>
         </div>
         <div class="modal-body">
           <p class="italic"><small>{{trans('file.The field labels marked with * are required input fields')}}.</small></p>
-            <div class="row">
-                <div class="col-md-6 form-group">
+            <div class="flex flex-wrap ">
+                <div class="md:w-1/2 pr-4 pl-4 mb-4">
                     <label>{{trans('file.Warehouse')}} *</label>
-                    <select required name="warehouse_id" id="warehouse_id" class="selectpicker form-control" data-live-search="true" data-live-search-style="begins" title="Select warehouse...">
+                    <select required name="warehouse_id" id="warehouse_id" class="selectpicker block appearance-none w-full py-1 px-2 mb-1 text-base leading-normal bg-white text-gray-800 border border-gray-200 rounded" data-live-search="true" data-live-search-style="begins" title="Select warehouse...">
                         @foreach($lims_warehouse_list as $warehouse)
                         <option value="{{$warehouse->id}}">{{$warehouse->name}}</option>
                         @endforeach
                     </select>
                 </div>
-                <div class="col-md-6 form-group">
+                <div class="md:w-1/2 pr-4 pl-4 mb-4">
                     <label>{{trans('file.Type')}} *</label>
-                    <select class="form-control" name="type">
+                    <select class="block appearance-none w-full py-1 px-2 mb-1 text-base leading-normal bg-white text-gray-800 border border-gray-200 rounded" name="type">
                         <option value="full">{{trans('file.Full')}}</option>
                         <option value="partial">{{trans('file.Partial')}}</option>
                     </select>
                 </div>
-                <div class="col-md-6 form-group" id="category">
+                <div class="md:w-1/2 pr-4 pl-4 mb-4" id="category">
                     <label>{{trans('file.category')}}</label>
-                    <select name="category_id[]" id="category_id" class="selectpicker form-control" data-live-search="true" data-live-search-style="begins" title="Select Category..." multiple>
+                    <select name="category_id[]" id="category_id" class="selectpicker block appearance-none w-full py-1 px-2 mb-1 text-base leading-normal bg-white text-gray-800 border border-gray-200 rounded" data-live-search="true" data-live-search-style="begins" title="Select Category..." multiple>
                         @foreach($lims_category_list as $category)
                         <option value="{{$category->id}}">{{$category->name}}</option>
                         @endforeach
                     </select>
                 </div>
-                <div class="col-md-6 form-group" id="brand">
+                <div class="md:w-1/2 pr-4 pl-4 mb-4" id="brand">
                     <label>{{trans('file.Brand')}}</label>
-                    <select name="brand_id[]" id="brand_id" class="selectpicker form-control" data-live-search="true" data-live-search-style="begins" title="Select Brand..." multiple>
+                    <select name="brand_id[]" id="brand_id" class="selectpicker block appearance-none w-full py-1 px-2 mb-1 text-base leading-normal bg-white text-gray-800 border border-gray-200 rounded" data-live-search="true" data-live-search-style="begins" title="Select Brand..." multiple>
                         @foreach($lims_brand_list as $brand)
                         <option value="{{$brand->id}}">{{$brand->title}}</option>
                         @endforeach
                     </select>
                 </div>
             </div>
-            <div class="form-group">       
-              <input type="submit" value="{{trans('file.submit')}}" class="btn btn-primary">
+            <div class="mb-4">       
+              <input type="submit" value="{{trans('file.submit')}}" class="inline-block align-middle text-center select-none border font-normal whitespace-no-wrap rounded py-1 px-3 leading-normal no-underline bg-blue-600 text-white hover:bg-blue-600">
             </div>
         </div>
         {{ Form::close() }}
@@ -165,27 +165,27 @@
     </div>
 </div>
 
-<div id="finalizeModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" class="modal fade text-left">
+<div id="finalizeModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" class="modal opacity-0 text-left">
   <div role="document" class="modal-dialog">
     <div class="modal-content">
         {{ Form::open(['route' => 'stock-count.finalize', 'method' => 'POST', 'files' => true] ) }}
       <div class="modal-header">
         <h5 id="exampleModalLabel" class="modal-title"> {{trans('file.Finalize Stock Count')}}</h5>
-        <button type="button" data-dismiss="modal" aria-label="Close" class="close"><span aria-hidden="true"><i class="dripicons-cross"></i></span></button>
+        <button type="button" data-dismiss="modal" aria-label="Close" class="absolute top-0 bottom-0 right-0 px-4 py-3"><span aria-hidden="true"><i class="dripicons-cross"></i></span></button>
       </div>
         <div class="modal-body">
             <p class="italic"><small>{{trans('file.The field labels marked with * are required input fields')}}.<strong>{{trans('file.You just need to update the Counted column in the initial file')}}</strong> </small></p>
-            <div class="form-group">
+            <div class="mb-4">
                 <label>{{trans('file.Upload File')}} *</label>
-                <input required type="file" name="final_file" class="form-control" />
+                <input required type="file" name="final_file" class="block appearance-none w-full py-1 px-2 mb-1 text-base leading-normal bg-white text-gray-800 border border-gray-200 rounded" />
             </div>
             <input type="hidden" name="stock_count_id">
-            <div class="form-group">
+            <div class="mb-4">
                 <label>{{trans('file.Note')}}</label>
-                <textarea rows="3" name="note" class="form-control"></textarea>
+                <textarea rows="3" name="note" class="block appearance-none w-full py-1 px-2 mb-1 text-base leading-normal bg-white text-gray-800 border border-gray-200 rounded"></textarea>
             </div>
-            <div class="form-group">       
-                <input type="submit" value="{{trans('file.submit')}}" class="btn btn-primary">
+            <div class="mb-4">       
+                <input type="submit" value="{{trans('file.submit')}}" class="inline-block align-middle text-center select-none border font-normal whitespace-no-wrap rounded py-1 px-3 leading-normal no-underline bg-blue-600 text-white hover:bg-blue-600">
               </div>
         </div>
       {{ Form::close() }}
@@ -193,21 +193,21 @@
   </div>
 </div>
 
-<div id="stock-count-details" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" class="modal fade text-left">
+<div id="stock-count-details" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" class="modal opacity-0 text-left">
     <div role="document" class="modal-dialog">
         <div class="modal-content">
-            <div class="container mt-3 pb-3">
-                <div class="row border-bottom pb-2">
-                    <div class="col-md-3">
-                        <button id="print-btn" type="button" class="btn btn-default btn-sm d-print-none"><i class="dripicons-print"></i> {{trans('file.Print')}}</button>
+            <div class="container mx-auto sm:px-4 mt-3 pb-3">
+                <div class="flex flex-wrap  border-b pb-2">
+                    <div class="md:w-1/4 pr-4 pl-4">
+                        <button id="print-btn" type="button" class="inline-block align-middle text-center select-none border font-normal whitespace-no-wrap rounded  no-underline btn-default py-1 px-2 leading-tight text-xs  print:hidden"><i class="dripicons-print"></i> {{trans('file.Print')}}</button>
                     </div>
-                    <div class="col-md-6">
-                        <h3 id="exampleModalLabel" class="modal-title text-center container-fluid">{{$general_setting->site_title}}</h3>
+                    <div class="md:w-1/2 pr-4 pl-4">
+                        <h3 id="exampleModalLabel" class="modal-title text-center container mx-auto sm:px-4 max-w-full mx-auto sm:px-4">{{$general_setting->site_title}}</h3>
                     </div>
-                    <div class="col-md-3">
-                        <button type="button" id="close-btn" data-dismiss="modal" aria-label="Close" class="close d-print-none"><span aria-hidden="true"><i class="dripicons-cross"></i></span></button>
+                    <div class="md:w-1/4 pr-4 pl-4">
+                        <button type="button" id="close-btn" data-dismiss="modal" aria-label="Close" class="absolute top-0 bottom-0 right-0 px-4 py-3 print:hidden"><span aria-hidden="true"><i class="dripicons-cross"></i></span></button>
                     </div>
-                    <div class="col-md-12 text-center">
+                    <div class="md:w-full pr-4 pl-4 text-center">
                         <i style="font-size: 15px;">{{trans('file.Stock Count')}}</i>
                     </div>
                 </div>
@@ -215,7 +215,7 @@
                 <div id="stock-count-content">
                 </div>
                 <br>
-                <table class="table table-bordered stockdif-list">
+                <table class="w-full max-w-full mb-4 bg-transparent table-bordered stockdif-list">
                     <thead>
                         <th>#</th>
                         <th>{{trans('file.product')}}</th>
@@ -261,7 +261,7 @@
             htmltext += '<br><strong>{{trans("file.category")}}: </strong>'+stock_count[4];
         if(stock_count[5])
             htmltext += '<br><strong>{{trans("file.Brand")}}: </strong>'+stock_count[5];
-        htmltext += '<br><span class="d-print-none mt-1"><strong>{{trans("file.Files")}}: </strong>&nbsp;&nbsp;<a href="'+stock_count[6]+'" class="btn btn-sm btn-primary"><i class="dripicons-download"></i> {{trans("file.Initial File")}}</a>&nbsp;&nbsp;<a href="'+stock_count[7]+'" class="btn btn-sm btn-info"><i class="dripicons-download"></i> {{trans("file.Final File")}}</a></span>';
+        htmltext += '<br><span class="print:hidden mt-1"><strong>{{trans("file.Files")}}: </strong>&nbsp;&nbsp;<a href="'+stock_count[6]+'" class="inline-block align-middle text-center select-none border font-normal whitespace-no-wrap rounded  no-underline py-1 px-2 leading-tight text-xs  bg-blue-600 text-white hover:bg-blue-600"><i class="dripicons-download"></i> {{trans("file.Initial File")}}</a>&nbsp;&nbsp;<a href="'+stock_count[7]+'" class="inline-block align-middle text-center select-none border font-normal whitespace-no-wrap rounded  no-underline py-1 px-2 leading-tight text-xs  bg-teal-500 text-white hover:bg-teal-600"><i class="dripicons-download"></i> {{trans("file.Final File")}}</a></span>';
         $.get('stock-count/stockdif/' + stock_count[8], function(data){
             $(".stockdif-list tbody").remove();
             var name_code = data[0];
@@ -286,7 +286,7 @@
                 });
 
                 if( !parseInt(data[5]) ) {
-                    htmlFooter = '<a class="btn btn-primary d-print-none" href="stock-count/'+stock_count[8]+'/qty_adjustment"><i class="dripicons-plus"></i> {{trans("file.Add Adjustment")}}</a>';
+                    htmlFooter = '<a class="inline-block align-middle text-center select-none border font-normal whitespace-no-wrap rounded py-1 px-3 leading-normal no-underline bg-blue-600 text-white hover:bg-blue-600 print:hidden" href="stock-count/'+stock_count[8]+'/qty_adjustment"><i class="dripicons-plus"></i> {{trans("file.Add Adjustment")}}</a>';
                     $('#stock-count-footer').html(htmlFooter);
                 }
             }

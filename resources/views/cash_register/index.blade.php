@@ -1,15 +1,15 @@
 @extends('layout.main') @section('content')
 
 @if(session()->has('message'))
-  <div class="alert alert-success alert-dismissible text-center"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>{{ session()->get('message') }}</div> 
+  <div class="relative px-3 py-3 mb-4 border rounded bg-green-200 border-green-300 text-green-800  text-center"><button type="button" class="absolute top-0 bottom-0 right-0 px-4 py-3" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>{{ session()->get('message') }}</div> 
 @endif
 @if(session()->has('not_permitted'))
-  <div class="alert alert-danger alert-dismissible text-center"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>{{ session()->get('not_permitted') }}</div> 
+  <div class="relative px-3 py-3 mb-4 border rounded bg-red-200 border-red-300 text-red-800  text-center"><button type="button" class="absolute top-0 bottom-0 right-0 px-4 py-3" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>{{ session()->get('not_permitted') }}</div> 
 @endif
 
 <section>
-    <div class="table-responsive">
-        <table id="cash-register-table" class="table">
+    <div class="block w-full overflow-auto scrolling-touch">
+        <table id="cash-register-table" class="w-full max-w-full mb-4 bg-transparent">
             <thead>
                 <tr>
                     <th class="not-exported"></th>
@@ -32,14 +32,14 @@
                     <td>{{ date($general_setting->date_format . " h:i:s", strtotime($cash_register->created_at)) }}</td>
                     @if($cash_register->status)
                         <td>N/A</td>
-                        <td><div class="badge badge-success">{{trans('file.Active')}}</div></td>
+                        <td><div class="inline-block p-1 text-center font-semibold text-sm align-baseline leading-none rounded bg-green-500 text-white hover:green-600">{{trans('file.Active')}}</div></td>
                     @else
                         <td>{{ date($general_setting->date_format . " h:i:s", strtotime($cash_register->updated_at)) }}</td>
-                        <td><div class="badge badge-danger">{{trans('file.Closed')}}</div></td>
+                        <td><div class="inline-block p-1 text-center font-semibold text-sm align-baseline leading-none rounded bg-red-600 text-white hover:bg-red-700">{{trans('file.Closed')}}</div></td>
                     @endif
                     <td>
-                        <div class="btn-group">
-                            <button type="button" data-id="{{$cash_register->id}}" class="register-details-btn btn btn-sm btn-info" data-toggle="modal" data-target="#register-details-modal" title="{{trans('file.View')}}"><i class="dripicons-preview"></i></button>
+                        <div class="relative inline-flex align-middle">
+                            <button type="button" data-id="{{$cash_register->id}}" class="register-details-btn inline-block align-middle text-center select-none border font-normal whitespace-no-wrap rounded  no-underline py-1 px-2 leading-tight text-xs  bg-teal-500 text-white hover:bg-teal-600" data-toggle="modal" data-target="#register-details-modal" title="{{trans('file.View')}}"><i class="dripicons-preview"></i></button>
                         </div>
                     </td>
                 </tr>
@@ -48,18 +48,18 @@
         </table>
     </div>
     <!-- cash register details modal -->
-    <div id="register-details-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" class="modal fade text-left">
+    <div id="register-details-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" class="modal opacity-0 text-left">
         <div role="document" class="modal-dialog">
           <div class="modal-content">
             <div class="modal-header">
               <h5 id="exampleModalLabel" class="modal-title">{{trans('file.Cash Register Details')}}</h5>
-              <button type="button" data-dismiss="modal" aria-label="Close" class="close"><span aria-hidden="true"><i class="dripicons-cross"></i></span></button>
+              <button type="button" data-dismiss="modal" aria-label="Close" class="absolute top-0 bottom-0 right-0 px-4 py-3"><span aria-hidden="true"><i class="dripicons-cross"></i></span></button>
             </div>
             <div class="modal-body">
               <p>{{trans('file.Please review the transaction and payments.')}}</p>
-                <div class="row">
-                    <div class="col-md-12">
-                        <table class="table table-hover">
+                <div class="flex flex-wrap ">
+                    <div class="md:w-full pr-4 pl-4">
+                        <table class="w-full max-w-full mb-4 bg-transparent table-hover">
                             <tbody>
                                 <tr>
                                   <td>{{trans('file.Cash in Hand')}}:</td>
@@ -108,11 +108,11 @@
                             </tbody>
                         </table>
                     </div>
-                    <div class="col-md-6" id="closing-section">
+                    <div class="md:w-1/2 pr-4 pl-4" id="closing-section">
                         <form action="{{route('cashRegister.close')}}" method="POST">
                             @csrf
                             <input type="hidden" name="cash_register_id">
-                            <button type="submit" class="btn btn-primary" onclick="return confirmClose()">{{trans('file.Close Register')}}</button>
+                            <button type="submit" class="inline-block align-middle text-center select-none border font-normal whitespace-no-wrap rounded py-1 px-3 leading-normal no-underline bg-blue-600 text-white hover:bg-blue-600" onclick="return confirmClose()">{{trans('file.Close Register')}}</button>
                         </form>
                     </div>
                 </div>

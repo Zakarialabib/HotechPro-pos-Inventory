@@ -1,35 +1,35 @@
 @extends('layout.main') @section('content')
 @if(session()->has('not_permitted'))
-  <div class="alert alert-danger alert-dismissible text-center"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>{{ session()->get('not_permitted') }}</div> 
+  <div class="relative px-3 py-3 mb-4 border rounded bg-red-200 border-red-300 text-red-800  text-center"><button type="button" class="absolute top-0 bottom-0 right-0 px-4 py-3" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>{{ session()->get('not_permitted') }}</div> 
 @endif
 <section class="forms">
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-md-12">
-                <div class="card">
-                    <div class="card-header d-flex align-items-center">
+    <div class="container mx-auto sm:px-4 max-w-full mx-auto sm:px-4">
+        <div class="flex flex-wrap ">
+            <div class="md:w-full pr-4 pl-4">
+                <div class="relative flex flex-col min-w-0 rounded break-words border bg-white border-1 border-gray-300">
+                    <div class="py-3 px-6 mb-0 bg-gray-200 border-b-1 border-gray-300 text-gray-900 flex items-center">
                         <h4>{{trans('file.Add Purchase')}}</h4>
                     </div>
-                    <div class="card-body">
+                    <div class="flex-auto p-6">
                         <p class="italic"><small>{{trans('file.The field labels marked with * are required input fields')}}.</small></p>
                         {!! Form::open(['route' => 'purchases.store', 'method' => 'post', 'files' => true, 'id' => 'purchase-form']) !!}
-                        <div class="row">
-                            <div class="col-md-12">
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <div class="form-group">
+                        <div class="flex flex-wrap ">
+                            <div class="md:w-full pr-4 pl-4">
+                                <div class="flex flex-wrap ">
+                                    <div class="md:w-1/2 pr-4 pl-4">
+                                        <div class="mb-4">
                                             <label>{{trans('file.Warehouse')}} *</label>
-                                            <select required name="warehouse_id" class="selectpicker form-control" data-live-search="true" data-live-search-style="begins" title="Select warehouse...">
+                                            <select required name="warehouse_id" class="selectpicker block appearance-none w-full py-1 px-2 mb-1 text-base leading-normal bg-white text-gray-800 border border-gray-200 rounded" data-live-search="true" data-live-search-style="begins" title="Select warehouse...">
                                                 @foreach($lims_warehouse_list as $warehouse)
                                                 <option value="{{$warehouse->id}}">{{$warehouse->name}}</option>
                                                 @endforeach
                                             </select>
                                         </div>
                                     </div>
-                                    <div class="col-md-6">
-                                        <div class="form-group">
+                                    <div class="md:w-1/2 pr-4 pl-4">
+                                        <div class="mb-4">
                                             <label>{{trans('file.Supplier')}}</label>
-                                            <select name="supplier_id" class="selectpicker form-control" data-live-search="true" data-live-search-style="begins" title="Select supplier...">
+                                            <select name="supplier_id" class="selectpicker block appearance-none w-full py-1 px-2 mb-1 text-base leading-normal bg-white text-gray-800 border border-gray-200 rounded" data-live-search="true" data-live-search-style="begins" title="Select supplier...">
                                                 @foreach($lims_supplier_list as $supplier)
                                                 <option value="{{$supplier->id}}">{{$supplier->name .' ('. $supplier->company_name .')'}}</option>
                                                 @endforeach
@@ -37,11 +37,11 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="row">  
-                                    <div class="col-md-6">
-                                        <div class="form-group">
+                                <div class="flex flex-wrap ">  
+                                    <div class="md:w-1/2 pr-4 pl-4">
+                                        <div class="mb-4">
                                             <label>{{trans('file.Purchase Status')}}</label>
-                                            <select name="status" class="form-control">
+                                            <select name="status" class="block appearance-none w-full py-1 px-2 mb-1 text-base leading-normal bg-white text-gray-800 border border-gray-200 rounded">
                                                 <option value="1">{{trans('file.Recieved')}}</option>
                                                 <option value="2">{{trans('file.Partial')}}</option>
                                                 <option value="3">{{trans('file.Pending')}}</option>
@@ -49,10 +49,10 @@
                                             </select>
                                         </div>
                                     </div>
-                                    <div class="col-md-6">
-                                        <div class="form-group">
+                                    <div class="md:w-1/2 pr-4 pl-4">
+                                        <div class="mb-4">
                                             <label>{{trans('file.Attach Document')}}</label> <i class="dripicons-question" data-toggle="tooltip" title="Only jpg, jpeg, png, gif, pdf, csv, docx, xlsx and txt file is supported"></i>
-                                            <input type="file" name="document" class="form-control" >
+                                            <input type="file" name="document" class="block appearance-none w-full py-1 px-2 mb-1 text-base leading-normal bg-white text-gray-800 border border-gray-200 rounded" >
                                             @if($errors->has('extension'))
                                                 <span>
                                                    <strong>{{ $errors->first('extension') }}</strong>
@@ -60,25 +60,25 @@
                                             @endif
                                         </div>
                                     </div>
-                                    <div class="col-md-12 mt-3">
+                                    <div class="md:w-full pr-4 pl-4 mt-3">
                                         <label>{{trans('file.Select Product')}}</label>
-                                        <div class="search-box input-group">
-                                            <button class="btn btn-secondary"><i class="fa fa-barcode"></i></button>
-                                            <input type="text" name="product_code_name" id="lims_productcodeSearch" placeholder="Please type product code and select..." class="form-control" />
+                                        <div class="search-box relative flex items-stretch w-full">
+                                            <button class="inline-block align-middle text-center select-none border font-normal whitespace-no-wrap rounded py-1 px-3 leading-normal no-underline bg-gray-600 text-white hover:bg-gray-700"><i class="fa fa-barcode"></i></button>
+                                            <input type="text" name="product_code_name" id="lims_productcodeSearch" placeholder="Please type product code and select..." class="block appearance-none w-full py-1 px-2 mb-1 text-base leading-normal bg-white text-gray-800 border border-gray-200 rounded" />
                                         </div>
                                     </div>
                                 </div>
-                                <div class="row mt-4">
-                                    <div class="col-md-12">
+                                <div class="flex flex-wrap  mt-4">
+                                    <div class="md:w-full pr-4 pl-4">
                                         <h5>{{trans('file.Order Table')}} *</h5>
-                                        <div class="table-responsive mt-3">
-                                            <table id="myTable" class="table table-hover order-list">
+                                        <div class="block w-full overflow-auto scrolling-touch mt-3">
+                                            <table id="myTable" class="w-full max-w-full mb-4 bg-transparent table-hover order-list">
                                                 <thead>
                                                     <tr>
                                                         <th>{{trans('file.name')}}</th>
                                                         <th>{{trans('file.Code')}}</th>
                                                         <th>{{trans('file.Quantity')}}</th>
-                                                        <th class="recieved-product-qty d-none">{{trans('file.Recieved')}}</th>
+                                                        <th class="recieved-product-qty hidden">{{trans('file.Recieved')}}</th>
                                                         <th>{{trans('file.Net Unit Cost')}}</th>
                                                         <th>{{trans('file.Discount')}}</th>
                                                         <th>{{trans('file.Tax')}}</th>
@@ -91,7 +91,7 @@
                                                 <tfoot class="tfoot active">
                                                     <th colspan="2">{{trans('file.Total')}}</th>
                                                     <th id="total-qty">0</th>
-                                                    <th class="recieved-product-qty d-none"></th>
+                                                    <th class="recieved-product-qty hidden"></th>
                                                     <th></th>
                                                     <th id="total-discount">0.00</th>
                                                     <th id="total-tax">0.00</th>
@@ -102,46 +102,46 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="row">
-                                    <div class="col-md-2">
-                                        <div class="form-group">
+                                <div class="flex flex-wrap ">
+                                    <div class="md:w-1/5 pr-4 pl-4">
+                                        <div class="mb-4">
                                             <input type="hidden" name="total_qty" />
                                         </div>
                                     </div>
-                                    <div class="col-md-2">
-                                        <div class="form-group">
+                                    <div class="md:w-1/5 pr-4 pl-4">
+                                        <div class="mb-4">
                                             <input type="hidden" name="total_discount" />
                                         </div>
                                     </div>
-                                    <div class="col-md-2">
-                                        <div class="form-group">
+                                    <div class="md:w-1/5 pr-4 pl-4">
+                                        <div class="mb-4">
                                             <input type="hidden" name="total_tax" />
                                         </div>
                                     </div>
-                                    <div class="col-md-2">
-                                        <div class="form-group">
+                                    <div class="md:w-1/5 pr-4 pl-4">
+                                        <div class="mb-4">
                                             <input type="hidden" name="total_cost" />
                                         </div>
                                     </div>
-                                    <div class="col-md-2">
-                                        <div class="form-group">
+                                    <div class="md:w-1/5 pr-4 pl-4">
+                                        <div class="mb-4">
                                             <input type="hidden" name="item" />
                                             <input type="hidden" name="order_tax" />
                                         </div>
                                     </div>
-                                    <div class="col-md-2">
-                                        <div class="form-group">
+                                    <div class="md:w-1/5 pr-4 pl-4">
+                                        <div class="mb-4">
                                             <input type="hidden" name="grand_total" />
                                             <input type="hidden" name="paid_amount" value="0.00" />
                                             <input type="hidden" name="payment_status" value="1" />
                                         </div>
                                     </div>
                                 </div>
-                                <div class="row mt-3">
-                                    <div class="col-md-4">
-                                        <div class="form-group">
+                                <div class="flex flex-wrap  mt-3">
+                                    <div class="md:w-1/3 pr-4 pl-4">
+                                        <div class="mb-4">
                                             <label>{{trans('file.Order Tax')}}</label>
-                                            <select class="form-control" name="order_tax_rate">
+                                            <select class="block appearance-none w-full py-1 px-2 mb-1 text-base leading-normal bg-white text-gray-800 border border-gray-200 rounded" name="order_tax_rate">
                                                 <option value="0">{{trans('file.No Tax')}}</option>
                                                 @foreach($lims_tax_list as $tax)
                                                 <option value="{{$tax->rate}}">{{$tax->name}}</option>
@@ -149,33 +149,33 @@
                                             </select>
                                         </div>
                                     </div>
-                                    <div class="col-md-4">
-                                        <div class="form-group">
+                                    <div class="md:w-1/3 pr-4 pl-4">
+                                        <div class="mb-4">
                                             <label>
                                                 <strong>{{trans('file.Discount')}}</strong>
                                             </label>
-                                            <input type="number" name="order_discount" class="form-control" step="any" />
+                                            <input type="number" name="order_discount" class="block appearance-none w-full py-1 px-2 mb-1 text-base leading-normal bg-white text-gray-800 border border-gray-200 rounded" step="any" />
                                         </div>
                                     </div>
-                                    <div class="col-md-4">
-                                        <div class="form-group">
+                                    <div class="md:w-1/3 pr-4 pl-4">
+                                        <div class="mb-4">
                                             <label>
                                                 <strong>{{trans('file.Shipping Cost')}}</strong>
                                             </label>
-                                            <input type="number" name="shipping_cost" class="form-control" step="any" />
+                                            <input type="number" name="shipping_cost" class="block appearance-none w-full py-1 px-2 mb-1 text-base leading-normal bg-white text-gray-800 border border-gray-200 rounded" step="any" />
                                         </div>
                                     </div>
                                 </div>
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <div class="form-group">
+                                <div class="flex flex-wrap ">
+                                    <div class="md:w-full pr-4 pl-4">
+                                        <div class="mb-4">
                                             <label>{{trans('file.Note')}}</label>
-                                            <textarea rows="5" class="form-control" name="note"></textarea>
+                                            <textarea rows="5" class="block appearance-none w-full py-1 px-2 mb-1 text-base leading-normal bg-white text-gray-800 border border-gray-200 rounded" name="note"></textarea>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="form-group">
-                                    <button type="submit" class="btn btn-primary" id="submit-btn">{{trans('file.submit')}}</button>
+                                <div class="mb-4">
+                                    <button type="submit" class="inline-block align-middle text-center select-none border font-normal whitespace-no-wrap rounded py-1 px-3 leading-normal no-underline bg-blue-600 text-white hover:bg-blue-600" id="submit-btn">{{trans('file.submit')}}</button>
                                 </div>
                             </div>
                         </div>
@@ -185,8 +185,8 @@
             </div>
         </div>
     </div>
-    <div class="container-fluid">
-        <table class="table table-bordered table-condensed totals">
+    <div class="container mx-auto sm:px-4 max-w-full mx-auto sm:px-4">
+        <table class="w-full max-w-full mb-4 bg-transparent table-bordered table-condensed totals">
             <td><strong>{{trans('file.Items')}}</strong>
                 <span class="pull-right" id="item">0.00</span>
             </td>
@@ -207,26 +207,26 @@
             </td>
         </table>
     </div>
-    <div id="editModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" class="modal fade text-left">
+    <div id="editModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" class="modal opacity-0 text-left">
         <div role="document" class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 id="modal-header" class="modal-title"></h5>
-                    <button type="button" data-dismiss="modal" aria-label="Close" class="close"><span aria-hidden="true"><i class="dripicons-cross"></i></span></button>
+                    <button type="button" data-dismiss="modal" aria-label="Close" class="absolute top-0 bottom-0 right-0 px-4 py-3"><span aria-hidden="true"><i class="dripicons-cross"></i></span></button>
                 </div>
                 <div class="modal-body">
                     <form>
-                        <div class="form-group">
+                        <div class="mb-4">
                             <label>{{trans('file.Quantity')}}</label>
-                            <input type="number" name="edit_qty" class="form-control" step="any">
+                            <input type="number" name="edit_qty" class="block appearance-none w-full py-1 px-2 mb-1 text-base leading-normal bg-white text-gray-800 border border-gray-200 rounded" step="any">
                         </div>
-                        <div class="form-group">
+                        <div class="mb-4">
                             <label>{{trans('file.Unit Discount')}}</label>
-                            <input type="number" name="edit_discount" class="form-control" step="any">
+                            <input type="number" name="edit_discount" class="block appearance-none w-full py-1 px-2 mb-1 text-base leading-normal bg-white text-gray-800 border border-gray-200 rounded" step="any">
                         </div>
-                        <div class="form-group">
+                        <div class="mb-4">
                             <label>{{trans('file.Unit Cost')}}</label>
-                            <input type="number" name="edit_unit_cost" class="form-control" step="any">
+                            <input type="number" name="edit_unit_cost" class="block appearance-none w-full py-1 px-2 mb-1 text-base leading-normal bg-white text-gray-800 border border-gray-200 rounded" step="any">
                         </div>
                         <?php
                 $tax_name_all[] = 'No Tax';
@@ -236,20 +236,20 @@
                     $tax_rate_all[] = $tax->rate;
                 }
             ?>
-                            <div class="form-group">
+                            <div class="mb-4">
                                 <label>{{trans('file.Tax Rate')}}</label>
-                                <select name="edit_tax_rate" class="form-control selectpicker">
+                                <select name="edit_tax_rate" class="block appearance-none w-full py-1 px-2 mb-1 text-base leading-normal bg-white text-gray-800 border border-gray-200 rounded selectpicker">
                                     @foreach($tax_name_all as $key => $name)
                                     <option value="{{$key}}">{{$name}}</option>
                                     @endforeach
                                 </select>
                             </div>
-                            <div class="form-group">
+                            <div class="mb-4">
                                 <label>{{trans('file.Product Unit')}}</label>
-                                <select name="edit_unit" class="form-control selectpicker">
+                                <select name="edit_unit" class="block appearance-none w-full py-1 px-2 mb-1 text-base leading-normal bg-white text-gray-800 border border-gray-200 rounded selectpicker">
                                 </select>
                             </div>
-                            <button type="button" name="update_btn" class="btn btn-primary">{{trans('file.update')}}</button>
+                            <button type="button" name="update_btn" class="inline-block align-middle text-center select-none border font-normal whitespace-no-wrap rounded py-1 px-3 leading-normal no-underline bg-blue-600 text-white hover:bg-blue-600">{{trans('file.update')}}</button>
                     </form>
                 </div>
             </div>
@@ -491,20 +491,20 @@ function productSearch(data) {
                 var newRow = $("<tr>");
                 var cols = '';
                 temp_unit_name = (data[6]).split(',');
-                cols += '<td>' + data[0] + '<button type="button" class="edit-product btn btn-link" data-toggle="modal" data-target="#editModal"> <i class="dripicons-document-edit"></i></button></td>';
+                cols += '<td>' + data[0] + '<button type="button" class="edit-product inline-block align-middle text-center select-none border font-normal whitespace-no-wrap rounded py-1 px-3 leading-normal no-underline font-normal text-blue-700 bg-transparent" data-toggle="modal" data-target="#editModal"> <i class="dripicons-document-edit"></i></button></td>';
                 cols += '<td>' + data[1] + '</td>';
-                cols += '<td><input type="number" class="form-control qty" name="qty[]" value="1" step="any" required/></td>';
+                cols += '<td><input type="number" class="block appearance-none w-full py-1 px-2 mb-1 text-base leading-normal bg-white text-gray-800 border border-gray-200 rounded qty" name="qty[]" value="1" step="any" required/></td>';
                 if($('select[name="status"]').val() == 1)
-                    cols += '<td class="recieved-product-qty d-none"><input type="number" class="form-control recieved" name="recieved[]" value="1" step="any"/></td>';
+                    cols += '<td class="recieved-product-qty hidden"><input type="number" class="block appearance-none w-full py-1 px-2 mb-1 text-base leading-normal bg-white text-gray-800 border border-gray-200 rounded recieved" name="recieved[]" value="1" step="any"/></td>';
                 else if($('select[name="status"]').val() == 2)
-                    cols += '<td class="recieved-product-qty"><input type="number" class="form-control recieved" name="recieved[]" value="1" step="any"/></td>';
+                    cols += '<td class="recieved-product-qty"><input type="number" class="block appearance-none w-full py-1 px-2 mb-1 text-base leading-normal bg-white text-gray-800 border border-gray-200 rounded recieved" name="recieved[]" value="1" step="any"/></td>';
                 else
-                    cols += '<td class="recieved-product-qty d-none"><input type="number" class="form-control recieved" name="recieved[]" value="0" step="any"/></td>';
+                    cols += '<td class="recieved-product-qty hidden"><input type="number" class="block appearance-none w-full py-1 px-2 mb-1 text-base leading-normal bg-white text-gray-800 border border-gray-200 rounded recieved" name="recieved[]" value="0" step="any"/></td>';
                 cols += '<td class="net_unit_cost"></td>';
                 cols += '<td class="discount">0.00</td>';
                 cols += '<td class="tax"></td>';
                 cols += '<td class="sub-total"></td>';
-                cols += '<td><button type="button" class="ibtnDel btn btn-md btn-danger">{{trans("file.delete")}}</button></td>';
+                cols += '<td><button type="button" class="ibtnDel inline-block align-middle text-center select-none border font-normal whitespace-no-wrap rounded py-1 px-3 leading-normal no-underline btn-md bg-red-600 text-white hover:bg-red-700">{{trans("file.delete")}}</button></td>';
                 cols += '<input type="hidden" class="product-code" name="product_code[]" value="' + data[1] + '"/>';
                 cols += '<input type="hidden" class="product-id" name="product_id[]" value="' + data[9] + '"/>';
                 cols += '<input type="hidden" class="purchase-unit" name="purchase_unit[]" value="' + temp_unit_name[0] + '"/>';

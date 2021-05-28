@@ -1,36 +1,36 @@
 @extends('layout.main') @section('content')
 @if(session()->has('message'))
-  <div class="alert alert-success alert-dismissible text-center"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>{{ session()->get('message') }}</div> 
+  <div class="relative px-3 py-3 mb-4 border rounded bg-green-200 border-green-300 text-green-800  text-center"><button type="button" class="absolute top-0 bottom-0 right-0 px-4 py-3" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>{{ session()->get('message') }}</div> 
 @endif
 @if(session()->has('not_permitted'))
-  <div class="alert alert-danger alert-dismissible text-center"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>{!! session()->get('not_permitted') !!}</div> 
+  <div class="relative px-3 py-3 mb-4 border rounded bg-red-200 border-red-300 text-red-800  text-center"><button type="button" class="absolute top-0 bottom-0 right-0 px-4 py-3" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>{!! session()->get('not_permitted') !!}</div> 
 @endif
 <section class="forms">
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-md-12">
-                <div class="card">
-                    <div class="card-header d-flex align-items-center">
+    <div class="container mx-auto sm:px-4 max-w-full mx-auto sm:px-4">
+        <div class="flex flex-wrap ">
+            <div class="md:w-full pr-4 pl-4">
+                <div class="relative flex flex-col min-w-0 rounded break-words border bg-white border-1 border-gray-300">
+                    <div class="py-3 px-6 mb-0 bg-gray-200 border-b-1 border-gray-300 text-gray-900 flex items-center">
                         <h4>{{trans('file.Create SMS')}}</h4>
                     </div>
-                    <div class="card-body">
+                    <div class="flex-auto p-6">
                         <p class="italic"><small>{{trans('file.The field labels marked with * are required input fields')}}.<strong>{{trans('file.Add mobile numbers by selecting the customers')}}</strong></small></p>
                         {!! Form::open(['route' => 'setting.sendSms', 'method' => 'post']) !!}
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <input type="text" class="form-control" name="lims_customerSearch" id="lims_customerSearch" placeholder="Please type customer name or mobile no and select..." />
+                            <div class="flex flex-wrap ">
+                                <div class="md:w-1/2 pr-4 pl-4">
+                                    <div class="mb-4">
+                                        <input type="text" class="block appearance-none w-full py-1 px-2 mb-1 text-base leading-normal bg-white text-gray-800 border border-gray-200 rounded" name="lims_customerSearch" id="lims_customerSearch" placeholder="Please type customer name or mobile no and select..." />
                                     </div>
-                                    <div class="form-group twilio">
+                                    <div class="mb-4 twilio">
                                         <label>{{trans('file.Mobile')}} *</label>
-                                        <input type="text" name="mobile" id="mobile" class="form-control" placeholder="example : +8801*********,+8801*********" required />
+                                        <input type="text" name="mobile" id="mobile" class="block appearance-none w-full py-1 px-2 mb-1 text-base leading-normal bg-white text-gray-800 border border-gray-200 rounded" placeholder="example : +8801*********,+8801*********" required />
                                     </div>
-                                    <div class="form-group twilio">
+                                    <div class="mb-4 twilio">
                                         <label>{{trans('file.Message')}} *</label>
-                                        <textarea name="message" class="form-control" rows="3" required></textarea>
+                                        <textarea name="message" class="block appearance-none w-full py-1 px-2 mb-1 text-base leading-normal bg-white text-gray-800 border border-gray-200 rounded" rows="3" required></textarea>
                                     </div>
-                                    <div class="form-group">
-                                        <button type="submit" class="btn btn-primary"><i class="fa fa-paper-plane"></i> {{trans('file.Send SMS')}}</button> 
+                                    <div class="mb-4">
+                                        <button type="submit" class="inline-block align-middle text-center select-none border font-normal whitespace-no-wrap rounded py-1 px-3 leading-normal no-underline bg-blue-600 text-white hover:bg-blue-600"><i class="fa fa-paper-plane"></i> {{trans('file.Send SMS')}}</button> 
                                     </div>
                                 </div>
                             </div>

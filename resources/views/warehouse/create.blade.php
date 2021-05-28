@@ -1,23 +1,23 @@
 @extends('layout.main')
 @section('content')
 @if($errors->has('name'))
-<div class="alert alert-danger alert-dismissible text-center">
-    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>{{ $errors->first('name') }}</div>
+<div class="relative px-3 py-3 mb-4 border rounded bg-red-200 border-red-300 text-red-800  text-center">
+    <button type="button" class="absolute top-0 bottom-0 right-0 px-4 py-3" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>{{ $errors->first('name') }}</div>
 @endif
 @if(session()->has('message'))
-  <div class="alert alert-success alert-dismissible text-center"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>{{ session()->get('message') }}</div> 
+  <div class="relative px-3 py-3 mb-4 border rounded bg-green-200 border-green-300 text-green-800  text-center"><button type="button" class="absolute top-0 bottom-0 right-0 px-4 py-3" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>{{ session()->get('message') }}</div> 
 @endif
 @if(session()->has('not_permitted'))
-  <div class="alert alert-danger alert-dismissible text-center"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>{{ session()->get('not_permitted') }}</div> 
+  <div class="relative px-3 py-3 mb-4 border rounded bg-red-200 border-red-300 text-red-800  text-center"><button type="button" class="absolute top-0 bottom-0 right-0 px-4 py-3" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>{{ session()->get('not_permitted') }}</div> 
 @endif
 
 <section>
-    <div class="container-fluid">
-        <a href="#" data-toggle="modal" data-target="#createModal" class="btn btn-info"><i class="dripicons-plus"></i> {{trans('file.Add Warehouse')}}</a>
-        <a href="#" data-toggle="modal" data-target="#importWarehouse" class="btn btn-primary"><i class="dripicons-copy"></i> {{trans('file.Import Warehouse')}}</a>
+    <div class="container mx-auto sm:px-4 max-w-full mx-auto sm:px-4">
+        <a href="#" data-toggle="modal" data-target="#createModal" class="inline-block align-middle text-center select-none border font-normal whitespace-no-wrap rounded py-1 px-3 leading-normal no-underline bg-teal-500 text-white hover:bg-teal-600"><i class="dripicons-plus"></i> {{trans('file.Add Warehouse')}}</a>
+        <a href="#" data-toggle="modal" data-target="#importWarehouse" class="inline-block align-middle text-center select-none border font-normal whitespace-no-wrap rounded py-1 px-3 leading-normal no-underline bg-blue-600 text-white hover:bg-blue-600"><i class="dripicons-copy"></i> {{trans('file.Import Warehouse')}}</a>
     </div>
-    <div class="table-responsive">
-        <table id="warehouse-table" class="table">
+    <div class="block w-full overflow-auto scrolling-touch">
+        <table id="warehouse-table" class="w-full max-w-full mb-4 bg-transparent">
             <thead>
                 <tr>
                     <th class="not-exported"></th>
@@ -54,20 +54,20 @@
                     <td>{{$number_of_product}}</td>
                     <td>{{$stock_qty}}</td>
                     <td>
-                        <div class="btn-group">
-                            <button type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{trans('file.action')}}
+                        <div class="relative inline-flex align-middle">
+                            <button type="button" class="inline-block align-middle text-center select-none border font-normal whitespace-no-wrap rounded  no-underline btn-default py-1 px-2 leading-tight text-xs   inline-block w-0 h-0 ml-1 align border-b-0 border-t-1 border-r-1 border-l-1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{trans('file.action')}}
                                 <span class="caret"></span>
                                 <span class="sr-only">Toggle Dropdown</span>
                             </button>
-                            <ul class="dropdown-menu edit-options dropdown-menu-right dropdown-default" user="menu">
+                            <ul class=" absolute left-0 z-50 float-left hidden list-reset	 py-2 mt-1 text-base bg-white border border-gray-300 rounded edit-options dropdown-menu-right dropdown-default" user="menu">
                                 <li>
-                                	<button type="button" data-id="{{$warehouse->id}}" class="open-EditWarehouseDialog btn btn-link" data-toggle="modal" data-target="#editModal"><i class="dripicons-document-edit"></i> {{trans('file.edit')}}
+                                	<button type="button" data-id="{{$warehouse->id}}" class="open-EditWarehouseDialog inline-block align-middle text-center select-none border font-normal whitespace-no-wrap rounded py-1 px-3 leading-normal no-underline font-normal text-blue-700 bg-transparent" data-toggle="modal" data-target="#editModal"><i class="dripicons-document-edit"></i> {{trans('file.edit')}}
                                 </button>
                                 </li>
                                 <li class="divider"></li>
                                 {{ Form::open(['route' => ['warehouse.destroy', $warehouse->id], 'method' => 'DELETE'] ) }}
                                 <li>
-                                    <button type="submit" class="btn btn-link" onclick="return confirmDelete()"><i class="dripicons-trash"></i> {{trans('file.delete')}}</button>
+                                    <button type="submit" class="inline-block align-middle text-center select-none border font-normal whitespace-no-wrap rounded py-1 px-3 leading-normal no-underline font-normal text-blue-700 bg-transparent" onclick="return confirmDelete()"><i class="dripicons-trash"></i> {{trans('file.delete')}}</button>
                                 </li>
                                 {{ Form::close() }}
                             </ul>
@@ -80,34 +80,34 @@
     </div>
 </section>
 
-<div id="createModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" class="modal fade text-left">
+<div id="createModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" class="modal opacity-0 text-left">
   <div role="document" class="modal-dialog">
     <div class="modal-content">
     	{!! Form::open(['route' => 'warehouse.store', 'method' => 'post']) !!}
       <div class="modal-header">
         <h5 id="exampleModalLabel" class="modal-title">{{trans('file.Add Warehouse')}}</h5>
-        <button type="button" data-dismiss="modal" aria-label="Close" class="close"><span aria-hidden="true"><i class="dripicons-cross"></i></span></button>
+        <button type="button" data-dismiss="modal" aria-label="Close" class="absolute top-0 bottom-0 right-0 px-4 py-3"><span aria-hidden="true"><i class="dripicons-cross"></i></span></button>
       </div>
       <div class="modal-body">
         <p class="italic"><small>{{trans('file.The field labels marked with * are required input fields')}}.</small></p>
-          <div class="form-group">
+          <div class="mb-4">
             <label>{{trans('file.name')}} *</label>
-            <input type="text" placeholder="Type WareHouse Name..." name="name" required="required" class="form-control">
+            <input type="text" placeholder="Type WareHouse Name..." name="name" required="required" class="block appearance-none w-full py-1 px-2 mb-1 text-base leading-normal bg-white text-gray-800 border border-gray-200 rounded">
           </div>
-          <div class="form-group">
+          <div class="mb-4">
             <label>{{trans('file.Phone Number')}} *</label>
-            <input type="text" name="phone" class="form-control" required>
+            <input type="text" name="phone" class="block appearance-none w-full py-1 px-2 mb-1 text-base leading-normal bg-white text-gray-800 border border-gray-200 rounded" required>
           </div>
-          <div class="form-group">
+          <div class="mb-4">
             <label>{{trans('file.Email')}}</label>
-            <input type="email" name="email" placeholder="example@example.com" class="form-control">
+            <input type="email" name="email" placeholder="example@example.com" class="block appearance-none w-full py-1 px-2 mb-1 text-base leading-normal bg-white text-gray-800 border border-gray-200 rounded">
           </div>
-          <div class="form-group">       
+          <div class="mb-4">       
             <label>{{trans('file.Address')}} *</label>
-            <textarea required class="form-control" rows="3" name="address"></textarea>
+            <textarea required class="block appearance-none w-full py-1 px-2 mb-1 text-base leading-normal bg-white text-gray-800 border border-gray-200 rounded" rows="3" name="address"></textarea>
           </div>                
-          <div class="form-group">       
-            <input type="submit" value="{{trans('file.submit')}}" class="btn btn-primary">
+          <div class="mb-4">       
+            <input type="submit" value="{{trans('file.submit')}}" class="inline-block align-middle text-center select-none border font-normal whitespace-no-wrap rounded py-1 px-3 leading-normal no-underline bg-blue-600 text-white hover:bg-blue-600">
           </div>
       </div>
       {{ Form::close() }}
@@ -115,35 +115,35 @@
   </div>
 </div>
 
-<div id="editModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" class="modal fade text-left">
+<div id="editModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" class="modal opacity-0 text-left">
   <div role="document" class="modal-dialog">
     <div class="modal-content">
     	{!! Form::open(['route' => ['warehouse.update',1], 'method' => 'put']) !!}
       <div class="modal-header">
         <h5 id="exampleModalLabel" class="modal-title"> {{trans('file.Update Warehouse')}}</h5>
-        <button type="button" data-dismiss="modal" aria-label="Close" class="close"><span aria-hidden="true"><i class="dripicons-cross"></i></span></button>
+        <button type="button" data-dismiss="modal" aria-label="Close" class="absolute top-0 bottom-0 right-0 px-4 py-3"><span aria-hidden="true"><i class="dripicons-cross"></i></span></button>
       </div>
       <div class="modal-body">
         <p class="italic"><small>{{trans('file.The field labels marked with * are required input fields')}}.</small></p>
-          <div class="form-group">
+          <div class="mb-4">
           	<input type="hidden" name="warehouse_id">
             <label>{{trans('file.name')}} *</label>
-            <input type="text" placeholder="Type WareHouse Name..." name="name" required="required" class="form-control">
+            <input type="text" placeholder="Type WareHouse Name..." name="name" required="required" class="block appearance-none w-full py-1 px-2 mb-1 text-base leading-normal bg-white text-gray-800 border border-gray-200 rounded">
           </div>
-          <div class="form-group">
+          <div class="mb-4">
             <label>{{trans('file.Phone Number')}} *</label>
-            <input type="text" name="phone" class="form-control" required>
+            <input type="text" name="phone" class="block appearance-none w-full py-1 px-2 mb-1 text-base leading-normal bg-white text-gray-800 border border-gray-200 rounded" required>
           </div>
-          <div class="form-group">
+          <div class="mb-4">
             <label>{{trans('file.Email')}}</label>
-            <input type="email" name="email" placeholder="example@example.com" class="form-control">
+            <input type="email" name="email" placeholder="example@example.com" class="block appearance-none w-full py-1 px-2 mb-1 text-base leading-normal bg-white text-gray-800 border border-gray-200 rounded">
           </div>
-          <div class="form-group">       
+          <div class="mb-4">       
             <label>{{trans('file.Address')}} *</label>
-            <textarea class="form-control" rows="3" name="address" required></textarea>
+            <textarea class="block appearance-none w-full py-1 px-2 mb-1 text-base leading-normal bg-white text-gray-800 border border-gray-200 rounded" rows="3" name="address" required></textarea>
           </div>                
-          <div class="form-group">       
-            <input type="submit" value="{{trans('file.submit')}}" class="btn btn-primary">
+          <div class="mb-4">       
+            <input type="submit" value="{{trans('file.submit')}}" class="inline-block align-middle text-center select-none border font-normal whitespace-no-wrap rounded py-1 px-3 leading-normal no-underline bg-blue-600 text-white hover:bg-blue-600">
           </div>
       </div>
       {{ Form::close() }}
@@ -151,32 +151,32 @@
   </div>
 </div>
 
-<div id="importWarehouse" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" class="modal fade text-left">
+<div id="importWarehouse" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" class="modal opacity-0 text-left">
   <div role="document" class="modal-dialog">
     <div class="modal-content">
     	{!! Form::open(['route' => 'warehouse.import', 'method' => 'post', 'files' => true]) !!}
       <div class="modal-header">
         <h5 id="exampleModalLabel" class="modal-title">{{trans('file.Import Warehouse')}}</h5>
-        <button type="button" data-dismiss="modal" aria-label="Close" class="close"><span aria-hidden="true"><i class="dripicons-cross"></i></span></button>
+        <button type="button" data-dismiss="modal" aria-label="Close" class="absolute top-0 bottom-0 right-0 px-4 py-3"><span aria-hidden="true"><i class="dripicons-cross"></i></span></button>
       </div>
       <div class="modal-body">
   		<p class="italic"><small>{{trans('file.The field labels marked with * are required input fields')}}.</small></p>
          <p>{{trans('file.The correct column order is')}} (name*, phone, email, address*) {{trans('file.and you must follow this')}}.</p>
-        <div class="row">
-              <div class="col-md-6">
-                  <div class="form-group">
+        <div class="flex flex-wrap ">
+              <div class="md:w-1/2 pr-4 pl-4">
+                  <div class="mb-4">
                       <label>{{trans('file.Upload CSV File')}} *</label>
                       {{Form::file('file', array('class' => 'form-control','required'))}}
                   </div>
               </div>
-              <div class="col-md-6">
-                  <div class="form-group">
+              <div class="md:w-1/2 pr-4 pl-4">
+                  <div class="mb-4">
                       <label> {{trans('file.Sample File')}}</label>
-                      <a href="public/sample_file/sample_warehouse.csv" class="btn btn-info btn-block btn-md"><i class="dripicons-download"></i>  {{trans('file.Download')}}</a>
+                      <a href="public/sample_file/sample_warehouse.csv" class="inline-block align-middle text-center select-none border font-normal whitespace-no-wrap rounded py-1 px-3 leading-normal no-underline bg-teal-500 text-white hover:bg-teal-600 block w-full btn-md"><i class="dripicons-download"></i>  {{trans('file.Download')}}</a>
                   </div>
               </div>
         </div>
-        <input type="submit" value="{{trans('file.submit')}}" class="btn btn-primary">
+        <input type="submit" value="{{trans('file.submit')}}" class="inline-block align-middle text-center select-none border font-normal whitespace-no-wrap rounded py-1 px-3 leading-normal no-underline bg-blue-600 text-white hover:bg-blue-600">
       </div>
       {{ Form::close() }}
     </div>

@@ -2,23 +2,23 @@
 
 @section('content')
 <section class="forms">
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-md-12">
-                <div class="card">
-                    <div class="card-header d-flex align-items-center">
+    <div class="container mx-auto sm:px-4 max-w-full mx-auto sm:px-4">
+        <div class="flex flex-wrap ">
+            <div class="md:w-full pr-4 pl-4">
+                <div class="relative flex flex-col min-w-0 rounded break-words border bg-white border-1 border-gray-300">
+                    <div class="py-3 px-6 mb-0 bg-gray-200 border-b-1 border-gray-300 text-gray-900 flex items-center">
                         <h4>{{trans('file.Update Product')}}</h4>
                     </div>
-                    <div class="card-body">
+                    <div class="flex-auto p-6">
                         <p class="italic"><small>{{trans('file.The field labels marked with * are required input fields')}}.</small></p>
                         <form id="product-form">
                             <input type="hidden" name="id" value="{{$lims_product_data->id}}" />
-                            <div class="row">
-                                <div class="col-md-4">
-                                    <div class="form-group">
+                            <div class="flex flex-wrap ">
+                                <div class="md:w-1/3 pr-4 pl-4">
+                                    <div class="mb-4">
                                         <label>{{trans('file.Product Type')}} *</strong> </label>
-                                        <div class="input-group">
-                                            <select name="type" required class="form-control selectpicker" id="type">
+                                        <div class="relative flex items-stretch w-full">
+                                            <select name="type" required class="block appearance-none w-full py-1 px-2 mb-1 text-base leading-normal bg-white text-gray-800 border border-gray-200 rounded selectpicker" id="type">
                                                 <option value="standard">Standard</option>
                                                 <option value="combo">Combo</option>
                                                 <option value="digital">Digital</option>
@@ -27,31 +27,31 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-md-4">
-                                    <div class="form-group">
+                                <div class="md:w-1/3 pr-4 pl-4">
+                                    <div class="mb-4">
                                         <label>{{trans('file.Product Name')}} *</strong> </label>
-                                        <input type="text" name="name" value="{{$lims_product_data->name}}" required class="form-control">
+                                        <input type="text" name="name" value="{{$lims_product_data->name}}" required class="block appearance-none w-full py-1 px-2 mb-1 text-base leading-normal bg-white text-gray-800 border border-gray-200 rounded">
                                         <span class="validation-msg" id="name-error"></span>
                                     </div>
                                 </div>
-                                <div class="col-md-4">
-                                    <div class="form-group">
+                                <div class="md:w-1/3 pr-4 pl-4">
+                                    <div class="mb-4">
                                         <label>{{trans('file.Product Code')}} *</strong> </label>
-                                        <div class="input-group">
-                                            <input type="text" name="code" id="code" value="{{$lims_product_data->code}}" class="form-control" required>
+                                        <div class="relative flex items-stretch w-full">
+                                            <input type="text" name="code" id="code" value="{{$lims_product_data->code}}" class="block appearance-none w-full py-1 px-2 mb-1 text-base leading-normal bg-white text-gray-800 border border-gray-200 rounded" required>
                                             <div class="input-group-append">
-                                                <button id="genbutton" type="button" class="btn btn-sm btn-default" title="{{trans('file.Generate')}}"><i class="fa fa-refresh"></i></button>
+                                                <button id="genbutton" type="button" class="inline-block align-middle text-center select-none border font-normal whitespace-no-wrap rounded  no-underline py-1 px-2 leading-tight text-xs  btn-default" title="{{trans('file.Generate')}}"><i class="fa fa-refresh"></i></button>
                                             </div>
                                         </div>
                                         <span class="validation-msg" id="code-error"></span>
                                     </div>
                                 </div>
-                                <div class="col-md-4">
-                                    <div class="form-group">
+                                <div class="md:w-1/3 pr-4 pl-4">
+                                    <div class="mb-4">
                                         <label>{{trans('file.Barcode Symbology')}} *</strong> </label>
-                                        <div class="input-group">
+                                        <div class="relative flex items-stretch w-full">
                                             <input type="hidden" name="barcode_symbology_hidden" value="{{$lims_product_data->barcode_symbology}}">
-                                            <select name="barcode_symbology" required class="form-control selectpicker">
+                                            <select name="barcode_symbology" required class="block appearance-none w-full py-1 px-2 mb-1 text-base leading-normal bg-white text-gray-800 border border-gray-200 rounded selectpicker">
                                                 <option value="C128">Code 128</option>
                                                 <option value="C39">Code 39</option>
                                                 <option value="UPCA">UPC-A</option>
@@ -62,24 +62,24 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div id="digital" class="col-md-4">
-                                    <div class="form-group">
+                                <div id="digital" class="md:w-1/3 pr-4 pl-4">
+                                    <div class="mb-4">
                                         <label>{{trans('file.Attach File')}}</strong> </label>
-                                        <div class="input-group">
-                                            <input type="file" name="file" class="form-control">
+                                        <div class="relative flex items-stretch w-full">
+                                            <input type="file" name="file" class="block appearance-none w-full py-1 px-2 mb-1 text-base leading-normal bg-white text-gray-800 border border-gray-200 rounded">
                                         </div>
                                         <span class="validation-msg"></span>
                                     </div>
                                 </div>
-                                <div id="combo" class="col-md-9 mb-1">
+                                <div id="combo" class="md:w-3/4 pr-4 pl-4 mb-1">
                                     <label>{{trans('file.add_product')}}</label>
-                                    <div class="search-box input-group mb-3">
-                                        <button class="btn btn-secondary"><i class="fa fa-barcode"></i></button>
-                                        <input type="text" name="product_code_name" id="lims_productcodeSearch" placeholder="Please type product code and select..." class="form-control" />
+                                    <div class="search-box relative flex items-stretch w-full mb-3">
+                                        <button class="inline-block align-middle text-center select-none border font-normal whitespace-no-wrap rounded py-1 px-3 leading-normal no-underline bg-gray-600 text-white hover:bg-gray-700"><i class="fa fa-barcode"></i></button>
+                                        <input type="text" name="product_code_name" id="lims_productcodeSearch" placeholder="Please type product code and select..." class="block appearance-none w-full py-1 px-2 mb-1 text-base leading-normal bg-white text-gray-800 border border-gray-200 rounded" />
                                     </div>
                                     <label>{{trans('file.Combo Products')}}</label>
-                                    <div class="table-responsive">
-                                        <table id="myTable" class="table table-hover order-list">
+                                    <div class="block w-full overflow-auto scrolling-touch">
+                                        <table id="myTable" class="w-full max-w-full mb-4 bg-transparent table-hover order-list">
                                             <thead>
                                                 <tr>
                                                     <th>{{trans('file.product')}}</th>
@@ -99,9 +99,9 @@
                                                 <tr>
                                                     @php $product = \App\Product::find($id); @endphp
                                                     <td>{{$product->name}} [{{$product->code}}]</td>
-                                                    <td><input type="number" class="form-control qty" name="product_qty[]" value="{{$qty_list[$key]}}" step="any"></td>
-                                                    <td><input type="number" class="form-control unit_price" name="unit_price[]" value="{{$price_list[$key]}}" step="any"/></td>
-                                                    <td><button type="button" class="ibtnDel btn btn-danger btn-sm">X</button></td>
+                                                    <td><input type="number" class="block appearance-none w-full py-1 px-2 mb-1 text-base leading-normal bg-white text-gray-800 border border-gray-200 rounded qty" name="product_qty[]" value="{{$qty_list[$key]}}" step="any"></td>
+                                                    <td><input type="number" class="block appearance-none w-full py-1 px-2 mb-1 text-base leading-normal bg-white text-gray-800 border border-gray-200 rounded unit_price" name="unit_price[]" value="{{$price_list[$key]}}" step="any"/></td>
+                                                    <td><button type="button" class="ibtnDel inline-block align-middle text-center select-none border font-normal whitespace-no-wrap rounded  no-underline bg-red-600 text-white hover:bg-red-700 py-1 px-2 leading-tight text-xs ">X</button></td>
                                                     <input type="hidden" class="product-id" name="product_id[]" value="{{$id}}"/>
                                                 </tr>
                                                 @endforeach
@@ -110,12 +110,12 @@
                                         </table>
                                     </div>
                                 </div>
-                                <div class="col-md-4">
-                                    <div class="form-group">
+                                <div class="md:w-1/3 pr-4 pl-4">
+                                    <div class="mb-4">
                                         <label>{{trans('file.Brand')}}</strong> </label>
-                                        <div class="input-group">
+                                        <div class="relative flex items-stretch w-full">
                                             <input type="hidden" name="brand" value="{{ $lims_product_data->brand_id}}">
-                                          <select name="brand_id" class="selectpicker form-control" data-live-search="true" data-live-search-style="begins" title="Select Brand...">
+                                          <select name="brand_id" class="selectpicker block appearance-none w-full py-1 px-2 mb-1 text-base leading-normal bg-white text-gray-800 border border-gray-200 rounded" data-live-search="true" data-live-search-style="begins" title="Select Brand...">
                                             @foreach($lims_brand_list as $brand)
                                                 <option value="{{$brand->id}}">{{$brand->title}}</option>
                                             @endforeach
@@ -123,12 +123,12 @@
                                       </div>
                                     </div>
                                 </div>
-                                <div class="col-md-4">
-                                    <div class="form-group">
+                                <div class="md:w-1/3 pr-4 pl-4">
+                                    <div class="mb-4">
                                         <input type="hidden" name="category" value="{{$lims_product_data->category_id}}">
                                         <label>{{trans('file.category')}} *</strong> </label>
-                                        <div class="input-group">
-                                          <select name="category_id" required class="selectpicker form-control" data-live-search="true" data-live-search-style="begins" title="Select Category...">
+                                        <div class="relative flex items-stretch w-full">
+                                          <select name="category_id" required class="selectpicker block appearance-none w-full py-1 px-2 mb-1 text-base leading-normal bg-white text-gray-800 border border-gray-200 rounded" data-live-search="true" data-live-search-style="begins" title="Select Category...">
                                             @foreach($lims_category_list as $category)
                                                 <option value="{{$category->id}}">{{$category->name}}</option>
                                             @endforeach
@@ -136,12 +136,12 @@
                                       </div>
                                     </div>
                                 </div>
-                                <div id="unit" class="col-md-12">
-                                    <div class="row ">
-                                        <div class="col-md-4">
+                                <div id="unit" class="md:w-full pr-4 pl-4">
+                                    <div class="flex flex-wrap  ">
+                                        <div class="md:w-1/3 pr-4 pl-4">
                                                 <label>{{trans('file.Product Unit')}} *</strong> </label>
-                                                <div class="input-group">
-                                                  <select required class="form-control selectpicker" data-live-search="true" data-live-search-style="begins" title="Select unit..." name="unit_id">
+                                                <div class="relative flex items-stretch w-full">
+                                                  <select required class="block appearance-none w-full py-1 px-2 mb-1 text-base leading-normal bg-white text-gray-800 border border-gray-200 rounded selectpicker" data-live-search="true" data-live-search-style="begins" title="Select unit..." name="unit_id">
                                                     @foreach($lims_unit_list as $unit)
                                                         @if($unit->base_unit==null)
                                                             <option value="{{$unit->id}}">{{$unit->unit_name}}</option>
@@ -151,19 +151,19 @@
                                                   <input type="hidden" name="unit" value="{{ $lims_product_data->unit_id}}">
                                               </div>
                                         </div>
-                                        <div class="col-md-4">
+                                        <div class="md:w-1/3 pr-4 pl-4">
                                                 <label>{{trans('file.Sale Unit')}}</strong> </label>
-                                                <div class="input-group">
-                                                  <select class="form-control selectpicker" name="sale_unit_id" id="sale-unit"> 
+                                                <div class="relative flex items-stretch w-full">
+                                                  <select class="block appearance-none w-full py-1 px-2 mb-1 text-base leading-normal bg-white text-gray-800 border border-gray-200 rounded selectpicker" name="sale_unit_id" id="sale-unit"> 
                                                   </select>
                                                   <input type="hidden" name="sale_unit" value="{{ $lims_product_data->sale_unit_id}}">
                                               </div>
                                         </div>
-                                        <div class="col-md-4 mt-2">
-                                                <div class="form-group">
+                                        <div class="md:w-1/3 pr-4 pl-4 mt-2">
+                                                <div class="mb-4">
                                                     <label>{{trans('file.Purchase Unit')}}</strong> </label>
-                                                    <div class="input-group">
-                                                      <select class="form-control selectpicker" name="purchase_unit_id"> 
+                                                    <div class="relative flex items-stretch w-full">
+                                                      <select class="block appearance-none w-full py-1 px-2 mb-1 text-base leading-normal bg-white text-gray-800 border border-gray-200 rounded selectpicker" name="purchase_unit_id"> 
                                                       </select>
                                                       <input type="hidden" name="purchase_unit" value="{{ $lims_product_data->purchase_unit_id}}">
                                                   </div>
@@ -171,34 +171,34 @@
                                         </div>                                
                                     </div>                                
                                 </div>
-                                <div id="cost" class="col-md-4">
-                                    <div class="form-group">
+                                <div id="cost" class="md:w-1/3 pr-4 pl-4">
+                                    <div class="mb-4">
                                         <label>{{trans('file.Product Cost')}} *</strong> </label>
-                                        <input type="number" name="cost" value="{{$lims_product_data->cost}}" required class="form-control" step="any">
+                                        <input type="number" name="cost" value="{{$lims_product_data->cost}}" required class="block appearance-none w-full py-1 px-2 mb-1 text-base leading-normal bg-white text-gray-800 border border-gray-200 rounded" step="any">
                                         <span class="validation-msg"></span>
                                     </div>
                                 </div>
-                                <div class="col-md-4">
-                                    <div class="form-group">
+                                <div class="md:w-1/3 pr-4 pl-4">
+                                    <div class="mb-4">
                                         <label>{{trans('file.Product Price')}} *</strong> </label>
-                                        <input type="number" name="price" value="{{$lims_product_data->price}}" required class="form-control" step="any">
+                                        <input type="number" name="price" value="{{$lims_product_data->price}}" required class="block appearance-none w-full py-1 px-2 mb-1 text-base leading-normal bg-white text-gray-800 border border-gray-200 rounded" step="any">
                                         <span class="validation-msg"></span>
                                     </div>
-                                    <div class="form-group">
-                                        <input type="hidden" name="qty" value="{{ $lims_product_data->qty }}" class="form-control">
+                                    <div class="mb-4">
+                                        <input type="hidden" name="qty" value="{{ $lims_product_data->qty }}" class="block appearance-none w-full py-1 px-2 mb-1 text-base leading-normal bg-white text-gray-800 border border-gray-200 rounded">
                                     </div>
                                 </div>
-                                <div id="alert-qty" class="col-md-4">
-                                    <div class="form-group">
+                                <div id="alert-qty" class="md:w-1/3 pr-4 pl-4">
+                                    <div class="mb-4">
                                         <label>{{trans('file.Alert Quantity')}}</strong> </label>
-                                        <input type="number" name="alert_quantity" value="{{$lims_product_data->alert_quantity}}" class="form-control" step="any">
+                                        <input type="number" name="alert_quantity" value="{{$lims_product_data->alert_quantity}}" class="block appearance-none w-full py-1 px-2 mb-1 text-base leading-normal bg-white text-gray-800 border border-gray-200 rounded" step="any">
                                     </div>
                                 </div>
-                                <div class="col-md-4">
-                                    <div class="form-group">
+                                <div class="md:w-1/3 pr-4 pl-4">
+                                    <div class="mb-4">
                                         <input type="hidden" name="tax" value="{{$lims_product_data->tax_id}}">
                                         <label>{{trans('file.product')}} {{trans('file.Tax')}}</strong> </label>
-                                        <select name="tax_id" class="form-control selectpicker">
+                                        <select name="tax_id" class="block appearance-none w-full py-1 px-2 mb-1 text-base leading-normal bg-white text-gray-800 border border-gray-200 rounded selectpicker">
                                             <option value="">No Tax</option>
                                             @foreach($lims_tax_list as $tax)
                                                 <option value="{{$tax->id}}">{{$tax->name}}</option>
@@ -206,18 +206,18 @@
                                         </select>
                                     </div>
                                 </div>
-                                <div class="col-md-4">
-                                    <div class="form-group">
+                                <div class="md:w-1/3 pr-4 pl-4">
+                                    <div class="mb-4">
                                         <input type="hidden" name="tax_method_id" value="{{$lims_product_data->tax_method}}">
                                         <label>{{trans('file.Tax Method')}}</strong> </label>
-                                        <select name="tax_method" class="form-control selectpicker">
+                                        <select name="tax_method" class="block appearance-none w-full py-1 px-2 mb-1 text-base leading-normal bg-white text-gray-800 border border-gray-200 rounded selectpicker">
                                             <option value="1">{{trans('file.Exclusive')}}</option>
                                             <option value="2">{{trans('file.Inclusive')}}</option>
                                         </select>
                                     </div>
                                 </div>
-                                <div class="col-md-4">
-                                    <div class="form-group mt-3">
+                                <div class="md:w-1/3 pr-4 pl-4">
+                                    <div class="mb-4 mt-3">
                                         @if($lims_product_data->featured)
                                             <input type="checkbox" name="featured" value="1" checked>
                                         @else
@@ -226,19 +226,19 @@
                                         <label>{{trans('file.Featured')}}</label>
                                     </div>
                                 </div>
-                                <div class="col-md-6">
-                                    <div class="form-group">
+                                <div class="md:w-1/2 pr-4 pl-4">
+                                    <div class="mb-4">
                                         <label>{{trans('file.Product Image')}}</strong> </label> <i class="dripicons-question" data-toggle="tooltip" title="{{trans('file.You can upload multiple image. Only .jpeg, .jpg, .png, .gif file can be uploaded. First image will be base image.')}}"></i>
                                         <div id="imageUpload" class="dropzone"></div>
                                         <span class="validation-msg" id="image-error"></span>
                                     </div>
                                 </div>
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <table class="table table-hover">
+                                <div class="md:w-1/2 pr-4 pl-4">
+                                    <div class="mb-4">
+                                        <table class="w-full max-w-full mb-4 bg-transparent table-hover">
                                             <thead>
                                                 <tr>
-                                                    <th><button type="button" class="btn btn-sm"><i class="fa fa-trash"></i></button></th>
+                                                    <th><button type="button" class="inline-block align-middle text-center select-none border font-normal whitespace-no-wrap rounded  no-underline py-1 px-2 leading-tight text-xs "><i class="fa fa-trash"></i></button></th>
                                                     <th>Image</th>
                                                     <th>Remove</th>
                                                 </tr>
@@ -247,34 +247,34 @@
                                                 <?php $images = explode(",", $lims_product_data->image)?>
                                                 @foreach($images as $key => $image)
                                                 <tr>
-                                                    <td><button type="button" class="btn btn-sm"><i class="fa fa-trash"></i></button></i></td>
+                                                    <td><button type="button" class="inline-block align-middle text-center select-none border font-normal whitespace-no-wrap rounded  no-underline py-1 px-2 leading-tight text-xs "><i class="fa fa-trash"></i></button></i></td>
                                                     <td>
                                                         <img src="{{url('public/images/product', $image)}}" height="60" width="60">
                                                         <input type="hidden" name="prev_img[]" value="{{$image}}">
                                                     </td>
-                                                    <td><button type="button" class="btn btn-sm btn-danger remove-img">X</button></td>
+                                                    <td><button type="button" class="inline-block align-middle text-center select-none border font-normal whitespace-no-wrap rounded  no-underline py-1 px-2 leading-tight text-xs  bg-red-600 text-white hover:bg-red-700 remove-img">X</button></td>
                                                 </tr>
                                                 @endforeach
                                             </tbody>
                                         </table>
                                     </div>
                                 </div>
-                                <div class="col-md-12"> 
-                                    <div class="form-group">
+                                <div class="md:w-full pr-4 pl-4"> 
+                                    <div class="mb-4">
                                         <label>{{trans('file.Product Details')}}</label>
-                                        <textarea name="product_details" class="form-control" rows="5">{{str_replace('@', '"', $lims_product_data->product_details)}}</textarea>
+                                        <textarea name="product_details" class="block appearance-none w-full py-1 px-2 mb-1 text-base leading-normal bg-white text-gray-800 border border-gray-200 rounded" rows="5">{{str_replace('@', '"', $lims_product_data->product_details)}}</textarea>
                                     </div>
                                 </div>
-                                <div class="col-md-12 mt-2" id="diffPrice-option">
+                                <div class="md:w-full pr-4 pl-4 mt-2" id="diffPrice-option">
                                     @if($lims_product_data->is_diffPrice)
                                         <h5><input name="is_diffPrice" type="checkbox" id="is-diffPrice" value="1" checked>&nbsp; {{trans('file.This product has different price for different warehouse')}}</h5>
                                     @else
                                         <h5><input name="is_diffPrice" type="checkbox" id="is-diffPrice" value="1">&nbsp; {{trans('file.This product has different price for different warehouse')}}</h5>
                                     @endif
                                 </div>
-                                <div class="col-md-6" id="diffPrice-section">
-                                    <div class="table-responsive ml-2">
-                                        <table id="diffPrice-table" class="table table-hover">
+                                <div class="md:w-1/2 pr-4 pl-4" id="diffPrice-section">
+                                    <div class="block w-full overflow-auto scrolling-touch ml-2">
+                                        <table id="diffPrice-table" class="w-full max-w-full mb-4 bg-transparent table-hover">
                                             <thead>
                                                 <tr>
                                                     <th>{{trans('file.Warehouse')}}</th>
@@ -291,9 +291,9 @@
                                                             $product_warehouse = \App\Product_Warehouse::FindProductWithoutVariant($lims_product_data->id, $warehouse->id)->first();
                                                         ?>
                                                         @if($product_warehouse)
-                                                            <input type="number" name="diff_price[]" class="form-control" value="{{$product_warehouse->price}}">
+                                                            <input type="number" name="diff_price[]" class="block appearance-none w-full py-1 px-2 mb-1 text-base leading-normal bg-white text-gray-800 border border-gray-200 rounded" value="{{$product_warehouse->price}}">
                                                         @else
-                                                            <input type="number" name="diff_price[]" class="form-control">
+                                                            <input type="number" name="diff_price[]" class="block appearance-none w-full py-1 px-2 mb-1 text-base leading-normal bg-white text-gray-800 border border-gray-200 rounded">
                                                         @endif
                                                     </td>
                                                 </tr>
@@ -304,19 +304,19 @@
                                         </table>
                                     </div>
                                 </div>
-                                <div class="col-md-12 mt-3" id="variant-option">
+                                <div class="md:w-full pr-4 pl-4 mt-3" id="variant-option">
                                     @if($lims_product_data->is_variant)
                                     <h5><input name="is_variant" type="checkbox" id="is-variant" value="1" checked>&nbsp; {{trans('file.This product has variant')}}</h5>
                                     @else
                                     <h5><input name="is_variant" type="checkbox" id="is-variant" value="1">&nbsp; {{trans('file.This product has variant')}}</h5>
                                     @endif
                                 </div>
-                                <div class="col-md-12" id="variant-section">
-                                    <div class="col-md-6 form-group mt-2">
-                                        <input type="text" name="variant" class="form-control" placeholder="{{trans('file.Enter variant seperated by comma')}}">
+                                <div class="md:w-full pr-4 pl-4" id="variant-section">
+                                    <div class="md:w-1/2 pr-4 pl-4 mb-4 mt-2">
+                                        <input type="text" name="variant" class="block appearance-none w-full py-1 px-2 mb-1 text-base leading-normal bg-white text-gray-800 border border-gray-200 rounded" placeholder="{{trans('file.Enter variant seperated by comma')}}">
                                     </div>
-                                    <div class="table-responsive ml-2">
-                                        <table id="variant-table" class="table table-hover variant-list">
+                                    <div class="block w-full overflow-auto scrolling-touch ml-2">
+                                        <table id="variant-table" class="w-full max-w-full mb-4 bg-transparent table-hover variant-list">
                                             <thead>
                                                 <tr>
                                                     <th><i class="dripicons-view-apps"></i></th>
@@ -334,44 +334,44 @@
                                                         <input type="hidden" name="product_variant_id[]" value="{{$variant->pivot['id']}}">
                                                         <input type="hidden" name="variant_id[]" value="{{$variant->pivot['variant_id']}}">
                                                     </td>
-                                                    <td><input type="text" class="form-control" name="variant_name[]" value="{{$variant->name}}" /></td>
-                                                    <td><input type="text" class="form-control" name="item_code[]" value="{{$variant->pivot['item_code']}}" /></td>
-                                                    <td><input type="number" class="form-control" name="additional_price[]" value="{{$variant->pivot['additional_price']}}" step="any" /></td>
-                                                    <td><button type="button" class="vbtnDel btn btn-sm btn-danger">X</button></td>
+                                                    <td><input type="text" class="block appearance-none w-full py-1 px-2 mb-1 text-base leading-normal bg-white text-gray-800 border border-gray-200 rounded" name="variant_name[]" value="{{$variant->name}}" /></td>
+                                                    <td><input type="text" class="block appearance-none w-full py-1 px-2 mb-1 text-base leading-normal bg-white text-gray-800 border border-gray-200 rounded" name="item_code[]" value="{{$variant->pivot['item_code']}}" /></td>
+                                                    <td><input type="number" class="block appearance-none w-full py-1 px-2 mb-1 text-base leading-normal bg-white text-gray-800 border border-gray-200 rounded" name="additional_price[]" value="{{$variant->pivot['additional_price']}}" step="any" /></td>
+                                                    <td><button type="button" class="vbtnDel inline-block align-middle text-center select-none border font-normal whitespace-no-wrap rounded  no-underline py-1 px-2 leading-tight text-xs  bg-red-600 text-white hover:bg-red-700">X</button></td>
                                                 </tr>
                                                 @endforeach
                                             </tbody>
                                         </table>
                                     </div>
                                 </div>
-                                <div class="col-md-4 mt-3">
+                                <div class="md:w-1/3 pr-4 pl-4 mt-3">
                                     <input type="hidden" name="promotion_hidden" value="{{$lims_product_data->promotion}}">
                                     <input name="promotion" type="checkbox" id="promotion" value="1">&nbsp;
                                     <label><h5>{{trans('file.Add Promotional Price')}}</h5></label>
                                 </div>
                                 
-                                <div class="col-md-12">
-                                    <div class="row">
-                                        <div class="col-md-4" id="promotion_price">   <label>{{trans('file.Promotional Price')}}</label>
-                                            <input type="number" name="promotion_price" value="{{$lims_product_data->promotion_price}}" class="form-control" step="any" />
+                                <div class="md:w-full pr-4 pl-4">
+                                    <div class="flex flex-wrap ">
+                                        <div class="md:w-1/3 pr-4 pl-4" id="promotion_price">   <label>{{trans('file.Promotional Price')}}</label>
+                                            <input type="number" name="promotion_price" value="{{$lims_product_data->promotion_price}}" class="block appearance-none w-full py-1 px-2 mb-1 text-base leading-normal bg-white text-gray-800 border border-gray-200 rounded" step="any" />
                                         </div>
-                                        <div id="start_date" class="col-md-4">
-                                            <div class="form-group">
+                                        <div id="start_date" class="md:w-1/3 pr-4 pl-4">
+                                            <div class="mb-4">
                                                 <label>{{trans('file.Promotion Starts')}}</label>
-                                                <input type="text" name="starting_date" value="{{$lims_product_data->starting_date}}" id="starting_date" class="form-control" />
+                                                <input type="text" name="starting_date" value="{{$lims_product_data->starting_date}}" id="starting_date" class="block appearance-none w-full py-1 px-2 mb-1 text-base leading-normal bg-white text-gray-800 border border-gray-200 rounded" />
                                             </div>
                                         </div>
-                                        <div id="last_date" class="col-md-4">
-                                            <div class="form-group">
+                                        <div id="last_date" class="md:w-1/3 pr-4 pl-4">
+                                            <div class="mb-4">
                                                 <label>{{trans('file.Promotion Ends')}}</label>
-                                                <input type="text" name="last_date" value="{{$lims_product_data->last_date}}" id="ending_date" class="form-control" />
+                                                <input type="text" name="last_date" value="{{$lims_product_data->last_date}}" id="ending_date" class="block appearance-none w-full py-1 px-2 mb-1 text-base leading-normal bg-white text-gray-800 border border-gray-200 rounded" />
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-md-12">
-                                    <div class="form-group">
-                                        <input type="button" value="{{trans('file.submit')}}" class="btn btn-primary" id="submit-btn">
+                                <div class="md:w-full pr-4 pl-4">
+                                    <div class="mb-4">
+                                        <input type="button" value="{{trans('file.submit')}}" class="inline-block align-middle text-center select-none border font-normal whitespace-no-wrap rounded py-1 px-3 leading-normal no-underline bg-blue-600 text-white hover:bg-blue-600" id="submit-btn">
                                     </div>
                                 </div>
                             </div>
@@ -561,9 +561,9 @@
                         var newRow = $("<tr>");
                         var cols = '';
                         cols += '<td>' + data[0] +' [' + data[1] + ']</td>';
-                        cols += '<td><input type="number" class="form-control qty" name="product_qty[]" value="1" step="any"/></td>';
-                        cols += '<td><input type="number" class="form-control unit_price" name="unit_price[]" value="' + data[3] + '" step="any"/></td>';
-                        cols += '<td><button type="button" class="ibtnDel btn btn-sm btn-danger">X</button></td>';
+                        cols += '<td><input type="number" class="block appearance-none w-full py-1 px-2 mb-1 text-base leading-normal bg-white text-gray-800 border border-gray-200 rounded qty" name="product_qty[]" value="1" step="any"/></td>';
+                        cols += '<td><input type="number" class="block appearance-none w-full py-1 px-2 mb-1 text-base leading-normal bg-white text-gray-800 border border-gray-200 rounded unit_price" name="unit_price[]" value="' + data[3] + '" step="any"/></td>';
+                        cols += '<td><button type="button" class="ibtnDel inline-block align-middle text-center select-none border font-normal whitespace-no-wrap rounded  no-underline py-1 px-2 leading-tight text-xs  bg-red-600 text-white hover:bg-red-700">X</button></td>';
                         cols += '<input type="hidden" class="product-id" name="product_id[]" value="' + data[4] + '"/>';
 
                         newRow.append(cols);
@@ -662,10 +662,10 @@
             var newRow = $("<tr>");
             var cols = '';
             cols += '<td style="cursor:grab"><i class="dripicons-view-apps"></i><input type="hidden" name="product_variant_id[]" value="0"></td>';
-            cols += '<td><input type="text" class="form-control" name="variant_name[]" value="' + variant_name + '" /></td>';
-            cols += '<td><input type="text" class="form-control" name="item_code[]" value="'+item_code+'" /></td>';
-            cols += '<td><input type="number" class="form-control" name="additional_price[]" value="" step="any" /></td>';
-            cols += '<td><button type="button" class="vbtnDel btn btn-sm btn-danger">X</button></td>';
+            cols += '<td><input type="text" class="block appearance-none w-full py-1 px-2 mb-1 text-base leading-normal bg-white text-gray-800 border border-gray-200 rounded" name="variant_name[]" value="' + variant_name + '" /></td>';
+            cols += '<td><input type="text" class="block appearance-none w-full py-1 px-2 mb-1 text-base leading-normal bg-white text-gray-800 border border-gray-200 rounded" name="item_code[]" value="'+item_code+'" /></td>';
+            cols += '<td><input type="number" class="block appearance-none w-full py-1 px-2 mb-1 text-base leading-normal bg-white text-gray-800 border border-gray-200 rounded" name="additional_price[]" value="" step="any" /></td>';
+            cols += '<td><button type="button" class="vbtnDel inline-block align-middle text-center select-none border font-normal whitespace-no-wrap rounded  no-underline py-1 px-2 leading-tight text-xs  bg-red-600 text-white hover:bg-red-700">X</button></td>';
 
             $("input[name='variant']").val('');
             newRow.append(cols);

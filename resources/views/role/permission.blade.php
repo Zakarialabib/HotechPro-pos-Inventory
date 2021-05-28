@@ -1,21 +1,21 @@
 @extends('layout.main')
 @section('content')
 @if(session()->has('not_permitted'))
-  <div class="alert alert-danger alert-dismissible text-center"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>{{ session()->get('not_permitted') }}</div> 
+  <div class="relative px-3 py-3 mb-4 border rounded bg-red-200 border-red-300 text-red-800  text-center"><button type="button" class="absolute top-0 bottom-0 right-0 px-4 py-3" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>{{ session()->get('not_permitted') }}</div> 
 @endif
 <section class="forms">
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-md-12">
-                <div class="card">
-                    <div class="card-header d-flex align-items-center">
+    <div class="container mx-auto sm:px-4 max-w-full mx-auto sm:px-4">
+        <div class="flex flex-wrap ">
+            <div class="md:w-full pr-4 pl-4">
+                <div class="relative flex flex-col min-w-0 rounded break-words border bg-white border-1 border-gray-300">
+                    <div class="py-3 px-6 mb-0 bg-gray-200 border-b-1 border-gray-300 text-gray-900 flex items-center">
                         <h4>{{trans('file.Group Permission')}}</h4>
                     </div>
                     {!! Form::open(['route' => 'role.setPermission', 'method' => 'post']) !!}
-                    <div class="card-body">
+                    <div class="flex-auto p-6">
                     	<input type="hidden" name="role_id" value="{{$lims_role_data->id}}" />
-						<div class="table-responsive">
-						    <table class="table table-bordered permission-table">
+						<div class="block w-full overflow-auto scrolling-touch">
+						    <table class="w-full max-w-full mb-4 bg-transparent table-bordered permission-table">
 						        <thead>
 						        <tr>
 						            <th colspan="5" class="text-center">{{$lims_role_data->name}} {{trans('file.Group Permission')}}</th>
@@ -1196,8 +1196,8 @@
 						        </tbody>
 						    </table>
 						</div>
-						<div class="form-group">
-	                        <input type="submit" value="{{trans('file.submit')}}" class="btn btn-primary">
+						<div class="mb-4">
+	                        <input type="submit" value="{{trans('file.submit')}}" class="inline-block align-middle text-center select-none border font-normal whitespace-no-wrap rounded py-1 px-3 leading-normal no-underline bg-blue-600 text-white hover:bg-blue-600">
 	                    </div>
                     </div>
                     {!! Form::close() !!}
