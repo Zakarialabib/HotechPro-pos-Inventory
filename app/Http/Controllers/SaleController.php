@@ -34,6 +34,8 @@ use App\Returns;
 use App\Expense;
 use App\ProductPurchase;
 use App\Purchase;
+use App\Message;
+use App\Sale_Messages;
 use DB;
 use App\GeneralSetting;
 use Stripe\Stripe;
@@ -47,6 +49,7 @@ use Srmklive\PayPal\Services\ExpressCheckout;
 use Srmklive\PayPal\Services\AdaptivePayments;
 use GeniusTS\HijriDate\Date;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Str;
 
 class SaleController extends Controller
 {
@@ -202,6 +205,7 @@ class SaleController extends Controller
                     $nestedData['payment_status'] = '<div class="badge badge-success">'.trans('file.Paid').'</div>';
 
                 $nestedData['grand_total'] = number_format($sale->grand_total, 2);
+                $nestedData['messages'] =  '<button type="button" class="messages btn btn-primary btn-link" data-id = "'.$sale->id.'" data-toggle="modal" data-target="#messages"><i class="fa fa-plus"></i> '.trans('file.Messages').'</button>';
                 $nestedData['paid_amount'] = number_format($sale->paid_amount, 2);
                 $nestedData['due'] = number_format($sale->grand_total - $sale->paid_amount, 2);
                 $nestedData['options'] = '<div class="btn-group">
@@ -678,6 +682,34 @@ class SaleController extends Controller
             $message = 'Customer doesnt have email!';
         
         return redirect()->back()->with('message', $message);
+    }
+
+    public function messages(Request $request,$id)
+    {
+        $sale = Sale::find($id);
+
+        $this->validate($request, [
+            'message_id' => '', 
+             'title'=>  '',
+              'priority'=> '', 
+              'message'=> '', 
+             'status'=> ''
+             ]);
+
+        $message = new Message([
+                'user_id' => Auth::user()->id,
+                'message_id' => Str::random(10),
+                'title' => $request['title'],
+                'priority' => $request['priority'],
+                'message' => $request['message'],
+                'status' => "Open",
+                'sale_id' => $sale,
+                ]);
+        $message->save();   
+        
+
+        return back();
+
     }
 
     public function paypalSuccess(Request $request)

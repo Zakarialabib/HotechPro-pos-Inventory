@@ -10,6 +10,7 @@
     <meta name="robots" content="all,follow">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <!-- Bootstrap CSS-->
+    <link href="{{ asset('public/css/app.css') }}" rel="stylesheet">
     <link rel="stylesheet" href="<?php echo asset('public/vendor/bootstrap/css/bootstrap.min.css') ?>" type="text/css">
     <link rel="stylesheet" href="<?php echo asset('public/vendor/bootstrap-toggle/css/bootstrap-toggle.min.css') ?>" type="text/css">
     <link rel="stylesheet" href="<?php echo asset('public/vendor/bootstrap/css/bootstrap-datepicker.min.css') ?>" type="text/css">
@@ -782,12 +783,14 @@
       </nav>
       <!-- navbar-->
       <header class="header">
-        <nav class="relative flex flex-wrap items-center content-between py-3 px-4">
-          <div class="container mx-auto sm:px-4 max-w-full mx-auto sm:px-4">
-            <div class="navbar-holder flex items-center justify-between">
+        <nav class="main-header relative flex flex-wrap items-center py-3 px-4 flex-no-wrap content-start text-black navbar-white">
+          <div class="flex flex-wrap list-reset pl-0 mb-0">
               <a id="toggle-btn" href="#" class="menu-btn"><i class="fa fa-bars"> </i></a>
+            <div class="navbar-holder flex items-center justify-between">
               <span class="brand-big"><a href="{{url('/')}}">@if($general_setting->site_logo)<img src="{{url('public/logo', $general_setting->site_logo)}}" width="120">&nbsp;&nbsp;@endif</a></span>
-              
+            </div>
+          </div>
+          <div class="flex flex-wrap list-reset pl-0 mb-0 ml-auto">
               <ul class="nav-menu list-unstyled flex md:flex-row md:items-center">
                 <?php 
                   $add_permission = DB::table('permissions')->where('name', 'sales-add')->first();
@@ -802,7 +805,7 @@
                       ['role_id', $role->id]
                   ])->first();
                 ?>     
-                <li class=""><a class="inline-block py-2 px-4 no-underline block w-full py-1 px-6 font-normal text-gray-900 whitespace-no-wrap border-0"  id="btnFullscreen"><i class="dripicons-expand"></i></a></li>
+                <li class=""><a class="inline-block py-2 px-4 no-underline w-full font-normal text-gray-900 whitespace-no-wrap border-0"  id="btnFullscreen"><i class="dripicons-expand"></i></a></li>
                 @if(\Auth::user()->role_id <= 2)
                   <li class=""><a  href="{{route('cashRegister.index')}}" title="{{trans('file.Cash Register List')}}"><i class="dripicons-archive"></i></a></li>
                 @endif
@@ -891,7 +894,6 @@
                   </ul>
                 </li> 
               </ul>
-            </div>
           </div>
         </nav>
       </header>
@@ -1307,7 +1309,7 @@
       </div>
 
       <footer class="main-footer">
-        <div class="container mx-auto sm:px-4 max-w-full mx-auto sm:px-4">
+        <div class="mx-auto px-2 max-w-full mx-auto">
           <div class="flex flex-wrap ">
             <div class="sm:w-full pr-4 pl-4">
               <p>&copy; {{$general_setting->site_title}} | {{trans('file.Developed')}} {{trans('file.By')}} <span class="external">Zakaria Labib</span></p>

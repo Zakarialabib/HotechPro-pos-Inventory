@@ -94,6 +94,8 @@ Route::group(['middleware' => ['auth', 'active']], function() {
 	Route::resource('biller', 'BillerController');
 
 	Route::post('sales/sale-data', 'SaleController@saleData');
+	Route::get('sales/messages/{id}', 'SaleController@messages')->name('sale.messages');
+	Route::post('sales/messages/{id}', 'SaleController@messages')->name('sale.messages');
 	Route::post('sales/sendmail', 'SaleController@sendMail')->name('sale.sendmail');
 	Route::get('sales/sale_by_csv', 'SaleController@saleByCsv');
 	Route::get('sales/product_sale/{id}','SaleController@productSaleData');
