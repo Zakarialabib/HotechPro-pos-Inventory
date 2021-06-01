@@ -1,30 +1,30 @@
 @extends('layout.main') @section('content')
 @if($errors->has('name'))
-<div class="relative px-3 py-3 mb-4 border rounded bg-red-200 border-red-300 text-red-800  text-center">
-    <button type="button" class="absolute top-0 bottom-0 right-0 px-4 py-3" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>{{ $errors->first('name') }}</div>
+<div class="alert alert-danger alert-dismissible text-center">
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>{{ $errors->first('name') }}</div>
 @endif
 @if($errors->has('image'))
-<div class="relative px-3 py-3 mb-4 border rounded bg-red-200 border-red-300 text-red-800  text-center">
-    <button type="button" class="absolute top-0 bottom-0 right-0 px-4 py-3" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>{{ $errors->first('image') }}</div>
+<div class="alert alert-danger alert-dismissible text-center">
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>{{ $errors->first('image') }}</div>
 @endif
 @if($errors->has('email'))
-<div class="relative px-3 py-3 mb-4 border rounded bg-red-200 border-red-300 text-red-800  text-center">
-    <button type="button" class="absolute top-0 bottom-0 right-0 px-4 py-3" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>{{ $errors->first('email') }}</div>
+<div class="alert alert-danger alert-dismissible text-center">
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>{{ $errors->first('email') }}</div>
 @endif 
 @if(session()->has('message'))
-  <div class="relative px-3 py-3 mb-4 border rounded bg-green-200 border-green-300 text-green-800  text-center"><button type="button" class="absolute top-0 bottom-0 right-0 px-4 py-3" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>{!! session()->get('message') !!}</div> 
+  <div class="alert alert-success alert-dismissible text-center"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>{!! session()->get('message') !!}</div> 
 @endif
 @if(session()->has('not_permitted'))
-  <div class="relative px-3 py-3 mb-4 border rounded bg-red-200 border-red-300 text-red-800  text-center"><button type="button" class="absolute top-0 bottom-0 right-0 px-4 py-3" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>{{ session()->get('not_permitted') }}</div> 
+  <div class="alert alert-danger alert-dismissible text-center"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>{{ session()->get('not_permitted') }}</div> 
 @endif
 <section>
     @if(in_array("employees-add", $all_permission))
-    <div class="container mx-auto sm:px-4 max-w-full mx-auto sm:px-4">
-        <a href="{{route('employees.create')}}" class="inline-block align-middle text-center select-none border font-normal whitespace-no-wrap rounded py-1 px-3 leading-normal no-underline bg-teal-500 text-white hover:bg-teal-600"><i class="dripicons-plus"></i> {{trans('file.Add Employee')}}</a>
+    <div class="container-fluid">
+        <a href="{{route('employees.create')}}" class="btn btn-info"><i class="dripicons-plus"></i> {{trans('file.Add Employee')}}</a>
     </div>
     @endif
-    <div class="block w-full overflow-auto scrolling-touch">
-        <table id="employee-table" class="w-full max-w-full mb-4 bg-transparent">
+    <div class="table-responsive">
+        <table id="employee-table" class="table">
             <thead>
                 <tr>
                     <th class="not-exported"></th>
@@ -58,22 +58,22 @@
                             @if($employee->postal_code){{ ', '.$employee->postal_code}}@endif
                             @if($employee->country){{ ', '.$employee->country}}@endif</td>
                     <td>
-                        <div class="relative inline-flex align-middle">
-                            <button type="button" class="inline-block align-middle text-center select-none border font-normal whitespace-no-wrap rounded  no-underline btn-default py-1 px-2 leading-tight text-xs   inline-block w-0 h-0 ml-1 align border-b-0 border-t-1 border-r-1 border-l-1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{trans('file.action')}}
+                        <div class="btn-group">
+                            <button type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{trans('file.action')}}
                                 <span class="caret"></span>
                                 <span class="sr-only">Toggle Dropdown</span>
                             </button>
-                            <ul class=" absolute left-0 z-50 float-left hidden list-reset	 py-2 mt-1 text-base bg-white border border-gray-300 rounded edit-options dropdown-menu-right dropdown-default" user="menu">
+                            <ul class="dropdown-menu edit-options dropdown-menu-right dropdown-default" user="menu">
                                 @if(in_array("employees-edit", $all_permission))
                                 <li>
-                                    <button type="button" data-id="{{$employee->id}}" data-name="{{$employee->name}}" data-email="{{$employee->email}}" data-phone_number="{{$employee->phone_number}}" data-department_id="{{$employee->department_id}}" data-address="{{$employee->address}}" data-city="{{$employee->city}}" data-country="{{$employee->country}}" class="edit-btn inline-block align-middle text-center select-none border font-normal whitespace-no-wrap rounded py-1 px-3 leading-normal no-underline font-normal text-blue-700 bg-transparent" data-toggle="modal" data-target="#editModal"><i class="dripicons-document-edit"></i> {{trans('file.edit')}}</button> 
+                                    <button type="button" data-id="{{$employee->id}}" data-name="{{$employee->name}}" data-email="{{$employee->email}}" data-phone_number="{{$employee->phone_number}}" data-department_id="{{$employee->department_id}}" data-address="{{$employee->address}}" data-city="{{$employee->city}}" data-country="{{$employee->country}}" class="edit-btn btn btn-link" data-toggle="modal" data-target="#editModal"><i class="dripicons-document-edit"></i> {{trans('file.edit')}}</button> 
                                 </li>
                                 @endif
                                 <li class="divider"></li>
                                 @if(in_array("employees-delete", $all_permission))
                                 {{ Form::open(['route' => ['employees.destroy', $employee->id], 'method' => 'DELETE'] ) }}
                                 <li>
-                                    <button type="submit" class="inline-block align-middle text-center select-none border font-normal whitespace-no-wrap rounded py-1 px-3 leading-normal no-underline font-normal text-blue-700 bg-transparent" onclick="return confirmDelete()"><i class="dripicons-trash"></i> {{trans('file.delete')}}</button>
+                                    <button type="submit" class="btn btn-link" onclick="return confirmDelete()"><i class="dripicons-trash"></i> {{trans('file.delete')}}</button>
                                 </li>
                                 {{ Form::close() }}
                                 @endif
@@ -87,57 +87,57 @@
     </div>
 </section>
 
-<div id="editModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" class="modal opacity-0 text-left">
+<div id="editModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" class="modal fade text-left">
     <div role="document" class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 id="exampleModalLabel" class="modal-title">{{trans('file.Update Employee')}}</h5>
-                <button type="button" data-dismiss="modal" aria-label="Close" class="absolute top-0 bottom-0 right-0 px-4 py-3"><span aria-hidden="true"><i class="dripicons-cross"></i></span></button>
+                <button type="button" data-dismiss="modal" aria-label="Close" class="close"><span aria-hidden="true"><i class="dripicons-cross"></i></span></button>
             </div>
             <div class="modal-body">
               <p class="italic"><small>{{trans('file.The field labels marked with * are required input fields')}}.</small></p>
                 {!! Form::open(['route' => ['employees.update', 1], 'method' => 'put', 'files' => true]) !!}
-                <div class="flex flex-wrap ">
-                    <div class="md:w-1/2 pr-4 pl-4 mb-4">
+                <div class="row">
+                    <div class="col-md-6 form-group">
                         <input type="hidden" name="employee_id" />
                         <label>{{trans('file.name')}} *</label>
-                        <input type="text" name="name" required class="block appearance-none w-full py-1 px-2 mb-1 text-base leading-normal bg-white text-gray-800 border border-gray-200 rounded">
+                        <input type="text" name="name" required class="form-control">
                     </div>
-                    <div class="md:w-1/2 pr-4 pl-4 mb-4">
+                    <div class="col-md-6 form-group">
                         <label>{{trans('file.Image')}}</label>
-                        <input type="file" name="image" class="block appearance-none w-full py-1 px-2 mb-1 text-base leading-normal bg-white text-gray-800 border border-gray-200 rounded">
+                        <input type="file" name="image" class="form-control">
                     </div>
-                    <div class="md:w-1/2 pr-4 pl-4 mb-4">
+                    <div class="col-md-6 form-group">
                         <label>{{trans('file.Department')}} *</label>
-                        <select class="block appearance-none w-full py-1 px-2 mb-1 text-base leading-normal bg-white text-gray-800 border border-gray-200 rounded selectpicker" name="department_id" required>
+                        <select class="form-control selectpicker" name="department_id" required>
                             @foreach($lims_department_list as $department)
                             <option value="{{$department->id}}">{{$department->name}}</option>
                             @endforeach
                         </select>
                     </div>
-                    <div class="md:w-1/2 pr-4 pl-4 mb-4">
+                    <div class="col-md-6 form-group">
                         <label>{{trans('file.Email')}} *</label>
-                        <input type="email" name="email" required class="block appearance-none w-full py-1 px-2 mb-1 text-base leading-normal bg-white text-gray-800 border border-gray-200 rounded">
+                        <input type="email" name="email" required class="form-control">
                     </div>
-                    <div class="md:w-1/2 pr-4 pl-4 mb-4">
+                    <div class="col-md-6 form-group">
                         <label>{{trans('file.Phone Number')}} *</label>
-                        <input type="text" name="phone_number" required class="block appearance-none w-full py-1 px-2 mb-1 text-base leading-normal bg-white text-gray-800 border border-gray-200 rounded">
+                        <input type="text" name="phone_number" required class="form-control">
                     </div>
-                    <div class="md:w-1/2 pr-4 pl-4 mb-4">
+                    <div class="col-md-6 form-group">
                         <label>{{trans('file.Address')}}</label>
-                        <input type="text" name="address" class="block appearance-none w-full py-1 px-2 mb-1 text-base leading-normal bg-white text-gray-800 border border-gray-200 rounded">
+                        <input type="text" name="address" class="form-control">
                     </div>
-                    <div class="md:w-1/2 pr-4 pl-4 mb-4">
+                    <div class="col-md-6 form-group">
                         <label>{{trans('file.City')}}</label>
-                        <input type="text" name="city" class="block appearance-none w-full py-1 px-2 mb-1 text-base leading-normal bg-white text-gray-800 border border-gray-200 rounded">
+                        <input type="text" name="city" class="form-control">
                     </div>
-                    <div class="md:w-1/2 pr-4 pl-4 mb-4">
+                    <div class="col-md-6 form-group">
                         <label>{{trans('file.Country')}}</label>
-                        <input type="text" name="country" class="block appearance-none w-full py-1 px-2 mb-1 text-base leading-normal bg-white text-gray-800 border border-gray-200 rounded">
+                        <input type="text" name="country" class="form-control">
                     </div>
                 </div>
-                <div class="mb-4">
-                    <button type="submit" class="inline-block align-middle text-center select-none border font-normal whitespace-no-wrap rounded py-1 px-3 leading-normal no-underline bg-blue-600 text-white hover:bg-blue-600">{{trans('file.submit')}}</button>
+                <div class="form-group">
+                    <button type="submit" class="btn btn-primary">{{trans('file.submit')}}</button>
                 </div>
                 {{ Form::close() }}
             </div>
@@ -167,7 +167,7 @@
         return false;
     }
 
-    $('.edit-btn').on('click', function() {
+    $(document).on('click', '.edit-btn', function() {
         $("#editModal input[name='employee_id']").val( $(this).data('id') );
         $("#editModal input[name='name']").val( $(this).data('name') );
         $("#editModal select[name='department_id']").val( $(this).data('department_id') );

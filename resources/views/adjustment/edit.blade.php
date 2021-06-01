@@ -1,29 +1,29 @@
 @extends('layout.main')
 @section('content')
 <section class="forms">
-    <div class="container mx-auto sm:px-4 max-w-full mx-auto sm:px-4">
-        <div class="flex flex-wrap ">
-            <div class="md:w-full pr-4 pl-4">
-                <div class="relative flex flex-col min-w-0 rounded break-words border bg-white border-1 border-gray-300">
-                    <div class="py-3 px-6 mb-0 bg-gray-200 border-b-1 border-gray-300 text-gray-900 flex items-center">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header d-flex align-items-center">
                         <h4>{{trans('file.Update Adjustment')}}</h4>
                     </div>
-                    <div class="flex-auto p-6">
+                    <div class="card-body">
                         <p class="italic"><small>{{trans('file.The field labels marked with * are required input fields')}}.</small></p>
                         {!! Form::open(['route' => ['qty_adjustment.update', $lims_adjustment_data->id], 'method' => 'put', 'files' => true, 'id' => 'adjustment-form']) !!}
-                        <div class="flex flex-wrap ">
-                            <div class="md:w-full pr-4 pl-4">
-                                <div class="flex flex-wrap ">
-                                    <div class="md:w-1/3 pr-4 pl-4">
-                                        <div class="mb-4">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <div class="form-group">
                                             <label>{{trans('file.reference')}}</label>
                                             <p><strong>{{$lims_adjustment_data->reference_no}}</strong></p>
                                         </div>
                                     </div>
-                                    <div class="md:w-1/3 pr-4 pl-4">
-                                        <div class="mb-4">
+                                    <div class="col-md-4">
+                                        <div class="form-group">
                                             <label>{{trans('file.Warehouse')}} *</label>
-                                            <select required id="warehouse_id" name="warehouse_id" class="selectpicker block appearance-none w-full py-1 px-2 mb-1 text-base leading-normal bg-white text-gray-800 border border-gray-200 rounded" data-live-search="true" data-live-search-style="begins" title="Select warehouse...">
+                                            <select required id="warehouse_id" name="warehouse_id" class="selectpicker form-control" data-live-search="true" data-live-search-style="begins" title="Select warehouse...">
                                                 @foreach($lims_warehouse_list as $warehouse)
                                                 <option value="{{$warehouse->id}}">{{$warehouse->name}}</option>
                                                 @endforeach
@@ -31,27 +31,27 @@
                                             <input type="hidden" name="warehouse_id_hidden" value="{{$lims_adjustment_data->warehouse_id}}">
                                         </div>
                                     </div>
-                                    <div class="md:w-1/3 pr-4 pl-4">
-                                        <div class="mb-4">
+                                    <div class="col-md-4">
+                                        <div class="form-group">
                                             <label>{{trans('file.Attach Document')}}</label>
-                                            <input type="file" name="document" class="block appearance-none w-full py-1 px-2 mb-1 text-base leading-normal bg-white text-gray-800 border border-gray-200 rounded" >
+                                            <input type="file" name="document" class="form-control" >
                                         </div>
                                     </div>
                                 </div>
-                                <div class="flex flex-wrap  mt-3">
-                                    <div class="md:w-full pr-4 pl-4">
+                                <div class="row mt-3">
+                                    <div class="col-md-12">
                                         <label>{{trans('file.Select Product')}}</label>
-                                        <div class="search-box relative flex items-stretch w-full">
-                                            <button type="button" class="inline-block align-middle text-center select-none border font-normal whitespace-no-wrap rounded  no-underline bg-gray-600 text-white hover:bg-gray-700 py-3 px-4 leading-tight text-xl"><i class="fa fa-barcode"></i></button>
-                                            <input type="text" name="product_code_name" id="lims_productcodeSearch" placeholder="Please type product code and select..." class="block appearance-none w-full py-1 px-2 mb-1 text-base leading-normal bg-white text-gray-800 border border-gray-200 rounded" />
+                                        <div class="search-box input-group">
+                                            <button type="button" class="btn btn-secondary btn-lg"><i class="fa fa-barcode"></i></button>
+                                            <input type="text" name="product_code_name" id="lims_productcodeSearch" placeholder="Please type product code and select..." class="form-control" />
                                         </div>
                                     </div>
                                 </div>
-                                <div class="flex flex-wrap  mt-5">
-                                    <div class="md:w-full pr-4 pl-4">
+                                <div class="row mt-5">
+                                    <div class="col-md-12">
                                         <h5>{{trans('file.Order Table')}} *</h5>
-                                        <div class="block w-full overflow-auto scrolling-touch mt-3">
-                                            <table id="myTable" class="w-full max-w-full mb-4 bg-transparent table-hover order-list">
+                                        <div class="table-responsive mt-3">
+                                            <table id="myTable" class="table table-hover order-list">
                                                 <thead>
                                                     <tr>
                                                         <th>{{trans('file.name')}}</th>
@@ -65,13 +65,20 @@
                                                 	@foreach($lims_product_adjustment_data as $product_adjustment_data)
                                                 	<tr>
                                                 	<?php 
-                                                	$product = DB::table('products')->find($product_adjustment_data->product_id);
+                                                	   $product = DB::table('products')->find($product_adjustment_data->product_id);
+                                                       if($product_adjustment_data->variant_id) {
+                                                            $product_variant = \App\ProductVariant::select('id', 'item_code')->FindExactProduct($product_adjustment_data->product_id, $product_adjustment_data->variant_id)->first();
+                                                            $product->code = $product_variant->item_code;
+                                                            $product_variant_id = $product_variant->id;
+                                                       }
+                                                       else
+                                                            $product_variant_id = null;
                                                 	?>
                                                 	<td>{{$product->name}}</td>
                                                 	<td>{{$product->code}}</td>
-                                                	<td><input type="number" class="block appearance-none w-full py-1 px-2 mb-1 text-base leading-normal bg-white text-gray-800 border border-gray-200 rounded qty" name="qty[]" value="{{$product_adjustment_data->qty}}" required step="any" /></td>
+                                                	<td><input type="number" class="form-control qty" name="qty[]" value="{{$product_adjustment_data->qty}}" required step="any" /></td>
                                                 	<td class="action">
-                                                		<select name="action[]" class="block appearance-none w-full py-1 px-2 mb-1 text-base leading-normal bg-white text-gray-800 border border-gray-200 rounded act-val">
+                                                		<select name="action[]" class="form-control act-val">
                                                 			@if($product_adjustment_data->action == '+')
                                                 			<option value="+">{{trans("file.Addition")}}</option>
                                                 			<option value="-">{{trans("file.Subtraction")}}</option>
@@ -80,9 +87,10 @@
                                                 			@endif
                                                 		</select>
                                                 	</td>
-                                                	<td><button type="button" class="ibtnDel inline-block align-middle text-center select-none border font-normal whitespace-no-wrap rounded py-1 px-3 leading-normal no-underline btn-md bg-red-600 text-white hover:bg-red-700">{{trans("file.delete")}}</button>
-                                                	<input type="hidden" class="product-code" value="{{$product->code}}" />
+                                                	<td><button type="button" class="ibtnDel btn btn-md btn-danger">{{trans("file.delete")}}</button>
+                                                	<input type="hidden" name="product_code[]" class="product-code" value="{{$product->code}}" />
                                                 	<input type="hidden" class="product-id" name="product_id[]" value="{{$product->id}}" />
+                                                    <input type="hidden" name="product_variant_id[]" value="{{$product_variant_id}}" />
                                                 	</td>
                                                 	@endforeach
                                                 	</tr>
@@ -96,24 +104,24 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="flex flex-wrap ">
-                                    <div class="md:w-1/5 pr-4 pl-4">
-                                        <div class="mb-4">
+                                <div class="row">
+                                    <div class="col-md-2">
+                                        <div class="form-group">
                                             <input type="hidden" name="total_qty" />
                                             <input type="hidden" name="item" />
                                         </div>
                                     </div>
                                 </div>
-                                <div class="flex flex-wrap ">
-                                    <div class="md:w-full pr-4 pl-4">
-                                        <div class="mb-4">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="form-group">
                                             <label>{{trans('file.Note')}}</label>
-                                            <textarea rows="5" class="block appearance-none w-full py-1 px-2 mb-1 text-base leading-normal bg-white text-gray-800 border border-gray-200 rounded" name="note">{{$lims_adjustment_data->note}}</textarea>
+                                            <textarea rows="5" class="form-control" name="note">{{$lims_adjustment_data->note}}</textarea>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="mb-4">
-                                    <input type="submit" value="{{trans('file.submit')}}" class="inline-block align-middle text-center select-none border font-normal whitespace-no-wrap rounded py-1 px-3 leading-normal no-underline bg-blue-600 text-white hover:bg-blue-600" id="submit-button">
+                                <div class="form-group">
+                                    <input type="submit" value="{{trans('file.submit')}}" class="btn btn-primary" id="submit-button">
                                 </div>
                             </div>
                         </div>
@@ -274,11 +282,12 @@ for(rowindex  =0; rowindex <= rownumber; rowindex++){
                     var cols = '';
                     cols += '<td>' + data[0] + '</td>';
                     cols += '<td>' + data[1] + '</td>';
-                    cols += '<td><input type="number" class="block appearance-none w-full py-1 px-2 mb-1 text-base leading-normal bg-white text-gray-800 border border-gray-200 rounded qty" name="qty[]" value="1" required step="any"/></td>';
-                    cols += '<td class="action"><select name="action[]" class="block appearance-none w-full py-1 px-2 mb-1 text-base leading-normal bg-white text-gray-800 border border-gray-200 rounded act-val"><option value="-">{{trans("file.Subtraction")}}</option><option value="+">{{trans("file.Addition")}}</option></select></td>';
-                    cols += '<td><button type="button" class="ibtnDel inline-block align-middle text-center select-none border font-normal whitespace-no-wrap rounded py-1 px-3 leading-normal no-underline btn-md bg-red-600 text-white hover:bg-red-700">{{trans("file.delete")}}</button></td>';
+                    cols += '<td><input type="number" class="form-control qty" name="qty[]" value="1" required step="any"/></td>';
+                    cols += '<td class="action"><select name="action[]" class="form-control act-val"><option value="-">{{trans("file.Subtraction")}}</option><option value="+">{{trans("file.Addition")}}</option></select></td>';
+                    cols += '<td><button type="button" class="ibtnDel btn btn-md btn-danger">{{trans("file.delete")}}</button></td>';
                     cols += '<input type="hidden" class="product-code" name="product_code[]" value="' + data[1] + '"/>';
                     cols += '<input type="hidden" class="product-id" name="product_id[]" value="' + data[2] + '"/>';
+                    cols += '<input type="hidden" name="product_variant_id[]" value="' + data[3] + '"/>';
 
                     newRow.append(cols);
                     $("table.order-list tbody").append(newRow);

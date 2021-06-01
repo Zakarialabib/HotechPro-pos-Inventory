@@ -78,7 +78,7 @@
       <!-- navbar-->
       <header class="header">
         <nav class="relative flex flex-wrap items-center content-between py-3 px-4">
-          <div class="container mx-auto sm:px-4 max-w-full mx-auto sm:px-4">
+          <div class="mx-auto px-2 max-w-full mx-auto">
             <div class="navbar-holder flex items-center justify-between">
               <div class="navbar-header"><a id="toggle-btn" href="#" class="menu-btn"><i class="icon-bars"> </i></a><a href="index.html" class="inline-block pt-1 pb-1 mr-4 text-lg whitespace-no-wrap">
                   <div class="brand-text hidden md:inline-block"><span>Bootstrap </span><strong class="text-blue-600">Dashboard</strong></div></a></div>
@@ -136,7 +136,7 @@
       </header>
       <!-- Breadcrumb-->
       <div class="breadcrumb-holder">
-        <div class="container mx-auto sm:px-4 max-w-full mx-auto sm:px-4">
+        <div class="mx-auto px-2 max-w-full mx-auto">
           <ul class="flex flex-wrap list-reset pt-3 pb-3 py-4 px-4 mb-4 bg-gray-200 rounded">
             <li class="inline-block px-2 py-2 text-gray-700"><a href="index.html">Home</a></li>
             <li class="inline-block px-2 py-2 text-gray-700 active">Forms       </li>
@@ -144,7 +144,7 @@
         </div>
       </div>
       <section class="forms">
-        <div class="container mx-auto sm:px-4 max-w-full mx-auto sm:px-4">
+        <div class="mx-auto px-2 max-w-full mx-auto">
           <!-- Page Header-->
           <header> 
             <h1 class="h3 display">Forms            </h1>
@@ -224,7 +224,7 @@
                 </div>
               </div>
             </div>
-            <div class="md:w-1/3 pr-4 pl-4">
+            <div class="sm:1/2 md:w-1/3 lg:w-1/4 px-2">
               <div class="relative flex flex-col min-w-0 rounded break-words border bg-white border-1 border-gray-300">
                 <div class="py-3 px-6 mb-0 bg-gray-200 border-b-1 border-gray-300 text-gray-900 flex items-center">
                   <h4>Modal Form</h4>
@@ -438,7 +438,7 @@
                           <div class="md:w-1/4 pr-4 pl-4">
                             <input type="text" placeholder=".col-md-3" class="block appearance-none w-full py-1 px-2 mb-1 text-base leading-normal bg-white text-gray-800 border border-gray-200 rounded">
                           </div>
-                          <div class="md:w-1/3 pr-4 pl-4">
+                          <div class="sm:1/2 md:w-1/3 lg:w-1/4 px-2">
                             <input type="text" placeholder=".col-md-4" class="block appearance-none w-full py-1 px-2 mb-1 text-base leading-normal bg-white text-gray-800 border border-gray-200 rounded">
                           </div>
                         </div>
@@ -559,7 +559,7 @@
         </div>
       </section>
       <footer class="main-footer">
-        <div class="container mx-auto sm:px-4 max-w-full mx-auto sm:px-4">
+        <div class="mx-auto px-2 max-w-full mx-auto">
           <div class="flex flex-wrap ">
             <div class="sm:w-1/2 pr-4 pl-4">
               <p>Your company &copy; 2017-2019</p>

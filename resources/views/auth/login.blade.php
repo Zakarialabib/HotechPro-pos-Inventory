@@ -1,149 +1,85 @@
 <?php $general_setting = DB::table('general_settings')->find(1); ?>
 <!DOCTYPE html>
 <html>
-  <head>
+<head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>{{$general_setting->site_title}}</title>
+    <title>{{ $general_setting->site_title }}</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="robots" content="all,follow">
-    <link rel="manifest" href="{{url('manifest.json')}}">
-    <link rel="icon" type="image/png" href="{{url('public/logo', $general_setting->site_logo)}}" />
-    <!-- Bootstrap CSS-->
-    <link rel="stylesheet" href="<?php echo asset('public/vendor/bootstrap/css/bootstrap.min.css') ?>" type="text/css">
-    <link rel="stylesheet" href="<?php echo asset('public/vendor/bootstrap/css/bootstrap-datepicker.min.css') ?>" type="text/css">
-    <link rel="stylesheet" href="<?php echo asset('public/vendor/bootstrap/css/bootstrap-select.min.css') ?>" type="text/css">
-    <!-- Font Awesome CSS-->
-    <link rel="stylesheet" href="<?php echo asset('public/vendor/font-awesome/css/font-awesome.min.css') ?>" type="text/css">
+    <link rel="manifest" href="{{ url('manifest.json') }}">
+    <link rel="icon" type="image/png" href="{{ url('public/logo', $general_setting->site_logo) }}" />
+    <!-- CSS-->
+    <link href="{{ asset('public/css/app.css') }}" rel="stylesheet">
     <!-- Google fonts - Roboto -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700">
-    <!-- jQuery Circle-->
-    <link rel="stylesheet" href="<?php echo asset('public/css/grasp_mobile_progress_circle-1.0.0.min.css') ?>" type="text/css">
-    <!-- Custom Scrollbar-->
-    <link rel="stylesheet" href="<?php echo asset('public/vendor/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.css') ?>" type="text/css">
-    <!-- theme stylesheet-->
-    <link rel="stylesheet" href="<?php echo asset('public/css/style.default.css') ?>" id="theme-stylesheet" type="text/css">
     <!-- Custom stylesheet - for your changes-->
-    <link rel="stylesheet" href="<?php echo asset('public/css/custom-'.$general_setting->theme) ?>" type="text/css">
-    <!-- Tweaks for older IEs--><!--[if lt IE 9]>
-        <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
-        <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script><![endif]-->
+    <link rel="stylesheet"
+        href="<?php echo asset('public/css/custom-' . $general_setting->theme); ?>"
+        type="text/css">
+</head>
 
-
-    <script type="text/javascript" src="<?php echo asset('public/vendor/jquery/jquery.min.js') ?>"></script>
-<script type="text/javascript" src="<?php echo asset('public/vendor/jquery/jquery-ui.min.js') ?>"></script>
-<script type="text/javascript" src="<?php echo asset('public/vendor/jquery/bootstrap-datepicker.min.js') ?>"></script>
-<script type="text/javascript" src="<?php echo asset('public/vendor/popper.js/umd/popper.min.js') ?>">
-</script>
-<script type="text/javascript" src="<?php echo asset('public/vendor/bootstrap/js/bootstrap.min.js') ?>"></script>
-<script type="text/javascript" src="<?php echo asset('public/vendor/bootstrap/js/bootstrap-select.min.js') ?>"></script>
-<script type="text/javascript" src="<?php echo asset('public/js/grasp_mobile_progress_circle-1.0.0.min.js') ?>"></script>
-<script type="text/javascript" src="<?php echo asset('public/vendor/jquery.cookie/jquery.cookie.js') ?>">
-</script>
-<script type="text/javascript" src="<?php echo asset('public/vendor/jquery-validation/jquery.validate.min.js') ?>"></script>
-<script type="text/javascript" src="<?php echo asset('public/vendor/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.concat.min.js')?>"></script>
-<script type="text/javascript" src="<?php echo asset('public/js/front.js') ?>"></script>
-  </head>
-  <body>
-    <!-- <div class="relative px-3 py-3 mb-4 border rounded bg-red-200 border-red-300 text-red-800  text-center"><button type="button" class="absolute top-0 bottom-0 right-0 px-4 py-3" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>Please close the envato preview window from the top-right corner before accessing the demo. Thank you.</div> -->
-    <div class="page login-page">
-      <div class="container mx-auto sm:px-4">
-        <div class="form-outer text-center flex items-center">
-          <div class="form-inner">
-            <div class="logo"><span>{{$general_setting->site_title}}</span></div>
-            @if(session()->has('delete_message'))
-            <div class="relative px-3 py-3 mb-4 border rounded bg-red-200 border-red-300 text-red-800  text-center"><button type="button" class="absolute top-0 bottom-0 right-0 px-4 py-3" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>{{ session()->get('delete_message') }}</div> 
-            @endif
-            <form method="POST" action="{{ route('login') }}" id="login-form">
-              @csrf
-              <div class="form-group-material">
-                <input id="login-username" type="text" name="name" required class="input-material" value="">
-                <label for="login-username" class="label-material">{{trans('file.UserName')}}</label>
-                @if ($errors->has('name'))
-                    <p>
-                        <strong>{{ $errors->first('name') }}</strong>
-                    </p>
-                @endif
-              </div>
-              
-              <div class="form-group-material">
-                <input id="login-password" type="password" name="password" required class="input-material" value="">
-                <label for="login-password" class="label-material">{{trans('file.Password')}}</label>
-                @if ($errors->has('password'))
-                    <p>
-                        <strong>{{ $errors->first('password') }}</strong>
-                    </p>
-                @endif
-              </div>
-              <button type="submit" class="inline-block align-middle text-center select-none border font-normal whitespace-no-wrap rounded py-1 px-3 leading-normal no-underline bg-blue-600 text-white hover:bg-blue-600 block w-full">{{trans('file.LogIn')}}</button>
-            </form>
-            <!-- This three button for demo only-->
-            <!-- <button type="submit" class="inline-block align-middle text-center select-none border font-normal whitespace-no-wrap rounded py-1 px-3 leading-normal no-underline bg-green-500 text-white hover:bg-green-600 admin-btn">LogIn as Admin</button>
-            <button type="submit" class="inline-block align-middle text-center select-none border font-normal whitespace-no-wrap rounded py-1 px-3 leading-normal no-underline bg-teal-500 text-white hover:bg-teal-600 staff-btn">LogIn as Staff</button>
-            <button type="submit" class="inline-block align-middle text-center select-none border font-normal whitespace-no-wrap rounded py-1 px-3 leading-normal no-underline bg-gray-900 text-white hover:bg-gray-900 customer-btn">LogIn as Customer</button>
-            <br><br> -->
-            <a href="{{ route('password.request') }}" class="forgot-pass">{{trans('file.Forgot Password?')}}</a>
-            <p>{{trans('file.Do not have an account?')}}</p><a href="{{url('register')}}" class="signup">{{trans('file.Register')}}</a>
-          </div>
-          <div class="copyrights text-center">
-            <p>{{trans('file.Developed By')}} <span class="external">Zakaria Labib</span></p>
-          </div>
+<body>
+    <div class="min-h-screen bg-gray-50 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
+        <div class="sm:mx-auto sm:w-full sm:max-w-md">
+            <img class="mx-auto h-10 w-auto" src="{{url('public/logo', $general_setting->site_logo)}}" width="120" alt="{{ $general_setting->site_title }}" />
+            <div class="text-center">{{ $general_setting->site_title }}</div>
         </div>
+        @if (session()->has('delete_message'))
+            <div class="relative px-3 py-3 mb-4 border rounded bg-red-200 border-red-300 text-red-800  text-center">
+                <button type="button" class="absolute top-0 bottom-0 right-0 px-4 py-3" data-dismiss="alert"
+                    aria-label="Close"><span
+                        aria-hidden="true">&times;</span></button>{{ session()->get('delete_message') }}</div>
+        @endif
+
+        <div class="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
+            <div class="bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10">
+                <form method="POST" action="{{ route('login') }}" id="login-form">
+                    @csrf
+                    <div class="mt-6">
+                        <label for="login-username"
+                            class="block text-sm font-medium leading-5 text-gray-700">{{ trans('file.UserName') }}</label>
+                        <input id="login-username" type="text" name="name" required
+                            class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out sm:text-sm sm:leading-5"
+                            value="">
+                        @if ($errors->has('name'))
+                            <p>
+                                <strong>{{ $errors->first('name') }}</strong>
+                            </p>
+                        @endif
+                    </div>
+
+                    <div class="mt-6">
+                        <label for="login-password"
+                            class="block text-sm font-medium leading-5 text-gray-700">{{ trans('file.Password') }}</label>
+                        <input id="login-password" type="password" name="password" required
+                            class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out sm:text-sm sm:leading-5"
+                            value="">
+                        @if ($errors->has('password'))
+                            <p>
+                                <strong>{{ $errors->first('password') }}</strong>
+                            </p>
+                        @endif
+                    </div>
+                    <button type="submit"
+                        class="align-middle text-center select-none border font-normal whitespace-no-wrap rounded py-1 px-3 leading-normal no-underline bg-blue-600 text-white hover:bg-blue-600">{{ trans('file.LogIn') }}</button>
+                </form>
+                <div class="w-full text-center text-lg mt-5">
+                <a href="{{ route('password.request') }}"
+                    class="">{{ trans('file.Forgot Password?') }}</a>
+                  
+                <p>{{ trans('file.Do not have an account?') }}</p>
+                <a href="{{ url('register') }}"
+                    class="">{{ trans('file.Register') }}</a>
+                  </div>
+            </div>
+        </div>
+        <div class="copyrights text-center">
+          <p>{{ trans('file.Developed By') }} <span class="external">Zakaria Labib</span></p>
       </div>
     </div>
-  </body>
+</body>
 </html>
-<script>
-    if ('serviceWorker' in navigator ) {
-        window.addEventListener('load', function() {
-            navigator.serviceWorker.register('/saleproposmajed/service-worker.js').then(function(registration) {
-                // Registration was successful
-                console.log('ServiceWorker registration successful with scope: ', registration.scope);
-            }, function(err) {
-                // registration failed :(
-                console.log('ServiceWorker registration failed: ', err);
-            });
-        });
-    }
-</script>
-<script type="text/javascript">
-    $('.admin-btn').on('click', function(){
-        $("input[name='name']").focus().val('admin');
-        $("input[name='password']").focus().val('admin');
-    });
 
-  $('.staff-btn').on('click', function(){
-      $("input[name='name']").focus().val('staff');
-      $("input[name='password']").focus().val('staff');
-  });
 
-  $('.customer-btn').on('click', function(){
-      $("input[name='name']").focus().val('shakalaka');
-      $("input[name='password']").focus().val('shakalaka');
-  });
-  // ------------------------------------------------------- //
-    // Material Inputs
-    // ------------------------------------------------------ //
-
-    var materialInputs = $('input.input-material');
-
-    // activate labels for prefilled values
-    materialInputs.filter(function() { return $(this).val() !== ""; }).siblings('.label-material').addClass('active');
-
-    // move label on focus
-    materialInputs.on('focus', function () {
-        $(this).siblings('.label-material').addClass('active');
-    });
-
-    // remove/keep label on blur
-    materialInputs.on('blur', function () {
-        $(this).siblings('.label-material').removeClass('active');
-
-        if ($(this).val() !== '') {
-            $(this).siblings('.label-material').addClass('active');
-        } else {
-            $(this).siblings('.label-material').removeClass('active');
-        }
-    });
-</script>

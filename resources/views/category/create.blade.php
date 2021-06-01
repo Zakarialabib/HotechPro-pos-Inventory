@@ -1,26 +1,26 @@
 @extends('layout.main') @section('content')
 
 @if($errors->has('name'))
-<div class="relative px-3 py-3 mb-4 border rounded bg-red-200 border-red-300 text-red-800  text-center"><button type="button" class="absolute top-0 bottom-0 right-0 px-4 py-3" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>{{ $errors->first('name') }}</div>
+<div class="alert alert-danger alert-dismissible text-center"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>{{ $errors->first('name') }}</div>
 @endif
 @if($errors->has('image'))
-<div class="relative px-3 py-3 mb-4 border rounded bg-red-200 border-red-300 text-red-800  text-center"><button type="button" class="absolute top-0 bottom-0 right-0 px-4 py-3" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>{{ $errors->first('image') }}</div>
+<div class="alert alert-danger alert-dismissible text-center"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>{{ $errors->first('image') }}</div>
 @endif
 @if(session()->has('message'))
-  <div class="relative px-3 py-3 mb-4 border rounded bg-green-200 border-green-300 text-green-800  text-center"><button type="button" class="absolute top-0 bottom-0 right-0 px-4 py-3" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>{{ session()->get('message') }}</div> 
+  <div class="alert alert-success alert-dismissible text-center"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>{{ session()->get('message') }}</div> 
 @endif
 @if(session()->has('not_permitted'))
-  <div class="relative px-3 py-3 mb-4 border rounded bg-red-200 border-red-300 text-red-800  text-center"><button type="button" class="absolute top-0 bottom-0 right-0 px-4 py-3" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>{{ session()->get('not_permitted') }}</div> 
+  <div class="alert alert-danger alert-dismissible text-center"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>{{ session()->get('not_permitted') }}</div> 
 @endif
 
 <section>
-    <div class="container mx-auto sm:px-4 max-w-full mx-auto sm:px-4">
+    <div class="container-fluid">
         <!-- Trigger the modal with a button -->
-        <button type="button" class="inline-block align-middle text-center select-none border font-normal whitespace-no-wrap rounded py-1 px-3 leading-normal no-underline bg-teal-500 text-white hover:bg-teal-600" data-toggle="modal" data-target="#createModal"><i class="dripicons-plus"></i> {{trans("file.Add Category")}}</button>&nbsp;
-        <button class="inline-block align-middle text-center select-none border font-normal whitespace-no-wrap rounded py-1 px-3 leading-normal no-underline bg-blue-600 text-white hover:bg-blue-600" data-toggle="modal" data-target="#importCategory"><i class="dripicons-copy"></i> {{trans('file.Import Category')}}</button>
+        <button type="button" class="btn btn-info" data-toggle="modal" data-target="#createModal"><i class="dripicons-plus"></i> {{trans("file.Add Category")}}</button>&nbsp;
+        <button class="btn btn-primary" data-toggle="modal" data-target="#importCategory"><i class="dripicons-copy"></i> {{trans('file.Import Category')}}</button>
     </div>
-    <div class="block w-full overflow-auto scrolling-touch">
-        <table id="category-table" class="w-full max-w-full mb-4 bg-transparent" style="width: 100%">
+    <div class="table-responsive">
+        <table id="category-table" class="table" style="width: 100%">
             <thead>
                 <tr>
                     <th class="not-exported"></th>
@@ -38,33 +38,33 @@
 </section>
 
 <!-- Create Modal -->
-<div id="createModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" class="modal opacity-0 text-left">
+<div id="createModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" class="modal fade text-left">
     <div role="document" class="modal-dialog">
       <div class="modal-content">
         {!! Form::open(['route' => 'category.store', 'method' => 'post', 'files' => true]) !!}
         <div class="modal-header">
           <h5 id="exampleModalLabel" class="modal-title">{{trans('file.Add Category')}}</h5>
-          <button type="button" data-dismiss="modal" aria-label="Close" class="absolute top-0 bottom-0 right-0 px-4 py-3"><span aria-hidden="true"><i class="dripicons-cross"></i></span></button>
+          <button type="button" data-dismiss="modal" aria-label="Close" class="close"><span aria-hidden="true"><i class="dripicons-cross"></i></span></button>
         </div>
         <div class="modal-body">
           <p class="italic"><small>{{trans('file.The field labels marked with * are required input fields')}}.</small></p>
-            <div class="flex flex-wrap ">
-                <div class="md:w-1/2 pr-4 pl-4 mb-4">
+            <div class="row">
+                <div class="col-md-6 form-group">
                     <label>{{trans('file.name')}} *</label>
                     {{Form::text('name',null,array('required' => 'required', 'class' => 'form-control', 'placeholder' => 'Type category name...'))}}
                 </div>
-                <div class="md:w-1/2 pr-4 pl-4 mb-4">
+                <div class="col-md-6 form-group">
                     <label>{{trans('file.Image')}}</label>
-                    <input type="file" name="image" class="block appearance-none w-full py-1 px-2 mb-1 text-base leading-normal bg-white text-gray-800 border border-gray-200 rounded">
+                    <input type="file" name="image" class="form-control">
                 </div>
-                <div class="md:w-1/2 pr-4 pl-4 mb-4">
+                <div class="col-md-6 form-group">
                     <label>{{trans('file.Parent Category')}}</label>
                     {{Form::select('parent_id', $lims_categories, null, ['class' => 'form-control','placeholder' => 'No Parent Category'])}}
                 </div> 
             </div>
                            
-            <div class="mb-4">       
-              <input type="submit" value="{{trans('file.submit')}}" class="inline-block align-middle text-center select-none border font-normal whitespace-no-wrap rounded py-1 px-3 leading-normal no-underline bg-blue-600 text-white hover:bg-blue-600">
+            <div class="form-group">       
+              <input type="submit" value="{{trans('file.submit')}}" class="btn btn-primary">
             </div>
         </div>
         {{ Form::close() }}
@@ -72,29 +72,29 @@
     </div>
 </div>
 <!-- Edit Modal -->
-<div id="editModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" class="modal opacity-0 text-left">
+<div id="editModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" class="modal fade text-left">
   <div role="document" class="modal-dialog">
     <div class="modal-content">
         {{ Form::open(['route' => ['category.update', 1], 'method' => 'PUT', 'files' => true] ) }}
       <div class="modal-header">
         <h5 id="exampleModalLabel" class="modal-title">{{trans('file.Update Category')}}</h5>
-        <button type="button" data-dismiss="modal" aria-label="Close" class="absolute top-0 bottom-0 right-0 px-4 py-3"><span aria-hidden="true"><i class="dripicons-cross"></i></span></button>
+        <button type="button" data-dismiss="modal" aria-label="Close" class="close"><span aria-hidden="true"><i class="dripicons-cross"></i></span></button>
       </div>
       <div class="modal-body">
         <p class="italic"><small>{{trans('file.The field labels marked with * are required input fields')}}.</small></p>
-        <div class="flex flex-wrap ">
-            <div class="md:w-1/2 pr-4 pl-4 mb-4">
+        <div class="row">
+            <div class="col-md-6 form-group">
                 <label>{{trans('file.name')}} *</label>
                 {{Form::text('name',null, array('required' => 'required', 'class' => 'form-control'))}}
             </div>
             <input type="hidden" name="category_id">
-            <div class="md:w-1/2 pr-4 pl-4 mb-4">
+            <div class="col-md-6 form-group">
                 <label>{{trans('file.Image')}}</label>
-                <input type="file" name="image" class="block appearance-none w-full py-1 px-2 mb-1 text-base leading-normal bg-white text-gray-800 border border-gray-200 rounded">
+                <input type="file" name="image" class="form-control">
             </div>
-            <div class="md:w-1/2 pr-4 pl-4 mb-4">
+            <div class="col-md-6 form-group">
                 <label>{{trans('file.Parent Category')}}</label>
-                <select name="parent_id" class="block appearance-none w-full py-1 px-2 mb-1 text-base leading-normal bg-white text-gray-800 border border-gray-200 rounded selectpicker" id="parent">
+                <select name="parent_id" class="form-control selectpicker" id="parent">
                     <option value="">No {{trans('file.parent')}}</option>
                     @foreach($lims_category_all as $category)
                     <option value="{{$category->id}}">{{$category->name}}</option>
@@ -103,8 +103,8 @@
             </div>
         </div>
             
-        <div class="mb-4">       
-            <input type="submit" value="{{trans('file.submit')}}" class="inline-block align-middle text-center select-none border font-normal whitespace-no-wrap rounded py-1 px-3 leading-normal no-underline bg-blue-600 text-white hover:bg-blue-600">
+        <div class="form-group">       
+            <input type="submit" value="{{trans('file.submit')}}" class="btn btn-primary">
           </div>
         </div>
       {{ Form::close() }}
@@ -112,32 +112,32 @@
   </div>
 </div>
 <!-- Import Modal -->
-<div id="importCategory" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" class="modal opacity-0 text-left">
+<div id="importCategory" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" class="modal fade text-left">
     <div role="document" class="modal-dialog">
       <div class="modal-content">
         {!! Form::open(['route' => 'category.import', 'method' => 'post', 'files' => true]) !!}
         <div class="modal-header">
           <h5 id="exampleModalLabel" class="modal-title">{{trans('file.Import Category')}}</h5>
-          <button type="button" data-dismiss="modal" aria-label="Close" class="absolute top-0 bottom-0 right-0 px-4 py-3"><span aria-hidden="true"><i class="dripicons-cross"></i></span></button>
+          <button type="button" data-dismiss="modal" aria-label="Close" class="close"><span aria-hidden="true"><i class="dripicons-cross"></i></span></button>
         </div>
         <div class="modal-body">
             <p class="italic"><small>{{trans('file.The field labels marked with * are required input fields')}}.</small></p>
            <p>{{trans('file.The correct column order is')}} (name*, parent_category) {{trans('file.and you must follow this')}}.</p>
-            <div class="flex flex-wrap ">
-                <div class="md:w-1/2 pr-4 pl-4">
-                    <div class="mb-4">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
                         <label>{{trans('file.Upload CSV File')}} *</label>
                         {{Form::file('file', array('class' => 'form-control','required'))}}
                     </div>
                 </div>
-                <div class="md:w-1/2 pr-4 pl-4">
-                    <div class="mb-4">
+                <div class="col-md-6">
+                    <div class="form-group">
                         <label> {{trans('file.Sample File')}}</label>
-                        <a href="public/sample_file/sample_category.csv" class="inline-block align-middle text-center select-none border font-normal whitespace-no-wrap rounded py-1 px-3 leading-normal no-underline bg-teal-500 text-white hover:bg-teal-600 block w-full btn-md"><i class="dripicons-download"></i>  {{trans('file.Download')}}</a>
+                        <a href="public/sample_file/sample_category.csv" class="btn btn-info btn-block btn-md"><i class="dripicons-download"></i>  {{trans('file.Download')}}</a>
                     </div>
                 </div>
             </div>
-            <input type="submit" value="{{trans('file.submit')}}" class="inline-block align-middle text-center select-none border font-normal whitespace-no-wrap rounded py-1 px-3 leading-normal no-underline bg-blue-600 text-white hover:bg-blue-600">
+            <input type="submit" value="{{trans('file.submit')}}" class="btn btn-primary">
         </div>
         {{ Form::close() }}
       </div>

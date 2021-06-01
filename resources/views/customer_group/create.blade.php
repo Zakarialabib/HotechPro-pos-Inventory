@@ -1,23 +1,23 @@
 @extends('layout.main')
 @section('content')
 @if($errors->has('name'))
-<div class="relative px-3 py-3 mb-4 border rounded bg-red-200 border-red-300 text-red-800  text-center">
-    <button type="button" class="absolute top-0 bottom-0 right-0 px-4 py-3" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>{{ $errors->first('name') }}</div>
+<div class="alert alert-danger alert-dismissible text-center">
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>{{ $errors->first('name') }}</div>
 @endif
 @if(session()->has('message'))
-  <div class="relative px-3 py-3 mb-4 border rounded bg-green-200 border-green-300 text-green-800  text-center"><button type="button" class="absolute top-0 bottom-0 right-0 px-4 py-3" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>{{ session()->get('message') }}</div> 
+  <div class="alert alert-success alert-dismissible text-center"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>{{ session()->get('message') }}</div> 
 @endif
 @if(session()->has('not_permitted'))
-  <div class="relative px-3 py-3 mb-4 border rounded bg-red-200 border-red-300 text-red-800  text-center"><button type="button" class="absolute top-0 bottom-0 right-0 px-4 py-3" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>{{ session()->get('not_permitted') }}</div> 
+  <div class="alert alert-danger alert-dismissible text-center"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>{{ session()->get('not_permitted') }}</div> 
 @endif
 
 <section>
-    <div class="container mx-auto sm:px-4 max-w-full mx-auto sm:px-4">
-        <a href="#" data-toggle="modal" data-target="#createModal" class="inline-block align-middle text-center select-none border font-normal whitespace-no-wrap rounded py-1 px-3 leading-normal no-underline bg-teal-500 text-white hover:bg-teal-600"><i class="dripicons-plus"></i> {{trans('file.Add Customer Group')}}</a>
-        <a href="#" data-toggle="modal" data-target="#importcustomer_group" class="inline-block align-middle text-center select-none border font-normal whitespace-no-wrap rounded py-1 px-3 leading-normal no-underline bg-blue-600 text-white hover:bg-blue-600"><i class="dripicons-copy"></i> {{trans('file.Import Customer Group')}}</a>
+    <div class="container-fluid">
+        <a href="#" data-toggle="modal" data-target="#createModal" class="btn btn-info"><i class="dripicons-plus"></i> {{trans('file.Add Customer Group')}}</a>
+        <a href="#" data-toggle="modal" data-target="#importcustomer_group" class="btn btn-primary"><i class="dripicons-copy"></i> {{trans('file.Import Customer Group')}}</a>
     </div>
-    <div class="block w-full overflow-auto scrolling-touch">
-        <table id="customer-grp-table" class="w-full max-w-full mb-4 bg-transparent">
+    <div class="table-responsive">
+        <table id="customer-grp-table" class="table">
             <thead>
                 <tr>
                     <th class="not-exported"></th>
@@ -33,20 +33,20 @@
                     <td>{{ $customer_group->name }}</td>
                     <td>{{ $customer_group->percentage}}</td>
                     <td>
-                        <div class="relative inline-flex align-middle">
-                            <button type="button" class="inline-block align-middle text-center select-none border font-normal whitespace-no-wrap rounded  no-underline btn-default py-1 px-2 leading-tight text-xs   inline-block w-0 h-0 ml-1 align border-b-0 border-t-1 border-r-1 border-l-1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{trans('file.action')}}
+                        <div class="btn-group">
+                            <button type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{trans('file.action')}}
                                 <span class="caret"></span>
                                 <span class="sr-only">Toggle Dropdown</span>
                             </button>
-                            <ul class=" absolute left-0 z-50 float-left hidden list-reset	 py-2 mt-1 text-base bg-white border border-gray-300 rounded edit-options dropdown-menu-right dropdown-default" user="menu">
+                            <ul class="dropdown-menu edit-options dropdown-menu-right dropdown-default" user="menu">
                                 <li>
-                                    <button type="button" data-id="{{$customer_group->id}}" class="open-EditCustomerGroupDialog inline-block align-middle text-center select-none border font-normal whitespace-no-wrap rounded py-1 px-3 leading-normal no-underline font-normal text-blue-700 bg-transparent" data-toggle="modal" data-target="#editModal"><i class="dripicons-document-edit"></i> {{trans('file.edit')}}
+                                    <button type="button" data-id="{{$customer_group->id}}" class="open-EditCustomerGroupDialog btn btn-link" data-toggle="modal" data-target="#editModal"><i class="dripicons-document-edit"></i> {{trans('file.edit')}}
                                     </button>
                                 </li>
                                 <li class="divider"></li>
                                 {{ Form::open(['route' => ['customer_group.destroy', $customer_group->id], 'method' => 'DELETE'] ) }}
                                 <li>
-                                    <button type="submit" class="inline-block align-middle text-center select-none border font-normal whitespace-no-wrap rounded py-1 px-3 leading-normal no-underline font-normal text-blue-700 bg-transparent" onclick="return confirmDelete()"><i class="dripicons-trash"></i> {{trans('file.delete')}}</button>
+                                    <button type="submit" class="btn btn-link" onclick="return confirmDelete()"><i class="dripicons-trash"></i> {{trans('file.delete')}}</button>
                                 </li>
                                 {{ Form::close() }}
                             </ul>
@@ -59,27 +59,27 @@
     </div>
 </section>
 
-<div id="createModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" class="modal opacity-0 text-left">
+<div id="createModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" class="modal fade text-left">
 <div role="document" class="modal-dialog">
   <div class="modal-content">
     {!! Form::open(['route' => 'customer_group.store', 'method' => 'post']) !!}
     <div class="modal-header">
       <h5 id="exampleModalLabel" class="modal-title">{{trans('file.Add Customer Group')}}</h5>
-      <button type="button" data-dismiss="modal" aria-label="Close" class="absolute top-0 bottom-0 right-0 px-4 py-3"><span aria-hidden="true"><i class="dripicons-cross"></i></span></button>
+      <button type="button" data-dismiss="modal" aria-label="Close" class="close"><span aria-hidden="true"><i class="dripicons-cross"></i></span></button>
     </div>
     <div class="modal-body">
       <p class="italic"><small>{{trans('file.The field labels marked with * are required input fields')}}.</small></p>
       <form>
-        <div class="mb-4">
+        <div class="form-group">
           <label>{{trans('file.name')}} *</label>
-          <input type="text" name="name" required="required" class="block appearance-none w-full py-1 px-2 mb-1 text-base leading-normal bg-white text-gray-800 border border-gray-200 rounded">
+          <input type="text" name="name" required="required" class="form-control">
         </div>
-        <div class="mb-4">       
+        <div class="form-group">       
           <label>{{trans('file.Percentage')}}(%) *</label>
-          <input type="text" name="percentage" required="required" class="block appearance-none w-full py-1 px-2 mb-1 text-base leading-normal bg-white text-gray-800 border border-gray-200 rounded">
+          <input type="text" name="percentage" required="required" class="form-control">
         </div>                
-        <div class="mb-4">       
-          <input type="submit" value="{{trans('file.submit')}}" class="inline-block align-middle text-center select-none border font-normal whitespace-no-wrap rounded py-1 px-3 leading-normal no-underline bg-blue-600 text-white hover:bg-blue-600">
+        <div class="form-group">       
+          <input type="submit" value="{{trans('file.submit')}}" class="btn btn-primary">
         </div>
       </form>
     </div>
@@ -89,27 +89,27 @@
 </div>
 </div>
 
-<div id="editModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" class="modal opacity-0 text-left">
+<div id="editModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" class="modal fade text-left">
 <div role="document" class="modal-dialog">
   <div class="modal-content">
     {!! Form::open(['route' => ['customer_group.update',1], 'method' => 'put']) !!}
     <div class="modal-header">
       <h5 id="exampleModalLabel" class="modal-title">{{trans('file.Update Customer Group')}}</h5>
-      <button type="button" data-dismiss="modal" aria-label="Close" class="absolute top-0 bottom-0 right-0 px-4 py-3"><span aria-hidden="true"><i class="dripicons-cross"></i></span></button>
+      <button type="button" data-dismiss="modal" aria-label="Close" class="close"><span aria-hidden="true"><i class="dripicons-cross"></i></span></button>
     </div>
     <div class="modal-body">
       <p class="italic"><small>{{trans('file.The field labels marked with * are required input fields')}}.</small></p>
-        <div class="mb-4">
+        <div class="form-group">
             <input type="hidden" name="customer_group_id">
           <label>{{trans('file.name')}} *</label>
-          <input type="text" name="name" required="required" class="block appearance-none w-full py-1 px-2 mb-1 text-base leading-normal bg-white text-gray-800 border border-gray-200 rounded">
+          <input type="text" name="name" required="required" class="form-control">
         </div>
-        <div class="mb-4">       
+        <div class="form-group">       
           <label>{{trans('file.Percentage')}}(%) *</label>
-          <input type="text" name="percentage" required="required" class="block appearance-none w-full py-1 px-2 mb-1 text-base leading-normal bg-white text-gray-800 border border-gray-200 rounded">
+          <input type="text" name="percentage" required="required" class="form-control">
         </div>                
-        <div class="mb-4">       
-          <input type="submit" value="{{trans('file.submit')}}" class="inline-block align-middle text-center select-none border font-normal whitespace-no-wrap rounded py-1 px-3 leading-normal no-underline bg-blue-600 text-white hover:bg-blue-600">
+        <div class="form-group">       
+          <input type="submit" value="{{trans('file.submit')}}" class="btn btn-primary">
         </div>
     </div>
     {{ Form::close() }}
@@ -117,33 +117,33 @@
 </div>
 </div>
 
-<div id="importcustomer_group" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" class="modal opacity-0 text-left">
+<div id="importcustomer_group" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" class="modal fade text-left">
 <div role="document" class="modal-dialog">
   <div class="modal-content">
     {!! Form::open(['route' => 'customer_group.import', 'method' => 'post', 'files' => true]) !!}
     <div class="modal-header">
       <h5 id="exampleModalLabel" class="modal-title"> {{trans('file.Import Customer Group')}}</h5>
-      <button type="button" data-dismiss="modal" aria-label="Close" class="absolute top-0 bottom-0 right-0 px-4 py-3"><span aria-hidden="true"><i class="dripicons-cross"></i></span></button>
+      <button type="button" data-dismiss="modal" aria-label="Close" class="close"><span aria-hidden="true"><i class="dripicons-cross"></i></span></button>
     </div>
     <div class="modal-body">
         <p class="italic"><small>{{trans('file.The field labels marked with * are required input fields')}}.</small></p>
        <p>{{trans('file.The correct column order is')}} (name*, percentage*) {{trans('file.and you must follow this')}}.</p>
-      <div class="flex flex-wrap ">
-            <div class="md:w-1/2 pr-4 pl-4">
-                <div class="mb-4">
+      <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
                     <label>{{trans('file.Upload CSV File')}} *</label>
                     {{Form::file('file', array('class' => 'form-control','required'))}}
                 </div>
             </div>
-            <div class="md:w-1/2 pr-4 pl-4">
-                <div class="mb-4">
+            <div class="col-md-6">
+                <div class="form-group">
                     <label> {{trans('file.Sample File')}}</label>
-                    <a href="public/sample_file/sample_customer_group.csv" class="inline-block align-middle text-center select-none border font-normal whitespace-no-wrap rounded py-1 px-3 leading-normal no-underline bg-teal-500 text-white hover:bg-teal-600 block w-full btn-md"><i class="dripicons-download"></i>  {{trans('file.Download')}}</a>
+                    <a href="public/sample_file/sample_customer_group.csv" class="btn btn-info btn-block btn-md"><i class="dripicons-download"></i>  {{trans('file.Download')}}</a>
                 </div>
             </div>
       </div>
 
-        <input type="submit" value="{{trans('file.submit')}}" class="inline-block align-middle text-center select-none border font-normal whitespace-no-wrap rounded py-1 px-3 leading-normal no-underline bg-blue-600 text-white hover:bg-blue-600">
+        <input type="submit" value="{{trans('file.submit')}}" class="btn btn-primary">
     </div>
     {{ Form::close() }}
   </div>
@@ -172,7 +172,7 @@
   }
     $(document).ready(function() {
         
-        $('.open-EditCustomerGroupDialog').on('click', function() {
+        $(document).on('click', '.open-EditCustomerGroupDialog', function() {
             var url = "customer_group/"
             var id = $(this).data('id').toString();
             url = url.concat(id).concat("/edit");

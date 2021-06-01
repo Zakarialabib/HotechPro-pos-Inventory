@@ -1,11 +1,11 @@
 @extends('layout.main') @section('content')
 
 <section class="forms">
-    <div class="container mx-auto sm:px-4 max-w-full mx-auto sm:px-4">
+    <div class="container-fluid">
         <h3>{{trans('file.Balance Sheet')}}</h3>
     </div>
-    <div class="block w-full overflow-auto scrolling-touch mb-4">
-        <table id="account-table" class="w-full max-w-full mb-4 bg-transparent table-hover">
+    <div class="table-responsive mb-4">
+        <table id="account-table" class="table table-hover">
             <thead>
                 <tr>
                     <th class="not-exported"></th>

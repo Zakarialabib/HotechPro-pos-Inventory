@@ -1,19 +1,20 @@
 @extends('layout.main') @section('content')
 @if(session()->has('message'))
-  <div class="relative px-3 py-3 mb-4 border rounded bg-green-200 border-green-300 text-green-800  text-center"><button type="button" class="absolute top-0 bottom-0 right-0 px-4 py-3" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>{!! session()->get('message') !!}</div> 
+  <div class="alert alert-success alert-dismissible text-center"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>{!! session()->get('message') !!}</div> 
 @endif
 <section class="forms">
-    <div class="container mx-auto sm:px-4 max-w-full mx-auto sm:px-4">
+    <div class="container-fluid">
         <h3>{{trans('file.Account Statement')}}</h3>
         <strong>{{trans('file.Account')}}:</strong> {{$lims_account_data->name}} [{{$lims_account_data->account_no}}]
     </div>
-    <div class="block w-full overflow-auto scrolling-touch mb-4">
-        <table id="account-table" class="w-full max-w-full mb-4 bg-transparent table-hover">
+    <div class="table-responsive mb-4">
+        <table id="account-table" class="table table-hover">
             <thead>
                 <tr>
                     <th class="not-exported"></th>
                     <th>{{trans('file.date')}}</th>
-                    <th>{{trans('file.reference')}}</th>
+                    <th>{{trans('file.Payment Reference')}}</th>
+                    <th>{{trans('file.Transaction Reference')}}</th>
                     <th>{{trans('file.Credit')}}</th>
                     <th>{{trans('file.Debit')}}</th>
                     <th>{{trans('file.Balance')}}</th>
@@ -21,11 +22,19 @@
             </thead>
             <tbody>
                 @foreach($credit_list as $key=>$credit)
-                @php $balance = $balance + $credit->amount; @endphp
+                <?php
+                    $transaction = App\Sale::select('reference_no')->find($credit->sale_id);
+                    $balance = $balance + $credit->amount; 
+                ?>
                 <tr>
                     <td>{{$key}}</td>
                     <td>{{date($general_setting->date_format, strtotime($credit->created_at->toDateString()))}}</td>
                     <td>{{$credit->payment_reference}}</td>
+                    @if($transaction)
+                        <td>{{$transaction->reference_no}}</td>
+                    @else
+                        <td></td>
+                    @endif
                     <td>{{number_format((float)$credit->amount, 2, '.', '')}}</td>
                     <td>0.00</td>
                     <td>{{number_format((float)$balance, 2, '.', '')}}</td>
@@ -33,11 +42,14 @@
                 @endforeach
 
                 @foreach($recieved_money_transfer_list as $key=>$recieved_money)
-                @php $balance = $balance + $recieved_money->amount; @endphp
+                <?php 
+                    $balance = $balance + $recieved_money->amount; 
+                ?>
                 <tr>
                     <td>{{$key}}</td>
                     <td>{{date($general_setting->date_format, strtotime($recieved_money->created_at->toDateString()))}}</td>
                     <td>{{$recieved_money->reference_no}}</td>
+                    <td></td>
                     <td>{{number_format((float)$recieved_money->amount, 2, '.', '')}}</td>
                     <td>0.00</td>
                     <td>{{number_format((float)$balance, 2, '.', '')}}</td>
@@ -45,11 +57,19 @@
                 @endforeach
 
                 @foreach($debit_list as $key=>$debit)
-                @php $balance = $balance - $debit->amount; @endphp
+                <?php
+                    $transaction = App\Purchase::select('reference_no')->find($credit->purchase_id);
+                    $balance = $balance - $debit->amount; 
+                ?>
                 <tr>
                     <td>{{$key}}</td>
                     <td>{{date($general_setting->date_format, strtotime($debit->created_at->toDateString()))}}</td>
                     <td>{{$debit->payment_reference}}</td>
+                    @if($transaction)
+                        <td>{{$transaction->reference_no}}</td>
+                    @else
+                        <td></td>
+                    @endif
                     <td>0.00</td>
                     <td>{{number_format((float)$debit->amount, 2, '.', '')}}</td>
                     <td>{{number_format((float)$balance, 2, '.', '')}}</td>
@@ -57,11 +77,19 @@
                 @endforeach
 
                 @foreach($return_list as $key=>$return)
-                @php $balance = $balance - $return->grand_total; @endphp
+                <?php 
+                    $transaction = App\Returns::select('reference_no')->find($credit->return_id);
+                    $balance = $balance - $return->grand_total; 
+                ?>
                 <tr>
                     <td>{{$key}}</td>
                     <td>{{date($general_setting->date_format, strtotime($return->created_at->toDateString()))}}</td>
                     <td>{{$return->reference_no}}</td>
+                    @if($transaction)
+                        <td>{{$transaction->reference_no}}</td>
+                    @else
+                        <td></td>
+                    @endif
                     <td>0.00</td>
                     <td>{{number_format((float)$return->grand_total, 2, '.', '')}}</td>
                     <td>{{number_format((float)$balance, 2, '.', '')}}</td>
@@ -69,11 +97,19 @@
                 @endforeach
 
                 @foreach($purchase_return_list as $key=>$return)
-                @php $balance = $balance + $return->grand_total; @endphp
+                <?php
+                    $transaction = App\ReturnPurchase::select('reference_no')->find($credit->return_id);
+                    $balance = $balance + $return->grand_total;
+                ?>
                 <tr>
                     <td>{{$key}}</td>
                     <td>{{date($general_setting->date_format, strtotime($return->created_at->toDateString()))}}</td>
                     <td>{{$return->reference_no}}</td>
+                    @if($transaction)
+                        <td>{{$transaction->reference_no}}</td>
+                    @else
+                        <td></td>
+                    @endif
                     <td>{{number_format((float)$return->grand_total, 2, '.', '')}}</td>
                     <td>0.00</td>
                     <td>{{number_format((float)$balance, 2, '.', '')}}</td>
@@ -86,6 +122,7 @@
                     <td>{{$key}}</td>
                     <td>{{date($general_setting->date_format, strtotime($expense->created_at->toDateString()))}}</td>
                     <td>{{$expense->reference_no}}</td>
+                    <td></td>
                     <td>0.00</td>
                     <td>{{number_format((float)$expense->amount, 2, '.', '')}}</td>
                     <td>{{number_format((float)$balance, 2, '.', '')}}</td>
@@ -98,6 +135,7 @@
                     <td>{{$key}}</td>
                     <td>{{date($general_setting->date_format, strtotime($payroll->created_at->toDateString()))}}</td>
                     <td>{{$payroll->reference_no}}</td>
+                    <td></td>
                     <td>0.00</td>
                     <td>{{number_format((float)$payroll->amount, 2, '.', '')}}</td>
                     <td>{{number_format((float)$balance, 2, '.', '')}}</td>
@@ -110,6 +148,7 @@
                     <td>{{$key}}</td>
                     <td>{{date($general_setting->date_format, strtotime($sent_money->created_at->toDateString()))}}</td>
                     <td>{{$sent_money->reference_no}}</td>
+                    <td></td>
                     <td>0.00</td>
                     <td>{{number_format((float)$sent_money->amount, 2, '.', '')}}</td>
                     <td>{{number_format((float)$balance, 2, '.', '')}}</td>

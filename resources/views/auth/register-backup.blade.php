@@ -12,7 +12,7 @@
                         @csrf
 
                         <div class="mb-4 flex flex-wrap ">
-                            <label for="name" class="md:w-1/3 pr-4 pl-4 pt-2 pb-2 mb-0 leading-normal md:text-right">{{ __('Name') }}</label>
+                            <label for="name" class="sm:1/2 md:w-1/3 lg:w-1/4 px-2 pt-2 pb-2 mb-0 leading-normal md:text-right">{{ __('Name') }}</label>
 
                             <div class="md:w-1/2 pr-4 pl-4">
                                 <input id="name" type="text" class="block appearance-none w-full py-1 px-2 mb-1 text-base leading-normal bg-white text-gray-800 border border-gray-200 rounded{{ $errors->has('name') ? ' bg-red-700' : '' }}" name="name" value="{{ old('name') }}" required autofocus>
@@ -26,7 +26,7 @@
                         </div>
 
                         <div class="mb-4 flex flex-wrap ">
-                            <label for="email" class="md:w-1/3 pr-4 pl-4 pt-2 pb-2 mb-0 leading-normal md:text-right">{{ __('E-Mail Address') }}</label>
+                            <label for="email" class="sm:1/2 md:w-1/3 lg:w-1/4 px-2 pt-2 pb-2 mb-0 leading-normal md:text-right">{{ __('E-Mail Address') }}</label>
 
                             <div class="md:w-1/2 pr-4 pl-4">
                                 <input id="email" type="email" class="block appearance-none w-full py-1 px-2 mb-1 text-base leading-normal bg-white text-gray-800 border border-gray-200 rounded{{ $errors->has('email') ? ' bg-red-700' : '' }}" name="email" value="{{ old('email') }}" required>
@@ -40,7 +40,7 @@
                         </div>
 
                         <div class="mb-4 flex flex-wrap ">
-                            <label for="password" class="md:w-1/3 pr-4 pl-4 pt-2 pb-2 mb-0 leading-normal md:text-right">{{ __('Password') }}</label>
+                            <label for="password" class="sm:1/2 md:w-1/3 lg:w-1/4 px-2 pt-2 pb-2 mb-0 leading-normal md:text-right">{{ __('Password') }}</label>
 
                             <div class="md:w-1/2 pr-4 pl-4">
                                 <input id="password" type="password" class="block appearance-none w-full py-1 px-2 mb-1 text-base leading-normal bg-white text-gray-800 border border-gray-200 rounded{{ $errors->has('password') ? ' bg-red-700' : '' }}" name="password" required>
@@ -54,7 +54,7 @@
                         </div>
 
                         <div class="mb-4 flex flex-wrap ">
-                            <label for="password-confirm" class="md:w-1/3 pr-4 pl-4 pt-2 pb-2 mb-0 leading-normal md:text-right">{{ __('Confirm Password') }}</label>
+                            <label for="password-confirm" class="sm:1/2 md:w-1/3 lg:w-1/4 px-2 pt-2 pb-2 mb-0 leading-normal md:text-right">{{ __('Confirm Password') }}</label>
 
                             <div class="md:w-1/2 pr-4 pl-4">
                                 <input id="password-confirm" type="password" class="block appearance-none w-full py-1 px-2 mb-1 text-base leading-normal bg-white text-gray-800 border border-gray-200 rounded" name="password_confirmation" required>

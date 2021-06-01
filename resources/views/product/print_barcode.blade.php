@@ -1,6 +1,6 @@
 @extends('layout.main') @section('content')
 @if(session()->has('not_permitted'))
-  <div class="relative px-3 py-3 mb-4 border rounded bg-red-200 border-red-300 text-red-800  text-center"><button type="button" class="absolute top-0 bottom-0 right-0 px-4 py-3" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>{{ session()->get('not_permitted') }}</div> 
+  <div class="alert alert-danger alert-dismissible text-center"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>{{ session()->get('not_permitted') }}</div> 
 @endif
 <style>
     /*.barcodelist {
@@ -31,31 +31,31 @@
 
 </style>
 <section class="forms">
-    <div class="container mx-auto sm:px-4 max-w-full mx-auto sm:px-4">
-        <div class="flex flex-wrap ">
-            <div class="md:w-full pr-4 pl-4">
-                <div class="relative flex flex-col min-w-0 rounded break-words border bg-white border-1 border-gray-300">
-                    <div class="py-3 px-6 mb-0 bg-gray-200 border-b-1 border-gray-300 text-gray-900 flex items-center">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header d-flex align-items-center">
                         <h4>{{trans('file.print_barcode')}}</h4>
                     </div>
-                    <div class="flex-auto p-6">
+                    <div class="card-body">
                         <p class="italic"><small>{{trans('file.The field labels marked with * are required input fields')}}.</small></p>
-                        <div class="flex flex-wrap ">
-                            <div class="md:w-full pr-4 pl-4">
-                                <div class="flex flex-wrap ">
-                                    <div class="md:w-1/2 pr-4 pl-4">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="row">
+                                    <div class="col-md-6">
                                         <label>{{trans('file.add_product')}} *</label>
-                                        <div class="search-box relative flex items-stretch w-full">
+                                        <div class="search-box input-group">
                                             
-                                            <button type="button" class="inline-block align-middle text-center select-none border font-normal whitespace-no-wrap rounded  no-underline bg-gray-600 text-white hover:bg-gray-700 py-3 px-4 leading-tight text-xl"><i class="fa fa-barcode"></i></button>
-                                            <input type="text" name="product_code_name" id="lims_productcodeSearch" placeholder="Please type product code and select..." class="block appearance-none w-full py-1 px-2 mb-1 text-base leading-normal bg-white text-gray-800 border border-gray-200 rounded" />
+                                            <button type="button" class="btn btn-secondary btn-lg"><i class="fa fa-barcode"></i></button>
+                                            <input type="text" name="product_code_name" id="lims_productcodeSearch" placeholder="Please type product code and select..." class="form-control" />
                                         </div>
                                     </div>
                                 </div>
-                                <div class="flex flex-wrap  mt-3">
-                                    <div class="md:w-full pr-4 pl-4">
-                                        <div class="block w-full overflow-auto scrolling-touch mt-3">
-                                            <table id="myTable" class="w-full max-w-full mb-4 bg-transparent table-hover order-list">
+                                <div class="row mt-3">
+                                    <div class="col-md-12">
+                                        <div class="table-responsive mt-3">
+                                            <table id="myTable" class="table table-hover order-list">
                                                 <thead>
                                                     <tr>
                                                         <th>{{trans('file.name')}}</th>
@@ -70,16 +70,16 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="mb-4 mt-2">
+                                <div class="form-group mt-2">
                                     <strong>{{trans('file.Print')}}: </strong>&nbsp;
                                     <strong><input type="checkbox" name="name" checked /> {{trans('file.Product Name')}}</strong>&nbsp;
                                     <strong><input type="checkbox" name="price" checked/> {{trans('file.Price')}}</strong>&nbsp;
                                     <strong><input type="checkbox" name="promo_price"/> {{trans('file.Promotional Price')}}</strong>
                                 </div>
-                                <div class="flex flex-wrap ">
-                                    <div class="md:w-1/3 pr-4 pl-4">
+                                <div class="row">
+                                    <div class="col-md-4">
                                         <label><strong>Paper Size *</strong></label>
-                                        <select class="block appearance-none w-full py-1 px-2 mb-1 text-base leading-normal bg-white text-gray-800 border border-gray-200 rounded" name="paper_size" required id="paper-size">
+                                        <select class="form-control" name="paper_size" required id="paper-size">
                                             <option value="0">Select paper size...</option>
                                             <option value="36">36 mm (1.4 inch)</option>
                                             <option value="24">24 mm (0.94 inch)</option>
@@ -87,8 +87,8 @@
                                         </select>
                                     </div>
                                 </div>
-                                <div class="mb-4 mt-3">
-                                    <input type="submit" value="{{trans('file.submit')}}" class="inline-block align-middle text-center select-none border font-normal whitespace-no-wrap rounded py-1 px-3 leading-normal no-underline bg-blue-600 text-white hover:bg-blue-600" id="submit-button">
+                                <div class="form-group mt-3">
+                                    <input type="submit" value="{{trans('file.submit')}}" class="btn btn-primary" id="submit-button">
                                 </div>
                             </div>
                         </div>
@@ -98,13 +98,13 @@
         </div>
     </div>
 
-    <div id="print-barcode" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" class="modal opacity-0 text-left">
+    <div id="print-barcode" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" class="modal fade text-left">
         <div role="document" class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
                   <h5 id="modal_header" class="modal-title">{{trans('file.Barcode')}}</h5>&nbsp;&nbsp;
-                  <button id="print-btn" type="button" class="inline-block align-middle text-center select-none border font-normal whitespace-no-wrap rounded  no-underline btn-default py-1 px-2 leading-tight text-xs "><i class="dripicons-print"></i> {{trans('file.Print')}}</button>
-                  <button type="button" id="close-btn" data-dismiss="modal" aria-label="Close" class="absolute top-0 bottom-0 right-0 px-4 py-3"><span aria-hidden="true"><i class="dripicons-cross"></i></span></button>
+                  <button id="print-btn" type="button" class="btn btn-default btn-sm"><i class="dripicons-print"></i> {{trans('file.Print')}}</button>
+                  <button type="button" id="close-btn" data-dismiss="modal" aria-label="Close" class="close"><span aria-hidden="true"><i class="dripicons-cross"></i></span></button>
                 </div>
                 <div class="modal-body">
                     <div id="label-content">
@@ -168,8 +168,8 @@
                     var cols = '';
                     cols += '<td>' + data[0] + '</td>';
                     cols += '<td class="product-code">' + data[1] + '</td>';
-                    cols += '<td><input type="number" class="block appearance-none w-full py-1 px-2 mb-1 text-base leading-normal bg-white text-gray-800 border border-gray-200 rounded qty" name="qty[]" value="1" /></td>';
-                    cols += '<td><button type="button" class="ibtnDel inline-block align-middle text-center select-none border font-normal whitespace-no-wrap rounded py-1 px-3 leading-normal no-underline btn-md bg-red-600 text-white hover:bg-red-700">Delete</button></td>';
+                    cols += '<td><input type="number" class="form-control qty" name="qty[]" value="1" /></td>';
+                    cols += '<td><button type="button" class="ibtnDel btn btn-md btn-danger">Delete</button></td>';
 
                     newRow.append(cols);
                     $("table.order-list tbody").append(newRow);
@@ -208,6 +208,22 @@
                 barcode_image.push($('table.order-list tbody tr:nth-child(' + (i + 1) + ')').data('imagedata'));
             }
             var htmltext = '<table class="barcodelist" style="width:378px;" cellpadding="5px" cellspacing="10px">';
+            /*$.each(qty, function(index){
+                i = 0;
+                while(i < qty[index]){
+                    if(i % 2 == 0)
+                        htmltext +='<tr>';
+                    htmltext +='<td style="width:164px;height:88%;padding-top:7px;vertical-align:middle;text-align:center">';
+                    htmltext += product_name[index] + '<br>';
+                    htmltext += '<img style="max-width:150px;" src="data:image/png;base64,'+barcode_image[index]+'" alt="barcode" /><br>';
+                    htmltext += '<strong>'+code[index]+'</strong><br>';
+                    htmltext += 'price: '+price[index];
+                    htmltext +='</td>';
+                    if(i % 2 != 0)
+                        htmltext +='</tr>';
+                    i++;
+                }
+            });*/
             $.each(qty, function(index){
                 i = 0;
                 while(i < qty[index]) {
@@ -227,9 +243,9 @@
                         htmltext += product_name[index] + '<br>';
 
                     if(paper_size == 18)
-                        htmltext += '<img style="max-width:150px;height:100%;max-height:12px" src="data:image/png;base64,'+barcode_image[index]+'" alt="barcode" /><br>';
+                        htmltext += '<img style="max-width:150px;" src="data:image/png;base64,'+barcode_image[index]+'" alt="barcode" /><br>';
                     else
-                        htmltext += '<img style="max-width:150px;height:100%;max-height:20px" src="data:image/png;base64,'+barcode_image[index]+'" alt="barcode" /><br>';
+                        htmltext += '<img style="max-width:150px;" src="data:image/png;base64,'+barcode_image[index]+'" alt="barcode" /><br>';
 
                     htmltext += code[index] + '<br>';
                     if($('input[name="code"]').is(":checked"))
@@ -260,7 +276,16 @@
             alert('Please select paper size');
     });
 
-    $("#print-btn").on("click", function(){
+    /*$("#print-btn").on("click", function(){
+          var divToPrint=document.getElementById('print-barcode');
+          var newWin=window.open('','Print-Window');
+          newWin.document.open();
+          newWin.document.write('<style type="text/css">@media print { #modal_header { display: none } #print-btn { display: none } #close-btn { display: none } } table.barcodelist { page-break-inside:auto } table.barcodelist tr { page-break-inside:avoid; page-break-after:auto }</style><body onload="window.print()">'+divToPrint.innerHTML+'</body>');
+          newWin.document.close();
+          setTimeout(function(){newWin.close();},10);
+    });*/
+
+    $("#print-btn").on("click", function() {
           var divToPrint=document.getElementById('print-barcode');
           var newWin=window.open('','Print-Window');
           newWin.document.open();

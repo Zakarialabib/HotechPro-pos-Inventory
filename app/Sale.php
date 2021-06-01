@@ -3,7 +3,6 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
-use App\SaleMessage;
 
 class Sale extends Model
 {
@@ -24,16 +23,6 @@ class Sale extends Model
     public function warehouse()
     {
     	return $this->belongsTo('App\Warehouse');
-    }
-
-    public function messages()
-    {
-    	return $this->hasMany('App\Message', 'message_id');
-    }
-
-    public function sale_messages()
-    {
-        return $this->hasMany(SaleMessage::class, 'sale_id', 'message_id');
     }
 
     public function user()

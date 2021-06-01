@@ -1,7 +1,7 @@
 @extends('layout.main') @section('content')
-<div class="container mx-auto sm:px-4 max-w-full mx-auto sm:px-4">
-	<div class="flex flex-wrap ">
-		<div class="md:w-full pr-4 pl-4">
+<div class="container-fluid">
+	<div class="row">
+		<div class="col-md-12">
 			{{ Form::open(['route' => 'report.bestSellerByWarehouse', 'method' => 'post', 'id' => 'report-form']) }}
 			<input type="hidden" name="warehouse_id_hidden" value="{{$warehouse_id}}">
             <h4 class="text-center mt-3">{{trans('file.Best Seller')}} {{trans('file.From')}} {{$start_month.' - '.date("F Y")}} &nbsp;&nbsp;
@@ -13,7 +13,7 @@
 			</select>
             </h4>
             {{ Form::close() }}
-            <div class="flex-auto p-6">
+            <div class="card-body">
             	@php
             		if($general_setting->theme == 'default.css'){
             			$color = '#733686';

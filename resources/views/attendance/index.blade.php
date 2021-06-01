@@ -1,17 +1,17 @@
 @extends('layout.main') @section('content')
 @if(session()->has('message'))
-  <div class="relative px-3 py-3 mb-4 border rounded bg-green-200 border-green-300 text-green-800  text-center"><button type="button" class="absolute top-0 bottom-0 right-0 px-4 py-3" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>{!! session()->get('message') !!}</div> 
+  <div class="alert alert-success alert-dismissible text-center"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>{!! session()->get('message') !!}</div> 
 @endif
 @if(session()->has('not_permitted'))
-  <div class="relative px-3 py-3 mb-4 border rounded bg-red-200 border-red-300 text-red-800  text-center"><button type="button" class="absolute top-0 bottom-0 right-0 px-4 py-3" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>{{ session()->get('not_permitted') }}</div> 
+  <div class="alert alert-danger alert-dismissible text-center"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>{{ session()->get('not_permitted') }}</div> 
 @endif
 
 <section>
-    <div class="container mx-auto sm:px-4 max-w-full mx-auto sm:px-4">
-        <button class="inline-block align-middle text-center select-none border font-normal whitespace-no-wrap rounded py-1 px-3 leading-normal no-underline bg-teal-500 text-white hover:bg-teal-600" data-toggle="modal" data-target="#createModal"><i class="dripicons-plus"></i> {{trans('file.Add Attendance')}} </button>
+    <div class="container-fluid">
+        <button class="btn btn-info" data-toggle="modal" data-target="#createModal"><i class="dripicons-plus"></i> {{trans('file.Add Attendance')}} </button>
     </div>
-    <div class="block w-full overflow-auto scrolling-touch">
-        <table id="attendance-table" class="w-full max-w-full mb-4 bg-transparent">
+    <div class="table-responsive">
+        <table id="attendance-table" class="table">
             <thead>
                 <tr>
                     <th class="not-exported"></th>
@@ -37,15 +37,15 @@
                     <td>{{ $attendance->checkin }}</td>
                     <td>{{ $attendance->checkout }}</td>
                     @if($attendance->status)
-                        <td><div class="inline-block p-1 text-center font-semibold text-sm align-baseline leading-none rounded bg-green-500 text-white hover:green-600">{{trans('file.Present')}}</div></td>
+                        <td><div class="badge badge-success">{{trans('file.Present')}}</div></td>
                     @else()
-                        <td><div class="inline-block p-1 text-center font-semibold text-sm align-baseline leading-none rounded bg-red-600 text-white hover:bg-red-700">{{trans('file.Late')}}</div></td>
+                        <td><div class="badge badge-danger">{{trans('file.Late')}}</div></td>
                     @endif
                     <td>{{$user->name}}</td>
                     <td>
-                        <div class="relative inline-flex align-middle">
+                        <div class="btn-group">
                             {{ Form::open(['route' => ['attendance.destroy', $attendance->id], 'method' => 'DELETE'] ) }}
-                            <button type="submit" class="inline-block align-middle text-center select-none border font-normal whitespace-no-wrap rounded  no-underline py-1 px-2 leading-tight text-xs  bg-red-600 text-white hover:bg-red-700" onclick="return confirmDelete()" title="{{trans('file.delete')}}"><i class="dripicons-trash"></i></button>
+                            <button type="submit" class="btn btn-sm btn-danger" onclick="return confirmDelete()" title="{{trans('file.delete')}}"><i class="dripicons-trash"></i></button>
                             {{ Form::close() }}
                         </div>
                     </td>
@@ -56,44 +56,44 @@
     </div>
 </section>
 
-<div id="createModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" class="modal opacity-0 text-left">
+<div id="createModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" class="modal fade text-left">
     <div role="document" class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 id="exampleModalLabel" class="modal-title">{{trans('file.Add Attendance')}}</h5>
-                <button type="button" data-dismiss="modal" aria-label="Close" class="absolute top-0 bottom-0 right-0 px-4 py-3"><span aria-hidden="true"><i class="dripicons-cross"></i></span></button>
+                <button type="button" data-dismiss="modal" aria-label="Close" class="close"><span aria-hidden="true"><i class="dripicons-cross"></i></span></button>
             </div>
             <div class="modal-body">
               <p class="italic"><small>{{trans('file.The field labels marked with * are required input fields')}}.</small></p>
                 {!! Form::open(['route' => 'attendance.store', 'method' => 'post', 'files' => true]) !!}
-                <div class="flex flex-wrap ">
-                    <div class="md:w-1/2 pr-4 pl-4 mb-4">
+                <div class="row">
+                    <div class="col-md-6 form-group">
                         <label>{{trans('file.Employee')}} *</label>
-                        <select class="block appearance-none w-full py-1 px-2 mb-1 text-base leading-normal bg-white text-gray-800 border border-gray-200 rounded selectpicker" name="employee_id[]" required data-live-search="true" data-live-search-style="begins" title="Select Employee..." multiple>
+                        <select class="form-control selectpicker" name="employee_id[]" required data-live-search="true" data-live-search-style="begins" title="Select Employee..." multiple>
                             @foreach($lims_employee_list as $employee)
                             <option value="{{$employee->id}}">{{$employee->name}}</option>
                             @endforeach
                         </select>
                     </div>
-                    <div class="md:w-1/2 pr-4 pl-4 mb-4">
+                    <div class="col-md-6 form-group">
                         <label>{{trans('file.date')}} *</label>
-                        <input type="text" name="date" class="block appearance-none w-full py-1 px-2 mb-1 text-base leading-normal bg-white text-gray-800 border border-gray-200 rounded date" value="{{date($general_setting->date_format)}}" required>
+                        <input type="text" name="date" class="form-control date" value="{{date($general_setting->date_format)}}" required>
                     </div>
-                    <div class="md:w-1/2 pr-4 pl-4 mb-4">
+                    <div class="col-md-6 form-group">
                         <label>{{trans('file.CheckIn')}} *</label>
-                        <input type="text" id="checkin" name="checkin" class="block appearance-none w-full py-1 px-2 mb-1 text-base leading-normal bg-white text-gray-800 border border-gray-200 rounded" value="{{$lims_hrm_setting_data->checkin}}" required>
+                        <input type="text" id="checkin" name="checkin" class="form-control" value="{{$lims_hrm_setting_data->checkin}}" required>
                     </div>
-                    <div class="md:w-1/2 pr-4 pl-4 mb-4">
+                    <div class="col-md-6 form-group">
                         <label>{{trans('file.CheckOut')}} *</label>
-                        <input type="text" id="checkout" name="checkout" class="block appearance-none w-full py-1 px-2 mb-1 text-base leading-normal bg-white text-gray-800 border border-gray-200 rounded" value="{{$lims_hrm_setting_data->checkout}}" required>
+                        <input type="text" id="checkout" name="checkout" class="form-control" value="{{$lims_hrm_setting_data->checkout}}" required>
                     </div>
-                    <div class="md:w-full pr-4 pl-4 mb-4">
+                    <div class="col-md-12 form-group">
                         <label>{{trans('file.Note')}}</label>
-                        <textarea name="note" rows="3" class="block appearance-none w-full py-1 px-2 mb-1 text-base leading-normal bg-white text-gray-800 border border-gray-200 rounded"></textarea>
+                        <textarea name="note" rows="3" class="form-control"></textarea>
                     </div>
                 </div>
-                <div class="mb-4">
-                    <button type="submit" class="inline-block align-middle text-center select-none border font-normal whitespace-no-wrap rounded py-1 px-3 leading-normal no-underline bg-blue-600 text-white hover:bg-blue-600">{{trans('file.submit')}}</button>
+                <div class="form-group">
+                    <button type="submit" class="btn btn-primary">{{trans('file.submit')}}</button>
                 </div>
                 {{ Form::close() }}
             </div>

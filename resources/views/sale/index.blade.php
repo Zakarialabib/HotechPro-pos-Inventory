@@ -1,20 +1,63 @@
 @extends('layout.main') @section('content')
 @if(session()->has('message'))
-  <div class="relative px-3 py-3 mb-4 border rounded bg-green-200 border-green-300 text-green-800  text-center"><button type="button" class="absolute top-0 bottom-0 right-0 px-4 py-3" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>{!! session()->get('message') !!}</div> 
+  <div class="alert alert-success alert-dismissible text-center"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>{!! session()->get('message') !!}</div> 
 @endif
 @if(session()->has('not_permitted'))
-  <div class="relative px-3 py-3 mb-4 border rounded bg-red-200 border-red-300 text-red-800  text-center"><button type="button" class="absolute top-0 bottom-0 right-0 px-4 py-3" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>{{ session()->get('not_permitted') }}</div> 
+  <div class="alert alert-danger alert-dismissible text-center"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>{{ session()->get('not_permitted') }}</div> 
 @endif
 
 <section>
-    <div class="container mx-auto sm:px-4 max-w-full mx-auto sm:px-4">
+    <div class="container-fluid">
+        <div class="card">
+            <div class="card-header mt-2">
+                <h3 class="text-center">{{trans('file.Sale List')}}</h3>
+            </div>
+            {!! Form::open(['route' => 'sales.index', 'method' => 'get']) !!}
+            <div class="row mb-3">
+                <div class="col-md-4 offset-md-2 mt-3">
+                    <div class="form-group row">
+                        <label class="d-tc mt-2"><strong>{{trans('file.Choose Your Date')}}</strong> &nbsp;</label>
+                        <div class="d-tc">
+                            <div class="input-group">
+                                <input type="text" class="daterangepicker-field form-control" value="{{$starting_date}} To {{$ending_date}}" required />
+                                <input type="hidden" name="starting_date" value="{{$starting_date}}" />
+                                <input type="hidden" name="ending_date" value="{{$ending_date}}" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 mt-3 @if(\Auth::user()->role_id > 2){{'d-none'}}@endif">
+                    <div class="form-group row">
+                        <label class="d-tc mt-2"><strong>{{trans('file.Choose Warehouse')}}</strong> &nbsp;</label>
+                        <div class="d-tc">
+                            <select id="warehouse_id" name="warehouse_id" class="selectpicker form-control" data-live-search="true" data-live-search-style="begins" >
+                                <option value="0">{{trans('file.All Warehouse')}}</option>
+                                @foreach($lims_warehouse_list as $warehouse)
+                                    @if($warehouse->id == $warehouse_id)
+                                        <option selected value="{{$warehouse->id}}">{{$warehouse->name}}</option>
+                                    @else
+                                        <option value="{{$warehouse->id}}">{{$warehouse->name}}</option>
+                                    @endif
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-2 mt-3">
+                    <div class="form-group">
+                        <button class="btn btn-primary" id="filter-btn" type="submit">{{trans('file.submit')}}</button>
+                    </div>
+                </div>
+            </div>
+            {!! Form::close() !!}
+        </div>
         @if(in_array("sales-add", $all_permission))
-            <a href="{{route('sales.create')}}" class="inline-block align-middle text-center select-none border font-normal whitespace-no-wrap rounded py-1 px-3 leading-normal no-underline bg-teal-500 text-white hover:bg-teal-600"><i class="dripicons-plus"></i> {{trans('file.Add Sale')}}</a>&nbsp;
-            <a href="{{url('sales/sale_by_csv')}}" class="inline-block align-middle text-center select-none border font-normal whitespace-no-wrap rounded py-1 px-3 leading-normal no-underline bg-blue-600 text-white hover:bg-blue-600"><i class="dripicons-copy"></i> {{trans('file.Import Sale')}}</a>
+            <a href="{{route('sales.create')}}" class="btn btn-info"><i class="dripicons-plus"></i> {{trans('file.Add Sale')}}</a>&nbsp;
+            <a href="{{url('sales/sale_by_csv')}}" class="btn btn-primary"><i class="dripicons-copy"></i> {{trans('file.Import Sale')}}</a>
         @endif
     </div>
-    <div class="block w-full overflow-auto scrolling-touch">
-        <table id="sale-table" class="w-full max-w-full mb-4 bg-transparent sale-list" style="width: 100%">
+    <div class="table-responsive">
+        <table id="sale-table" class="table sale-list" style="width: 100%">
             <thead>
                 <tr>
                     <th class="not-exported"></th>
@@ -48,26 +91,26 @@
     </div>
 </section>
 
-<div id="sale-details" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" class="modal opacity-0 text-left">
+<div id="sale-details" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" class="modal fade text-left">
     <div role="document" class="modal-dialog">
         <div class="modal-content">
-            <div class="container mx-auto sm:px-4 mt-3 pb-2 border-b">
-                <div class="flex flex-wrap ">
-                    <div class="md:w-1/4 pr-4 pl-4">
-                        <button id="print-btn" type="button" class="inline-block align-middle text-center select-none border font-normal whitespace-no-wrap rounded  no-underline btn-default py-1 px-2 leading-tight text-xs  print:hidden"><i class="dripicons-print"></i> {{trans('file.Print')}}</button>
+            <div class="container mt-3 pb-2 border-bottom">
+                <div class="row">
+                    <div class="col-md-3">
+                        <button id="print-btn" type="button" class="btn btn-default btn-sm d-print-none"><i class="dripicons-print"></i> {{trans('file.Print')}}</button>
                         
                         {{ Form::open(['route' => 'sale.sendmail', 'method' => 'post', 'class' => 'sendmail-form'] ) }}
                             <input type="hidden" name="sale_id">
-                            <button class="inline-block align-middle text-center select-none border font-normal whitespace-no-wrap rounded  no-underline btn-default py-1 px-2 leading-tight text-xs  print:hidden"><i class="dripicons-mail"></i> {{trans('file.Email')}}</button>
+                            <button class="btn btn-default btn-sm d-print-none"><i class="dripicons-mail"></i> {{trans('file.Email')}}</button>
                         {{ Form::close() }}
                     </div>
-                    <div class="md:w-1/2 pr-4 pl-4">
-                        <h3 id="exampleModalLabel" class="modal-title text-center container mx-auto sm:px-4 max-w-full mx-auto sm:px-4">{{$general_setting->site_title}}</h3>
+                    <div class="col-md-6">
+                        <h3 id="exampleModalLabel" class="modal-title text-center container-fluid">{{$general_setting->site_title}}</h3>
                     </div>
-                    <div class="md:w-1/4 pr-4 pl-4">
-                        <button type="button" id="close-btn" data-dismiss="modal" aria-label="Close" class="absolute top-0 bottom-0 right-0 px-4 py-3 print:hidden"><span aria-hidden="true"><i class="dripicons-cross"></i></span></button>
+                    <div class="col-md-3">
+                        <button type="button" id="close-btn" data-dismiss="modal" aria-label="Close" class="close d-print-none"><span aria-hidden="true"><i class="dripicons-cross"></i></span></button>
                     </div>
-                    <div class="md:w-full pr-4 pl-4 text-center">
+                    <div class="col-md-12 text-center">
                         <i style="font-size: 15px;">{{trans('file.Sale Details')}}</i>
                     </div>
                 </div>
@@ -75,7 +118,7 @@
             <div id="sale-content" class="modal-body">
             </div>
             <br>
-            <table class="w-full max-w-full mb-4 bg-transparent table-bordered product-sale-list">
+            <table class="table table-bordered product-sale-list">
                 <thead>
                     <th>#</th>
                     <th>{{trans('file.product')}}</th>
@@ -93,15 +136,15 @@
     </div>
 </div>
 
-<div id="view-payment" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" class="modal opacity-0 text-left">
+<div id="view-payment" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" class="modal fade text-left">
     <div role="document" class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 id="exampleModalLabel" class="modal-title">{{trans('file.All')}} {{trans('file.Payment')}}</h5>
-                <button type="button" data-dismiss="modal" aria-label="Close" class="absolute top-0 bottom-0 right-0 px-4 py-3"><span aria-hidden="true"><i class="dripicons-cross"></i></span></button>
+                <button type="button" data-dismiss="modal" aria-label="Close" class="close"><span aria-hidden="true"><i class="dripicons-cross"></i></span></button>
             </div>
             <div class="modal-body">
-                <table class="w-full max-w-full mb-4 bg-transparent table-hover payment-list">
+                <table class="table table-hover payment-list">
                     <thead>
                         <tr>
                             <th>{{trans('file.date')}}</th>
@@ -120,32 +163,32 @@
     </div>
 </div>
 
-<div id="add-payment" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" class="modal opacity-0 text-left">
+<div id="add-payment" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" class="modal fade text-left">
     <div role="document" class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 id="exampleModalLabel" class="modal-title">{{trans('file.Add Payment')}}</h5>
-                <button type="button" data-dismiss="modal" aria-label="Close" class="absolute top-0 bottom-0 right-0 px-4 py-3"><span aria-hidden="true"><i class="dripicons-cross"></i></span></button>
+                <button type="button" data-dismiss="modal" aria-label="Close" class="close"><span aria-hidden="true"><i class="dripicons-cross"></i></span></button>
             </div>
             <div class="modal-body">
                 {!! Form::open(['route' => 'sale.add-payment', 'method' => 'post', 'files' => true, 'class' => 'payment-form' ]) !!}
-                    <div class="flex flex-wrap ">
+                    <div class="row">
                         <input type="hidden" name="balance">
-                        <div class="md:w-1/2 pr-4 pl-4">
+                        <div class="col-md-6">
                             <label>{{trans('file.Recieved Amount')}} *</label>
-                            <input type="text" name="paying_amount" class="block appearance-none w-full py-1 px-2 mb-1 text-base leading-normal bg-white text-gray-800 border border-gray-200 rounded numkey" step="any" required>
+                            <input type="text" name="paying_amount" class="form-control numkey" step="any" required>
                         </div>
-                        <div class="md:w-1/2 pr-4 pl-4">
+                        <div class="col-md-6">
                             <label>{{trans('file.Paying Amount')}} *</label>
-                            <input type="text" id="amount" name="amount" class="block appearance-none w-full py-1 px-2 mb-1 text-base leading-normal bg-white text-gray-800 border border-gray-200 rounded"  step="any" required>
+                            <input type="text" id="amount" name="amount" class="form-control"  step="any" required>
                         </div>
-                        <div class="md:w-1/2 pr-4 pl-4 mt-1">
+                        <div class="col-md-6 mt-1">
                             <label>{{trans('file.Change')}} : </label>
                             <p class="change ml-2">0.00</p>
                         </div>
-                        <div class="md:w-1/2 pr-4 pl-4 mt-1">
+                        <div class="col-md-6 mt-1">
                             <label>{{trans('file.Paid By')}}</label>
-                            <select name="paid_by_id" class="block appearance-none w-full py-1 px-2 mb-1 text-base leading-normal bg-white text-gray-800 border border-gray-200 rounded">
+                            <select name="paid_by_id" class="form-control">
                                 <option value="1">Cash</option>
                                 <option value="2">Gift Card</option>
                                 <option value="3">Credit Card</option>
@@ -155,9 +198,9 @@
                             </select>
                         </div>
                     </div>
-                    <div class="gift-card mb-4">
+                    <div class="gift-card form-group">
                         <label> {{trans('file.Gift Card')}} *</label>
-                        <select id="gift_card_id" name="gift_card_id" class="selectpicker block appearance-none w-full py-1 px-2 mb-1 text-base leading-normal bg-white text-gray-800 border border-gray-200 rounded" data-live-search="true" data-live-search-style="begins" title="Select Gift Card...">
+                        <select id="gift_card_id" name="gift_card_id" class="selectpicker form-control" data-live-search="true" data-live-search-style="begins" title="Select Gift Card...">
                             @php 
                                 $balance = [];
                                 $expired_date = [];
@@ -171,20 +214,20 @@
                             @endforeach
                         </select>
                     </div>
-                    <div class="mb-4 mt-2">
-                        <div class="card-element" class="block appearance-none w-full py-1 px-2 mb-1 text-base leading-normal bg-white text-gray-800 border border-gray-200 rounded">
+                    <div class="form-group mt-2">
+                        <div class="card-element" class="form-control">
                         </div>
                         <div class="card-errors" role="alert"></div>
                     </div>
                     <div id="cheque">
-                        <div class="mb-4">
+                        <div class="form-group">
                             <label>{{trans('file.Cheque Number')}} *</label>
-                            <input type="text" name="cheque_no" class="block appearance-none w-full py-1 px-2 mb-1 text-base leading-normal bg-white text-gray-800 border border-gray-200 rounded">
+                            <input type="text" name="cheque_no" class="form-control">
                         </div>
                     </div>
-                    <div class="mb-4">
+                    <div class="form-group">
                         <label> {{trans('file.Account')}}</label>
-                        <select class="block appearance-none w-full py-1 px-2 mb-1 text-base leading-normal bg-white text-gray-800 border border-gray-200 rounded selectpicker" name="account_id">
+                        <select class="form-control selectpicker" name="account_id">
                         @foreach($lims_account_list as $account)
                             @if($account->is_default)
                             <option selected value="{{$account->id}}">{{$account->name}} [{{$account->account_no}}]</option>
@@ -194,45 +237,45 @@
                         @endforeach
                         </select>
                     </div>
-                    <div class="mb-4">
+                    <div class="form-group">
                         <label>{{trans('file.Payment Note')}}</label>
-                        <textarea rows="3" class="block appearance-none w-full py-1 px-2 mb-1 text-base leading-normal bg-white text-gray-800 border border-gray-200 rounded" name="payment_note"></textarea>
+                        <textarea rows="3" class="form-control" name="payment_note"></textarea>
                     </div>
 
                     <input type="hidden" name="sale_id">
 
-                    <button type="submit" class="inline-block align-middle text-center select-none border font-normal whitespace-no-wrap rounded py-1 px-3 leading-normal no-underline bg-blue-600 text-white hover:bg-blue-600">{{trans('file.submit')}}</button>
+                    <button type="submit" class="btn btn-primary">{{trans('file.submit')}}</button>
                 {{ Form::close() }}
             </div>
         </div>
     </div>
 </div>
 
-<div id="edit-payment" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" class="modal opacity-0 text-left">
+<div id="edit-payment" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" class="modal fade text-left">
     <div role="document" class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 id="exampleModalLabel" class="modal-title">{{trans('file.Update Payment')}}</h5>
-                <button type="button" data-dismiss="modal" aria-label="Close" class="absolute top-0 bottom-0 right-0 px-4 py-3"><span aria-hidden="true"><i class="dripicons-cross"></i></span></button>
+                <button type="button" data-dismiss="modal" aria-label="Close" class="close"><span aria-hidden="true"><i class="dripicons-cross"></i></span></button>
             </div>
             <div class="modal-body">
                 {!! Form::open(['route' => 'sale.update-payment', 'method' => 'post', 'class' => 'payment-form' ]) !!}
-                    <div class="flex flex-wrap ">
-                        <div class="md:w-1/2 pr-4 pl-4">
+                    <div class="row">
+                        <div class="col-md-6">
                             <label>{{trans('file.Recieved Amount')}} *</label>
-                            <input type="text" name="edit_paying_amount" class="block appearance-none w-full py-1 px-2 mb-1 text-base leading-normal bg-white text-gray-800 border border-gray-200 rounded numkey"  step="any" required>
+                            <input type="text" name="edit_paying_amount" class="form-control numkey"  step="any" required>
                         </div>
-                        <div class="md:w-1/2 pr-4 pl-4">
+                        <div class="col-md-6">
                             <label>{{trans('file.Paying Amount')}} *</label>
-                            <input type="text" name="edit_amount" class="block appearance-none w-full py-1 px-2 mb-1 text-base leading-normal bg-white text-gray-800 border border-gray-200 rounded"  step="any" required>
+                            <input type="text" name="edit_amount" class="form-control"  step="any" required>
                         </div>
-                        <div class="md:w-1/2 pr-4 pl-4 mt-1">
+                        <div class="col-md-6 mt-1">
                             <label>{{trans('file.Change')}} : </label>
                             <p class="change ml-2">0.00</p>
                         </div>
-                        <div class="md:w-1/2 pr-4 pl-4 mt-1">
+                        <div class="col-md-6 mt-1">
                             <label>{{trans('file.Paid By')}}</label>
-                            <select name="edit_paid_by_id" class="block appearance-none w-full py-1 px-2 mb-1 text-base leading-normal bg-white text-gray-800 border border-gray-200 rounded selectpicker">
+                            <select name="edit_paid_by_id" class="form-control selectpicker">
                                 <option value="1">Cash</option>
                                 <option value="2">Gift Card</option>
                                 <option value="3">Credit Card</option>
@@ -242,101 +285,101 @@
                             </select>
                         </div>
                     </div>
-                    <div class="gift-card mb-4">
+                    <div class="gift-card form-group">
                         <label> {{trans('file.Gift Card')}} *</label>
-                        <select id="gift_card_id" name="gift_card_id" class="selectpicker block appearance-none w-full py-1 px-2 mb-1 text-base leading-normal bg-white text-gray-800 border border-gray-200 rounded" data-live-search="true" data-live-search-style="begins" title="Select Gift Card...">
+                        <select id="gift_card_id" name="gift_card_id" class="selectpicker form-control" data-live-search="true" data-live-search-style="begins" title="Select Gift Card...">
                             @foreach($lims_gift_card_list as $gift_card)
                                 <option value="{{$gift_card->id}}">{{$gift_card->card_no}}</option>
                             @endforeach
                         </select>
                     </div>
-                    <div class="mb-4 mt-2">
-                        <div class="card-element" class="block appearance-none w-full py-1 px-2 mb-1 text-base leading-normal bg-white text-gray-800 border border-gray-200 rounded">
+                    <div class="form-group mt-2">
+                        <div class="card-element" class="form-control">
                         </div>
                         <div class="card-errors" role="alert"></div>
                     </div>
                     <div id="edit-cheque">
-                        <div class="mb-4">
+                        <div class="form-group">
                             <label>{{trans('file.Cheque Number')}} *</label>
-                            <input type="text" name="edit_cheque_no" class="block appearance-none w-full py-1 px-2 mb-1 text-base leading-normal bg-white text-gray-800 border border-gray-200 rounded">
+                            <input type="text" name="edit_cheque_no" class="form-control">
                         </div>
                     </div>
-                    <div class="mb-4">
+                    <div class="form-group">
                         <label> {{trans('file.Account')}}</label>
-                        <select class="block appearance-none w-full py-1 px-2 mb-1 text-base leading-normal bg-white text-gray-800 border border-gray-200 rounded selectpicker" name="account_id">
+                        <select class="form-control selectpicker" name="account_id">
                         @foreach($lims_account_list as $account)
                             <option value="{{$account->id}}">{{$account->name}} [{{$account->account_no}}]</option>
                         @endforeach
                         </select>
                     </div>
-                    <div class="mb-4">
+                    <div class="form-group">
                         <label>{{trans('file.Payment Note')}}</label>
-                        <textarea rows="3" class="block appearance-none w-full py-1 px-2 mb-1 text-base leading-normal bg-white text-gray-800 border border-gray-200 rounded" name="edit_payment_note"></textarea>
+                        <textarea rows="3" class="form-control" name="edit_payment_note"></textarea>
                     </div>
 
                     <input type="hidden" name="payment_id">
 
-                    <button type="submit" class="inline-block align-middle text-center select-none border font-normal whitespace-no-wrap rounded py-1 px-3 leading-normal no-underline bg-blue-600 text-white hover:bg-blue-600">{{trans('file.update')}}</button>
+                    <button type="submit" class="btn btn-primary">{{trans('file.update')}}</button>
                 {{ Form::close() }}
             </div>
         </div>
     </div>
 </div>
 
-<div id="add-delivery" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" class="modal opacity-0 text-left">
+<div id="add-delivery" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" class="modal fade text-left">
     <div role="document" class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 id="exampleModalLabel" class="modal-title">{{trans('file.Add Delivery')}}</h5>
-                <button type="button" data-dismiss="modal" aria-label="Close" class="absolute top-0 bottom-0 right-0 px-4 py-3"><span aria-hidden="true"><i class="dripicons-cross"></i></span></button>
+                <button type="button" data-dismiss="modal" aria-label="Close" class="close"><span aria-hidden="true"><i class="dripicons-cross"></i></span></button>
             </div>
             <div class="modal-body">
                 {!! Form::open(['route' => 'delivery.store', 'method' => 'post', 'files' => true]) !!}
-                <div class="flex flex-wrap ">
-                    <div class="md:w-1/2 pr-4 pl-4 mb-4">
+                <div class="row">
+                    <div class="col-md-6 form-group">
                         <label>{{trans('file.Delivery Reference')}}</label>
                         <p id="dr"></p>
                     </div>
-                    <div class="md:w-1/2 pr-4 pl-4 mb-4">
+                    <div class="col-md-6 form-group">
                         <label>{{trans('file.Sale Reference')}}</label>
                         <p id="sr"></p>
                     </div>
-                    <div class="md:w-full pr-4 pl-4 mb-4">
+                    <div class="col-md-12 form-group">
                         <label>{{trans('file.Status')}} *</label>
-                        <select name="status" required class="block appearance-none w-full py-1 px-2 mb-1 text-base leading-normal bg-white text-gray-800 border border-gray-200 rounded selectpicker">
+                        <select name="status" required class="form-control selectpicker">
                             <option value="1">{{trans('file.Packing')}}</option>
                             <option value="2">{{trans('file.Delivering')}}</option>
                             <option value="3">{{trans('file.Delivered')}}</option>
                         </select>
                     </div>
-                    <div class="md:w-1/2 pr-4 pl-4 mt-2 mb-4">
+                    <div class="col-md-6 mt-2 form-group">
                         <label>{{trans('file.Delivered By')}}</label>
-                        <input type="text" name="delivered_by" class="block appearance-none w-full py-1 px-2 mb-1 text-base leading-normal bg-white text-gray-800 border border-gray-200 rounded">
+                        <input type="text" name="delivered_by" class="form-control">
                     </div>
-                    <div class="md:w-1/2 pr-4 pl-4 mt-2 mb-4">
+                    <div class="col-md-6 mt-2 form-group">
                         <label>{{trans('file.Recieved By')}} </label>
-                        <input type="text" name="recieved_by" class="block appearance-none w-full py-1 px-2 mb-1 text-base leading-normal bg-white text-gray-800 border border-gray-200 rounded">
+                        <input type="text" name="recieved_by" class="form-control">
                     </div>
-                    <div class="md:w-1/2 pr-4 pl-4 mb-4">
+                    <div class="col-md-6 form-group">
                         <label>{{trans('file.customer')}} *</label>
                         <p id="customer"></p>
                     </div>
-                    <div class="md:w-1/2 pr-4 pl-4 mb-4">
+                    <div class="col-md-6 form-group">
                         <label>{{trans('file.Attach File')}}</label>
-                        <input type="file" name="file" class="block appearance-none w-full py-1 px-2 mb-1 text-base leading-normal bg-white text-gray-800 border border-gray-200 rounded">
+                        <input type="file" name="file" class="form-control">
                     </div>
-                    <div class="md:w-1/2 pr-4 pl-4 mb-4">
+                    <div class="col-md-6 form-group">
                         <label>{{trans('file.Address')}} *</label>
-                        <textarea rows="3" name="address" class="block appearance-none w-full py-1 px-2 mb-1 text-base leading-normal bg-white text-gray-800 border border-gray-200 rounded" required></textarea>
+                        <textarea rows="3" name="address" class="form-control" required></textarea>
                     </div>
-                    <div class="md:w-1/2 pr-4 pl-4 mb-4">
+                    <div class="col-md-6 form-group">
                         <label>{{trans('file.Note')}}</label>
-                        <textarea rows="3" name="note" class="block appearance-none w-full py-1 px-2 mb-1 text-base leading-normal bg-white text-gray-800 border border-gray-200 rounded"></textarea>
+                        <textarea rows="3" name="note" class="form-control"></textarea>
                     </div>
                 </div>
                 <input type="hidden" name="reference_no">
                 <input type="hidden" name="sale_id">
-                <button type="submit" class="inline-block align-middle text-center select-none border font-normal whitespace-no-wrap rounded py-1 px-3 leading-normal no-underline bg-blue-600 text-white hover:bg-blue-600">{{trans('file.submit')}}</button>
+                <button type="submit" class="btn btn-primary">{{trans('file.submit')}}</button>
                 {{ Form::close() }}
             </div>
         </div>
@@ -358,6 +401,19 @@
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         }
     });
+
+    $(".daterangepicker-field").daterangepicker({
+      callback: function(startDate, endDate, period){
+        var starting_date = startDate.format('YYYY-MM-DD');
+        var ending_date = endDate.format('YYYY-MM-DD');
+        var title = starting_date + ' To ' + ending_date;
+        $(this).val(title);
+        $('input[name="starting_date"]').val(starting_date);
+        $('input[name="ending_date"]').val(ending_date);
+      }
+    });
+
+    $('.selectpicker').selectpicker('refresh');
 
     var balance = <?php echo json_encode($balance) ?>;
     var expired_date = <?php echo json_encode($expired_date) ?>;
@@ -442,9 +498,9 @@
                 cols += '<td>' + paid_amount[index] + '</td>';
                 cols += '<td>' + paying_method[index] + '</td>';
                 if(paying_method[index] != 'Paypal')
-                    cols += '<td><div class="relative inline-flex align-middle"><button type="button" class="inline-block align-middle text-center select-none border font-normal whitespace-no-wrap rounded py-1 px-3 leading-normal no-underline btn-default  inline-block w-0 h-0 ml-1 align border-b-0 border-t-1 border-r-1 border-l-1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{trans("file.action")}}<span class="caret"></span><span class="sr-only">Toggle Dropdown</span></button><ul class=" absolute left-0 z-50 float-left hidden list-reset	 py-2 mt-1 text-base bg-white border border-gray-300 rounded edit-options dropdown-menu-right dropdown-default" user="menu"><li><button type="button" class="inline-block align-middle text-center select-none border font-normal whitespace-no-wrap rounded py-1 px-3 leading-normal no-underline font-normal text-blue-700 bg-transparent edit-btn" data-id="' + payment_id[index] +'" data-clicked=false data-toggle="modal" data-target="#edit-payment"><i class="dripicons-document-edit"></i> {{trans("file.edit")}}</button></li><li class="divider"></li>{{ Form::open(['route' => 'sale.delete-payment', 'method' => 'post'] ) }}<li><input type="hidden" name="id" value="' + payment_id[index] + '" /> <button type="submit" class="inline-block align-middle text-center select-none border font-normal whitespace-no-wrap rounded py-1 px-3 leading-normal no-underline font-normal text-blue-700 bg-transparent" onclick="return confirmPaymentDelete()"><i class="dripicons-trash"></i> {{trans("file.delete")}}</button></li>{{ Form::close() }}</ul></div></td>';
+                    cols += '<td><div class="btn-group"><button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{trans("file.action")}}<span class="caret"></span><span class="sr-only">Toggle Dropdown</span></button><ul class="dropdown-menu edit-options dropdown-menu-right dropdown-default" user="menu"><li><button type="button" class="btn btn-link edit-btn" data-id="' + payment_id[index] +'" data-clicked=false data-toggle="modal" data-target="#edit-payment"><i class="dripicons-document-edit"></i> {{trans("file.edit")}}</button></li><li class="divider"></li>{{ Form::open(['route' => 'sale.delete-payment', 'method' => 'post'] ) }}<li><input type="hidden" name="id" value="' + payment_id[index] + '" /> <button type="submit" class="btn btn-link" onclick="return confirmPaymentDelete()"><i class="dripicons-trash"></i> {{trans("file.delete")}}</button></li>{{ Form::close() }}</ul></div></td>';
                 else
-                    cols += '<td><div class="relative inline-flex align-middle"><button type="button" class="inline-block align-middle text-center select-none border font-normal whitespace-no-wrap rounded py-1 px-3 leading-normal no-underline btn-default  inline-block w-0 h-0 ml-1 align border-b-0 border-t-1 border-r-1 border-l-1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{trans("file.action")}}<span class="caret"></span><span class="sr-only">Toggle Dropdown</span></button><ul class=" absolute left-0 z-50 float-left hidden list-reset	 py-2 mt-1 text-base bg-white border border-gray-300 rounded edit-options dropdown-menu-right dropdown-default" user="menu">{{ Form::open(['route' => 'sale.delete-payment', 'method' => 'post'] ) }}<li><input type="hidden" name="id" value="' + payment_id[index] + '" /> <button type="submit" class="inline-block align-middle text-center select-none border font-normal whitespace-no-wrap rounded py-1 px-3 leading-normal no-underline font-normal text-blue-700 bg-transparent" onclick="return confirmPaymentDelete()"><i class="dripicons-trash"></i> {{trans("file.delete")}}</button></li>{{ Form::close() }}</ul></div></td>';
+                    cols += '<td><div class="btn-group"><button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{trans("file.action")}}<span class="caret"></span><span class="sr-only">Toggle Dropdown</span></button><ul class="dropdown-menu edit-options dropdown-menu-right dropdown-default" user="menu">{{ Form::open(['route' => 'sale.delete-payment', 'method' => 'post'] ) }}<li><input type="hidden" name="id" value="' + payment_id[index] + '" /> <button type="submit" class="btn btn-link" onclick="return confirmPaymentDelete()"><i class="dripicons-trash"></i> {{trans("file.delete")}}</button></li>{{ Form::close() }}</ul></div></td>';
 
                 newRow.append(cols);
                 newBody.append(newRow);
@@ -655,13 +711,20 @@
         });
     });
 
+    var starting_date = $("input[name=starting_date]").val(); 
+    var ending_date = $("input[name=ending_date]").val();
+    var warehouse_id = $("#warehouse_id").val();
+    
     $('#sale-table').DataTable( {
         "processing": true,
         "serverSide": true,
         "ajax":{
             url:"sales/sale-data",
             data:{
-                all_permission: all_permission
+                all_permission: all_permission,
+                starting_date: starting_date,
+                ending_date: ending_date,
+                warehouse_id: warehouse_id
             },
             dataType: "json",
             type:"post"
@@ -781,6 +844,7 @@
                                     saleIdArray: sale_id
                                 },
                                 success:function(data){
+                                    alert(data);
                                     //dt.rows({ page: 'current', selected: true }).deselect();
                                     dt.rows({ page: 'current', selected: true }).remove().draw(false);
                                 }
@@ -823,7 +887,7 @@
     function saleDetails(sale){
         $("#sale-details input[name='sale_id']").val(sale[13]);
 
-        var htmltext = '<strong>{{trans("file.Date")}}: </strong>'+sale[0]+'<br><strong>{{trans("file.reference")}}: </strong>'+sale[1]+'<br><strong>{{trans("file.Warehouse")}}: </strong>'+sale[27]+'<br><strong>{{trans("file.Sale Status")}}: </strong>'+sale[2]+'<br><br><div class="flex flex-wrap "><div class="md:w-1/2 pr-4 pl-4"><strong>{{trans("file.From")}}:</strong><br>'+sale[3]+'<br>'+sale[4]+'<br>'+sale[5]+'<br>'+sale[6]+'<br>'+sale[7]+'<br>'+sale[8]+'</div><div class="md:w-1/2 pr-4 pl-4"><div class="float-right"><strong>{{trans("file.To")}}:</strong><br>'+sale[9]+'<br>'+sale[10]+'<br>'+sale[11]+'<br>'+sale[12]+'</div></div></div>';
+        var htmltext = '<strong>{{trans("file.Date")}}: </strong>'+sale[0]+'<br><strong>{{trans("file.reference")}}: </strong>'+sale[1]+'<br><strong>{{trans("file.Warehouse")}}: </strong>'+sale[27]+'<br><strong>{{trans("file.Sale Status")}}: </strong>'+sale[2]+'<br><br><div class="row"><div class="col-md-6"><strong>{{trans("file.From")}}:</strong><br>'+sale[3]+'<br>'+sale[4]+'<br>'+sale[5]+'<br>'+sale[6]+'<br>'+sale[7]+'<br>'+sale[8]+'</div><div class="col-md-6"><div class="float-right"><strong>{{trans("file.To")}}:</strong><br>'+sale[9]+'<br>'+sale[10]+'<br>'+sale[11]+'<br>'+sale[12]+'</div></div></div>';
         $.get('sales/product_sale/' + sale[13], function(data){
             $(".product-sale-list tbody").remove();
             var name_code = data[0];

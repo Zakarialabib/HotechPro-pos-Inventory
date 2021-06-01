@@ -1,14 +1,14 @@
 @extends('layout.main') @section('content')
 @if(session()->has('message'))
-  <div class="relative px-3 py-3 mb-4 border rounded bg-green-200 border-green-300 text-green-800  text-center"><button type="button" class="absolute top-0 bottom-0 right-0 px-4 py-3" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>{!! session()->get('message') !!}</div> 
+  <div class="alert alert-success alert-dismissible text-center"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>{!! session()->get('message') !!}</div> 
 @endif
 @if(session()->has('not_permitted'))
-  <div class="relative px-3 py-3 mb-4 border rounded bg-red-200 border-red-300 text-red-800  text-center"><button type="button" class="absolute top-0 bottom-0 right-0 px-4 py-3" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>{{ session()->get('not_permitted') }}</div> 
+  <div class="alert alert-danger alert-dismissible text-center"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>{{ session()->get('not_permitted') }}</div> 
 @endif
 
 <section>
-    <div class="block w-full overflow-auto scrolling-touch">
-        <table id="delivery-table" class="w-full max-w-full mb-4 bg-transparent">
+    <div class="table-responsive">
+        <table id="delivery-table" class="table">
             <thead>
                 <tr>
                     <th class="not-exported"></th>
@@ -41,26 +41,26 @@
                     <td>{{ $customer_sale[0]->name }}</td>
                     <td>{{ $delivery->address }}</td>
                     @if($delivery->status == 1)
-                    <td><div class="inline-block p-1 text-center font-semibold text-sm align-baseline leading-none rounded bg-teal-500 text-white hover:bg-teal-600">{{$status}}</div></td>
+                    <td><div class="badge badge-info">{{$status}}</div></td>
                     @elseif($delivery->status == 2)
-                    <td><div class="inline-block p-1 text-center font-semibold text-sm align-baseline leading-none rounded bg-blue-500 text-white hover:bg-blue-600">{{$status}}</div></td>
+                    <td><div class="badge badge-primary">{{$status}}</div></td>
                     @else
-                    <td><div class="inline-block p-1 text-center font-semibold text-sm align-baseline leading-none rounded bg-green-500 text-white hover:green-600">{{$status}}</div></td>
+                    <td><div class="badge badge-success">{{$status}}</div></td>
                     @endif
                     <td>
-                        <div class="relative inline-flex align-middle">
-                            <button type="button" class="inline-block align-middle text-center select-none border font-normal whitespace-no-wrap rounded  no-underline btn-default py-1 px-2 leading-tight text-xs   inline-block w-0 h-0 ml-1 align border-b-0 border-t-1 border-r-1 border-l-1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{trans('file.action')}}
+                        <div class="btn-group">
+                            <button type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{trans('file.action')}}
                               <span class="caret"></span>
                               <span class="sr-only">Toggle Dropdown</span>
                             </button>
-                            <ul class=" absolute left-0 z-50 float-left hidden list-reset	 py-2 mt-1 text-base bg-white border border-gray-300 rounded edit-options dropdown-menu-right dropdown-default" user="menu">
+                            <ul class="dropdown-menu edit-options dropdown-menu-right dropdown-default" user="menu">
                                 <li>
-                                    <button type="button" data-id="{{$delivery->id}}" class="open-EditCategoryDialog inline-block align-middle text-center select-none border font-normal whitespace-no-wrap rounded py-1 px-3 leading-normal no-underline font-normal text-blue-700 bg-transparent"><i class="dripicons-document-edit"></i> {{trans('file.edit')}}</button>
+                                    <button type="button" data-id="{{$delivery->id}}" class="open-EditCategoryDialog btn btn-link"><i class="dripicons-document-edit"></i> {{trans('file.edit')}}</button>
                                 </li>
                                 <li class="divider"></li>
                                 {{ Form::open(['route' => ['delivery.delete', $delivery->id], 'method' => 'post'] ) }}
                                 <li>
-                                  <button type="submit" class="inline-block align-middle text-center select-none border font-normal whitespace-no-wrap rounded py-1 px-3 leading-normal no-underline font-normal text-blue-700 bg-transparent" onclick="return confirmDelete()"><i class="dripicons-trash"></i> {{trans('file.delete')}}</button> 
+                                  <button type="submit" class="btn btn-link" onclick="return confirmDelete()"><i class="dripicons-trash"></i> {{trans('file.delete')}}</button> 
                                 </li>
                                 {{ Form::close() }}
                             </ul>
@@ -74,39 +74,39 @@
 </seaction>
 
 <!-- Modal -->
-<div id="delivery-details" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" class="modal opacity-0 text-left">
+<div id="delivery-details" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" class="modal fade text-left">
     <div role="document" class="modal-dialog">
       <div class="modal-content">
-        <div class="container mx-auto sm:px-4 mt-3 pb-2 border-b">
-            <div class="flex flex-wrap ">
-                <div class="md:w-1/4 pr-4 pl-4">
-                    <button id="print-btn" type="button" class="inline-block align-middle text-center select-none border font-normal whitespace-no-wrap rounded  no-underline btn-default py-1 px-2 leading-tight text-xs  print:hidden"><i class="dripicons-print"></i> {{trans('file.Print')}}</button>
+        <div class="container mt-3 pb-2 border-bottom">
+            <div class="row">
+                <div class="col-md-3">
+                    <button id="print-btn" type="button" class="btn btn-default btn-sm d-print-none"><i class="dripicons-print"></i> {{trans('file.Print')}}</button>
 
                     {{ Form::open(['route' => 'delivery.sendMail', 'method' => 'post', 'class' => 'sendmail-form'] ) }}
                         <input type="hidden" name="delivery_id">
-                        <button class="inline-block align-middle text-center select-none border font-normal whitespace-no-wrap rounded  no-underline btn-default py-1 px-2 leading-tight text-xs  print:hidden"><i class="dripicons-mail"></i> {{trans('file.Email')}}</button>
+                        <button class="btn btn-default btn-sm d-print-none"><i class="dripicons-mail"></i> {{trans('file.Email')}}</button>
                     {{ Form::close() }}
                 </div>
-                <div class="md:w-1/2 pr-4 pl-4">
-                    <h3 id="exampleModalLabel" class="modal-title text-center container mx-auto sm:px-4 max-w-full mx-auto sm:px-4">
+                <div class="col-md-6">
+                    <h3 id="exampleModalLabel" class="modal-title text-center container-fluid">
                         <img src="{{url('public/logo', $general_setting->site_logo)}}" width="30">
                         {{$general_setting->site_title}}
                     </h3>
                 </div>
-                <div class="md:w-1/4 pr-4 pl-4">
-                    <button type="button" id="close-btn" data-dismiss="modal" aria-label="Close" class="absolute top-0 bottom-0 right-0 px-4 py-3 print:hidden"><span aria-hidden="true"><i class="dripicons-cross"></i></span></button>
+                <div class="col-md-3">
+                    <button type="button" id="close-btn" data-dismiss="modal" aria-label="Close" class="close d-print-none"><span aria-hidden="true"><i class="dripicons-cross"></i></span></button>
                 </div>
-                <div class="md:w-full pr-4 pl-4 text-center">
+                <div class="col-md-12 text-center">
                     <i style="font-size: 15px;">{{trans('file.Delivery Details')}}</i>
                 </div>
             </div>
         </div>
         <div class="modal-body">
-            <table class="w-full max-w-full mb-4 bg-transparent table-bordered" id="delivery-content">
+            <table class="table table-bordered" id="delivery-content">
                 <tbody></tbody>
             </table>
             <br>
-            <table class="w-full max-w-full mb-4 bg-transparent table-bordered product-delivery-list">
+            <table class="table table-bordered product-delivery-list">
                 <thead>
                     <th>No</th>
                     <th>Code</th>
@@ -116,67 +116,67 @@
                 <tbody>
                 </tbody>
             </table>
-            <div id="delivery-footer" class="flex flex-wrap ">
+            <div id="delivery-footer" class="row">
             </div>            
         </div>    
       </div>
     </div>
 </div>
 
-<div id="edit-delivery" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" class="modal opacity-0 text-left">
+<div id="edit-delivery" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" class="modal fade text-left">
     <div role="document" class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 id="exampleModalLabel" class="modal-title">{{trans('file.Update Delivery')}}</h5>
-                <button type="button" data-dismiss="modal" aria-label="Close" class="absolute top-0 bottom-0 right-0 px-4 py-3"><span aria-hidden="true"><i class="dripicons-cross"></i></span></button>
+                <button type="button" data-dismiss="modal" aria-label="Close" class="close"><span aria-hidden="true"><i class="dripicons-cross"></i></span></button>
             </div>
             <div class="modal-body">
                 {!! Form::open(['route' => 'delivery.update', 'method' => 'post', 'files' => true]) !!}
-                <div class="flex flex-wrap ">
-                    <div class="md:w-1/2 pr-4 pl-4 mb-4">
+                <div class="row">
+                    <div class="col-md-6 form-group">
                         <label>{{trans('file.Delivery Reference')}}</label>
                         <p id="dr"></p>
                     </div>
-                    <div class="md:w-1/2 pr-4 pl-4 mb-4">
+                    <div class="col-md-6 form-group">
                         <label>{{trans('file.Sale Reference')}}</label>
                         <p id="sr"></p>
                     </div>
-                    <div class="md:w-full pr-4 pl-4 mb-4">
+                    <div class="col-md-12 form-group">
                         <label>{{trans('file.Status')}} *</label>
-                        <select name="status" required class="block appearance-none w-full py-1 px-2 mb-1 text-base leading-normal bg-white text-gray-800 border border-gray-200 rounded selectpicker">
+                        <select name="status" required class="form-control selectpicker">
                             <option value="1">{{trans('file.Packing')}}</option>
                             <option value="2">{{trans('file.Delivering')}}</option>
                             <option value="3">{{trans('file.Delivered')}}</option>
                         </select>
                     </div>
-                    <div class="md:w-1/2 pr-4 pl-4 mt-2 mb-4">
+                    <div class="col-md-6 mt-2 form-group">
                         <label>{{trans('file.Delivered By')}}</label>
-                        <input type="text" name="delivered_by" class="block appearance-none w-full py-1 px-2 mb-1 text-base leading-normal bg-white text-gray-800 border border-gray-200 rounded">
+                        <input type="text" name="delivered_by" class="form-control">
                     </div>
-                    <div class="md:w-1/2 pr-4 pl-4 mt-2 mb-4">
+                    <div class="col-md-6 mt-2 form-group">
                         <label>{{trans('file.Recieved By')}}</label>
-                        <input type="text" name="recieved_by" class="block appearance-none w-full py-1 px-2 mb-1 text-base leading-normal bg-white text-gray-800 border border-gray-200 rounded">
+                        <input type="text" name="recieved_by" class="form-control">
                     </div>
-                    <div class="md:w-1/2 pr-4 pl-4 mb-4">
+                    <div class="col-md-6 form-group">
                         <label>{{trans('file.customer')}} *</label>
                         <p id="customer"></p>
                     </div>
-                    <div class="md:w-1/2 pr-4 pl-4 mb-4">
+                    <div class="col-md-6 form-group">
                         <label>{{trans('file.Attach File')}}</label>
-                        <input type="file" name="file" class="block appearance-none w-full py-1 px-2 mb-1 text-base leading-normal bg-white text-gray-800 border border-gray-200 rounded">
+                        <input type="file" name="file" class="form-control">
                     </div>
-                    <div class="md:w-1/2 pr-4 pl-4 mb-4">
+                    <div class="col-md-6 form-group">
                         <label>{{trans('file.Address')}} *</label>
-                        <textarea rows="3" name="address" class="block appearance-none w-full py-1 px-2 mb-1 text-base leading-normal bg-white text-gray-800 border border-gray-200 rounded" required></textarea>
+                        <textarea rows="3" name="address" class="form-control" required></textarea>
                     </div>
-                    <div class="md:w-1/2 pr-4 pl-4 mb-4">
+                    <div class="col-md-6 form-group">
                         <label>{{trans('file.Note')}}</label>
-                        <textarea rows="3" name="note" class="block appearance-none w-full py-1 px-2 mb-1 text-base leading-normal bg-white text-gray-800 border border-gray-200 rounded"></textarea>
+                        <textarea rows="3" name="note" class="form-control"></textarea>
                     </div>
                 </div>
                 <input type="hidden" name="reference_no">
                 <input type="hidden" name="delivery_id">
-                <button type="submit" class="inline-block align-middle text-center select-none border font-normal whitespace-no-wrap rounded py-1 px-3 leading-normal no-underline bg-blue-600 text-white hover:bg-blue-600">{{trans('file.submit')}}</button>
+                <button type="submit" class="btn btn-primary">{{trans('file.submit')}}</button>
                 {{ Form::close() }}
             </div>
         </div>
@@ -256,11 +256,11 @@
             $("table.product-delivery-list").append(newBody);
         });
 
-        var htmlfooter = '<div class="md:w-1/3 pr-4 pl-4 mb-4"><p>Prepared By: '+delivery[10]+'</p></div>';
-        htmlfooter += '<div class="md:w-1/3 pr-4 pl-4 mb-4"><p>Delivered By: '+delivery[11]+'</p></div>';
-        htmlfooter += '<div class="md:w-1/3 pr-4 pl-4 mb-4"><p>Recieved By: '+delivery[12]+'</p></div>';
+        var htmlfooter = '<div class="col-md-4 form-group"><p>Prepared By: '+delivery[10]+'</p></div>';
+        htmlfooter += '<div class="col-md-4 form-group"><p>Delivered By: '+delivery[11]+'</p></div>';
+        htmlfooter += '<div class="col-md-4 form-group"><p>Recieved By: '+delivery[12]+'</p></div>';
         htmlfooter += '<br><br><br><br>';
-        htmlfooter += '<div class="md:w-1/5 pr-4 pl-4 md:mx-2/5"><img style="max-width:850px;height:100%;max-height:130px" src="data:image/png;base64,'+barcode+'" alt="barcode" /></div>';
+        htmlfooter += '<div class="col-md-2 offset-md-5"><img style="max-width:850px;height:100%;max-height:130px" src="data:image/png;base64,'+barcode+'" alt="barcode" /></div>';
 
         $('#delivery-footer').html(htmlfooter);
         $('#delivery-details').modal('show');

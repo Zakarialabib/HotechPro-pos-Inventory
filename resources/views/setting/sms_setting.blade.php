@@ -1,50 +1,50 @@
 @extends('layout.main') @section('content')
 @if(session()->has('message'))
-  <div class="relative px-3 py-3 mb-4 border rounded bg-green-200 border-green-300 text-green-800  text-center"><button type="button" class="absolute top-0 bottom-0 right-0 px-4 py-3" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>{{ session()->get('message') }}</div> 
+  <div class="alert alert-success alert-dismissible text-center"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>{{ session()->get('message') }}</div> 
 @endif
 @if(session()->has('not_permitted'))
-  <div class="relative px-3 py-3 mb-4 border rounded bg-red-200 border-red-300 text-red-800  text-center"><button type="button" class="absolute top-0 bottom-0 right-0 px-4 py-3" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>{{ session()->get('not_permitted') }}</div> 
+  <div class="alert alert-danger alert-dismissible text-center"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>{{ session()->get('not_permitted') }}</div> 
 @endif
 <section class="forms">
-    <div class="container mx-auto sm:px-4 max-w-full mx-auto sm:px-4">
-        <div class="flex flex-wrap ">
-            <div class="md:w-full pr-4 pl-4">
-                <div class="relative flex flex-col min-w-0 rounded break-words border bg-white border-1 border-gray-300">
-                    <div class="py-3 px-6 mb-0 bg-gray-200 border-b-1 border-gray-300 text-gray-900 flex items-center">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header d-flex align-items-center">
                         <h4>{{trans('file.SMS Setting')}}</h4>
                     </div>
-                    <div class="flex-auto p-6">
+                    <div class="card-body">
                         <p class="italic"><small>{{trans('file.The field labels marked with * are required input fields')}}.</small></p>
                         {!! Form::open(['route' => 'setting.smsStore', 'method' => 'post']) !!}
-                            <div class="flex flex-wrap ">
-                                <div class="md:w-1/2 pr-4 pl-4">
-                                    <div class="mb-4">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
                                         <input type="hidden" name="gateway_hidden" value="{{env('SMS_GATEWAY')}}">
                                         <label>{{trans('file.Gateway')}} *</label>
-                                        <select class="block appearance-none w-full py-1 px-2 mb-1 text-base leading-normal bg-white text-gray-800 border border-gray-200 rounded" name="gateway">
+                                        <select class="form-control" name="gateway">
                                             <option selected disabled>{{trans('file.Select SMS gateway...')}}</option>
                                             <option value="twilio">Twilio</option>
                                             <option value="clickatell">Clickatell</option>
                                         </select>
                                     </div>
-                                    <div class="mb-4 twilio">
+                                    <div class="form-group twilio">
                                         <label>ACCOUNT SID *</label>
-                                        <input type="text" name="account_sid" class="block appearance-none w-full py-1 px-2 mb-1 text-base leading-normal bg-white text-gray-800 border border-gray-200 rounded twilio-option" value="{{env('ACCOUNT_SID')}}" />
+                                        <input type="text" name="account_sid" class="form-control twilio-option" value="{{env('ACCOUNT_SID')}}" />
                                     </div>
-                                    <div class="mb-4 twilio">
+                                    <div class="form-group twilio">
                                         <label>AUTH TOKEN *</label>
-                                        <input type="text" name="auth_token" class="block appearance-none w-full py-1 px-2 mb-1 text-base leading-normal bg-white text-gray-800 border border-gray-200 rounded twilio-option" value="{{env('AUTH_TOKEN')}}" />
+                                        <input type="text" name="auth_token" class="form-control twilio-option" value="{{env('AUTH_TOKEN')}}" />
                                     </div>
-                                    <div class="mb-4 twilio">
+                                    <div class="form-group twilio">
                                         <label>Twilio Number *</label>
-                                        <input type="text" name="twilio_number" class="block appearance-none w-full py-1 px-2 mb-1 text-base leading-normal bg-white text-gray-800 border border-gray-200 rounded twilio-option" value="{{env('Twilio_Number')}}" />
+                                        <input type="text" name="twilio_number" class="form-control twilio-option" value="{{env('Twilio_Number')}}" />
                                     </div>
-                                    <div class="mb-4 clickatell">
+                                    <div class="form-group clickatell">
                                         <label>API Key *</label>
-                                        <input type="text" name="api_key" class="block appearance-none w-full py-1 px-2 mb-1 text-base leading-normal bg-white text-gray-800 border border-gray-200 rounded clickatell-option" value="{{env('CLICKATELL_API_KEY')}}" />
+                                        <input type="text" name="api_key" class="form-control clickatell-option" value="{{env('CLICKATELL_API_KEY')}}" />
                                     </div>
-                                    <div class="mb-4">
-                                        <input type="submit" value="{{trans('file.submit')}}" class="inline-block align-middle text-center select-none border font-normal whitespace-no-wrap rounded py-1 px-3 leading-normal no-underline bg-blue-600 text-white hover:bg-blue-600">
+                                    <div class="form-group">
+                                        <input type="submit" value="{{trans('file.submit')}}" class="btn btn-primary">
                                     </div>
                                 </div>
                             </div>

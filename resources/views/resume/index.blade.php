@@ -12,8 +12,8 @@
 @endif
 
 <section>
-    <div class="container mx-auto sm:px-4 max-w-full mx-auto sm:px-4">
-        <a href="#" data-toggle="modal" data-target="#createModal" class="inline-block align-middle text-center select-none border font-normal whitespace-no-wrap rounded py-1 px-3 leading-normal no-underline bg-teal-500 text-white hover:bg-teal-600"><i class="dripicons-plus"></i> {{trans('file.Add Resume')}}</a>
+    <div class="mx-auto px-2 max-w-full mx-auto">
+        <a href="#" data-toggle="modal" data-target="#createModal" class="align-middle text-center select-none border font-normal whitespace-no-wrap rounded py-1 px-3 leading-normal no-underline bg-blue-600 text-white hover:bg-blue-600"><i class="dripicons-plus"></i> {{trans('file.Add Resume')}}</a>
     </div>
     <div class="block w-full overflow-auto scrolling-touch">
         <table id="resume-table" class="w-full max-w-full mb-4 bg-transparent">

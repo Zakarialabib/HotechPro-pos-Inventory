@@ -10,7 +10,6 @@
     <meta name="robots" content="all,follow">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <!-- Bootstrap CSS-->
-    <link href="{{ asset('public/css/app.css') }}" rel="stylesheet">
     <link rel="stylesheet" href="<?php echo asset('public/vendor/bootstrap/css/bootstrap.min.css') ?>" type="text/css">
     <link rel="stylesheet" href="<?php echo asset('public/vendor/bootstrap-toggle/css/bootstrap-toggle.min.css') ?>" type="text/css">
     <link rel="stylesheet" href="<?php echo asset('public/vendor/bootstrap/css/bootstrap-datepicker.min.css') ?>" type="text/css">
@@ -783,15 +782,13 @@
       </nav>
       <!-- navbar-->
       <header class="header">
-        <nav class="main-header relative flex flex-wrap items-center py-3 px-4 flex-no-wrap content-start text-black navbar-white">
-          <div class="flex flex-wrap list-reset pl-0 mb-0">
+        <nav class="navbar">
+          <div class="container-fluid">
+            <div class="navbar-holder d-flex align-items-center justify-content-between">
               <a id="toggle-btn" href="#" class="menu-btn"><i class="fa fa-bars"> </i></a>
-            <div class="navbar-holder flex items-center justify-between">
-              <span class="brand-big"><a href="{{url('/')}}">@if($general_setting->site_logo)<img src="{{url('public/logo', $general_setting->site_logo)}}" width="120">&nbsp;&nbsp;@endif</a></span>
-            </div>
-          </div>
-          <div class="flex flex-wrap list-reset pl-0 mb-0 ml-auto">
-              <ul class="nav-menu list-unstyled flex md:flex-row md:items-center">
+              <span class="brand-big">@if($general_setting->site_logo)<img src="{{url('public/logo', $general_setting->site_logo)}}" width="50">&nbsp;&nbsp;@endif<a href="{{url('/')}}"><h1 class="d-inline">{{$general_setting->site_title}}</h1></a></span>
+              
+              <ul class="nav-menu list-unstyled d-flex flex-md-row align-items-md-center">
                 <?php 
                   $add_permission = DB::table('permissions')->where('name', 'sales-add')->first();
                   $add_permission_active = DB::table('role_has_permissions')->where([
@@ -804,62 +801,67 @@
                       ['permission_id', $empty_database_permission->id],
                       ['role_id', $role->id]
                   ])->first();
-                ?>     
-                <li class=""><a class="inline-block py-2 px-4 no-underline w-full font-normal text-gray-900 whitespace-no-wrap border-0"  id="btnFullscreen"><i class="dripicons-expand"></i></a></li>
+                ?>
+                @if($add_permission_active)
+                <li class="nav-item"><a class="dropdown-item btn-pos btn-sm" href="{{route('sale.pos')}}"><i class="dripicons-shopping-bag"></i><span> POS</span></a></li>
+                @endif      
+                <li class="nav-item"><a id="btnFullscreen"><i class="dripicons-expand"></i></a></li>
                 @if(\Auth::user()->role_id <= 2)
-                  <li class=""><a  href="{{route('cashRegister.index')}}" title="{{trans('file.Cash Register List')}}"><i class="dripicons-archive"></i></a></li>
+                  <li class="nav-item"><a href="{{route('cashRegister.index')}}" title="{{trans('file.Cash Register List')}}"><i class="dripicons-archive"></i></a></li>
                 @endif
                 @if($product_qty_alert_active)
                   @if(($alert_product + count(\Auth::user()->unreadNotifications)) > 0)
-                  <li class="" id="notification-icon">
-                        <a rel="nofollow" data-target="#" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="inline-block py-2 px-4 no-underline block w-full py-1 px-6 font-normal text-gray-900 whitespace-no-wrap border-0"><i class="dripicons-bell"></i><span class="inline-block p-1 text-center font-semibold text-sm align-baseline leading-none rounded bg-red-600 text-white hover:bg-red-700 notification-number">{{$alert_product + count(\Auth::user()->unreadNotifications)}}</span>
+                  <li class="nav-item" id="notification-icon">
+                        <a rel="nofollow" data-target="#" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link dropdown-item"><i class="dripicons-bell"></i><span class="badge badge-danger notification-number">{{$alert_product + count(\Auth::user()->unreadNotifications)}}</span>
                         </a>
-                        <ul class=" absolute left-0 z-50 float-left hidden list-reset	 py-2 mt-1 text-base bg-white border border-gray-300 rounded edit-options dropdown-menu-right dropdown-default notifications" user="menu">
+                        <ul class="dropdown-menu edit-options dropdown-menu-right dropdown-default notifications" user="menu">
                             <li class="notifications">
-                              <a href="{{route('report.qtyAlert')}}" class="inline-block align-middle text-center select-none border font-normal whitespace-no-wrap rounded py-1 px-3 leading-normal no-underline font-normal text-blue-700 bg-transparent"> {{$alert_product}} - {{trans('file.Product alert quantity')}}</a>
+                              <a href="{{route('report.qtyAlert')}}" class="btn btn-link"> {{$alert_product}} product exceeds alert quantity</a>
                             </li>
                             @foreach(\Auth::user()->unreadNotifications as $key => $notification)
                                 <li class="notifications">
-                                    <a href="#" class="inline-block align-middle text-center select-none border font-normal whitespace-no-wrap rounded py-1 px-3 leading-normal no-underline font-normal text-blue-700 bg-transparent">{{ $notification->data['message'] }}</a>
+                                    <a href="#" class="btn btn-link">{{ $notification->data['message'] }}</a>
                                 </li>
                             @endforeach
                         </ul>
                   </li>
                   @elseif(count(\Auth::user()->unreadNotifications) > 0)
-                  <li class="" id="notification-icon">
-                        <a rel="nofollow" data-target="#" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="inline-block py-2 px-4 no-underline block w-full py-1 px-6 font-normal text-gray-900 whitespace-no-wrap border-0"><i class="dripicons-bell"></i><span class="inline-block p-1 text-center font-semibold text-sm align-baseline leading-none rounded bg-red-600 text-white hover:bg-red-700 notification-number">{{count(\Auth::user()->unreadNotifications)}}</span>
+                  <li class="nav-item" id="notification-icon">
+                        <a rel="nofollow" data-target="#" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link dropdown-item"><i class="dripicons-bell"></i><span class="badge badge-danger notification-number">{{count(\Auth::user()->unreadNotifications)}}</span>
                         </a>
-                        <ul class=" absolute left-0 z-50 float-left hidden list-reset	 py-2 mt-1 text-base bg-white border border-gray-300 rounded edit-options dropdown-menu-right dropdown-default notifications" user="menu">
+                        <ul class="dropdown-menu edit-options dropdown-menu-right dropdown-default notifications" user="menu">
                             @foreach(\Auth::user()->unreadNotifications as $key => $notification)
                                 <li class="notifications">
-                                    <a href="#" class="inline-block align-middle text-center select-none border font-normal whitespace-no-wrap rounded py-1 px-3 leading-normal no-underline font-normal text-blue-700 bg-transparent">{{ $notification->data['message'] }}</a>
+                                    <a href="#" class="btn btn-link">{{ $notification->data['message'] }}</a>
                                 </li>
                             @endforeach
                         </ul>
                   </li>
                   @endif
                 @endif
-                <li class="">
-                      <a rel="nofollow" data-target="#" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="inline-block py-2 px-4 no-underline block w-full py-1 px-6 font-normal text-gray-900 whitespace-no-wrap border-0"><i class="dripicons-web"></i> <span>{{__('file.language')}}</span> <i class="fa fa-angle-down"></i></a>
-                      <ul class=" absolute left-0 z-50 float-left hidden list-reset	 py-2 mt-1 text-base bg-white border border-gray-300 rounded edit-options dropdown-menu-right dropdown-default" user="menu">
-                      <li>
-                            <a href="{{ url('language_switch/fr') }}" class="inline-block align-middle text-center select-none border font-normal whitespace-no-wrap rounded py-1 px-3 leading-normal no-underline font-normal text-blue-700 bg-transparent"> Français</a>
+                <li class="nav-item">
+                      <a rel="nofollow" data-target="#" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link dropdown-item"><i class="dripicons-web"></i> <span>{{__('file.language')}}</span> <i class="fa fa-angle-down"></i></a>
+                      <ul class="dropdown-menu edit-options dropdown-menu-right dropdown-default" user="menu">
+                        <li>
+                          <a href="{{ url('language_switch/fr') }}" class="btn btn-link"> Français</a>
+                        </li>
+                        <li>
+                          <a href="{{ url('language_switch/ar') }}" class="btn btn-link"> عربى</a>
                           </li>
-
                           <li>
-                            <a href="{{ url('language_switch/en') }}" class="inline-block align-middle text-center select-none border font-normal whitespace-no-wrap rounded py-1 px-3 leading-normal no-underline font-normal text-blue-700 bg-transparent"> English</a>
+                            <a href="{{ url('language_switch/en') }}" class="btn btn-link"> English</a>
                           </li>
-                    
-                          <li>
-                            <a href="{{ url('language_switch/ar') }}" class="inline-block align-middle text-center select-none border font-normal whitespace-no-wrap rounded py-1 px-3 leading-normal no-underline font-normal text-blue-700 bg-transparent"> عربى</a>
-                          </li>
-
                       </ul>
                 </li>
-                <li class="">
-                  <a rel="nofollow" data-target="#" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="inline-block py-2 px-4 no-underline block w-full py-1 px-6 font-normal text-gray-900 whitespace-no-wrap border-0"><i class="dripicons-user"></i> <span>{{ucfirst(Auth::user()->name)}}</span> <i class="fa fa-angle-down"></i>
+                @if(Auth::user()->role_id != 5)
+                <li class="nav-item"> 
+                    <a class="dropdown-item" href="{{ url('read_me') }}" target="_blank"><i class="dripicons-information"></i> {{trans('file.Help')}}</a>
+                </li>
+                @endif
+                <li class="nav-item">
+                  <a rel="nofollow" data-target="#" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link dropdown-item"><i class="dripicons-user"></i> <span>{{ucfirst(Auth::user()->name)}}</span> <i class="fa fa-angle-down"></i>
                   </a>
-                  <ul class=" absolute left-0 z-50 float-left hidden list-reset	 py-2 mt-1 text-base bg-white border border-gray-300 rounded edit-options dropdown-menu-right dropdown-default" user="menu">
+                  <ul class="dropdown-menu edit-options dropdown-menu-right dropdown-default" user="menu">
                       <li> 
                         <a href="{{route('user.profile', ['id' => Auth::id()])}}"><i class="dripicons-user"></i> {{trans('file.profile')}}</a>
                       </li>
@@ -894,6 +896,7 @@
                   </ul>
                 </li> 
               </ul>
+            </div>
           </div>
         </nav>
       </header>
@@ -1309,7 +1312,7 @@
       </div>
 
       <footer class="main-footer">
-        <div class="mx-auto px-2 max-w-full mx-auto">
+        <div class="container mx-auto sm:px-4 max-w-full mx-auto sm:px-4">
           <div class="flex flex-wrap ">
             <div class="sm:w-full pr-4 pl-4">
               <p>&copy; {{$general_setting->site_title}} | {{trans('file.Developed')}} {{trans('file.By')}} <span class="external">Zakaria Labib</span></p>

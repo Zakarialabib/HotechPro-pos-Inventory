@@ -1,27 +1,27 @@
 @extends('layout.main')
 @section('content')
 @if(session()->has('not_permitted'))
-  <div class="relative px-3 py-3 mb-4 border rounded bg-red-200 border-red-300 text-red-800  text-center"><button type="button" class="absolute top-0 bottom-0 right-0 px-4 py-3" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>{{ session()->get('not_permitted') }}</div> 
+  <div class="alert alert-danger alert-dismissible text-center"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>{{ session()->get('not_permitted') }}</div> 
 @endif
 <section class="forms">
-    <div class="container mx-auto sm:px-4 max-w-full mx-auto sm:px-4">
-        <div class="flex flex-wrap ">
-            <div class="md:w-full pr-4 pl-4">
-                <div class="relative flex flex-col min-w-0 rounded break-words border bg-white border-1 border-gray-300">
-                    <div class="py-3 px-6 mb-0 bg-gray-200 border-b-1 border-gray-300 text-gray-900 flex items-center">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header d-flex align-items-center">
                         <h4>{{trans('file.Group Permission')}}</h4>
                     </div>
                     {!! Form::open(['route' => 'role.setPermission', 'method' => 'post']) !!}
-                    <div class="flex-auto p-6">
+                    <div class="card-body">
                     	<input type="hidden" name="role_id" value="{{$lims_role_data->id}}" />
-						<div class="block w-full overflow-auto scrolling-touch">
-						    <table class="w-full max-w-full mb-4 bg-transparent table-bordered permission-table">
+						<div class="table-responsive">
+						    <table class="table table-bordered permission-table">
 						        <thead>
 						        <tr>
 						            <th colspan="5" class="text-center">{{$lims_role_data->name}} {{trans('file.Group Permission')}}</th>
 						        </tr>
 						        <tr>
-						            <th rowspan="2" class="text-center">{{trans('file.Module Name')}}</th>
+						            <th rowspan="2" class="text-center">Module Name</th>
 						            <th colspan="4" class="text-center">
 						            	<div class="checkbox">
 						            		<input type="checkbox" id="select_all">
@@ -349,6 +349,109 @@
 						            </td>
 						        </tr>
 
+						        <tr>
+						            <td>{{trans('file.Sale Return')}}</td>
+						            <td class="text-center">
+						                <div class="icheckbox_square-blue" aria-checked="false" aria-disabled="false">
+							                <div class="checkbox">
+								                @if(in_array("returns-index", $all_permission))
+								                <input type="checkbox" value="1" id="returns-index" name="returns-index" checked>
+								                @else
+								                <input type="checkbox" value="1" id="returns-index" name="returns-index">
+								                @endif
+								                <label for="returns-index"></label>
+								            </div>
+						            	</div>
+						            </td>
+						            <td class="text-center">
+						                <div class="icheckbox_square-blue" aria-checked="false" aria-disabled="false">
+							                <div class="checkbox">
+								                @if(in_array("returns-add", $all_permission))
+								                <input type="checkbox" value="1" id="returns-add" name="returns-add" checked>
+								                @else
+								                <input type="checkbox" value="1" id="returns-add" name="returns-add">
+								                @endif
+								                <label for="returns-add"></label>
+							                </div>
+							            </div>
+						            </td>
+						            <td class="text-center">
+						                <div class="icheckbox_square-blue" aria-checked="false" aria-disabled="false">
+							                <div class="checkbox">
+								                @if(in_array("returns-edit", $all_permission))
+								                <input type="checkbox" value="1" id="returns-edit" name="returns-edit" checked>
+								                @else
+								                <input type="checkbox" value="1" id="returns-edit" name="returns-edit">
+								                @endif
+								                <label for="returns-edit"></label>
+								            </div>
+						            	</div>
+						            </td>
+						            <td class="text-center">
+						                <div class="icheckbox_square-blue" aria-checked="false" aria-disabled="false">
+							                <div class="checkbox">
+								                @if(in_array("returns-delete", $all_permission))
+								                <input type="checkbox" value="1" id="returns-delete" name="returns-delete" checked>
+								                @else
+								                <input type="checkbox" value="1" id="returns-delete" name="returns-delete">
+								                @endif
+								                <label for="returns-delete"></label>
+								            </div>
+						            	</div>
+						            </td>
+						        </tr>
+
+						        <tr>
+						            <td>{{trans('file.Purchase Return')}}</td>
+						            <td class="text-center">
+						                <div class="icheckbox_square-blue" aria-checked="false" aria-disabled="false">
+							                <div class="checkbox">
+								                @if(in_array("purchase-return-index", $all_permission))
+								                <input type="checkbox" value="1" id="purchase-return-index" name="purchase-return-index" checked>
+								                @else
+								                <input type="checkbox" value="1" id="purchase-return-index" name="purchase-return-index">
+								                @endif
+								                <label for="purchase-return-index"></label>
+								            </div>
+						            	</div>
+						            </td>
+						            <td class="text-center">
+						                <div class="icheckbox_square-blue" aria-checked="false" aria-disabled="false">
+							                <div class="checkbox">
+								                @if(in_array("purchase-return-add", $all_permission))
+								                <input type="checkbox" value="1" id="purchase-return-add" name="purchase-return-add" checked>
+								                @else
+								                <input type="checkbox" value="1" id="purchase-return-add" name="purchase-return-add">
+								                @endif
+								                <label for="purchase-return-add"></label>
+								            </div>
+						                </div>
+						            </td>
+						            <td class="text-center">
+						                <div class="icheckbox_square-blue" aria-checked="false" aria-disabled="false">
+							                <div class="checkbox">
+								                @if(in_array("purchase-return-edit", $all_permission))
+								                <input type="checkbox" value="1" id="purchase-return-edit" name="purchase-return-edit" checked>
+								                @else
+								                <input type="checkbox" value="1" id="purchase-return-edit" name="purchase-return-edit">
+								                @endif
+								                <label for="purchase-return-edit"></label>
+								            </div>
+						            	</div>
+						            </td>
+						            <td class="text-center">
+						                <div class="icheckbox_square-blue" aria-checked="false" aria-disabled="false">
+						                	<div class="checkbox">
+								                @if(in_array("purchase-return-delete", $all_permission))
+								                <input type="checkbox" value="1" id="purchase-return-delete" name="purchase-return-delete" checked>
+								                @else
+								                <input type="checkbox" value="1" id="purchase-return-delete" name="purchase-return-delete">
+								                @endif
+								                <label for="purchase-return-delete"></label>
+								            </div>
+						            	</div>
+						            </td>
+						        </tr>
 						        <tr>
 						            <td>{{trans('file.Employee')}}</td>
 						            <td class="text-center">
@@ -681,30 +784,6 @@
 							                    	<input type="checkbox" value="1" id="attendance" name="attendance">
 							                    	@endif
 								                    <label for="attendance" class="padding05">{{trans('file.Attendance')}} &nbsp;&nbsp;</label>
-								                </div>
-								            </div>
-						                </span>
-										<span>
-						                    <div aria-checked="false" aria-disabled="false">
-								                <div class="checkbox">
-							                    	@if(in_array("activity", $all_permission))
-							                    	<input type="checkbox" value="1" id="activity" name="activity" checked>
-							                    	@else
-							                    	<input type="checkbox" value="1" id="activity" name="activity">
-							                    	@endif
-								                    <label for="activity" class="padding05">{{trans('file.Activity')}} &nbsp;&nbsp;</label>
-								                </div>
-								            </div>
-						                </span>
-										<span>
-						                    <div aria-checked="false" aria-disabled="false">
-								                <div class="checkbox">
-							                    	@if(in_array("resume", $all_permission))
-							                    	<input type="checkbox" value="1" id="resume" name="resume" checked>
-							                    	@else
-							                    	<input type="checkbox" value="1" id="resume" name="resume">
-							                    	@endif
-								                    <label for="resume" class="padding05">{{trans('file.Resume')}} &nbsp;&nbsp;</label>
 								                </div>
 								            </div>
 						                </span>
@@ -1069,6 +1148,30 @@
 						                <span>
 						                    <div aria-checked="false" aria-disabled="false">
 								                <div class="checkbox">
+							                    	@if(in_array("sms_setting", $all_permission))
+							                    	<input type="checkbox" value="1" id="sms_setting" name="sms_setting" checked>
+							                    	@else
+							                    	<input type="checkbox" value="1" id="sms_setting" name="sms_setting">
+							                    	@endif
+								                    <label for="sms_setting" class="padding05">{{trans('file.SMS Setting')}} &nbsp;&nbsp;</label>
+								                </div>
+								            </div>
+						                </span>
+						                <span>
+						                    <div aria-checked="false" aria-disabled="false">
+								                <div class="checkbox">
+							                    	@if(in_array("create_sms", $all_permission))
+							                    	<input type="checkbox" value="1" id="create_sms" name="create_sms" checked>
+							                    	@else
+							                    	<input type="checkbox" value="1" id="create_sms" name="create_sms">
+							                    	@endif
+								                    <label for="create_sms" class="padding05">{{trans('file.Create SMS')}} &nbsp;&nbsp;</label>
+								                </div>
+								            </div>
+						                </span>
+						                <span>
+						                    <div aria-checked="false" aria-disabled="false">
+								                <div class="checkbox">
 							                    	@if(in_array("pos_setting", $all_permission))
 							                    	<input type="checkbox" value="1" id="pos_setting" name="pos_setting" checked>
 							                    	@else
@@ -1146,6 +1249,30 @@
 						                <span>
 						                    <div aria-checked="false" aria-disabled="false">
 								                <div class="checkbox">
+							                    	@if(in_array("gift_card", $all_permission))
+							                    	<input type="checkbox" value="1" id="gift_card" name="gift_card" checked>
+							                    	@else
+							                    	<input type="checkbox" value="1" id="gift_card" name="gift_card">
+							                    	@endif
+								                    <label for="gift_card" class="padding05">{{trans('file.Gift Card')}} &nbsp;&nbsp;</label>
+								                </div>
+								            </div>
+						                </span>
+						                <span>
+						                    <div aria-checked="false" aria-disabled="false">
+								                <div class="checkbox">
+							                    	@if(in_array("coupon", $all_permission))
+							                    	<input type="checkbox" value="1" id="coupon" name="coupon" checked>
+							                    	@else
+							                    	<input type="checkbox" value="1" id="coupon" name="coupon">
+							                    	@endif
+								                    <label for="coupon" class="padding05">{{trans('file.Coupon')}} &nbsp;&nbsp;</label>
+								                </div>
+								            </div>
+						                </span>
+						                <span>
+						                    <div aria-checked="false" aria-disabled="false">
+								                <div class="checkbox">
 							                    	@if(in_array("print_barcode", $all_permission))
 							                    	<input type="checkbox" value="1" id="print_barcode" name="print_barcode" checked>
 							                    	@else
@@ -1196,8 +1323,8 @@
 						        </tbody>
 						    </table>
 						</div>
-						<div class="mb-4">
-	                        <input type="submit" value="{{trans('file.submit')}}" class="inline-block align-middle text-center select-none border font-normal whitespace-no-wrap rounded py-1 px-3 leading-normal no-underline bg-blue-600 text-white hover:bg-blue-600">
+						<div class="form-group">
+	                        <input type="submit" value="{{trans('file.submit')}}" class="btn btn-primary">
 	                    </div>
                     </div>
                     {!! Form::close() !!}

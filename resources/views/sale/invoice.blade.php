@@ -36,70 +36,24 @@
             color: #FFF;
             width: 100%;
         }
-        .col-1, .col-2, .col-3, .col-4, .col-5, .col-6, .col-7, .col-8, .col-9, .col-10, .col-11, .col-12, .col,
-.col-auto, .col-sm-1, .col-sm-2, .col-sm-3, .col-sm-4, .col-sm-5, .col-sm-6, .col-sm-7, .col-sm-8, .col-sm-9, .col-sm-10, .col-sm-11, .col-sm-12, .col-sm,
-.col-sm-auto, .col-md-1, .col-md-2, .col-md-3, .col-md-4, .col-md-5, .col-md-6, .col-md-7, .col-md-8, .col-md-9, .col-md-10, .col-md-11, .col-md-12, .col-md,
-.col-md-auto, .col-lg-1, .col-lg-2, .col-lg-3, .col-lg-4, .col-lg-5, .col-lg-6, .col-lg-7, .col-lg-8, .col-lg-9, .col-lg-10, .col-lg-11, .col-lg-12, .col-lg,
-.col-lg-auto, .col-xl-1, .col-xl-2, .col-xl-3, .col-xl-4, .col-xl-5, .col-xl-6, .col-xl-7, .col-xl-8, .col-xl-9, .col-xl-10, .col-xl-11, .col-xl-12, .col-xl,
-.col-xl-auto {
-  position: relative;
-  width: 100%;
-  min-height: 1px;
-}
-        .col-6 {
-  -webkit-box-flex: 0;
-  -ms-flex: 0 0 50%;
-  flex: 0 0 50%;
-  max-width: 50%;
-  text-align: left;
-        }
-.col-12 {
-  -webkit-box-flex: 0;
-  -ms-flex: 0 0 100%;
-  flex: 0 0 100%;
-  max-width: 100%;
-display: grid;
-}
-.right{ 
-text-align: right; padding-right: 20px;
-}
         td,
         th,
         tr,
         table {
             border-collapse: collapse;
-            border: 1px solid #eeeeee91;
         }
         tr {border-bottom: 1px dotted #ddd;}
-        td,th {padding: 7px 0}
+        td,th {padding: 7px 0;width: 50%;}
 
         table {width: 100%;}
         tfoot tr th:first-child {text-align: left;}
-        .row {
-            display:flex;
-            text-align: center;
-            align-content: center;
-        }
-        .invoice-buttom{
-        -webkit-box-flex: 0;
-        -ms-flex: 0 0 100%;
-         flex: 0 0 100%;
-         max-width: 100%;
-         justify-content: center;
-         display: grid;
-         padding: 10px 0 10px 0;
-        }
+
         .centered {
             text-align: center;
             align-content: center;
         }
         small{font-size:11px;}
-        hr {
-        width: 100%;
-        margin-left: auto;
-        margin-right: auto;
-        color: #eee;
-      }
+
         @media print {
             * {
                 font-size:12px;
@@ -109,13 +63,20 @@ text-align: right; padding-right: 20px;
             .hidden-print {
                 display: none !important;
             }
-            @page { margin: 0; } body { margin: 0.5cm; margin-bottom:1.6cm; } 
+            @page { margin: 0; } body { margin: 0.5cm; margin-bottom:1.6cm; }
+            tbody::after {
+                content: '';
+                display: block;
+                page-break-after: always;
+                page-break-inside: always;
+                page-break-before: avoid;        
+            }
         }
     </style>
   </head>
 <body>
 
-<div style="max-width:600px;margin:0 auto">
+<div style="max-width:400px;margin:0 auto">
     @if(preg_match('~[0-9]~', url()->previous()))
         @php $url = '../../pos'; @endphp
     @else
@@ -124,49 +85,33 @@ text-align: right; padding-right: 20px;
     <div class="hidden-print">
         <table>
             <tr>
-                <td><a href="{{$url}}" class="inline-block align-middle text-center select-none border font-normal whitespace-no-wrap rounded py-1 px-3 leading-normal no-underline bg-teal-500 text-white hover:bg-teal-600"><i class="fa fa-arrow-left"></i> {{trans('file.Back')}}</a> </td>
-                <td><button onclick="window.print();" class="inline-block align-middle text-center select-none border font-normal whitespace-no-wrap rounded py-1 px-3 leading-normal no-underline bg-blue-600 text-white hover:bg-blue-600"><i class="dripicons-print"></i> {{trans('file.Print')}}</button></td>
+                <td><a href="{{$url}}" class="btn btn-info"><i class="fa fa-arrow-left"></i> {{trans('file.Back')}}</a> </td>
+                <td><button onclick="window.print();" class="btn btn-primary"><i class="dripicons-print"></i> {{trans('file.Print')}}</button></td>
             </tr>
         </table>
         <br>
     </div>
         
-    <div id="receipt-data" style="max-height:29.7cm;">
-    <div class="flex flex-wrap ">
-        <div class="w-1/2">
+    <div id="receipt-data">
+        <div class="centered">
             @if($general_setting->site_logo)
-                <img src="{{url('public/logo', $general_setting->site_logo)}}" width="120" height="70" style="margin:10px 0">
+                <img src="{{url('public/logo', $general_setting->site_logo)}}" height="42" width="42" style="margin:10px 0;filter: brightness(0);">
             @endif
-            <p>
+            
+            <h2>{{$lims_biller_data->company_name}}</h2>
+            
+            <p>{{trans('file.Address')}}: {{$lims_warehouse_data->address}}
+                <br>{{trans('file.Phone Number')}}: {{$lims_warehouse_data->phone}}
+            </p>
+        </div>
+        <p>{{trans('file.Date')}}: {{$lims_sale_data->created_at}}<br>
             {{trans('file.reference')}}: {{$lims_sale_data->reference_no}}<br>
-            Date d’émission: {{$lims_sale_data->created_at->toDateString()}}<br>
-            </p>
-        </div>
-        <div class="w-1/2" style="text-align: center;">
-        <?php echo '<img style="margin-top:50px;" src="data:image/png;base64,' . DNS2D::getBarcodePNG($lims_sale_data->reference_no, 'QRCODE') . '" alt="barcode"   />';?>    
-        </div>
-        </div>
-        <hr />
-        <div class="flex flex-wrap ">
-        <div class="w-1/2">
-               {{$lims_warehouse_data->address}}
-            <br>{{trans('file.VAT Number')}}: {{$lims_general_setting_data->vat_number}}
-            <br>{{trans('file.Email')}}: {{$lims_general_setting_data->email}}
-            <br>{{trans('file.Phone Number')}}: {{$lims_general_setting_data->phone}}
-            </p>
-        </div>
-        <div class="w-1/2">
-         <p>
-            {{trans('file.customer')}}: {{$lims_customer_data->name}}<br>
-            {{$lims_customer_data->address}}<br>
-            {{trans('file.Tax Number')}}: {{$lims_customer_data->tax_no}}
+            {{trans('file.customer')}}: {{$lims_customer_data->name}}
         </p>
-        </div>
-        </div>
-        <table>
+        <table class="table-data">
             <tbody>
                 <?php $total_product_tax = 0;?>
-                @foreach($lims_product_sale_data as $product_sale_data)
+                @foreach($lims_product_sale_data as $key => $product_sale_data)
                 <?php 
                     $lims_product_data = \App\Product::find($product_sale_data->product_id);
                     if($product_sale_data->variant_id) {
@@ -176,51 +121,106 @@ text-align: right; padding-right: 20px;
                     else
                         $product_name = $lims_product_data->name;
                 ?>
-                <tr style="background: #c0c0c045;">
-                <td class="centered">Objet</td>
-                <td class="centered">Details</td>
-				<td class="centered">{{trans('file.Unit Price')}}</td>
-                <td class="centered">Qté.</td>
-                <td class="centered">{{trans('file.Order Tax')}}</td>
-				<td  class="right" >Total HT</td>
-                </tr>
                 <tr>
-                <td class="centered">{{$product_name}}</td>
-                <td class="centered">{{$product_sale_data->sale_note}}</td>
-                <td class="centered">{{number_format((float) ($product_sale_data->total / $product_sale_data->qty), 2, '.', '')}}</td>
-                <td class="centered">{{$product_sale_data->qty}}</td>
-                <td class="centered">{{number_format((float)$lims_sale_data->order_tax, 2, '.', '')}}</td>
-            	<td class="right"  >{{number_format((float)$product_sale_data->total, 2, '.', '')}}</td>
+                    <td colspan="2">
+                        {{$product_name}}
+                        <br>{{$product_sale_data->qty}} x {{number_format((float)($product_sale_data->total / $product_sale_data->qty), 2, '.', '')}}
+
+                        @if($product_sale_data->tax_rate)
+                            <?php $total_product_tax += $product_sale_data->tax ?>
+                            [{{trans('file.Tax')}} ({{$product_sale_data->tax_rate}}%): {{$product_sale_data->tax}}]
+                        @endif
+                    </td>
+                    <td style="text-align:right;vertical-align:bottom">{{number_format((float)$product_sale_data->total, 2, '.', '')}}</td>
                 </tr>
                 @endforeach
+            
+            <!-- <tfoot> -->
+                <tr>
+                    <th colspan="2" style="text-align:left">{{trans('file.Total')}}</th>
+                    <th style="text-align:right">{{number_format((float)$lims_sale_data->total_price, 2, '.', '')}}</th>
+                </tr>
+                @if($general_setting->invoice_format == 'gst' && $general_setting->state == 1)
+                <tr>
+                    <td colspan="2">IGST</td>
+                    <td style="text-align:right">{{number_format((float)$total_product_tax, 2, '.', '')}}</td>
+                </tr>
+                @elseif($general_setting->invoice_format == 'gst' && $general_setting->state == 2)
+                <tr>
+                    <td colspan="2">SGST</td>
+                    <td style="text-align:right">{{number_format((float)($total_product_tax / 2), 2, '.', '')}}</td>
+                </tr>
+                <tr>
+                    <td colspan="2">CGST</td>
+                    <td style="text-align:right">{{number_format((float)($total_product_tax / 2), 2, '.', '')}}</td>
+                </tr>
+                @endif
+                @if($lims_sale_data->order_tax)
+                <tr>
+                    <th colspan="2" style="text-align:left">{{trans('file.Order Tax')}}</th>
+                    <th style="text-align:right">{{number_format((float)$lims_sale_data->order_tax, 2, '.', '')}}</th>
+                </tr>
+                @endif
+                @if($lims_sale_data->order_discount)
+                <tr>
+                    <th colspan="2" style="text-align:left">{{trans('file.Order Discount')}}</th>
+                    <th style="text-align:right">{{number_format((float)$lims_sale_data->order_discount, 2, '.', '')}}</th>
+                </tr>
+                @endif
+                @if($lims_sale_data->coupon_discount)
+                <tr>
+                    <th colspan="2" style="text-align:left">{{trans('file.Coupon Discount')}}</th>
+                    <th style="text-align:right">{{number_format((float)$lims_sale_data->coupon_discount, 2, '.', '')}}</th>
+                </tr>
+                @endif
+                @if($lims_sale_data->shipping_cost)
+                <tr>
+                    <th colspan="2" style="text-align:left">{{trans('file.Shipping Cost')}}</th>
+                    <th style="text-align:right">{{number_format((float)$lims_sale_data->shipping_cost, 2, '.', '')}}</th>
+                </tr>
+                @endif
+                <tr>
+                    <th colspan="2" style="text-align:left">{{trans('file.grand total')}}</th>
+                    <th style="text-align:right">{{number_format((float)$lims_sale_data->grand_total, 2, '.', '')}}</th>
+                </tr>
+                <tr>
+                    @if($general_setting->currency_position == 'prefix')
+                    <th class="centered" colspan="3">{{trans('file.In Words')}}: <span>{{$currency->code}}</span> <span>{{str_replace("-"," ",$numberInWords)}}</span></th>
+                    @else
+                    <th class="centered" colspan="3">{{trans('file.In Words')}}: <span>{{str_replace("-"," ",$numberInWords)}}</span> <span>{{$currency->code}}</span></th>
+                    @endif
+                </tr>
             </tbody>
-            </table>
-            <div class="flex flex-wrap ">
-        <div class="w-1/2">
-        <p></p>
-        </div>
-        <div class="w-1/2" style="background: #c0c0c045;padding-bottom: 50px;">
-            <p class="right">Total HT : {{number_format((float)$lims_sale_data->order_tax, 2, '.', '')}}<br>
-            TVA :  {{number_format((float)$lims_sale_data->order_tax, 2, '.', '')}}<br>
-            TOTAL TTC : {{number_format((float)$lims_sale_data->grand_total, 2, '.', '')}}</p>
-            <img  src="{{url('public/images/alphaboost.png')}}" style="height: 100px;width: 300px;" />
-
-       </div>
-       </div>
-       <div 
-       class="w-full centered"
-       style="position: fixed;
-       bottom: 20px;
-       width: 600px;">
-       ALPHABOOST SARL
-9, Rue Abou Maachar, Bureau N°11, Quartier Les Hôpitaux, 20360 Casablanca
-Tél: +212 5 22 86 27 51 - Mail: contact@alphaboost.ma - Site: www.alphaboost.ma
-ICE 002271601000067 - RC 435203 - IF 37528652 - TP 34100605
-</div>
+            <!-- </tfoot> -->
+        </table>
+        <table>
+            <tbody>
+                @foreach($lims_payment_data as $payment_data)
+                <tr style="background-color:#ddd;">
+                    <td style="padding: 5px;width:30%">{{trans('file.Paid By')}}: {{$payment_data->paying_method}}</td>
+                    <td style="padding: 5px;width:40%">{{trans('file.Amount')}}: {{number_format((float)$payment_data->amount, 2, '.', '')}}</td>
+                    <td style="padding: 5px;width:30%">{{trans('file.Change')}}: {{number_format((float)$payment_data->change, 2, '.', '')}}</td>
+                </tr>                
+                @endforeach
+                <tr><td class="centered" colspan="3">{{trans('file.Thank you for shopping with us. Please come again')}}</td></tr>
+                <tr>
+                    <td class="centered" colspan="3">
+                    <?php echo '<img style="margin-top:10px;" src="data:image/png;base64,' . DNS1D::getBarcodePNG($lims_sale_data->reference_no, 'C128') . '" width="300" alt="barcode"   />';?>
+                    <br>
+                    <?php echo '<img style="margin-top:10px;" src="data:image/png;base64,' . DNS2D::getBarcodePNG($lims_sale_data->reference_no, 'QRCODE') . '" alt="barcode"   />';?>    
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <!-- <div class="centered" style="margin:30px 0 50px">
+            <small>{{trans('file.Invoice Generated By')}} {{$general_setting->site_title}}.
+            {{trans('file.Developed By')}} LionCoders</strong></small>
+        </div> -->
     </div>
 </div>
 
 <script type="text/javascript">
+    localStorage.clear();
     function auto_print() {     
         window.print()
     }

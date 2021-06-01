@@ -1,32 +1,32 @@
 @extends('layout.main') @section('content')
 @if(session()->has('not_permitted'))
-  <div class="relative px-3 py-3 mb-4 border rounded bg-red-200 border-red-300 text-red-800  text-center"><button type="button" class="absolute top-0 bottom-0 right-0 px-4 py-3" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>{{ session()->get('not_permitted') }}</div> 
+  <div class="alert alert-danger alert-dismissible text-center"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>{{ session()->get('not_permitted') }}</div> 
 @endif
 <section class="forms">
-    <div class="container mx-auto sm:px-4 max-w-full mx-auto sm:px-4">
-        <div class="flex flex-wrap ">
-            <div class="md:w-full pr-4 pl-4">
-                <div class="relative flex flex-col min-w-0 rounded break-words border bg-white border-1 border-gray-300">
-                    <div class="py-3 px-6 mb-0 bg-gray-200 border-b-1 border-gray-300 text-gray-900 flex items-center">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header d-flex align-items-center">
                         <h4>{{trans('file.Update Return')}}</h4>
                     </div>
-                    <div class="flex-auto p-6">
+                    <div class="card-body">
                         <p class="italic"><small>{{trans('file.The field labels marked with * are required input fields')}}.</small></p>
                         {!! Form::open(['route' => ['return-sale.update', $lims_return_data->id], 'method' => 'put', 'files' => true, 'id' => 'payment-form']) !!}
-                        <div class="flex flex-wrap ">
-                            <div class="md:w-full pr-4 pl-4">
-                                <div class="flex flex-wrap ">
-                                    <div class="md:w-1/2 pr-4 pl-4">
-                                        <div class="mb-4">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
                                             <label>{{trans('file.reference')}}</label>
                                             <p><strong>{{ $lims_return_data->reference_no }}</strong></p>
                                         </div>
                                     </div>
-                                    <div class="md:w-1/2 pr-4 pl-4">
-                                        <div class="mb-4">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
                                             <label>{{trans('file.customer')}} *</label>
                                             <input type="hidden" name="customer_id_hidden" value="{{ $lims_return_data->customer_id }}" />
-                                            <select required name="customer_id" class="selectpicker block appearance-none w-full py-1 px-2 mb-1 text-base leading-normal bg-white text-gray-800 border border-gray-200 rounded" data-live-search="true" id="customer-id" data-live-search-style="begins" title="Select customer...">
+                                            <select required name="customer_id" class="selectpicker form-control" data-live-search="true" id="customer-id" data-live-search-style="begins" title="Select customer...">
                                                 @foreach($lims_customer_list as $customer)
                                                 <option value="{{$customer->id}}">{{$customer->name . ' (' . $customer->phone_number . ')'}}</option>
                                                 @endforeach
@@ -34,23 +34,23 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="flex flex-wrap ">
-                                    <div class="md:w-1/2 pr-4 pl-4">
-                                        <div class="mb-4">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
                                             <label>{{trans('file.Warehouse')}} *</label>
                                             <input type="hidden" name="warehouse_id_hidden" value="{{$lims_return_data->warehouse_id}}" />
-                                            <select required id="warehouse_id" name="warehouse_id" class="selectpicker block appearance-none w-full py-1 px-2 mb-1 text-base leading-normal bg-white text-gray-800 border border-gray-200 rounded" data-live-search="true" data-live-search-style="begins" title="Select warehouse...">
+                                            <select required id="warehouse_id" name="warehouse_id" class="selectpicker form-control" data-live-search="true" data-live-search-style="begins" title="Select warehouse...">
                                                 @foreach($lims_warehouse_list as $warehouse)
                                                 <option value="{{$warehouse->id}}">{{$warehouse->name}}</option>
                                                 @endforeach
                                             </select>
                                         </div>
                                     </div>
-                                    <div class="md:w-1/2 pr-4 pl-4">
-                                        <div class="mb-4">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
                                             <label>{{trans('file.Biller')}} *</label>
                                             <input type="hidden" name="biller_id_hidden" value="{{$lims_return_data->biller_id}}" />
-                                            <select required name="biller_id" class="selectpicker block appearance-none w-full py-1 px-2 mb-1 text-base leading-normal bg-white text-gray-800 border border-gray-200 rounded" data-live-search="true" data-live-search-style="begins" title="Select Biller...">
+                                            <select required name="biller_id" class="selectpicker form-control" data-live-search="true" data-live-search-style="begins" title="Select Biller...">
                                                 @foreach($lims_biller_list as $biller)
                                                 <option value="{{$biller->id}}">{{$biller->name . ' (' . $biller->company_name . ')'}}</option>
                                                 @endforeach
@@ -58,20 +58,20 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="flex flex-wrap ">
-                                    <div class="md:w-full pr-4 pl-4 mt-3">
+                                <div class="row">
+                                    <div class="col-md-12 mt-3">
                                         <label>{{trans('file.Select Product')}}</label>
-                                        <div class="search-box relative flex items-stretch w-full">
-                                            <button type="button" class="inline-block align-middle text-center select-none border font-normal whitespace-no-wrap rounded  no-underline bg-gray-600 text-white hover:bg-gray-700 py-3 px-4 leading-tight text-xl"><i class="fa fa-barcode"></i></button>
-                                            <input type="text" name="product_code_name" id="lims_productcodeSearch" placeholder="Please type product code and select..." class="block appearance-none w-full py-1 px-2 mb-1 text-base leading-normal bg-white text-gray-800 border border-gray-200 rounded" />
+                                        <div class="search-box input-group">
+                                            <button type="button" class="btn btn-secondary btn-lg"><i class="fa fa-barcode"></i></button>
+                                            <input type="text" name="product_code_name" id="lims_productcodeSearch" placeholder="Please type product code and select..." class="form-control" />
                                         </div>
                                     </div>
                                 </div>
-                                <div class="flex flex-wrap  mt-5">
-                                    <div class="md:w-full pr-4 pl-4">
+                                <div class="row mt-5">
+                                    <div class="col-md-12">
                                         <h5>{{trans('file.Order Table')}} *</h5>
-                                        <div class="block w-full overflow-auto scrolling-touch mt-3">
-                                            <table id="myTable" class="w-full max-w-full mb-4 bg-transparent table-hover order-list">
+                                        <div class="table-responsive mt-3">
+                                            <table id="myTable" class="table table-hover order-list">
                                                 <thead>
                                                     <tr>
                                                         <th>{{trans('file.name')}}</th>
@@ -144,14 +144,14 @@
                                                         $temp_unit_operator = $unit_operator = implode(",",$unit_operator) .',';
                                                         $temp_unit_operation_value = $unit_operation_value =  implode(",",$unit_operation_value) . ',';  
                                                     ?>
-                                                        <td>{{$product_data->name}} <button type="button" class="edit-product inline-block align-middle text-center select-none border font-normal whitespace-no-wrap rounded py-1 px-3 leading-normal no-underline font-normal text-blue-700 bg-transparent" data-toggle="modal" data-target="#editModal"> <i class="dripicons-document-edit"></i></button> </td>
+                                                        <td>{{$product_data->name}} <button type="button" class="edit-product btn btn-link" data-toggle="modal" data-target="#editModal"> <i class="dripicons-document-edit"></i></button> </td>
                                                         <td>{{$product_data->code}}</td>
-                                                        <td><input type="number" class="block appearance-none w-full py-1 px-2 mb-1 text-base leading-normal bg-white text-gray-800 border border-gray-200 rounded qty" name="qty[]" value="{{$product_return->qty}}" required step="any" /></td>
+                                                        <td><input type="number" class="form-control qty" name="qty[]" value="{{$product_return->qty}}" required step="any" /></td>
                                                         <td class="net_unit_price">{{ number_format((float)$product_return->net_unit_price, 2, '.', '') }} </td>
                                                         <td class="discount">{{ number_format((float)$product_return->discount, 2, '.', '') }}</td>
                                                         <td class="tax">{{ number_format((float)$product_return->tax, 2, '.', '') }}</td>
                                                         <td class="sub-total">{{ number_format((float)$product_return->total, 2, '.', '') }}</td>
-                                                        <td><button type="button" class="ibtnDel inline-block align-middle text-center select-none border font-normal whitespace-no-wrap rounded py-1 px-3 leading-normal no-underline btn-md bg-red-600 text-white hover:bg-red-700">{{trans("file.delete")}}</button></td>
+                                                        <td><button type="button" class="ibtnDel btn btn-md btn-danger">{{trans("file.delete")}}</button></td>
                                                         <input type="hidden" class="product-code" name="product_code[]" value="{{$product_data->code}}"/>
                                                         <input type="hidden" name="product_id[]" value="{{$product_data->id}}"/>
                                                         <input type="hidden" name="product_variant_id[]" value="{{$product_variant_id}}"/>
@@ -186,45 +186,45 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="flex flex-wrap ">
-                                    <div class="md:w-1/5 pr-4 pl-4">
-                                        <div class="mb-4">
+                                <div class="row">
+                                    <div class="col-md-2">
+                                        <div class="form-group">
                                             <input type="hidden" name="total_qty" value="{{$lims_return_data->total_qty}}" />
                                         </div>
                                     </div>
-                                    <div class="md:w-1/5 pr-4 pl-4">
-                                        <div class="mb-4">
+                                    <div class="col-md-2">
+                                        <div class="form-group">
                                             <input type="hidden" name="total_discount" value="{{$lims_return_data->total_discount}}" />
                                         </div>
                                     </div>
-                                    <div class="md:w-1/5 pr-4 pl-4">
-                                        <div class="mb-4">
+                                    <div class="col-md-2">
+                                        <div class="form-group">
                                             <input type="hidden" name="total_tax" value="{{$lims_return_data->total_tax}}" />
                                         </div>
                                     </div>
-                                    <div class="md:w-1/5 pr-4 pl-4">
-                                        <div class="mb-4">
+                                    <div class="col-md-2">
+                                        <div class="form-group">
                                             <input type="hidden" name="total_price" value="{{$lims_return_data->total_price}}" />
                                         </div>
                                     </div>
-                                    <div class="md:w-1/5 pr-4 pl-4">
-                                        <div class="mb-4">
+                                    <div class="col-md-2">
+                                        <div class="form-group">
                                             <input type="hidden" name="item" value="{{$lims_return_data->item}}" />
                                             <input type="hidden" name="order_tax" value="{{$lims_return_data->order_tax}}" />
                                         </div>
                                     </div>
-                                    <div class="md:w-1/5 pr-4 pl-4">
-                                        <div class="mb-4">
+                                    <div class="col-md-2">
+                                        <div class="form-group">
                                             <input type="hidden" name="grand_total" value="{{$lims_return_data->grand_total}}" />
                                         </div>
                                     </div>
                                 </div>
-                                <div class="flex flex-wrap  mt-3">
-                                    <div class="md:w-1/3 pr-4 pl-4">
-                                        <div class="mb-4">
+                                <div class="row mt-3">
+                                    <div class="col-md-4">
+                                        <div class="form-group">
                                             <input type="hidden" name="order_tax_rate_hidden" value="{{$lims_return_data->order_tax_rate}}">
                                             <label>{{trans('file.Order Tax')}}</label>
-                                            <select class="block appearance-none w-full py-1 px-2 mb-1 text-base leading-normal bg-white text-gray-800 border border-gray-200 rounded" name="order_tax_rate">
+                                            <select class="form-control" name="order_tax_rate">
                                                 <option value="0">No Tax</option>
                                                 @foreach($lims_tax_list as $tax)
                                                 <option value="{{$tax->rate}}">{{$tax->name}}</option>
@@ -232,11 +232,11 @@
                                             </select>
                                         </div>
                                     </div>
-                                	<div class="md:w-1/3 pr-4 pl-4">
-                                        <div class="mb-4">
+                                	<div class="col-md-4">
+                                        <div class="form-group">
                                             <label>{{trans('file.Attach Document')}}</label>
                                             <i class="dripicons-question" data-toggle="tooltip" title="Only jpg, jpeg, png, gif, pdf, csv, docx, xlsx and txt file is supported"></i> 
-                                            <input type="file" name="document" class="block appearance-none w-full py-1 px-2 mb-1 text-base leading-normal bg-white text-gray-800 border border-gray-200 rounded" />
+                                            <input type="file" name="document" class="form-control" />
                                             @if($errors->has('extension'))
                                                 <span>
                                                    <strong>{{ $errors->first('extension') }}</strong>
@@ -245,22 +245,22 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="flex flex-wrap ">
-                                    <div class="md:w-1/2 pr-4 pl-4">
-                                        <div class="mb-4">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
                                             <label>{{trans('file.Return Note')}}</label>
-                                            <textarea rows="5" class="block appearance-none w-full py-1 px-2 mb-1 text-base leading-normal bg-white text-gray-800 border border-gray-200 rounded" name="return_note" >{{ $lims_return_data->return_note }}</textarea>
+                                            <textarea rows="5" class="form-control" name="return_note" >{{ $lims_return_data->return_note }}</textarea>
                                         </div>
                                     </div>
-                                    <div class="md:w-1/2 pr-4 pl-4">
-                                        <div class="mb-4">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
                                             <label>{{trans('file.Staff Note')}}</label>
-                                            <textarea rows="5" class="block appearance-none w-full py-1 px-2 mb-1 text-base leading-normal bg-white text-gray-800 border border-gray-200 rounded" name="staff_note">{{ $lims_return_data->staff_note }}</textarea>
+                                            <textarea rows="5" class="form-control" name="staff_note">{{ $lims_return_data->staff_note }}</textarea>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="mb-4">
-                                    <input type="submit" value="{{trans('file.submit')}}" class="inline-block align-middle text-center select-none border font-normal whitespace-no-wrap rounded py-1 px-3 leading-normal no-underline bg-blue-600 text-white hover:bg-blue-600" id="submit-button">
+                                <div class="form-group">
+                                    <input type="submit" value="{{trans('file.submit')}}" class="btn btn-primary" id="submit-button">
                                 </div>
                             </div>
                         </div>
@@ -270,8 +270,8 @@
             </div>
         </div>
     </div>
-    <div class="container mx-auto sm:px-4 max-w-full mx-auto sm:px-4">
-        <table class="w-full max-w-full mb-4 bg-transparent table-bordered table-condensed totals">
+    <div class="container-fluid">
+        <table class="table table-bordered table-condensed totals">
             <td><strong>{{trans('file.Items')}}</strong>
                 <span class="pull-right" id="item">0.00</span>
             </td>
@@ -286,26 +286,26 @@
             </td>
         </table>
     </div>
-    <div id="editModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" class="modal opacity-0 text-left">
+    <div id="editModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" class="modal fade text-left">
         <div role="document" class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 id="modal_header" class="modal-title"></h5>
-                    <button type="button" data-dismiss="modal" aria-label="Close" class="absolute top-0 bottom-0 right-0 px-4 py-3"><span aria-hidden="true"><i class="dripicons-cross"></i></span></button>
+                    <button type="button" data-dismiss="modal" aria-label="Close" class="close"><span aria-hidden="true"><i class="dripicons-cross"></i></span></button>
                 </div>
                 <div class="modal-body">
                     <form>
-                        <div class="mb-4">
+                        <div class="form-group">
                             <label>{{trans('file.Quantity')}}</label>
-                            <input type="number" name="edit_qty" class="block appearance-none w-full py-1 px-2 mb-1 text-base leading-normal bg-white text-gray-800 border border-gray-200 rounded" step="any">
+                            <input type="number" name="edit_qty" class="form-control" step="any">
                         </div>
-                        <div class="mb-4">
+                        <div class="form-group">
                             <label>{{trans('file.Unit Discount')}}</label>
-                            <input type="number" name="edit_discount" class="block appearance-none w-full py-1 px-2 mb-1 text-base leading-normal bg-white text-gray-800 border border-gray-200 rounded" step="any">
+                            <input type="number" name="edit_discount" class="form-control" step="any">
                         </div>
-                        <div class="mb-4">
+                        <div class="form-group">
                             <label>{{trans('file.Unit Price')}}</label>
-                            <input type="number" name="edit_unit_price" class="block appearance-none w-full py-1 px-2 mb-1 text-base leading-normal bg-white text-gray-800 border border-gray-200 rounded" step="any">
+                            <input type="number" name="edit_unit_price" class="form-control" step="any">
                         </div>
                         <?php
                             $tax_name_all[] = 'No Tax';
@@ -315,51 +315,51 @@
                                 $tax_rate_all[] = $tax->rate;
                             }
                         ?>
-                            <div class="mb-4">
+                            <div class="form-group">
                                 <label>{{trans('file.Tax Rate')}}</label>
-                                <select name="edit_tax_rate" class="block appearance-none w-full py-1 px-2 mb-1 text-base leading-normal bg-white text-gray-800 border border-gray-200 rounded selectpicker">
+                                <select name="edit_tax_rate" class="form-control selectpicker">
                                     @foreach($tax_name_all as $key => $name)
                                     <option value="{{$key}}">{{$name}}</option>
                                     @endforeach
                                 </select>
                             </div>
-                            <div id="edit_unit" class="mb-4">
+                            <div id="edit_unit" class="form-group">
                                 <label>{{trans('file.Product Unit')}}</label>
-                                <select name="edit_unit" class="block appearance-none w-full py-1 px-2 mb-1 text-base leading-normal bg-white text-gray-800 border border-gray-200 rounded selectpicker">
+                                <select name="edit_unit" class="form-control selectpicker">
                                 </select>
                             </div>
-                            <button type="button" name="update_btn" class="inline-block align-middle text-center select-none border font-normal whitespace-no-wrap rounded py-1 px-3 leading-normal no-underline bg-blue-600 text-white hover:bg-blue-600">{{trans('file.update')}}</button>
+                            <button type="button" name="update_btn" class="btn btn-primary">{{trans('file.update')}}</button>
                     </form>
                 </div>
             </div>
         </div>
     </div>
     <!-- add cash register modal -->
-    <div id="cash-register-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" class="modal opacity-0 text-left">
+    <div id="cash-register-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" class="modal fade text-left">
         <div role="document" class="modal-dialog">
           <div class="modal-content">
             {!! Form::open(['route' => 'cashRegister.store', 'method' => 'post']) !!}
             <div class="modal-header">
               <h5 id="exampleModalLabel" class="modal-title">{{trans('file.Add Cash Register')}}</h5>
-              <button type="button" data-dismiss="modal" aria-label="Close" class="absolute top-0 bottom-0 right-0 px-4 py-3"><span aria-hidden="true"><i class="dripicons-cross"></i></span></button>
+              <button type="button" data-dismiss="modal" aria-label="Close" class="close"><span aria-hidden="true"><i class="dripicons-cross"></i></span></button>
             </div>
             <div class="modal-body">
               <p class="italic"><small>{{trans('file.The field labels marked with * are required input fields')}}.</small></p>
-                <div class="flex flex-wrap ">
-                  <div class="md:w-1/2 pr-4 pl-4 mb-4 warehouse-section">
+                <div class="row">
+                  <div class="col-md-6 form-group warehouse-section">
                       <label>{{trans('file.Warehouse')}} *</strong> </label>
-                      <select required name="warehouse_id" class="selectpicker block appearance-none w-full py-1 px-2 mb-1 text-base leading-normal bg-white text-gray-800 border border-gray-200 rounded" data-live-search="true" data-live-search-style="begins" title="Select warehouse...">
+                      <select required name="warehouse_id" class="selectpicker form-control" data-live-search="true" data-live-search-style="begins" title="Select warehouse...">
                           @foreach($lims_warehouse_list as $warehouse)
                           <option value="{{$warehouse->id}}">{{$warehouse->name}}</option>
                           @endforeach
                       </select>
                   </div>
-                  <div class="md:w-1/2 pr-4 pl-4 mb-4">
+                  <div class="col-md-6 form-group">
                       <label>{{trans('file.Cash in Hand')}} *</strong> </label>
-                      <input type="number" name="cash_in_hand" required class="block appearance-none w-full py-1 px-2 mb-1 text-base leading-normal bg-white text-gray-800 border border-gray-200 rounded">
+                      <input type="number" name="cash_in_hand" required class="form-control">
                   </div>
-                  <div class="md:w-full pr-4 pl-4 mb-4">
-                      <button type="submit" class="inline-block align-middle text-center select-none border font-normal whitespace-no-wrap rounded py-1 px-3 leading-normal no-underline bg-blue-600 text-white hover:bg-blue-600">{{trans('file.submit')}}</button>
+                  <div class="col-md-12 form-group">
+                      <button type="submit" class="btn btn-primary">{{trans('file.submit')}}</button>
                   </div>
                 </div>
             </div>
@@ -665,14 +665,14 @@ function productSearch(data){
                 var newRow = $("<tr>");
                 var cols = '';
                 temp_unit_name = (data[6]).split(',');
-                cols += '<td>' + data[0] + '<button type="button" class="edit-product inline-block align-middle text-center select-none border font-normal whitespace-no-wrap rounded py-1 px-3 leading-normal no-underline font-normal text-blue-700 bg-transparent" data-toggle="modal" data-target="#editModal"> <i class="dripicons-document-edit"></i></button></td>';
+                cols += '<td>' + data[0] + '<button type="button" class="edit-product btn btn-link" data-toggle="modal" data-target="#editModal"> <i class="dripicons-document-edit"></i></button></td>';
                 cols += '<td>' + data[1] + '</td>';
-                cols += '<td><input type="number" class="block appearance-none w-full py-1 px-2 mb-1 text-base leading-normal bg-white text-gray-800 border border-gray-200 rounded qty" name="qty[]" value="1" required step="any"/></td>';
+                cols += '<td><input type="number" class="form-control qty" name="qty[]" value="1" required step="any"/></td>';
                 cols += '<td class="net_unit_price"></td>';
                 cols += '<td class="discount">0.00</td>';
                 cols += '<td class="tax"></td>';
                 cols += '<td class="sub-total"></td>';
-                cols += '<td><button type="button" class="ibtnDel inline-block align-middle text-center select-none border font-normal whitespace-no-wrap rounded py-1 px-3 leading-normal no-underline btn-md bg-red-600 text-white hover:bg-red-700">{{trans("file.delete")}}</button></td>';
+                cols += '<td><button type="button" class="ibtnDel btn btn-md btn-danger">{{trans("file.delete")}}</button></td>';
                 cols += '<input type="hidden" class="product-code" name="product_code[]" value="' + data[1] + '"/>';
                 cols += '<input type="hidden" name="product_id[]" value="' + data[9] + '"/>';
                 cols += '<input type="hidden" name="product_variant_id[]" value="' + data[10] + '"/>';
@@ -684,24 +684,23 @@ function productSearch(data){
                 cols += '<input type="hidden" class="subtotal-value" name="subtotal[]" />';
 
                 newRow.append(cols);
-                $("table.order-list tbody").append(newRow);
-
+                $("table.order-list tbody").prepend(newRow);
+                rowindex = newRow.index();
                 pos = product_code.indexOf(data[1]);
                 if(!data[11] && product_warehouse_price[pos]) {
-                    product_price.push(parseFloat(product_warehouse_price[pos] * currency['exchange_rate']) + parseFloat(product_warehouse_price[pos] * currency['exchange_rate'] * customer_group_rate));
+                    product_price.splice(rowindex, 0, parseFloat(product_warehouse_price[pos] * currency['exchange_rate']) + parseFloat(product_warehouse_price[pos] * currency['exchange_rate'] * customer_group_rate));
                 }
                 else {
-                    product_price.push(parseFloat(data[2] * currency['exchange_rate']) + parseFloat(data[2] * currency['exchange_rate'] * customer_group_rate));
+                    product_price.splice(rowindex, 0, parseFloat(data[2] * currency['exchange_rate']) + parseFloat(data[2] * currency['exchange_rate'] * customer_group_rate));
                 }
 
-                product_discount.push('0.00');
-                tax_rate.push(parseFloat(data[3]));
-                tax_name.push(data[4]);
-                tax_method.push(data[5]);
-                unit_name.push(data[6]);
-                unit_operator.push(data[7]);
-                unit_operation_value.push(data[8]);
-                rowindex = newRow.index();
+                product_discount.splice(rowindex, 0, '0.00');
+                tax_rate.splice(rowindex, 0, parseFloat(data[3]));
+                tax_name.splice(rowindex, 0, data[4]);
+                tax_method.splice(rowindex, 0, data[5]);
+                unit_name.splice(rowindex, 0, data[6]);
+                unit_operator.splice(rowindex, 0, data[7]);
+                unit_operation_value.splice(rowindex, 0, data[8]);
                 calculateRowProductData(1);
             }
         }
