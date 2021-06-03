@@ -1,7 +1,4 @@
 @extends('layout.main') @section('content')
-@if(empty($product_name))
-<div class="alert alert-danger alert-dismissible text-center"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>{{'No Data exist between this date range!'}}</div>
-@endif
 @if(session()->has('not_permitted'))
   <div class="alert alert-danger alert-dismissible text-center"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>{{ session()->get('not_permitted') }}</div> 
 @endif
@@ -12,8 +9,8 @@
             <div class="card-header mt-2">
                 <h3 class="text-center">{{trans('file.Product Report')}}</h3>
             </div>
-            {!! Form::open(['route' => 'report.product', 'method' => 'post']) !!}
-            <div class="row mb-3">
+            {!! Form::open(['route' => 'report.product', 'method' => 'get']) !!}
+            <div class="row mb-3 product-report-filter">
                 <div class="col-md-4 offset-md-2 mt-3">
                     <div class="form-group row">
                         <label class="d-tc mt-2"><strong>{{trans('file.Choose Your Date')}}</strong> &nbsp;</label>
@@ -30,8 +27,7 @@
                     <div class="form-group row">
                         <label class="d-tc mt-2"><strong>{{trans('file.Choose Warehouse')}}</strong> &nbsp;</label>
                         <div class="d-tc">
-                            <input type="hidden" name="warehouse_id_hidden" value="{{$warehouse_id}}" />
-                            <select id="warehouse_id" name="warehouse_id" class="selectpicker form-control" data-live-search="true" data-live-search-style="begins" >
+                            <select name="warehouse_id" class="selectpicker form-control" data-live-search="true" data-live-search-style="begins" >
                                 <option value="0">{{trans('file.All Warehouse')}}</option>
                                 @foreach($lims_warehouse_list as $warehouse)
                                 <option value="{{$warehouse->id}}">{{$warehouse->name}}</option>
@@ -49,187 +45,109 @@
             {!! Form::close() !!}
         </div>
     </div>
-    <div class="table-responsive mb-4">
-        <table id="report-table" class="table table-hover">
+    <div class="table-responsive">
+        <table id="product-report-table" class="table table-hover" style="width: 100%">
             <thead>
                 <tr>
                     <th class="not-exported"></th>
                     <th>{{trans('file.Product Name')}}</th>
                     <th>{{trans('file.Purchased Amount')}}</th>
                     <th>{{trans('file.Purchased')}} {{trans('file.qty')}}</th>
+                    <!-- <th>Transfered Amount</th>
+                    <th>Transfered Qty</th> -->
                     <th>{{trans('file.Sold Amount')}}</th>
                     <th>{{trans('file.Sold')}} {{trans('file.qty')}}</th>
+                    <th>Returned Amount</th>
+                    <th>Returned Qty</th>
+                    <th>Purchase Returned Amount</th>
+                    <th>Purchase Returned Qty</th>
                     <th>{{trans('file.profit')}}</th>
                     <th>{{trans('file.In Stock')}}</th>
                 </tr>
             </thead>
-            <tbody>
-                @if(!empty($product_name))
-                @foreach($product_id as $key => $pro_id)
-                <tr>
-                    <td>{{$key}}</td>
-                    <td>{{$product_name[$key]}}</td>
-                    <?php
-                        if($warehouse_id == 0){
-                            if($variant_id[$key]) {
-                                $purchased_cost = DB::table('product_purchases')->where([
-                                    ['product_id', $pro_id],
-                                    ['variant_id', $variant_id[$key] ]
-                                ])->whereDate('created_at', '>=', $start_date)
-                                  ->whereDate('created_at', '<=' , $end_date)
-                                  ->sum('total');
-
-                                $product_purchase_data = DB::table('product_purchases')->where([
-                                    ['product_id', $pro_id],
-                                    ['variant_id', $variant_id[$key] ]
-                                ])->whereDate('created_at','>=', $start_date)
-                                  ->whereDate('created_at','<=', $end_date)
-                                  ->get();
-
-                                $sold_price = DB::table('product_sales')->where([
-                                    ['product_id', $pro_id],
-                                    ['variant_id', $variant_id[$key] ]
-                                ])->whereDate('created_at','>=', $start_date)
-                                  ->whereDate('created_at','<=', $end_date)
-                                  ->sum('total');
-
-                                $product_sale_data = DB::table('product_sales')->where([
-                                    ['product_id', $pro_id],
-                                    ['variant_id', $variant_id[$key] ]
-                                ])->whereDate('created_at','>=', $start_date)
-                                  ->whereDate('created_at','<=', $end_date)
-                                  ->get();
-                            }
-                            else {
-                                $purchased_cost = DB::table('product_purchases')->where('product_id', $pro_id)->whereDate('created_at', '>=', $start_date)->whereDate('created_at', '<=' , $end_date)->sum('total');
-
-                                $product_purchase_data = DB::table('product_purchases')->where('product_id', $pro_id)->whereDate('created_at','>=', $start_date)->whereDate('created_at','<=', $end_date)->get();
-
-                                $sold_price = DB::table('product_sales')->where('product_id', $pro_id)
-                                ->whereDate('created_at','>=', $start_date)->whereDate('created_at','<=', $end_date)->sum('total');
-
-                                $product_sale_data = DB::table('product_sales')->where('product_id', $pro_id)->whereDate('created_at','>=', $start_date)->whereDate('created_at','<=', $end_date)->get();
-                            }
-                        }
-                        else{
-                            if($variant_id[$key]) {
-                                $purchased_cost = DB::table('purchases')
-                                    ->join('product_purchases', 'purchases.id', '=', 'product_purchases.purchase_id')->where([
-                                        ['product_purchases.product_id', $pro_id],
-                                        ['product_purchases.variant_id', $variant_id[$key] ],
-                                        ['purchases.warehouse_id', $warehouse_id]
-                                    ])->whereDate('purchases.created_at','>=', $start_date)->whereDate('purchases.created_at','<=', $end_date)->sum('total');
-
-                                $product_purchase_data = DB::table('purchases')
-                                    ->join('product_purchases', 'purchases.id', '=', 'product_purchases.purchase_id')->where([
-                                        ['product_purchases.product_id', $pro_id],
-                                        ['product_purchases.variant_id', $variant_id[$key] ],
-                                        ['purchases.warehouse_id', $warehouse_id]
-                                    ])->whereDate('purchases.created_at','>=', $start_date)->whereDate('purchases.created_at','<=', $end_date)->get();
-
-                                $sold_price = DB::table('sales')
-                                    ->join('product_sales', 'sales.id', '=', 'product_sales.sale_id')->where([
-                                        ['product_sales.product_id', $pro_id],
-                                        ['variant_id', $variant_id[$key] ],
-                                        ['sales.warehouse_id', $warehouse_id]
-                                    ])->whereDate('sales.created_at','>=', $start_date)->whereDate('sales.created_at','<=', $end_date)->sum('total');
-
-                                $product_sale_data = DB::table('sales')
-                                    ->join('product_sales', 'sales.id', '=', 'product_sales.sale_id')->where([
-                                        ['product_sales.product_id', $pro_id],
-                                        ['variant_id', $variant_id[$key] ],
-                                        ['sales.warehouse_id', $warehouse_id]
-                                    ])->whereDate('sales.created_at','>=', $start_date)->whereDate('sales.created_at','<=', $end_date)->get();
-                            }
-                            else {
-                                $purchased_cost = DB::table('purchases')
-                                    ->join('product_purchases', 'purchases.id', '=', 'product_purchases.purchase_id')->where([
-                                        ['product_purchases.product_id', $pro_id],
-                                        ['purchases.warehouse_id', $warehouse_id]
-                                    ])->whereDate('purchases.created_at','>=', $start_date)->whereDate('purchases.created_at','<=', $end_date)->sum('total');
-
-                                $product_purchase_data = DB::table('purchases')
-                                    ->join('product_purchases', 'purchases.id', '=', 'product_purchases.purchase_id')->where([
-                                        ['product_purchases.product_id', $pro_id],
-                                        ['purchases.warehouse_id', $warehouse_id]
-                                    ])->whereDate('purchases.created_at','>=', $start_date)->whereDate('purchases.created_at','<=', $end_date)->get();
-
-                                $sold_price = DB::table('sales')
-                                    ->join('product_sales', 'sales.id', '=', 'product_sales.sale_id')->where([
-                                        ['product_sales.product_id', $pro_id],
-                                        ['sales.warehouse_id', $warehouse_id]
-                                    ])->whereDate('sales.created_at','>=', $start_date)->whereDate('sales.created_at','<=', $end_date)->sum('total');
-                                $product_sale_data = DB::table('sales')
-                                    ->join('product_sales', 'sales.id', '=', 'product_sales.sale_id')->where([
-                                        ['product_sales.product_id', $pro_id],
-                                        ['sales.warehouse_id', $warehouse_id]
-                                    ])->whereDate('sales.created_at','>=', $start_date)->whereDate('sales.created_at','<=', $end_date)->get();
-                            }
-                        }
-                        $purchased_qty = 0;
-                        foreach ($product_purchase_data as $product_purchase) {
-                            $unit = DB::table('units')->find($product_purchase->purchase_unit_id);
-                            if($unit->operator == '*'){
-                                $purchased_qty += $product_purchase->qty * $unit->operation_value;
-                            }
-                            elseif($unit->operator == '/'){
-                                $purchased_qty += $product_purchase->qty / $unit->operation_value;
-                            }
-                        }
-
-                        $sold_qty = 0;
-                        foreach ($product_sale_data as $product_sale) {
-                            $unit = DB::table('units')->find($product_sale->sale_unit_id);
-                            if($unit){
-                                if($unit->operator == '*')
-                                    $sold_qty += $product_sale->qty * $unit->operation_value;
-                                elseif($unit->operator == '/')
-                                    $sold_qty += $product_sale->qty / $unit->operation_value;
-                            }
-                            else
-                                $sold_qty += $product_sale->qty;
-                        }
-
-                        if($purchased_qty > 0)
-                            $profit = $sold_price - (($purchased_cost / $purchased_qty) * $sold_qty);
-                        else
-                           $profit =  $sold_price;
-                    ?>
-                    <td>{{number_format((float)$purchased_cost, 2, '.', '')}}</td>
-                    <td>{{$purchased_qty}}</td>
-                    <td>{{number_format((float)$sold_price, 2, '.', '')}}</td>
-                    <td>{{$sold_qty}}</td>
-                    <td>{{number_format((float)$profit, 2, '.', '')}}</td>
-                    <td>{{$product_qty[$key]}}</td>
-                </tr>
-                @endforeach
-                @endif
-            </tbody>
-            <tfoot>
+            
+            <tfoot class="tfoot active">
                 <th></th>
-                <th>Total</th>
-                <th>0.00</th>
-                <th>0.00</th>
-                <th>0.00</th>
-                <th>0.00</th>
-                <th>0.00</th>
-                <th>0.00</th>
+                <th>{{trans('file.Total')}}</th>
+                <th></th>
+                <th></th>
+                <!-- <th></th>
+                <th></th> -->
+                <th></th>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th></th>
             </tfoot>
         </table>
     </div>
 </section>
 
 <script type="text/javascript">
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
 
-    $("ul#report").siblings('a').attr('aria-expanded','true');
-    $("ul#report").addClass("show");
-    $("ul#report #product-report-menu").addClass("active");
-
-    $('#warehouse_id').val($('input[name="warehouse_id_hidden"]').val());
+    var warehouse_id = <?php echo json_encode($warehouse_id)?>;
+    $('.product-report-filter select[name="warehouse_id"]').val(warehouse_id);
     $('.selectpicker').selectpicker('refresh');
 
-    $('#report-table').DataTable( {
-        "order": [],
+    $(".daterangepicker-field").daterangepicker({
+      callback: function(startDate, endDate, period){
+        var start_date = startDate.format('YYYY-MM-DD');
+        var end_date = endDate.format('YYYY-MM-DD');
+        var title = start_date + ' To ' + end_date;
+        $(this).val(title);
+        $(".product-report-filter input[name=start_date]").val(start_date);
+        $(".product-report-filter input[name=end_date]").val(end_date);
+      }
+    });
+
+    var start_date = $(".product-report-filter input[name=start_date]").val(); 
+    var end_date = $(".product-report-filter input[name=end_date]").val();
+    var warehouse_id = $(".product-report-filter select[name=warehouse_id]").val();
+    $('#product-report-table').DataTable( {
+        "processing": true,
+        "serverSide": true,
+        "ajax":{
+            url:"product_report_data",
+            data:{
+                start_date: start_date,
+                end_date: end_date,
+                warehouse_id: warehouse_id
+            },
+            dataType: "json",
+            type:"post",
+            /*success:function(data){
+                console.log(data);
+            }*/
+        },
+        /*"createdRow": function( row, data, dataIndex ) {
+            console.log(data);
+            $(row).addClass('purchase-link');
+            //$(row).attr('data-purchase', data['purchase']);
+        },*/
+        "columns": [
+            {"data": "key"},
+            {"data": "name"},
+            {"data": "purchased_amount"},
+            {"data": "purchased_qty"},
+            /*{"data": "transfered_amount"},
+            {"data": "transfered_qty"},*/
+            {"data": "sold_amount"},
+            {"data": "sold_qty"},
+            {"data": "returned_amount"},
+            {"data": "returned_qty"},
+            {"data": "purchase_returned_amount"},
+            {"data": "purchase_returned_qty"},
+            {"data": "profit"},
+            {"data": "in_stock"},
+        ],
         'language': {
             'lengthMenu': '_MENU_ {{trans("file.records per page")}}',
              "info":      '<small>{{trans("file.Showing")}} _START_ - _END_ (_TOTAL_)</small>',
@@ -239,10 +157,11 @@
                     'next': '<i class="dripicons-chevron-right"></i>'
             }
         },
+        order:[['1', 'desc']],
         'columnDefs': [
             {
                 "orderable": false,
-                'targets': 0
+                'targets': [0, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, /*12, 13*/]
             },
             {
                 'render': function(data, type, row, meta){
@@ -260,14 +179,14 @@
             }
         ],
         'select': { style: 'multi',  selector: 'td:first-child'},
-        'lengthMenu': [[10, 25, 50, -1], [10, 25, 50, "All"]],
+        'lengthMenu': [[10, 25, 50, 100, 500], [10, 25, 50, 100, 500]],
         dom: '<"row"lfB>rtip',
         buttons: [
             {
                 extend: 'pdf',
                 text: '{{trans("file.PDF")}}',
                 exportOptions: {
-                    columns: ':visible:not(.not-exported)',
+                    columns: ':visible:Not(.not-exported)',
                     rows: ':visible'
                 },
                 action: function(e, dt, button, config) {
@@ -309,7 +228,7 @@
                 extend: 'colvis',
                 text: '{{trans("file.Column visibility")}}',
                 columns: ':gt(0)'
-            }
+            },
         ],
         drawCallback: function () {
             var api = this.api();
@@ -322,33 +241,33 @@
             var rows = dt_selector.rows( '.selected' ).indexes();
 
             $( dt_selector.column( 2 ).footer() ).html(dt_selector.cells( rows, 2, { page: 'current' } ).data().sum().toFixed(2));
-            $( dt_selector.column( 3 ).footer() ).html(dt_selector.cells( rows, 3, { page: 'current' } ).data().sum());
+            $( dt_selector.column( 3 ).footer() ).html(dt_selector.cells( rows, 3, { page: 'current' } ).data().sum().toFixed(2));
             $( dt_selector.column( 4 ).footer() ).html(dt_selector.cells( rows, 4, { page: 'current' } ).data().sum().toFixed(2));
-            $( dt_selector.column( 5 ).footer() ).html(dt_selector.cells( rows, 5, { page: 'current' } ).data().sum());
+            $( dt_selector.column( 5 ).footer() ).html(dt_selector.cells( rows, 5, { page: 'current' } ).data().sum().toFixed(2));
             $( dt_selector.column( 6 ).footer() ).html(dt_selector.cells( rows, 6, { page: 'current' } ).data().sum().toFixed(2));
-            $( dt_selector.column( 7 ).footer() ).html(dt_selector.cells( rows, 7, { page: 'current' } ).data().sum());
+            $( dt_selector.column( 7 ).footer() ).html(dt_selector.cells( rows, 7, { page: 'current' } ).data().sum().toFixed(2));
+            $( dt_selector.column( 8 ).footer() ).html(dt_selector.cells( rows, 8, { page: 'current' } ).data().sum().toFixed(2));
+            $( dt_selector.column( 9 ).footer() ).html(dt_selector.cells( rows, 9, { page: 'current' } ).data().sum().toFixed(2));
+            $( dt_selector.column( 10 ).footer() ).html(dt_selector.cells( rows, 10, { page: 'current' } ).data().sum().toFixed(2));
+            $( dt_selector.column( 11 ).footer() ).html(dt_selector.cells( rows, 11, { page: 'current' } ).data().sum().toFixed(2));
+            /*$( dt_selector.column( 12 ).footer() ).html(dt_selector.cells( rows, 12, { page: 'current' } ).data().sum().toFixed(2));
+            $( dt_selector.column( 13 ).footer() ).html(dt_selector.cells( rows, 13, { page: 'current' } ).data().sum().toFixed(2));*/
         }
         else {
             $( dt_selector.column( 2 ).footer() ).html(dt_selector.column( 2, {page:'current'} ).data().sum().toFixed(2));
-            $( dt_selector.column( 3 ).footer() ).html(dt_selector.column( 3, {page:'current'} ).data().sum());
+            $( dt_selector.column( 3 ).footer() ).html(dt_selector.column( 3, {page:'current'} ).data().sum().toFixed(2));
             $( dt_selector.column( 4 ).footer() ).html(dt_selector.column( 4, {page:'current'} ).data().sum().toFixed(2));
-            $( dt_selector.column( 5 ).footer() ).html(dt_selector.column( 5, {page:'current'} ).data().sum());
+            $( dt_selector.column( 5 ).footer() ).html(dt_selector.column( 5, {page:'current'} ).data().sum().toFixed(2));
             $( dt_selector.column( 6 ).footer() ).html(dt_selector.column( 6, {page:'current'} ).data().sum().toFixed(2));
-            $( dt_selector.column( 7 ).footer() ).html(dt_selector.column( 7, {page:'current'} ).data().sum());
+            $( dt_selector.column( 7 ).footer() ).html(dt_selector.column( 7, {page:'current'} ).data().sum().toFixed(2));
+            $( dt_selector.column( 8 ).footer() ).html(dt_selector.column( 8, {page:'current'} ).data().sum().toFixed(2));
+            $( dt_selector.column( 9 ).footer() ).html(dt_selector.column( 9, {page:'current'} ).data().sum().toFixed(2));
+            $( dt_selector.column( 10 ).footer() ).html(dt_selector.column( 10, {page:'current'} ).data().sum().toFixed(2));
+            $( dt_selector.column( 11 ).footer() ).html(dt_selector.column( 11, {page:'current'} ).data().sum().toFixed(2));
+            /*$( dt_selector.column( 12 ).footer() ).html(dt_selector.column( 12, {page:'current'} ).data().sum().toFixed(2));
+            $( dt_selector.column( 13 ).footer() ).html(dt_selector.column( 13, {page:'current'} ).data().sum().toFixed(2));*/
         }
     }
-
-
-$(".daterangepicker-field").daterangepicker({
-  callback: function(startDate, endDate, period){
-    var start_date = startDate.format('YYYY-MM-DD');
-    var end_date = endDate.format('YYYY-MM-DD');
-    var title = start_date + ' To ' + end_date;
-    $(this).val(title);
-    $('input[name="start_date"]').val(start_date);
-    $('input[name="end_date"]').val(end_date);
-  }
-});
-
 </script>
+
 @endsection

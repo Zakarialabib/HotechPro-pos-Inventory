@@ -77,11 +77,7 @@
 <body>
 
 <div style="max-width:400px;margin:0 auto">
-    @if(preg_match('~[0-9]~', url()->previous()))
-        @php $url = '../../pos'; @endphp
-    @else
         @php $url = url()->previous(); @endphp
-    @endif
     <div class="hidden-print">
         <table>
             <tr>

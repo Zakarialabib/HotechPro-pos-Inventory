@@ -9,7 +9,7 @@ class Product_Warehouse extends Model
 	protected $table = 'product_warehouse';
     protected $fillable =[
 
-        "product_id", "varinat_id", "warehouse_id", "qty", "price"
+        "product_id", "product_batch_id", "varinat_id", "warehouse_id", "qty", "price"
     ];
 
     public function scopeFindProductWithVariant($query, $product_id, $variant_id, $warehouse_id)

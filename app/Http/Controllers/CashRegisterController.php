@@ -52,6 +52,10 @@ class CashRegisterController extends Controller
 									['cash_register_id', $cash_register_data->id],
 									['paying_method', 'Gift Card']
 								])->sum('amount');
+		$data['deposit_payment'] = Payment::where([
+									['cash_register_id', $cash_register_data->id],
+									['paying_method', 'Deposit']
+								])->sum('amount');
 		$data['cheque_payment'] = Payment::where([
 									['cash_register_id', $cash_register_data->id],
 									['paying_method', 'Cheque']
@@ -92,6 +96,10 @@ class CashRegisterController extends Controller
 		$data['gift_card_payment'] = Payment::where([
 									['cash_register_id', $cash_register_data->id],
 									['paying_method', 'Gift Card']
+								])->sum('amount');
+		$data['deposit_payment'] = Payment::where([
+									['cash_register_id', $cash_register_data->id],
+									['paying_method', 'Deposit']
 								])->sum('amount');
 		$data['cheque_payment'] = Payment::where([
 									['cash_register_id', $cash_register_data->id],

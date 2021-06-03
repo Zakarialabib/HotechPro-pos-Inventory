@@ -39,7 +39,7 @@
                                         <div class="form-group">
                                             <label>{{trans('file.From Warehouse')}} *</label>
                                             <input type="hidden" name="from_warehouse_id_hidden" value="{{ $lims_transfer_data->from_warehouse_id }}" />
-                                            <select required name="from_warehouse_id" class="selectpicker form-control" data-live-search="true" data-live-search-style="begins" title="Select warehouse...">
+                                            <select id="from-warehouse-id" required name="from_warehouse_id" class="selectpicker form-control" data-live-search="true" data-live-search-style="begins" title="Select warehouse...">
                                                 @foreach($lims_warehouse_list as $warehouse)
                                                 <option value="{{$warehouse->id}}">{{$warehouse->name}}</option>
                                                 @endforeach
@@ -77,6 +77,7 @@
                                                     <tr>
                                                         <th>{{trans('file.name')}}</th>
                                                         <th>{{trans('file.Code')}}</th>
+                                                        <th>{{trans('file.Batch No')}}</th>
                                                         <th>{{trans('file.Quantity')}}</th>
                                                         <th>{{trans('file.Net Unit Cost')}}</th>
                                                         <th>{{trans('file.Tax')}}</th>
@@ -137,9 +138,21 @@
                                                         $temp_unit_operator = $unit_operator = implode(",",$unit_operator) .',';
 
                                                         $temp_unit_operation_value = $unit_operation_value =  implode(",",$unit_operation_value) . ',';
+                                                        $product_batch_data = \App\ProductBatch::select('batch_no')->find($product_transfer->product_batch_id); 
                                                     ?>
                                                         <td>{{$product_data->name}} <button type="button" class="edit-product btn btn-link" data-toggle="modal" data-target="#editModal"> <i class="dripicons-document-edit"></i></button> </td>
                                                         <td>{{$product_data->code}}</td>
+                                                        @if($product_batch_data)
+                                                        <td>
+                                                            <input type="hidden" class="product-batch-id" name="product_batch_id[]" value="{{$product_transfer->product_batch_id}}">
+                                                            <input type="text" class="form-control batch-no" name="batch_no[]" value="{{$product_batch_data->batch_no}}" required/>
+                                                        </td>
+                                                        @else
+                                                        <td>
+                                                            <input type="hidden" class="product-batch-id" name="product_batch_id[]" value="">
+                                                            <input type="text" class="form-control batch-no" name="batch_no[]" value="" disabled />
+                                                        </td>
+                                                        @endif
                                                         <td><input type="number" class="form-control qty" name="qty[]" value="{{$product_transfer->qty}}" required step="any" /></td>
                                                         <td class="net_unit_cost">{{ number_format((float)$product_transfer->net_unit_cost, 2, '.', '') }} </td>
                                                         <td class="tax">{{ number_format((float)$product_transfer->tax, 2, '.', '') }}</td>
@@ -166,7 +179,7 @@
                                                     @endforeach
                                                 </tbody>
                                                 <tfoot class="tfoot active">
-                                                    <th colspan="2">{{trans('file.Total')}}</th>
+                                                    <th colspan="3">{{trans('file.Total')}}</th>
                                                     <th id="total-qty">{{$lims_transfer_data->total_qty}}</th>
                                                     <th></th>
                                                     <th id="total-tax">{{ number_format((float)$lims_transfer_data->total_tax, 2, '.', '')}}</th>
@@ -425,6 +438,24 @@ $("#myTable").on('input', '.qty', function() {
     checkQuantity($(this).val(), true);
 });
 
+$("#myTable").on("change", ".batch-no", function () {
+    rowindex = $(this).closest('tr').index();
+    var product_id = $('table.order-list tbody tr:nth-child(' + (rowindex + 1) + ')').find('.product-id').val();
+    var warehouse_id = $('#from-warehouse-id').val();
+    $.get('../../check-batch-availability/' + product_id + '/' + $(this).val() + '/' + warehouse_id, function(data) {
+        if(data['message'] != 'ok') {
+            alert(data['message']);
+            $('table.order-list tbody tr:nth-child(' + (rowindex + 1) + ')').find('.batch-no').val('');
+            $('table.order-list tbody tr:nth-child(' + (rowindex + 1) + ')').find('.product-batch-id').val('');
+        }
+        else {
+            $('table.order-list tbody tr:nth-child(' + (rowindex + 1) + ')').find('.product-batch-id').val(data['product_batch_id']);
+            code = $('table.order-list tbody tr:nth-child(' + (rowindex + 1) + ')').find('.product-code').val();
+            pos = product_code.indexOf(code);
+            product_qty[pos] = data['qty'];
+        }
+    });
+});
 
 //Delete product
 $("table.order-list tbody").on("click", ".ibtnDel", function(event) {
@@ -503,6 +534,10 @@ function productSearch(data){
                 temp_unit_name = (data[6]).split(',');
                 cols += '<td>' + data[0] + '<button type="button" class="edit-product btn btn-link" data-toggle="modal" data-target="#editModal"> <i class="dripicons-document-edit"></i></button></td>';
                 cols += '<td>' + data[1] + '</td>';
+                if(data[11])
+                    cols += '<td><input type="text" class="form-control batch-no" required/> <input type="hidden" class="product-batch-id" name="product_batch_id[]"/> </td>';
+                else
+                    cols += '<td><input type="text" class="form-control batch-no" disabled/> <input type="hidden" class="product-batch-id" name="product_batch_id[]"/> </td>';
                 cols += '<td><input type="number" class="form-control qty" name="qty[]" value="1" required step="any"/></td>';
                 cols += '<td class="net_unit_cost"></td>';
                 cols += '<td class="tax"></td>';
@@ -592,11 +627,11 @@ function calculateRowProductData(quantity) {
         var tax = net_unit_cost * quantity * (tax_rate[rowindex] / 100);
         var sub_total = (net_unit_cost * quantity) + tax;
 
-        $('table.order-list tbody tr:nth-child(' + (rowindex + 1) + ')').find('td:nth-child(4)').text(net_unit_cost.toFixed(2));
+        $('table.order-list tbody tr:nth-child(' + (rowindex + 1) + ')').find('.net_unit_cost').text(net_unit_cost.toFixed(2));
         $('table.order-list tbody tr:nth-child(' + (rowindex + 1) + ')').find('.net_unit_cost').val(net_unit_cost.toFixed(2));
-        $('table.order-list tbody tr:nth-child(' + (rowindex + 1) + ')').find('td:nth-child(5)').text(tax.toFixed(2));
+        $('table.order-list tbody tr:nth-child(' + (rowindex + 1) + ')').find('.tax').text(tax.toFixed(2));
         $('table.order-list tbody tr:nth-child(' + (rowindex + 1) + ')').find('.tax-value').val(tax.toFixed(2));
-        $('table.order-list tbody tr:nth-child(' + (rowindex + 1) + ')').find('td:nth-child(6)').text(sub_total.toFixed(2));
+        $('table.order-list tbody tr:nth-child(' + (rowindex + 1) + ')').find('.sub-total').text(sub_total.toFixed(2));
         $('table.order-list tbody tr:nth-child(' + (rowindex + 1) + ')').find('.subtotal-value').val(sub_total.toFixed(2));
     } else {
 
@@ -605,11 +640,11 @@ function calculateRowProductData(quantity) {
         var tax = (sub_total_unit - net_unit_cost) * quantity;
         var sub_total = sub_total_unit * quantity;
 
-        $('table.order-list tbody tr:nth-child(' + (rowindex + 1) + ')').find('td:nth-child(4)').text(net_unit_cost.toFixed(2));
+        $('table.order-list tbody tr:nth-child(' + (rowindex + 1) + ')').find('.net_unit_cost').text(net_unit_cost.toFixed(2));
         $('table.order-list tbody tr:nth-child(' + (rowindex + 1) + ')').find('.net_unit_cost').val(net_unit_cost.toFixed(2));
-        $('table.order-list tbody tr:nth-child(' + (rowindex + 1) + ')').find('td:nth-child(5)').text(tax.toFixed(2));
+        $('table.order-list tbody tr:nth-child(' + (rowindex + 1) + ')').find('.tax').text(tax.toFixed(2));
         $('table.order-list tbody tr:nth-child(' + (rowindex + 1) + ')').find('.tax-value').val(tax.toFixed(2));
-        $('table.order-list tbody tr:nth-child(' + (rowindex + 1) + ')').find('td:nth-child(6)').text(sub_total.toFixed(2));
+        $('table.order-list tbody tr:nth-child(' + (rowindex + 1) + ')').find('.sub-total').text(sub_total.toFixed(2));
         $('table.order-list tbody tr:nth-child(' + (rowindex + 1) + ')').find('.subtotal-value').val(sub_total.toFixed(2));
     }
 

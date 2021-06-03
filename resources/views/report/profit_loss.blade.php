@@ -82,8 +82,8 @@
 					<hr>
 					<div class="mt-3">
 						<p class="mt-2">{{trans('file.Sale')}} <span class="float-right">{{number_format((float)$sale[0]->grand_total, 2, '.', '')}}</span></p>
-						<p class="mt-2">{{trans('file.Purchase')}} <span class="float-right">- {{number_format((float)$purchase[0]->grand_total, 2, '.', '')}}</span></p>
-						<p class="mt-2">{{trans('file.profit')}} <span class="float-right"> {{number_format((float)($sale[0]->grand_total - $purchase[0]->grand_total), 2, '.', '') }}</span></p>
+						<p class="mt-2">{{trans('file.Product Cost')}} <span class="float-right">- {{number_format((float)$product_cost, 2, '.', '')}}</span></p>
+						<p class="mt-2">{{trans('file.profit')}} <span class="float-right"> {{number_format((float)($sale[0]->grand_total - $product_cost), 2, '.', '') }}</span></p>
 					</div>
 				</div>
 			</div>
@@ -94,10 +94,10 @@
 					<hr>
 					<div class="mt-3">
 						<p class="mt-2">{{trans('file.Sale')}} <span class="float-right">{{number_format((float)$sale[0]->grand_total, 2, '.', '')}}</span></p>
-						<p class="mt-2">{{trans('file.Purchase')}} <span class="float-right">- {{number_format((float)$purchase[0]->grand_total, 2, '.', '')}}</span></p>
+						<p class="mt-2">{{trans('file.Product Cost')}} <span class="float-right">- {{number_format((float)$product_cost, 2, '.', '')}}</span></p>
 						<p class="mt-2">{{trans('file.Sale Return')}} <span class="float-right">- {{number_format((float)$return[0]->grand_total, 2, '.', '')}}</span></p>
 						<p class="mt-2">{{trans('file.Purchase Return')}} <span class="float-right"> {{number_format((float)$purchase_return[0]->grand_total, 2, '.', '')}}</span></p>
-						<p class="mt-2">{{trans('file.profit')}} <span class="float-right"> {{number_format((float)($sale[0]->grand_total - $purchase[0]->grand_total - $return[0]->grand_total + $purchase_return[0]->grand_total), 2, '.', '') }}</span></p>
+						<p class="mt-2">{{trans('file.profit')}} <span class="float-right"> {{number_format((float)($sale[0]->grand_total - $product_cost - $return[0]->grand_total + $purchase_return[0]->grand_total), 2, '.', '') }}</span></p>
 					</div>
 				</div>
 			</div>
@@ -106,9 +106,9 @@
 					<i class="fa fa-money "></i>
 					<h3>{{trans('file.Net Profit')}} / {{trans('file.Net Loss')}}</h3>
 					<hr>
-					<h4 class="text-center">{{number_format((float)(($sale[0]->grand_total-$sale[0]->tax) - ($purchase[0]->grand_total-$purchase[0]->tax) - ($return[0]->grand_total-$return[0]->tax) + ($purchase_return[0]->grand_total-$purchase_return[0]->tax)), 2, '.', '') }}</h4>
+					<h4 class="text-center">{{number_format((float)(($sale[0]->grand_total-$sale[0]->tax) - ($product_cost-$product_tax) - ($return[0]->grand_total-$return[0]->tax) + ($purchase_return[0]->grand_total-$purchase_return[0]->tax) - $expense), 2, '.', '') }}</h4>
 					<p class="text-center">
-						({{trans('file.Sale')}} {{number_format((float)($sale[0]->grand_total), 2, '.', '')}} - {{trans('file.Tax')}} {{number_format((float)($sale[0]->tax), 2, '.', '')}}) - ({{trans('file.Purchase')}} {{number_format((float)($purchase[0]->grand_total), 2, '.', '')}} - {{trans('file.Tax')}} {{number_format((float)($purchase[0]->tax), 2, '.', '')}}) - ({{trans('file.Return')}} {{number_format((float)($return[0]->grand_total), 2, '.', '')}} - {{trans('file.Tax')}} {{number_format((float)($return[0]->tax), 2, '.', '')}}) + ({{trans('file.Purchase Return')}} {{number_format((float)($purchase_return[0]->grand_total), 2, '.', '')}} - {{trans('file.Tax')}} {{number_format((float)($purchase_return[0]->tax), 2, '.', '')}})
+						({{trans('file.Sale')}} {{number_format((float)($sale[0]->grand_total), 2, '.', '')}} - {{trans('file.Tax')}} {{number_format((float)($sale[0]->tax), 2, '.', '')}}) - ({{trans('file.Product Cost')}} {{number_format((float)($product_cost), 2, '.', '')}} - {{trans('file.Tax')}} {{number_format((float)($product_tax), 2, '.', '')}}) - ({{trans('file.Return')}} {{number_format((float)($return[0]->grand_total), 2, '.', '')}} - {{trans('file.Tax')}} {{number_format((float)($return[0]->tax), 2, '.', '')}}) + ({{trans('file.Purchase Return')}} {{number_format((float)($purchase_return[0]->grand_total), 2, '.', '')}} - {{trans('file.Tax')}} {{number_format((float)($purchase_return[0]->tax), 2, '.', '')}}) - ({{trans('file.Expense')}} {{number_format((float)($expense), 2, '.', '')}})
 					</p>
 				</div>
 			</div>

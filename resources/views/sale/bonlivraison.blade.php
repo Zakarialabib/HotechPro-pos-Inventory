@@ -109,12 +109,8 @@ border:1px #00000029 solid;
   </head>
   <body class="body">
 
-<div class="body-invoice">
-    @if(preg_match('~[0-9]~', url()->previous()))
-        @php $url = '../../pos'; @endphp
-    @else
+<div class="body-invoice">  
         @php $url = url()->previous(); @endphp
-    @endif
     <div class="hidden-print">
         <table class="print-back">
             <tr>

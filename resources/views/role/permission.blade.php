@@ -811,6 +811,30 @@
 								                </div>
 								            </div>
 						                </span>
+										<span>
+						                    <div aria-checked="false" aria-disabled="false">
+								                <div class="checkbox">
+							                    	@if(in_array("activity", $all_permission))
+							                    	<input type="checkbox" value="1" id="activity" name="activity" checked>
+							                    	@else
+							                    	<input type="checkbox" value="1" id="activity" name="activity">
+							                    	@endif
+								                    <label for="activity" class="padding05">{{trans('file.Activity')}} &nbsp;&nbsp;</label>
+								                </div>
+								            </div>
+						                </span>
+										<span>
+						                    <div aria-checked="false" aria-disabled="false">
+								                <div class="checkbox">
+							                    	@if(in_array("resume", $all_permission))
+							                    	<input type="checkbox" value="1" id="resume" name="resume" checked>
+							                    	@else
+							                    	<input type="checkbox" value="1" id="resume" name="resume">
+							                    	@endif
+								                    <label for="resume" class="padding05">{{trans('file.Resume')}} &nbsp;&nbsp;</label>
+								                </div>
+								            </div>
+						                </span>
 						            </td>
 						        </tr>
 						        <tr>

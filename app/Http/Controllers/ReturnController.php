@@ -11,6 +11,7 @@ use App\Product;
 use App\Unit;
 use App\Tax;
 use App\Product_Warehouse;
+use App\ProductBatch;
 use DB;
 use App\Returns;
 use App\Account;
@@ -81,7 +82,30 @@ class ReturnController extends Controller
         ->where([
             ['products.is_active', true],
             ['product_warehouse.warehouse_id', $id],
-        ])->whereNull('product_warehouse.variant_id')->select('product_warehouse.*')->get();
+        ])
+        ->whereNull('product_warehouse.variant_id')
+        ->whereNull('product_warehouse.product_batch_id')
+        ->select('product_warehouse.*')
+        ->get();
+
+        config()->set('database.connections.mysql.strict', false);
+        \DB::reconnect(); //important as the existing connection if any would be in strict mode
+
+        $lims_product_with_batch_warehouse_data = Product::join('product_warehouse', 'products.id', '=', 'product_warehouse.product_id')
+        ->where([
+            ['products.is_active', true],
+            ['product_warehouse.warehouse_id', $id],
+        ])
+        ->whereNull('product_warehouse.variant_id')
+        ->whereNotNull('product_warehouse.product_batch_id')
+        ->select('product_warehouse.*')
+        ->groupBy('product_warehouse.product_id')
+        ->get();
+
+        //now changing back the strict ON
+        config()->set('database.connections.mysql.strict', true);
+        \DB::reconnect();
+
         //retrieve data of product with variant
         $lims_product_with_variant_warehouse_data = Product::join('product_warehouse', 'products.id', '=', 'product_warehouse.product_id')
         ->where([
@@ -93,15 +117,30 @@ class ReturnController extends Controller
         $product_name = [];
         $product_qty = [];
         $product_price = [];
+        $product_type = [];
+        $is_batch = [];
         $product_data = [];
         foreach ($lims_product_warehouse_data as $product_warehouse) 
         {
             $product_qty[] = $product_warehouse->qty;
             $product_price[] = $product_warehouse->price;
-            $lims_product_data = Product::select('code', 'name', 'type')->find($product_warehouse->product_id);
+            $lims_product_data = Product::select('code', 'name', 'type', 'is_batch')->find($product_warehouse->product_id);
             $product_code[] =  $lims_product_data->code;
             $product_name[] = htmlspecialchars($lims_product_data->name);
             $product_type[] = $lims_product_data->type;
+            $is_batch[] = null;
+        }
+        //product with batches
+        foreach ($lims_product_with_batch_warehouse_data as $product_warehouse) 
+        {
+            $product_qty[] = $product_warehouse->qty;
+            $product_price[] = $product_warehouse->price;
+            $lims_product_data = Product::select('code', 'name', 'type', 'is_batch')->find($product_warehouse->product_id);
+            $product_code[] =  $lims_product_data->code;
+            $product_name[] = htmlspecialchars($lims_product_data->name);
+            $product_type[] = $lims_product_data->type;
+            $product_batch_data = ProductBatch::select('id', 'batch_no')->find($product_warehouse->product_batch_id);
+            $is_batch[] = $lims_product_data->is_batch;
         }
         foreach ($lims_product_with_variant_warehouse_data as $product_warehouse) 
         {
@@ -111,6 +150,7 @@ class ReturnController extends Controller
             $product_code[] =  $lims_product_variant_data->item_code;
             $product_name[] = htmlspecialchars($lims_product_data->name);
             $product_type[] = $lims_product_data->type;
+            $is_batch[] = null;
         }
         $lims_product_data = Product::select('code', 'name', 'type')->where('is_active', true)->whereNotIn('type', ['standard'])->get();
         foreach ($lims_product_data as $product) 
@@ -119,12 +159,14 @@ class ReturnController extends Controller
             $product_code[] =  $product->code;
             $product_name[] = htmlspecialchars($product->name);
             $product_type[] = $product->type;
+            $is_batch[] = null;
         }
         $product_data[] = $product_code;
         $product_data[] = $product_name;
         $product_data[] = $product_qty;
         $product_data[] = $product_type;
         $product_data[] = $product_price;
+        $product_data[] = $is_batch;
         return $product_data;
     }
 
@@ -242,6 +284,7 @@ class ReturnController extends Controller
         $mail_data['grand_total'] = $lims_return_data->grand_total;
 
         $product_id = $data['product_id'];
+        $product_batch_id = $data['product_batch_id'];
         $product_code = $data['product_code'];
         $qty = $data['qty'];
         $sale_unit = $data['sale_unit'];
@@ -254,7 +297,7 @@ class ReturnController extends Controller
         foreach ($product_id as $key => $pro_id) {
             $lims_product_data = Product::find($pro_id);
             $variant_id = null;
-            if($sale_unit[$key] != 'n/a'){
+            if($sale_unit[$key] != 'n/a') {
                 $lims_sale_unit_data  = Unit::where('unit_name', $sale_unit[$key])->first();
                 $sale_unit_id = $lims_sale_unit_data->id;
                 if($lims_sale_unit_data->operator == '*')
@@ -272,6 +315,16 @@ class ReturnController extends Controller
                     $lims_product_variant_data->save();
                     $variant_data = Variant::find($lims_product_variant_data->variant_id);
                     $variant_id = $variant_data->id;
+                }
+                elseif($product_batch_id[$key]) {
+                    $lims_product_warehouse_data = Product_Warehouse::where([
+                        ['product_batch_id', $product_batch_id[$key] ],
+                        ['warehouse_id', $data['warehouse_id'] ]
+                    ])->first();
+                    $lims_product_batch_data = ProductBatch::find($product_batch_id[$key]);
+                    //increase product batch quantity
+                    $lims_product_batch_data->qty += $quantity;
+                    $lims_product_batch_data->save();
                 }
                 else
                     $lims_product_warehouse_data = Product_Warehouse::FindProductWithoutVariant($pro_id, $data['warehouse_id'])->first();
@@ -317,7 +370,7 @@ class ReturnController extends Controller
             $mail_data['qty'][$key] = $qty[$key];
             $mail_data['total'][$key] = $total[$key];
             ProductReturn::insert(
-                ['return_id' => $lims_return_data->id, 'product_id' => $pro_id, 'variant_id' => $variant_id, 'qty' => $qty[$key], 'sale_unit_id' => $sale_unit_id, 'net_unit_price' => $net_unit_price[$key], 'discount' => $discount[$key], 'tax_rate' => $tax_rate[$key], 'tax' => $tax[$key], 'total' => $total[$key], 'created_at' => \Carbon\Carbon::now(),  'updated_at' => \Carbon\Carbon::now()]
+                ['return_id' => $lims_return_data->id, 'product_id' => $pro_id, 'product_batch_id' => $product_batch_id[$key], 'variant_id' => $variant_id, 'qty' => $qty[$key], 'sale_unit_id' => $sale_unit_id, 'net_unit_price' => $net_unit_price[$key], 'discount' => $discount[$key], 'tax_rate' => $tax_rate[$key], 'tax' => $tax[$key], 'total' => $total[$key], 'created_at' => \Carbon\Carbon::now(),  'updated_at' => \Carbon\Carbon::now()]
             );
         }
         $message = 'Return created successfully';
@@ -403,7 +456,12 @@ class ReturnController extends Controller
                 $lims_product_variant_data = ProductVariant::select('item_code')->FindExactProduct($product_return_data->product_id, $product_return_data->variant_id)->first();
                 $product->code = $lims_product_variant_data->item_code;
             }
-
+            if($product_return_data->product_batch_id) {
+                $product_batch_data = ProductBatch::select('batch_no')->find($product_return_data->product_batch_id);
+                $product_return[7][$key] = $product_batch_data->batch_no;
+            }
+            else
+                $product_return[7][$key] = 'N/A';
             $product_return[0][$key] = $product->name . ' [' . $product->code . ']';
             $product_return[1][$key] = $product_return_data->qty;
             $product_return[2][$key] = $unit;
@@ -457,6 +515,7 @@ class ReturnController extends Controller
         $lims_product_return_data = ProductReturn::where('return_id', $id)->get();
 
         $product_id = $data['product_id'];
+        $product_batch_id = $data['product_batch_id'];
         $product_code = $data['product_code'];
         $product_variant_id = $data['product_variant_id'];
         $qty = $data['qty'];
@@ -489,7 +548,7 @@ class ReturnController extends Controller
                     $child_warehouse_data->save();
                 }
             }
-            elseif($product_return_data->sale_unit_id != 0){
+            elseif($product_return_data->sale_unit_id != 0) {
                 $lims_sale_unit_data = Unit::find($product_return_data->sale_unit_id);
                 if ($lims_sale_unit_data->operator == '*')
                     $quantity = $product_return_data->qty * $lims_sale_unit_data->operation_value;
@@ -503,6 +562,17 @@ class ReturnController extends Controller
                     $old_product_variant_id[$key] = $lims_product_variant_data->id;
                     $lims_product_variant_data->qty -= $quantity;
                     $lims_product_variant_data->save();
+                }
+                elseif($product_return_data->product_batch_id) {
+                    $lims_product_warehouse_data = Product_Warehouse::where([
+                        ['product_id', $product_return_data->product_id],
+                        ['product_batch_id', $product_return_data->product_batch_id],
+                        ['warehouse_id', $lims_return_data->warehouse_id]
+                    ])->first();
+
+                    $product_batch_data = ProductBatch::find($product_return_data->product_batch_id);
+                    $product_batch_data->qty -= $quantity;
+                    $product_batch_data->save();
                 }
                 else
                     $lims_product_warehouse_data = Product_Warehouse::FindProductWithoutVariant($product_return_data->product_id, $lims_return_data->warehouse_id)
@@ -539,6 +609,17 @@ class ReturnController extends Controller
                     $product_return['variant_id'] = $lims_product_variant_data->variant_id;
                     $lims_product_variant_data->qty += $quantity;
                     $lims_product_variant_data->save();
+                }
+                elseif($product_batch_id[$key]) {
+                    $lims_product_warehouse_data = Product_Warehouse::where([
+                        ['product_id', $pro_id],
+                        ['product_batch_id', $product_batch_id[$key] ],
+                        ['warehouse_id', $data['warehouse_id'] ]
+                    ])->first();
+
+                    $product_batch_data = ProductBatch::find($product_batch_id[$key]);
+                    $product_batch_data->qty += $quantity;
+                    $product_batch_data->save();
                 }
                 else {
                     $lims_product_warehouse_data = Product_Warehouse::FindProductWithoutVariant($pro_id, $data['warehouse_id'])
@@ -588,6 +669,7 @@ class ReturnController extends Controller
 
             $product_return['return_id'] = $id ;
             $product_return['product_id'] = $pro_id;
+            $product_return['product_batch_id'] = $product_batch_id[$key];
             $product_return['qty'] = $qty[$key];
             $product_return['sale_unit_id'] = $sale_unit_id;
             $product_return['net_unit_price'] = $net_unit_price[$key];
@@ -677,6 +759,16 @@ class ReturnController extends Controller
                         $lims_product_variant_data->qty -= $quantity;
                         $lims_product_variant_data->save();
                     }
+                    elseif($product_return_data->product_batch_id) {
+                        $lims_product_batch_data = ProductBatch::find($product_return_data->product_batch_id);
+                        $lims_product_warehouse_data = Product_Warehouse::where([
+                            ['product_batch_id', $product_return_data->product_batch_id],
+                            ['warehouse_id', $lims_return_data->warehouse_id]
+                        ])->first();
+
+                        $lims_product_batch_data->qty -= $product_return_data->qty;
+                        $lims_product_batch_data->save();
+                    }
                     else
                         $lims_product_warehouse_data = Product_Warehouse::FindProductWithoutVariant($product_return_data->product_id, $lims_return_data->warehouse_id)->first();
 
@@ -730,6 +822,16 @@ class ReturnController extends Controller
                     $lims_product_warehouse_data = Product_Warehouse::FindProductWithVariant($product_return_data->product_id, $product_return_data->variant_id, $lims_return_data->warehouse_id)->first();
                     $lims_product_variant_data->qty -= $quantity;
                     $lims_product_variant_data->save();
+                }
+                elseif($product_return_data->product_batch_id) {
+                    $lims_product_batch_data = ProductBatch::find($product_return_data->product_batch_id);
+                    $lims_product_warehouse_data = Product_Warehouse::where([
+                        ['product_batch_id', $product_return_data->product_batch_id],
+                        ['warehouse_id', $lims_return_data->warehouse_id]
+                    ])->first();
+
+                    $lims_product_batch_data->qty -= $product_return_data->qty;
+                    $lims_product_batch_data->save();
                 }
                 else
                     $lims_product_warehouse_data = Product_Warehouse::FindProductWithoutVariant($product_return_data->product_id, $lims_return_data->warehouse_id)->first();

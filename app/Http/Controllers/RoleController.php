@@ -1019,6 +1019,8 @@ class RoleController extends Controller
         else
             $role->revokePermissionTo('today_profit');
 
+        
+
         return redirect('role')->with('message', 'Permission updated successfully');
     }
 

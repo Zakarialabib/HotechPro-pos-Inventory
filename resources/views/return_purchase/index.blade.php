@@ -113,6 +113,7 @@
                     <thead>
                         <th>#</th>
                         <th>{{trans('file.product')}}</th>
+                        <th>{{trans('file.Batch No')}}</th>
                         <th>{{trans('file.Qty')}}</th>
                         <th>{{trans('file.Unit Cost')}}</th>
                         <th>{{trans('file.Tax')}}</th>
@@ -312,12 +313,14 @@
             var tax_rate = data[4];
             var discount = data[5];
             var subtotal = data[6];
+            var batch_no = data[7];
             var newBody = $("<tbody>");
             $.each(name_code, function(index){
                 var newRow = $("<tr>");
                 var cols = '';
                 cols += '<td><strong>' + (index+1) + '</strong></td>';
                 cols += '<td>' + name_code[index] + '</td>';
+                cols += '<td>' + batch_no[index] + '</td>';
                 cols += '<td>' + qty[index] + ' ' + unit_code[index] + '</td>';
                 cols += '<td>' + (subtotal[index] / qty[index]) + '</td>';
                 cols += '<td>' + tax[index] + '(' + tax_rate[index] + '%)' + '</td>';
@@ -329,7 +332,7 @@
 
             var newRow = $("<tr>");
             cols = '';
-            cols += '<td colspan=4><strong>{{trans("file.Total")}}:</strong></td>';
+            cols += '<td colspan=5><strong>{{trans("file.Total")}}:</strong></td>';
             cols += '<td>' + returns[12] + '</td>';
             cols += '<td>' + returns[13] + '</td>';
             cols += '<td>' + returns[14] + '</td>';
@@ -338,14 +341,14 @@
 
             var newRow = $("<tr>");
             cols = '';
-            cols += '<td colspan=6><strong>{{trans("file.Order Tax")}}:</strong></td>';
+            cols += '<td colspan=7><strong>{{trans("file.Order Tax")}}:</strong></td>';
             cols += '<td>' + returns[15] + '(' + returns[16] + '%)' + '</td>';
             newRow.append(cols);
             newBody.append(newRow);
 
             var newRow = $("<tr>");
             cols = '';
-            cols += '<td colspan=6><strong>{{trans("file.grand total")}}:</strong></td>';
+            cols += '<td colspan=7><strong>{{trans("file.grand total")}}:</strong></td>';
             cols += '<td>' + returns[17] + '</td>';
             newRow.append(cols);
             newBody.append(newRow);
