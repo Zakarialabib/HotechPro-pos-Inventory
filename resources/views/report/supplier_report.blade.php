@@ -301,6 +301,7 @@
     $('.selectpicker').selectpicker('refresh');
 
     $('#purchase-table').DataTable( {
+        "responsive": true,
         "order": [],
         'language': {
             'lengthMenu': '_MENU_ {{trans("file.records per page")}}',
@@ -405,6 +406,7 @@
     }
 
     $('#payment-table').DataTable( {
+        "responsive": true,
         "order": [],
         'columnDefs': [
             {
@@ -492,6 +494,7 @@
     }
 
     $('#return-table').DataTable( {
+        "responsive": true,
         "order": [],
         'columnDefs': [
             {
@@ -579,6 +582,7 @@
     }
 
     $('#quotation-table').DataTable( {
+        "responsive": true,
         "order": [],
         'columnDefs': [
             {

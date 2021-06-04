@@ -15,6 +15,7 @@ use App\Quotation;
 use App\Payment;
 use App\Account;
 use App\Product_Sale;
+use App\ProductPurchase;
 use App\Customer;
 use Spatie\Permission\Models\Role;
 use DB;

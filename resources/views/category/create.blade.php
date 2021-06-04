@@ -178,6 +178,7 @@
     });
 
     $('#category-table').DataTable( {
+        "responsive": true,
         "processing": true,
         "serverSide": true,
         "ajax":{

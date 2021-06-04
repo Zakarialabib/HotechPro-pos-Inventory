@@ -50,7 +50,7 @@ use Illuminate\Support\Facades\Validator;
 
 class SaleController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {      
         $role = Role::find(Auth::user()->role_id);
         if($role->hasPermissionTo('sales-index')) {
@@ -60,16 +60,26 @@ class SaleController extends Controller
             if(empty($all_permission))
                 $all_permission[] = 'dummy text';
             
-            if(Auth::user()->role_id > 2 && config('staff_access') == 'own')
-                $lims_sale_all = Sale::orderBy('id', 'desc')->where('user_id', Auth::id())->get();
+            if($request->input('warehouse_id'))
+                $warehouse_id = $request->input('warehouse_id');
             else
-                $lims_sale_all = Sale::orderBy('id', 'desc')->get();
+                $warehouse_id = 0;
+
+            if($request->input('starting_date')) {
+                $starting_date = $request->input('starting_date');
+                $ending_date = $request->input('ending_date');
+            }
+            else {
+                $starting_date = date("Y-m-d", strtotime(date('Y-m-d', strtotime('-1 year', strtotime(date('Y-m-d') )))));
+                $ending_date = date("Y-m-d");
+            }
 
             $lims_gift_card_list = GiftCard::where("is_active", true)->get();
             $lims_pos_setting_data = PosSetting::latest()->first();
+            $lims_warehouse_list = Warehouse::where('is_active', true)->get();
             $lims_account_list = Account::where('is_active', true)->get();
 
-            return view('sale.index',compact('lims_sale_all', 'lims_gift_card_list', 'lims_pos_setting_data', 'lims_account_list', 'all_permission'));
+            return view('sale.index',compact('starting_date', 'ending_date', 'warehouse_id', 'lims_gift_card_list', 'lims_pos_setting_data', 'lims_account_list', 'lims_warehouse_list', 'all_permission'));
         }
         else
             return redirect()->back()->with('not_permitted', 'Sorry! You are not allowed to access this module');

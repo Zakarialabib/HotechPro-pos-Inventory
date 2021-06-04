@@ -412,6 +412,7 @@ function confirmDelete() {
 }
 
     $('#gift_card-table').DataTable( {
+        "responsive": true,
         "order": [],
         'language': {
             'lengthMenu': '_MENU_ {{trans("file.records per page")}}',

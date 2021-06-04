@@ -7,15 +7,15 @@
   <div class="relative px-3 py-3 mb-4 border rounded bg-green-200 border-green-300 text-green-800  text-center"><button type="button" class="absolute top-0 bottom-0 right-0 px-4 py-3" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>{{ session()->get('message') }}</div> 
 @endif
       <div class="flex flex-wrap px-4 mx-auto">
-        <div class="w-full px-3">
+        <div class="w-full px-3 mt-6">
             <div class="brand-text float-left">
                 <h3>{{trans('file.welcome')}} <span>{{Auth::user()->name}}</span> </h3>
             </div>
-            <div class="filter-toggle float-right">
-              <button class="inline-block align-middle text-center select-none border font-normal whitespace-no-wrap rounded py-1 px-3 leading-normal no-underline date-btn bg-blue-700 text-white border-blue-600 hover:bg-blue-400" data-start_date="{{date('Y-m-d')}}" data-end_date="{{date('Y-m-d')}}">{{trans('file.Today')}}</button>
-              <button class="inline-block align-middle text-center select-none border font-normal whitespace-no-wrap rounded py-1 px-3 leading-normal no-underline date-btn bg-blue-700 text-white border-blue-600 hover:bg-blue-400" data-start_date="{{date('Y-m-d', strtotime(' -7 day'))}}" data-end_date="{{date('Y-m-d')}}">{{trans('file.Last 7 Days')}}</button>
-              <button class="inline-block align-middle text-center select-none border font-normal whitespace-no-wrap rounded py-1 px-3 leading-normal no-underline date-btn bg-blue-700 text-white border-blue-600 hover:bg-blue-400  active" data-start_date="{{date('Y').'-'.date('m').'-'.'01'}}" data-end_date="{{date('Y-m-d')}}">{{trans('file.This Month')}}</button>
-              <button class="inline-block align-middle text-center select-none border font-normal whitespace-no-wrap rounded py-1 px-3 leading-normal no-underline date-btn bg-blue-700 text-white border-blue-600 hover:bg-blue-400" data-start_date="{{date('Y').'-01'.'-01'}}" data-end_date="{{date('Y').'-12'.'-31'}}">{{trans('file.This Year')}}</button>
+            <div class="float-right">
+              <button class="inline-block align-middle text-center select-none border font-normal whitespace-no-wrap rounded py-1 px-3 leading-normal no-underline date-btn  text-white bg-blue-700 border-blue-600 hover:bg-blue-400" data-start_date="{{date('Y-m-d')}}" data-end_date="{{date('Y-m-d')}}">{{trans('file.Today')}}</button>
+              <button class="inline-block align-middle text-center select-none border font-normal whitespace-no-wrap rounded py-1 px-3 leading-normal no-underline date-btn  text-white bg-blue-700 border-blue-600 hover:bg-blue-400" data-start_date="{{date('Y-m-d', strtotime(' -7 day'))}}" data-end_date="{{date('Y-m-d')}}">{{trans('file.Last 7 Days')}}</button>
+              <button class="inline-block align-middle text-center select-none border font-normal whitespace-no-wrap rounded py-1 px-3 leading-normal no-underline date-btn  text-white bg-blue-700 border-blue-600 hover:bg-blue-400  active" data-start_date="{{date('Y').'-'.date('m').'-'.'01'}}" data-end_date="{{date('Y-m-d')}}">{{trans('file.This Month')}}</button>
+              <button class="inline-block align-middle text-center select-none border font-normal whitespace-no-wrap rounded py-1 px-3 leading-normal no-underline date-btn  text-white bg-blue-700 border-blue-600 hover:bg-blue-400" data-start_date="{{date('Y').'-01'.'-01'}}" data-end_date="{{date('Y').'-12'.'-31'}}">{{trans('file.This Year')}}</button>
             </div>
         </div>
       </div>
@@ -27,7 +27,7 @@
               <div class="flex flex-wrap ">
                 <!-- Count item widget-->
                 <div class="w-1/2 px-2">
-                  <div class="wrapper count-title bg-blue-500 text-center">
+                  <div class="wrapper count-title bg-blue-700 border-blue-600 hover:bg-blue-400 text-center">
                     <div class="text-white"><i class="dripicons-graph-bar"></i></div>
                     <div class="text-white">{{ trans('file.revenue') }}</div>
                     <div class="count-number revenue-data">{{number_format((float)$revenue, 2, '.', '')}}</div>
@@ -35,7 +35,7 @@
                 </div>
                 <!-- Count item widget-->
                 <div class="w-1/2 px-2">
-                  <div class="wrapper count-title bg-blue-500 text-center">
+                  <div class="wrapper count-title bg-blue-700 border-blue-600 hover:bg-blue-400 text-center">
                     <div class="text-white"><i class="dripicons-trophy"></i></div>
                     <div class="text-white font-bold">{{trans('file.profit')}}</div>
                     <div class="count-number profit-data">{{number_format((float)$profit, 2, '.', '')}}</div>
@@ -44,10 +44,10 @@
               </div>
                 <div class="flex flex-wrap my-2">
                 <div class="sm:w-1/2 md:w-1/4 lg:w-1/4 px-2 ">
-                  <div class="relative flex flex-col min-w-0 rounded break-words border border-1 border-gray-300 bg-green-400 text-center">
+                  <div class="relative flex flex-col min-w-0 rounded break-words border border-1  bg-blue-700 border-blue-600 hover:bg-blue-400 text-center">
                       <div class="card-content">
                           <div class="flex-auto p-6">
-                              <div class="avatar bg-blue-500 m-0 mb-1">
+                              <div class="avatar bg-blue-700 border-blue-600 hover:bg-blue-400 m-0 mb-1">
                                   <div class="avatar-content">
                                       <i class="fa fa-user text-white icon-home"></i>
                                   </div>
@@ -59,10 +59,10 @@
                   </div>
               </div>
               <div class="sm:w-1/2 md:w-1/4 lg:w-1/4 px-2">
-                  <div class="relative flex flex-col min-w-0 rounded break-words border border-1 border-gray-300 bg-green-400 text-center">
+                  <div class="relative flex flex-col min-w-0 rounded break-words border border-1  bg-blue-700 border-blue-600 hover:bg-blue-400 text-center">
                       <div class="card-content">
                           <div class="flex-auto p-6">
-                              <div class="avatar bg-blue-500  m-0 mb-1">
+                              <div class="avatar bg-blue-700 border-blue-600 hover:bg-blue-400  m-0 mb-1">
                                   <div class="avatar-content">
                                       <i class="fa fa-money text-white icon-home"></i>
                                   </div>
@@ -74,10 +74,10 @@
                   </div>
               </div>
               <div class="sm:w-1/2 md:w-1/4 lg:w-1/4 px-2">
-                  <div class="relative flex flex-col min-w-0 rounded break-words border border-1 border-gray-300 bg-green-400 text-center">
+                  <div class="relative flex flex-col min-w-0 rounded break-words border border-1  bg-blue-700 border-blue-600 hover:bg-blue-400 text-center">
                       <div class="card-content">
                           <div class="flex-auto p-6">
-                              <div class="avatar bg-blue-500  m-0 mb-1">
+                              <div class="avatar bg-blue-700 border-blue-600 hover:bg-blue-400  m-0 mb-1">
                                   <div class="avatar-content">
                                       <i class="fa fa-eye text-white icon-home"></i>
                                   </div>
@@ -89,10 +89,10 @@
                   </div>
               </div>
               <div class="sm:w-1/2 md:w-1/4 lg:w-1/4 px-2">
-                  <div class="relative flex flex-col min-w-0 rounded break-words border border-1 border-gray-300 bg-green-400 text-center">
+                  <div class="relative flex flex-col min-w-0 rounded break-words border border-1  bg-blue-700 border-blue-600 hover:bg-blue-400 text-center">
                       <div class="card-content">
                           <div class="flex-auto p-6">
-                              <div class="avatar bg-blue-500  m-0 mb-1">
+                              <div class="avatar bg-blue-700 border-blue-600 hover:bg-blue-400  m-0 mb-1">
                                   <div class="avatar-content">
                                       <i class="fa fa-truck text-white icon-home"></i>
                                   </div>
@@ -107,7 +107,7 @@
             <div class="flex flex-wrap my-2 ">
                    <!-- Count item widget-->
                  <div class="sm:w-1/2 md:w-1/3 lg:w-1/6 p-2">
-                  <div class="wrapper bg-purple-500 text-center">
+                  <div class="wrapper bg-blue-700 border-blue-600 hover:bg-blue-400 text-center">
                   <a class="dashboard-full" href="{{route('sales.create')}}">
                     <div class="text-white"><strong>{{ trans('file.Add Sale') }}</strong></div>
                     <div class="count-number"><i class="dripicons-shopping-bag"></i></div>
@@ -117,7 +117,7 @@
 
                 <!-- Count item widget-->
                 <div class="sm:w-1/2 md:w-1/3 lg:w-1/6 p-2">
-                  <div class="wrapper bg-purple-500 text-center">
+                  <div class="wrapper bg-blue-700 border-blue-600 hover:bg-blue-400 text-center">
                     <a class="dashboard-full" href="{{route('products.create')}}">
                     <div class="text-white"><strong>{{__('file.add_product')}}</strong></div>
                     <div class="count-number"><i class="dripicons-box"></i></div> </a>
@@ -125,7 +125,7 @@
                 </div>
                <!-- Count item widget-->
                 <div class="sm:w-1/2 md:w-1/3 lg:w-1/6 p-2">
-                  <div class="wrapper bg-purple-500 text-center">
+                  <div class="wrapper bg-blue-700 border-blue-600 hover:bg-blue-400 text-center">
                     <a class="dashboard-full" href="{{route('quotations.create')}}">
                     <div class="text-white"><strong>{{trans('file.Add Quotation')}}</strong></div>
                     <div class="count-number"><i class="dripicons-question"></i></div></a>
@@ -133,7 +133,7 @@
                 </div>
                 <!-- Count item widget-->
                 <div class="sm:w-1/2 md:w-1/3 lg:w-1/6 p-2">
-                  <div class="wrapper bg-purple-500 text-center">
+                  <div class="wrapper bg-blue-700 border-blue-600 hover:bg-blue-400 text-center">
                     <a class="dashboard-full" href="{{route('customer.create')}}">
                     <div class="text-white"><strong>{{trans('file.Add Customer')}}</strong></div>
                     <div class="count-number"><i class="dripicons-user"></i></div></a>
@@ -141,7 +141,7 @@
                 </div>
                 @if(in_array("expenses-add", $all_permission))
                 <div class="sm:w-1/2 md:w-1/3 lg:w-1/6 p-2">
-                  <div class="wrapper bg-purple-500 text-center">
+                  <div class="wrapper bg-blue-700 border-blue-600 hover:bg-blue-400 text-center">
                     <a class="dashboard-full" data-toggle="modal" data-target="#expense-modal">
                     <div class="text-white"><strong>{{trans('file.Add Expense')}}</strong></div>
                     <div class="count-number"><i class="dripicons-plus"></i> </i></div></a>
@@ -149,7 +149,7 @@
                 </div>
                 @endif
                 <div class="sm:w-1/2 md:w-1/3 lg:w-1/6 p-2">
-                  <div class="wrapper bg-purple-500 text-center">
+                  <div class="wrapper bg-blue-700 border-blue-600 hover:bg-blue-400 text-center">
                     <a class="dashboard-full" data-toggle="modal" data-target="#activity-modal">
                     <div class="text-white"><strong>{{trans('file.Add Activity')}}</strong></div>
                     <div class="count-number"><i class="dripicons-plus"></i> </i></div></a>
@@ -158,8 +158,8 @@
               </div>
             </div>
             <div class="w-3/5 px-2 mt-4">
-              <div class="relative flex flex-col min-w-0 rounded break-words border bg-white border-1 border-gray-300 line-chart-example">
-                <div class="py-3 px-6 mb-0 bg-blue-700 border-b-1 border-gray-300 text-white flex items-center">
+              <div class="relative flex flex-col min-w-0 rounded break-words border bg-white border-1  line-chart-example">
+                <div class="py-3 px-6 mb-0 bg-blue-700 border-b-1  text-white flex items-center">
                   <h4>{{trans('file.Cash Flow')}}</h4>
                 </div>
                 <div class="flex-auto p-6">
@@ -186,8 +186,8 @@
               </div>
             </div>
             <div class="w-2/5 px-2 mt-4">
-              <div class="relative flex flex-col min-w-0 rounded break-words border bg-white border-1 border-gray-300">
-                <div class="py-3 px-6 mb-0 bg-blue-700 border-b-1 border-gray-300 text-white flex justify-between items-center">
+              <div class="relative flex flex-col min-w-0 rounded break-words border bg-white border-1 ">
+                <div class="py-3 px-6 mb-0 bg-blue-700 border-b-1  text-white flex justify-between items-center">
                   <h4>{{date('F')}} {{date('Y')}}</h4>
                 </div>
                 <div class="pie-chart mb-2">

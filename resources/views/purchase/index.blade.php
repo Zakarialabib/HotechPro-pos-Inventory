@@ -511,6 +511,7 @@
         var ending_date = $("input[name=ending_date]").val();
         var warehouse_id = $("#warehouse_id").val();
         $('#purchase-table').DataTable( {
+        "responsive": true,
             "processing": true,
             "serverSide": true,
             "ajax":{

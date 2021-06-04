@@ -311,6 +311,7 @@
     $('.selectpicker').selectpicker('refresh');
 
     $('#sale-table').DataTable( {
+        "responsive": true,
         "order": [],
         'columnDefs': [
             {
@@ -402,6 +403,7 @@
     }
 
     $('#payment-table').DataTable( {
+        "responsive": true,
         "order": [],
         'columnDefs': [
             {
@@ -489,6 +491,7 @@
     }
 
     $('#return-table').DataTable( {
+        "responsive": true,
         "order": [],
         'columnDefs': [
             {
@@ -576,6 +579,7 @@
     }
 
     $('#quotation-table').DataTable( {
+        "responsive": true,
         "order": [],
         'columnDefs': [
             {

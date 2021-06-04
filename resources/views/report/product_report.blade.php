@@ -112,6 +112,7 @@
     var end_date = $(".product-report-filter input[name=end_date]").val();
     var warehouse_id = $(".product-report-filter select[name=warehouse_id]").val();
     $('#product-report-table').DataTable( {
+        "responsive": true,
         "processing": true,
         "serverSide": true,
         "ajax":{

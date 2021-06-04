@@ -716,6 +716,7 @@
     var warehouse_id = $("#warehouse_id").val();
     
     $('#sale-table').DataTable( {
+        "responsive": true,
         "processing": true,
         "serverSide": true,
         "ajax":{

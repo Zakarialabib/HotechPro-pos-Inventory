@@ -996,7 +996,7 @@
                                     </div>
                                 </div>
                                 <!-- <div class="form-group">
-                                    <table class="table table-bordered table-condensed totals">
+                                    <table class="table table-bordered table-condensed totals bg-green-500 text-white">
                                         <tr>
                                             <td style="width:10%; padding: 0 0 0 10px; color: #000;"><strong>{{trans('file.Items')}}</strong><br>
                                             <span id="item">{{$lims_sale_data->item}}( {{$lims_sale_data->total_qty}})</span>
@@ -1809,6 +1809,7 @@ $('.category-img').on('click', function(){
             tableData += '</tr></tbody></table>';
             $(".table-container").html(tableData);
             $('#product-table').DataTable( {
+        "responsive": true,
             "order": [],
             'pageLength': product_row_number,
              'language': {
@@ -1865,6 +1866,7 @@ $('.brand-img').on('click', function(){
             tableData += '</tr></tbody></table>';
             $(".table-container").html(tableData);
             $('#product-table').DataTable( {
+        "responsive": true,
             "order": [],
             'pageLength': product_row_number,
              'language': {
@@ -1911,6 +1913,7 @@ $('#featured-filter').on('click', function(){
             tableData += '</tr></tbody></table>';
             $(".table-container").html(tableData);
             $('#product-table').DataTable( {
+        "responsive": true,
             "order": [],
             'pageLength': product_row_number,
              'language': {
@@ -2707,6 +2710,7 @@ $(document).on('submit', '.payment-form', function(e) {
 });
 
 $('#product-table').DataTable( {
+        "responsive": true,
     "order": [],
     'pageLength': product_row_number,
      'language': {

@@ -1,82 +1,41 @@
-<?php $general_setting = DB::table('general_settings')->find(1); ?>
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>{{$general_setting->site_title}}</title>
-    <meta name="description" content="">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="robots" content="all,follow">
-    <link rel="icon" type="image/png" href="{{url('public/logo', $general_setting->site_logo)}}" />
-    <!-- Bootstrap CSS-->
-    <link rel="stylesheet" href="<?php echo asset('public/vendor/bootstrap/css/bootstrap.min.css') ?>" type="text/css">
-    <link rel="stylesheet" href="<?php echo asset('public/vendor/bootstrap/css/bootstrap-datepicker.min.css') ?>" type="text/css">
-    <link rel="stylesheet" href="<?php echo asset('public/vendor/bootstrap/css/bootstrap-select.min.css') ?>" type="text/css">
-    <!-- Font Awesome CSS-->
-    <link rel="stylesheet" href="<?php echo asset('public/vendor/font-awesome/css/font-awesome.min.css') ?>" type="text/css">
-    <!-- Google fonts - Roboto -->
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700">
-    <!-- jQuery Circle-->
-    <link rel="stylesheet" href="<?php echo asset('public/css/grasp_mobile_progress_circle-1.0.0.min.css') ?>" type="text/css">
-    <!-- Custom Scrollbar-->
-    <link rel="stylesheet" href="<?php echo asset('public/vendor/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.css') ?>" type="text/css">
-    <!-- theme stylesheet-->
-    <link rel="stylesheet" href="<?php echo asset('public/css/style.default.css') ?>" id="theme-stylesheet" type="text/css">
-    <!-- Custom stylesheet - for your changes-->
-    <link rel="stylesheet" href="<?php echo asset('public/css/custom-'.$general_setting->theme) ?>" type="text/css">
-    <!-- Tweaks for older IEs--><!--[if lt IE 9]>
-        <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
-        <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script><![endif]-->
-
-    <script type="text/javascript" src="<?php echo asset('public/vendor/jquery/jquery.min.js') ?>"></script>
-<script type="text/javascript" src="<?php echo asset('public/vendor/jquery/jquery-ui.min.js') ?>"></script>
-<script type="text/javascript" src="<?php echo asset('public/vendor/popper.js/umd/popper.min.js') ?>">
-</script>
-<script type="text/javascript" src="<?php echo asset('public/vendor/bootstrap/js/bootstrap.min.js') ?>"></script>
-<script type="text/javascript" src="<?php echo asset('public/vendor/bootstrap/js/bootstrap-select.min.js') ?>"></script>
-<script type="text/javascript" src="<?php echo asset('public/js/grasp_mobile_progress_circle-1.0.0.min.js') ?>"></script>
-<script type="text/javascript" src="<?php echo asset('public/vendor/jquery.cookie/jquery.cookie.js') ?>">
-</script>
-<script type="text/javascript" src="<?php echo asset('public/vendor/jquery-validation/jquery.validate.min.js') ?>"></script>
-<script type="text/javascript" src="<?php echo asset('public/vendor/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.concat.min.js')?>"></script>
-<script type="text/javascript" src="<?php echo asset('public/js/front.js') ?>"></script>
-  </head>
-  <body>
-    <div class="page login-page">
+@extends('layouts.auth')
+@section('content')
+    
+    <div class="min-h-screen bg-gray-50 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
       <div class="container mx-auto sm:px-4">
-        <div class="form-outer text-center flex items-center">
-          <div class="form-inner">
-            <div class="logo"><span>{{$general_setting->site_title}}</span></div>
-            <form method="POST" action="{{ route('register') }}">
+            <div class="sm:mx-auto sm:w-full sm:max-w-md">
+              <img class="mx-auto h-10 w-auto" src="{{url('public/logo', $general_setting->site_logo)}}" width="120" alt="{{ $general_setting->site_title }}" />
+              <div class="text-center">{{ $general_setting->site_title }}</div>
+          </div>
+          <div class="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
+            <div class="bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10">
+              <form method="POST" action="{{ route('register') }}">
                 @csrf
-              <div class="form-group-material">
-                <input id="register-username" type="text" name="name" required class="input-material">
-                <label for="register-username" class="label-material">{{trans('file.UserName')}} *</label>
+              <div class="mt-2">
+                <label for="register-username" class="block text-sm font-medium leading-5 text-gray-700">{{trans('file.UserName')}} *</label>
+                <input id="register-username" type="text" name="name" required class="appearance-none block w-full mt-2  px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out sm:text-sm sm:leading-5">
                 @if ($errors->has('name'))
                     <p>
                         <strong>{{ $errors->first('name') }}</strong>
                     </p>
                 @endif
               </div>
-              <div class="form-group-material">
-                <input id="register-email" type="email" name="email" required class="input-material">
-                <label for="register-email" class="label-material">{{trans('file.Email')}} *</label>
+              <div class="mt-2">
+                <label for="register-email" class="block text-sm font-medium leading-5 text-gray-700">{{trans('file.Email')}} *</label>
+                <input id="register-email" type="email" name="email" required class="appearance-none block w-full mt-2  px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out sm:text-sm sm:leading-5">
                 @if ($errors->has('email'))
                     <p>
                         <strong>{{ $errors->first('email') }}</strong>
                     </p>
                 @endif
               </div>
-              <div class="form-group-material">
-                <input id="register-phone" type="text" name="phone_number" required class="input-material">
-                <label for="register-phone" class="label-material">{{trans('file.Phone Number')}} *</label>
+              <div class="mt-2">
+                <label for="register-phone" class="block text-sm font-medium leading-5 text-gray-700">{{trans('file.Phone Number')}} *</label>
+                <input id="register-phone" type="text" name="phone_number" required class="appearance-none block w-full mt-2  px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out sm:text-sm sm:leading-5">
               </div>
-              <div class="form-group-material">
-                <input id="register-company" type="text" name="company_name" class="input-material">
-                <label for="register-company" class="label-material">{{trans('file.Company Name')}}</label>
-              </div>
-              <div class="form-group-material">
+
+              <div class="mt-2">
+                <label for="passowrd" class="block text-sm font-medium leading-5 text-gray-700">{{trans('file.Role')}} *</label>
                 <select name="role_id" id="role-id" required class="selectpicker block appearance-none w-full py-1 px-2 mb-1 text-base leading-normal bg-white text-gray-800 border border-gray-200 rounded" data-live-search="true" data-live-search-style="begins" title="Select Role...">
                   @foreach($lims_role_list as $role)
                       <option value="{{$role->id}}">{{$role->name}}</option>
@@ -84,72 +43,54 @@
                 </select>
               </div>
               <div id="customer-section">
-                  <div class="form-group-material">
-                    <input id="customer-name" type="text" name="customer_name" class="input-material customer-field">
-                    <label for="customer-name" class="label-material">{{trans('file.name')}} *</label>
+                  <div class="mt-2">
+                    <label for="customer-name" class="block text-sm font-medium leading-5 text-gray-700">{{trans('file.name')}} *</label>
+                    <input id="customer-name" type="text" name="customer_name" class="appearance-none block w-full mt-2  px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out sm:text-sm sm:leading-5 customer-field">
                   </div>
-                  <div class="form-group-material">
+                  <div class="mt-2">
+                    <label for="passowrd" class="block text-sm font-medium leading-5 text-gray-700">{{trans('file.Customer Group')}} *</label>
                     <select name="customer_group_id" required class="selectpicker block appearance-none w-full py-1 px-2 mb-1 text-base leading-normal bg-white text-gray-800 border border-gray-200 rounded customer-field" data-live-search="true" data-live-search-style="begins" title="Select customer group...">
                       @foreach($lims_customer_group_list as $customer_group)
                           <option value="{{$customer_group->id}}">{{$customer_group->name}}</option>
                       @endforeach
                     </select>
                   </div>
-                  <div class="form-group-material">
-                    <input id="customer-tax-number" type="text" name="tax_no" class="input-material">
-                    <label for="customer-tax-number" class="label-material">{{trans('file.Tax Number')}}</label>
-                  </div>
-                  <div class="form-group-material">
-                    <input id="customer-address" type="text" name="address" class="input-material customer-field">
-                    <label for="customer-address" class="label-material">{{trans('file.Address')}} *</label>
-                  </div>
-                  <div class="form-group-material">
-                    <input id="customer-city" type="text" name="city" class="input-material customer-field">
-                    <label for="customer-city" class="label-material">{{trans('file.City')}} *</label>
-                  </div>
-                  <div class="form-group-material">
-                    <input id="customer-state" type="text" name="state" class="input-material">
-                    <label for="customer-state" class="label-material">{{trans('file.State')}}</label>
-                  </div>
-                  <div class="form-group-material">
-                    <input id="customer-postal" type="text" name="postal_code" class="input-material">
-                    <label for="customer-postal" class="label-material">{{trans('file.Postal Code')}}</label>
-                  </div>
-                  <div class="form-group-material">
-                    <input id="customer-country" type="text" name="country" class="input-material">
-                    <label for="customer-country" class="label-material">{{trans('file.Country')}}</label>
-                  </div>
               </div>
-              <div class="form-group-material" id="biller-id">
+              <div class="mt-2" id="biller-id">
+                <label for="passowrd" class="block text-sm font-medium leading-5 text-gray-700">{{trans('file.Biller')}} *</label>
                 <select name="biller_id" class="selectpicker block appearance-none w-full py-1 px-2 mb-1 text-base leading-normal bg-white text-gray-800 border border-gray-200 rounded" data-live-search="true" data-live-search-style="begins" title="Select Biller*...">
                   @foreach($lims_biller_list as $biller)
                       <option value="{{$biller->id}}">{{$biller->name}} ({{$biller->phone_number}})</option>
                   @endforeach
                 </select>
               </div>
-              <div class="form-group-material" id="warehouse-id">
+              <div class="mt-2" id="warehouse-id">
+                <label for="passowrd" class="block text-sm font-medium leading-5 text-gray-700">{{trans('file.Warehouse')}} *</label>
                 <select name="warehouse_id" class="selectpicker block appearance-none w-full py-1 px-2 mb-1 text-base leading-normal bg-white text-gray-800 border border-gray-200 rounded" data-live-search="true" data-live-search-style="begins" title="Select Warehouse*...">
                   @foreach($lims_warehouse_list as $warehouse)
                       <option value="{{$warehouse->id}}">{{$warehouse->name}}</option>
                   @endforeach
                 </select>
               </div>
-              <div class="form-group-material">
-                <input id="password" type="password" class="input-material" name="password" required>
-                <label for="passowrd" class="label-material">{{trans('file.Password')}} *</label>
+              <div class="mt-2">
+                <label for="passowrd" class="block text-sm font-medium leading-5 text-gray-700">{{trans('file.Password')}} *</label>
+                <input id="password" type="password" class="appearance-none block w-full mt-2  px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out sm:text-sm sm:leading-5" name="password" required>
                 @if ($errors->has('password'))
                     <p>
                         <strong>{{ $errors->first('password') }}</strong>
                     </p>
                 @endif
               </div>
-              <div class="form-group-material">
-                <input id="password-confirm" type="password" name="password_confirmation" required class="input-material">
-                <label for="password-confirm" class="label-material">{{trans('file.Confirm Password')}} *</label>
+              <div class="mt-2">
+                <label for="password-confirm" class="block text-sm font-medium leading-5 text-gray-700">{{trans('file.Confirm Password')}} *</label>
+              <input id="password-confirm" type="password" name="password_confirmation" required class="appearance-none block w-full mt-2  px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out sm:text-sm sm:leading-5">
               </div>
-              <input id="register" type="submit" value="Register" class="inline-block align-middle text-center select-none border font-normal whitespace-no-wrap rounded py-1 px-3 leading-normal no-underline bg-blue-600 text-white hover:bg-blue-600">
-            </form><p>{{trans('file.Already have an account')}}? </p><a href="{{url('login')}}" class="signup">{{trans('file.LogIn')}}</a>
-          </div>
+              <input id="register" type="submit" value="Register" class="inline-block align-middle text-center w-full select-none border mt-2 font-normal whitespace-no-wrap rounded py-1 px-3 leading-normal no-underline bg-blue-600 text-white hover:bg-blue-600">
+            </form>
+            <div class="w-full text-center text-sm mt-2">
+              <p>{{trans('file.Already have an account')}}? </p><a href="{{url('login')}}" class="">{{trans('file.LogIn')}}</a>
+             </div>
+            </div>
         </div>
       </div>
     </div>
@@ -158,24 +99,24 @@
     // Material Inputs
     // ------------------------------------------------------ //
 
-        var materialInputs = $('input.input-material');
+        var materialInputs = $('input.appearance-none block w-full mt-2  px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out sm:text-sm sm:leading-5');
 
         // activate labels for prefilled values
-        materialInputs.filter(function() { return $(this).val() !== ""; }).siblings('.label-material').addClass('active');
+        materialInputs.filter(function() { return $(this).val() !== ""; }).siblings('.block text-sm font-medium leading-5 text-gray-700').addClass('active');
 
         // move label on focus
         materialInputs.on('focus', function () {
-            $(this).siblings('.label-material').addClass('active');
+            $(this).siblings('.block text-sm font-medium leading-5 text-gray-700').addClass('active');
         });
 
         // remove/keep label on blur
         materialInputs.on('blur', function () {
-            $(this).siblings('.label-material').removeClass('active');
+            $(this).siblings('.block text-sm font-medium leading-5 text-gray-700').removeClass('active');
 
             if ($(this).val() !== '') {
-                $(this).siblings('.label-material').addClass('active');
+                $(this).siblings('.block text-sm font-medium leading-5 text-gray-700').addClass('active');
             } else {
-                $(this).siblings('.label-material').removeClass('active');
+                $(this).siblings('.block text-sm font-medium leading-5 text-gray-700').removeClass('active');
             }
         });
         $("#biller-id").hide();
@@ -209,5 +150,5 @@
             }
         });
     </script>
-  </body>
-</html>
+
+@endsection

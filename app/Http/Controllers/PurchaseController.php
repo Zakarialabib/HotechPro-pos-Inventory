@@ -28,22 +28,33 @@ use Illuminate\Support\Facades\Validator;
 
 class PurchaseController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
+       
         $role = Role::find(Auth::user()->role_id);
-        if($role->hasPermissionTo('purchases-index')){            
-            if(Auth::user()->role_id > 2 && config('staff_access') == 'own')
-                $lims_purchase_list = Purchase::orderBy('id', 'desc')->where('user_id', Auth::id())->get();
+        if($role->hasPermissionTo('purchases-index')) {
+            if($request->input('warehouse_id'))
+                $warehouse_id = $request->input('warehouse_id');
             else
-                $lims_purchase_list = Purchase::orderBy('id', 'desc')->get();
+                $warehouse_id = 0;
+
+            if($request->input('starting_date')) {
+                $starting_date = $request->input('starting_date');
+                $ending_date = $request->input('ending_date');
+            }
+            else {
+                $starting_date = date("Y-m-d", strtotime(date('Y-m-d', strtotime('-1 year', strtotime(date('Y-m-d') )))));
+                $ending_date = date("Y-m-d");
+            }
             $permissions = Role::findByName($role->name)->permissions;
             foreach ($permissions as $permission)
                 $all_permission[] = $permission->name;
             if(empty($all_permission))
                 $all_permission[] = 'dummy text';
             $lims_pos_setting_data = PosSetting::latest()->first();
+            $lims_warehouse_list = Warehouse::where('is_active', true)->get();
             $lims_account_list = Account::where('is_active', true)->get();
-            return view('purchase.index', compact('lims_purchase_list', 'lims_account_list', 'all_permission', 'lims_pos_setting_data'));
+            return view('purchase.index', compact( 'lims_account_list', 'lims_warehouse_list', 'all_permission', 'lims_pos_setting_data', 'warehouse_id', 'starting_date', 'ending_date'));
         }
         else
             return redirect()->back()->with('not_permitted', 'Sorry! You are not allowed to access this module');

@@ -140,6 +140,7 @@
     });
 
     $('#currency-table').DataTable( {
+        "responsive": true,
         "order": [],
         'language': {
             'lengthMenu': '_MENU_ {{trans("file.records per page")}}',

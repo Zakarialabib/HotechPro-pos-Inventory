@@ -157,6 +157,7 @@ function confirmDelete() {
     return false;
 }
     var table = $('#account-table').DataTable( {
+        "responsive": true,
         "order": [],
         'language': {
             'lengthMenu': '_MENU_ {{trans("file.records per page")}}',

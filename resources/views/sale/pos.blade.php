@@ -2248,6 +2248,7 @@ function populateProduct(data) {
         tableData += '</tr></tbody></table>';
         $(".table-container").html(tableData);
         $('#product-table').DataTable( {
+        "responsive": true,
           "order": [],
           'pageLength': product_row_number,
            'language': {
@@ -3189,6 +3190,7 @@ $(document).on('submit', '.payment-form', function(e) {
 });
 
 $('#product-table').DataTable( {
+        "responsive": true,
     "order": [],
     'pageLength': product_row_number,
      'language': {

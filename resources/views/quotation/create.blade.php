@@ -200,7 +200,7 @@
     </div>
 
     <div class="container-fluid">
-        <table class="table table-bordered table-condensed totals">
+        <table class="table table-bordered table-condensed totals bg-green-500 text-white">
             <td><strong>{{trans('file.Items')}}</strong>
                 <span class="pull-right" id="item">0.00</span>
             </td>

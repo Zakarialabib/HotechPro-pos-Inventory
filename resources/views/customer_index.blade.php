@@ -661,6 +661,7 @@
     }
 
     $('#sale-table').DataTable( {
+        "responsive": true,
         "order": [],
         'columnDefs': [
             {
@@ -752,6 +753,7 @@
     }
 
     $('#payment-table').DataTable( {
+        "responsive": true,
         "order": [],
         'columnDefs': [
             {

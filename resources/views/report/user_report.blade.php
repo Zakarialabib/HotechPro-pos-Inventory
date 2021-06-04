@@ -497,6 +497,7 @@
     $('.selectpicker').selectpicker('refresh');
 
     $('#sale-table').DataTable( {
+        "responsive": true,
         "order": [],
         'columnDefs': [
             {
@@ -589,6 +590,7 @@
     }
 
     $('#purchase-table').DataTable( {
+        "responsive": true,
         "order": [],
         'columnDefs': [
             {
@@ -680,6 +682,7 @@
     }
 
     $('#quotation-table').DataTable( {
+        "responsive": true,
         "order": [],
         'columnDefs': [
             {
@@ -768,6 +771,7 @@
     }
 
     $('#transfer-table').DataTable( {
+        "responsive": true,
         "order": [],
         'columnDefs': [
             {
@@ -856,6 +860,7 @@
     }
 
     $('#payment-table').DataTable( {
+        "responsive": true,
         "order": [],
         'columnDefs': [
             {
@@ -943,6 +948,7 @@
     }
 
     $('#expense-table').DataTable( {
+        "responsive": true,
         "order": [],
         'columnDefs': [
             {
@@ -1030,6 +1036,7 @@
     }
 
     $('#payroll-table').DataTable( {
+        "responsive": true,
         "order": [],
         'columnDefs': [
             {
