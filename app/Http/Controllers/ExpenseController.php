@@ -13,7 +13,7 @@ use DB;
 
 class ExpenseController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
         $role = Role::find(Auth::user()->role_id);
         if($role->hasPermissionTo('expenses-index')){
@@ -23,12 +23,21 @@ class ExpenseController extends Controller
             if(empty($all_permission))
                 $all_permission[] = 'dummy text';
             $lims_account_list = Account::where('is_active', true)->get();
-            
+
+            if($request->start_date) {
+                $start_date = $request->start_date;
+                $end_date = $request->end_date;
+            }
+            else {
+                $start_date = date('Y-m-01', strtotime('-1 year', strtotime(date('Y-m-d'))));
+                $end_date = date("Y-m-d");
+            }
+
             if(Auth::user()->role_id > 2 && config('staff_access') == 'own')
-                $lims_expense_all = Expense::orderBy('id', 'desc')->where('user_id', Auth::id())->get();
+                $lims_expense_all = Expense::where('user_id', Auth::id())->whereDate('created_at', '>=', $start_date)->whereDate('created_at', '<=', $end_date)->orderBy('id', 'desc')->get();
             else
-                $lims_expense_all = Expense::orderBy('id', 'desc')->get();
-            return view('expense.index', compact('lims_account_list', 'lims_expense_all', 'all_permission'));
+                $lims_expense_all = Expense::whereDate('created_at', '>=', $start_date)->whereDate('created_at', '<=', $end_date)->orderBy('id', 'desc')->get();
+            return view('expense.index', compact('lims_account_list', 'lims_expense_all', 'all_permission', 'start_date', 'end_date'));
         }
         else
             return redirect()->back()->with('not_permitted', 'Sorry! You are not allowed to access this module');
