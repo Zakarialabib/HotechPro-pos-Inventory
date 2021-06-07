@@ -1,11 +1,26 @@
 @extends('layout.main') @section('content')
 
-<section class="forms">
-    <div class="container-fluid">
-        <h3>{{trans('file.Balance Sheet')}}</h3>
+<section>
+    <div class="flex flex-wrap px-3 mx-auto">
+        <div class="w-full mt-2">
+            <div class="brand-text float-left">
+                <h3>{{trans('file.Balance Sheet')}}</h3>
+            </div>
+        </div>
     </div>
+            <div class="flex flex-wrap px-3 mx-auto">
+                <div class="w-full mt-2">
+                <p>
+                    {{trans('file.Credit')}} = {{trans('file.Payment Recieved')}} + {{trans('file.Return purchase')}} + {{trans('file.money recieved via transfer')}} + {{trans('file.Initial balance')}}
+                </p>
+                <p> 
+                    {{trans('file.Debit')}} = {{trans('file.Payment Sent')}} + {{trans('file.Return')}} + {{trans('file.Expense')}} + {{trans('file.Payroll')}} + {{trans('file.money sent via transfer')}}
+                </p>
+                 </div>
+            </div>
+     
     <div class="table-responsive mb-4">
-        <table id="account-table" class="table table-hover">
+        <table id="account-table" class="table table-hover" style="width: 100%">
             <thead>
                 <tr>
                     <th class="not-exported"></th>

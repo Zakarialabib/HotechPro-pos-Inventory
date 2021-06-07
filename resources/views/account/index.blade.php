@@ -11,9 +11,16 @@
 @endif 
 
 <section>
-    <div class="container-fluid">
-        <button class="btn btn-info" data-toggle="modal" data-target="#account-modal"><i class="dripicons-plus"></i> {{trans('file.Add Account')}}</button>
-    </div>
+    <div class="flex flex-wrap px-3 mx-auto">
+        <div class="w-full mt-2">
+            <div class="brand-text float-left">
+                <h3>{{trans("file.account")}} </h3>
+            </div>
+            <div class="float-right">
+              <button class="inline-block align-middle text-center select-none border font-normal whitespace-no-wrap rounded py-1 px-3 leading-normal no-underline date-btn  text-white bg-blue-700 border-blue-600 hover:bg-blue-400" data-toggle="modal" data-target="#account-modal"><i class="dripicons-plus"></i> {{trans('file.Add Account')}}</button>
+            </div>
+        </div>
+      </div>
     <div class="table-responsive">
         <table id="account-table" class="table">
             <thead>

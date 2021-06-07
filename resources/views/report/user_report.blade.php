@@ -118,9 +118,9 @@
                             @endif
                             <td>{{number_format((float)($sale->grand_total - $sale->paid_amount), 2, '.', '')}}</td>
                             @if($sale->sale_status == 1)
-                            <td><div class="badge badge-success">{{trans('file.Completed')}}</div></td>
+                            <td><div class="bg-green-600 text-white p-2 rounded  leading-none">{{trans('file.Completed')}}</div></td>
                             @else
-                            <td><div class="badge badge-danger">{{trans('file.Pending')}}</div></td>
+                            <td><div class="bg-red-600 text-white p-2 rounded  leading-none">{{trans('file.Pending')}}</div></td>
                             @endif
                         </tr>
                         @endforeach
@@ -197,13 +197,13 @@
                             <td>{{number_format((float)($purchase->paid_amount), 2, '.', '')}}</td>
                             <td>{{number_format((float)($purchase->grand_total - $purchase->paid_amount), 2, '.', '')}}</td>
                             @if($purchase->status == 1)
-                               <td><div class="badge badge-success">{{trans('file.Recieved')}}</div></td>
+                               <td><div class="bg-green-600 text-white p-2 rounded  leading-none">{{trans('file.Recieved')}}</div></td>
                             @elseif($purchase->status == 2)
-                               <td><div class="badge badge-success">{{trans('file.Partial')}}</div></td>
+                               <td><div class="bg-green-600 text-white p-2 rounded  leading-none">{{trans('file.Partial')}}</div></td>
                             @elseif($purchase->status == 3)
-                                <td><div class="badge badge-danger">{{trans('file.Pending')}}</div></td>
+                                <td><div class="bg-red-600 text-white p-2 rounded  leading-none">{{trans('file.Pending')}}</div></td>
                             @elseif($purchase->status == 4)
-                                <td><div class="badge badge-danger">{{trans('file.Ordered')}}</div></td>
+                                <td><div class="bg-red-600 text-white p-2 rounded  leading-none">{{trans('file.Ordered')}}</div></td>
                             @endif
                         </tr>
                         @endforeach
@@ -270,9 +270,9 @@
                             <td>{{number_format((float) $quotation->grand_total, 2, '.', '')}}</td>
                             
                             @if($quotation->quotation_status == 2)
-                            <td><div class="badge badge-success">{{trans('file.Sent')}}</div></td>
+                            <td><div class="bg-green-600 text-white p-2 rounded  leading-none">{{trans('file.Sent')}}</div></td>
                             @else
-                            <td><div class="badge badge-danger">{{trans('file.Pending')}}</div></td>
+                            <td><div class="bg-red-600 text-white p-2 rounded  leading-none">{{trans('file.Pending')}}</div></td>
                             @endif
                         </tr>
                         @endforeach
@@ -337,9 +337,9 @@
                             <td>{{number_format((float) $transfer->grand_total, 2, '.', '')}}</td>
 
                             @if($transfer->status == 1)
-                            <td><div class="badge badge-success">{{trans('file.Completed')}}</div></td>
+                            <td><div class="bg-green-600 text-white p-2 rounded  leading-none">{{trans('file.Completed')}}</div></td>
                             @elseif($transfer->status == 2)
-                            <td><div class="badge badge-danger">{{trans('file.Pending')}}</div></td>
+                            <td><div class="bg-red-600 text-white p-2 rounded  leading-none">{{trans('file.Pending')}}</div></td>
                             @else
                             <td><div class="badge badge-warning">{{trans('file.Sent')}}</div></td>
                             @endif

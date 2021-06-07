@@ -6,14 +6,22 @@
   <div class="alert alert-danger alert-dismissible text-center"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>{{ session()->get('not_permitted') }}</div> 
 @endif
 <section>
-    <div class="container-fluid">
-        @if(in_array("billers-add", $all_permission))
-        <a href="{{route('biller.create')}}" class="btn btn-info"><i class="dripicons-plus"></i> {{trans('file.Add Biller')}}</a>&nbsp;
-        <a href="#" data-toggle="modal" data-target="#importbiller" class="btn btn-primary"><i class="dripicons-copy"></i> {{trans('file.Import Biller')}}</a>
-        @endif
-    </div>
+ 
+    <div class="flex flex-wrap px-3 mx-auto">
+        <div class="w-full mt-2">
+            <div class="brand-text float-left">
+                <h3>{{trans("file.Biller")}} </h3>
+            </div>
+            @if(in_array("billers-add", $all_permission))
+            <div class="float-right">
+                <a href="{{route('biller.create')}}" class="align-middle text-center select-none border font-normal whitespace-no-wrap rounded py-1 px-3 leading-normal no-underline bg-blue-600 text-white hover:bg-blue-600"><i class="dripicons-plus"></i> {{trans('file.Add Biller')}}</a>&nbsp;
+                <a href="#" data-toggle="modal" data-target="#importbiller" class="align-middle text-center select-none border font-normal whitespace-no-wrap rounded py-1 px-3 leading-normal no-underline bg-blue-600 text-white hover:bg-blue-600"><i class="dripicons-copy"></i> {{trans('file.Import Biller')}}</a>
+            </div>
+            @endif
+        </div>
+      </div>
     <div class="table-responsive">
-        <table id="biller-table" class="table">
+        <table id="biller-table" class="table" style="width: 100%">
             <thead>
                 <tr>
                     <th class="not-exported"></th>
@@ -100,7 +108,7 @@
                 <div class="col-md-6">
                     <div class="form-group">
                         <label> {{trans('file.Sample File')}}</label>
-                        <a href="public/sample_file/sample_biller.csv" class="btn btn-info btn-block btn-md"><i class="dripicons-download"></i> {{trans('file.Download')}}</a>
+                        <a href="public/sample_file/sample_biller.csv" class="align-middle text-center select-none border font-normal whitespace-no-wrap rounded py-1 px-3 leading-normal no-underline bg-blue-600 text-white hover:bg-blue-600 btn-block btn-md"><i class="dripicons-download"></i> {{trans('file.Download')}}</a>
                     </div>
                 </div>
             </div>

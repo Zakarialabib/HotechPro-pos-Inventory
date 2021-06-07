@@ -7,13 +7,20 @@
 @endif
 
 <section>
-    <div class="container-fluid">
-        @if(in_array("quotes-add", $all_permission))
-            <a href="{{route('quotations.create')}}" class="btn btn-info"><i class="dripicons-plus"></i> {{trans('file.Add Quotation')}}</a>
-        @endif
-    </div>
+    <div class="flex flex-wrap px-3 mx-auto">
+        <div class="w-full mt-2">
+            <div class="brand-text float-left">
+                <h3>{{trans("file.Quotation")}} </h3>
+            </div>
+            @if(in_array("quotes-add", $all_permission))
+            <div class="float-right">
+                <a href="{{route('quotations.create')}}" class="align-middle text-center select-none border font-normal whitespace-no-wrap rounded py-1 px-3 leading-normal no-underline bg-blue-600 text-white hover:bg-blue-600"><i class="dripicons-plus"></i> {{trans('file.Add Quotation')}}</a>
+            </div>
+            @endif
+        </div>
+      </div>
     <div class="table-responsive">
-        <table id="quotation-table" class="table quotation-list">
+        <table id="quotation-table" style="width: 100%" class="table quotation-list max-w-full">
             <thead>
                 <tr>
                     <th class="not-exported"></th>
@@ -47,9 +54,9 @@
                     <td>N/A</td>
                     @endif
                     @if($quotation->quotation_status == 1)
-                        <td><div class="badge badge-danger">{{$status}}</div></td>
+                        <td><div class="bg-red-600 text-white p-2 rounded  leading-none">{{$status}}</div></td>
                     @else
-                        <td><div class="badge badge-success">{{$status}}</div></td>
+                        <td><div class="bg-green-600 text-white p-2 rounded  leading-none">{{$status}}</div></td>
                     @endif
                     <td>{{ $quotation->grand_total }}</td>
                     <td>

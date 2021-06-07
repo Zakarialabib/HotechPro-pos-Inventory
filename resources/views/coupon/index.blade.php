@@ -12,7 +12,7 @@
 
 <section>
     <div class="container-fluid">
-        <button class="btn btn-info" data-toggle="modal" data-target="#create-modal"><i class="dripicons-plus"></i> {{trans('file.Add Coupon')}}</button>
+        <button class="align-middle text-center select-none border font-normal whitespace-no-wrap rounded py-1 px-3 leading-normal no-underline bg-blue-600 text-white hover:bg-blue-600" data-toggle="modal" data-target="#create-modal"><i class="dripicons-plus"></i> {{trans('file.Add Coupon')}}</button>
     </div>
     <div class="table-responsive">
         <table id="coupon-table" class="table">
@@ -51,14 +51,14 @@
                     @endif
                     <td>{{ $coupon->quantity }}</td>
                     @if($coupon->quantity - $coupon->used)
-                    <td class="text-center"><div class="badge badge-success">{{ $coupon->quantity - $coupon->used }}</div></td>
+                    <td class="text-center"><div class="bg-green-600 text-white p-2 rounded  leading-none">{{ $coupon->quantity - $coupon->used }}</div></td>
                     @else
-                    <td class="text-center"><div class="badge badge-danger">{{ $coupon->quantity - $coupon->used }}</div></td>
+                    <td class="text-center"><div class="bg-red-600 text-white p-2 rounded  leading-none">{{ $coupon->quantity - $coupon->used }}</div></td>
                     @endif
                     @if($coupon->expired_date >= date("Y-m-d"))
-                      <td><div class="badge badge-success">{{date('d-m-Y', strtotime($coupon->expired_date))}}</div></td>
+                      <td><div class="bg-green-600 text-white p-2 rounded  leading-none">{{date('d-m-Y', strtotime($coupon->expired_date))}}</div></td>
                     @else
-                      <td><div class="badge badge-danger">{{date('d-m-Y', strtotime($coupon->expired_date))}}</div></td>
+                      <td><div class="bg-red-600 text-white p-2 rounded  leading-none">{{date('d-m-Y', strtotime($coupon->expired_date))}}</div></td>
                     @endif
                     <td>{{ $created_by->name }}</td>
                     <td>

@@ -8,7 +8,7 @@
 
 <section>
     <div class="table-responsive">
-        <table id="delivery-table" class="table">
+        <table id="delivery-table" class="table" style="width: 100%">
             <thead>
                 <tr>
                     <th class="not-exported"></th>
@@ -71,7 +71,7 @@
             </tbody>
         </table>
     </div>
-</seaction>
+</section>
 
 <!-- Modal -->
 <div id="delivery-details" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" class="modal fade text-left">

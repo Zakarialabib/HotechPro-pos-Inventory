@@ -21,6 +21,7 @@ Route::group(['middleware' => ['auth', 'active']], function() {
 
 	Route::get('/', 'HomeController@index');
 	Route::get('/dashboard-filter/{start_date}/{end_date}', 'HomeController@dashboardFilter');
+	Route::get('check-batch-availability/{product_id}/{batch_no}/{warehouse_id}', 'ProductController@checkBatchAvailability');
 
 	Route::get('language_switch/{locale}', 'LanguageController@switchLanguage');
 
@@ -94,8 +95,6 @@ Route::group(['middleware' => ['auth', 'active']], function() {
 	Route::resource('biller', 'BillerController');
 
 	Route::post('sales/sale-data', 'SaleController@saleData');
-	Route::get('sales/messages/{id}', 'SaleController@messages')->name('sale.messages');
-	Route::post('sales/messages/{id}', 'SaleController@messages')->name('sale.messages');
 	Route::post('sales/sendmail', 'SaleController@sendMail')->name('sale.sendmail');
 	Route::get('sales/sale_by_csv', 'SaleController@saleByCsv');
 	Route::get('sales/product_sale/{id}','SaleController@productSaleData');
@@ -132,6 +131,16 @@ Route::group(['middleware' => ['auth', 'active']], function() {
 	Route::post('delivery/deletebyselection', 'DeliveryController@deleteBySelection');
 	Route::post('delivery/delete/{id}', 'DeliveryController@delete')->name('delivery.delete');
 
+	Route::get('message', 'MessageController@index')->name('message.index');
+	Route::get('message/product_message/{id}','MessageController@productMessageData');
+	Route::get('message/create/{id}', 'MessageController@create');
+	Route::post('message/store', 'MessageController@store')->name('message.store');
+	Route::post('message/sendmail', 'MessageController@sendMail')->name('message.sendMail');
+	Route::get('message/{id}/edit', 'MessageController@edit');
+	Route::post('message/update', 'MessageController@update')->name('message.update');
+	Route::post('message/deletebyselection', 'MessageController@deleteBySelection');
+	Route::post('message/delete/{id}', 'MessageController@delete')->name('message.delete');
+
 	Route::get('quotations/product_quotation/{id}','QuotationController@productQuotationData');
 	Route::get('quotations/lims_product_search', 'QuotationController@limsProductSearch')->name('product_quotation.search');
 	Route::get('quotations/getcustomergroup/{id}', 'QuotationController@getCustomerGroup')->name('quotation.getcustomergroup');
@@ -143,7 +152,7 @@ Route::group(['middleware' => ['auth', 'active']], function() {
 	Route::post('quotations/deletebyselection', 'QuotationController@deleteBySelection');
 	Route::resource('quotations', 'QuotationController');
 
-	Route::post('purchases/purchase-data', 'PurchaseController@purchaseData');
+	Route::post('purchases/purchase-data', 'PurchaseController@purchaseData')->name('purchases.data');
 	Route::get('purchases/product_purchase/{id}','PurchaseController@productPurchaseData');
 	Route::get('purchases/lims_product_search', 'PurchaseController@limsProductSearch')->name('product_purchase.search');
 	Route::post('purchases/add_payment', 'PurchaseController@addPayment')->name('purchase.add-payment');
@@ -199,6 +208,7 @@ Route::group(['middleware' => ['auth', 'active']], function() {
 	Route::post('report/best_seller', 'ReportController@bestSellerByWarehouse')->name('report.bestSellerByWarehouse');
 	Route::post('report/profit_loss', 'ReportController@profitLoss')->name('report.profitLoss');
 	Route::post('report/product_report', 'ReportController@productReport')->name('report.product');
+	Route::post('report/product_report_data', 'ReportController@productReportData');
 	Route::post('report/purchase', 'ReportController@purchaseReport')->name('report.purchase');
 	Route::post('report/sale_report', 'ReportController@saleReport')->name('report.sale');
 	Route::post('report/payment_report_by_date', 'ReportController@paymentReportByDate')->name('report.paymentByDate');
@@ -208,6 +218,7 @@ Route::group(['middleware' => ['auth', 'active']], function() {
 	Route::post('report/supplier', 'ReportController@supplierReport')->name('report.supplier');
 	Route::post('report/due_report_by_date', 'ReportController@dueReportByDate')->name('report.dueByDate');
 
+	Route::post('user/status', 'UserController@status')->name('user.status');
 	Route::get('user/profile/{id}', 'UserController@profile')->name('user.profile');
 	Route::put('user/update_profile/{id}', 'UserController@profileUpdate')->name('user.profileUpdate');
 	Route::put('user/changepass/{id}', 'UserController@changePassword')->name('user.password');

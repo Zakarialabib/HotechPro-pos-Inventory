@@ -7,11 +7,18 @@
 @endif
 
 <section>
-    <div class="mx-auto px-2 max-w-full mx-auto">
-        <button class="align-middle text-center select-none border font-normal whitespace-no-wrap rounded py-1 px-3 leading-normal no-underline bg-blue-600 text-white hover:bg-blue-600" data-toggle="modal" data-target="#activity-modal"><i class="dripicons-plus"></i> {{trans('file.Add Activity')}} </button>
-    </div>
-    <div class="block w-full overflow-auto scrolling-touch">
-        <table id="activity-table" class="w-full max-w-full mb-4 bg-transparent">
+    <div class="flex flex-wrap px-3 mx-auto">
+        <div class="w-full mt-2">
+            <div class="brand-text float-left">
+                <h3>{{trans("file.Activity")}} </h3>
+            </div>
+            <div class="float-right">
+                <button class="align-middle text-center select-none border font-normal whitespace-no-wrap rounded py-1 px-3 leading-normal no-underline bg-blue-600 text-white hover:bg-blue-600" data-toggle="modal" data-target="#activity-modal"><i class="dripicons-plus"></i> {{trans('file.Add Activity')}} </button>
+            </div>
+        </div>
+      </div>
+    <div class="table-responsive scrolling-touch">
+        <table id="activity-table" class="table">
             <thead>
                 <tr>
                     <th class="not-exported"></th>

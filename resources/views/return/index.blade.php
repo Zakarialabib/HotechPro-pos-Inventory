@@ -7,11 +7,18 @@
 @endif
 
 <section>
-    <div class="container-fluid">
-        @if(in_array("returns-add", $all_permission))
-            <a href="{{route('return-sale.create')}}" class="btn btn-info"><i class="dripicons-plus"></i> {{trans('file.Add Return')}}</a>
-        @endif
-    </div>
+    <div class="flex flex-wrap px-3 mx-auto">
+        <div class="w-full mt-2">
+            <div class="brand-text float-left">
+                <h3>{{trans("file.Return")}} </h3>
+            </div>
+            @if(in_array("returns-add", $all_permission))
+            <div class="float-right">
+                <a href="{{route('return-sale.create')}}" class="align-middle text-center select-none border font-normal whitespace-no-wrap rounded py-1 px-3 leading-normal no-underline bg-blue-600 text-white hover:bg-blue-600"><i class="dripicons-plus"></i> {{trans('file.Add Return')}}</a>
+            </div>
+            @endif
+        </div>
+      </div>
     <div class="table-responsive">
         <table id="return-table" class="table return-list">
             <thead>

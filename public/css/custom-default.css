@@ -1210,10 +1210,6 @@ section.pos-section{
 	}
 }
 
-.checkbox input[type="checkbox"] {
-    display: none;
-}
-
 .checkbox label {
     cursor: pointer;
     vertical-align: top

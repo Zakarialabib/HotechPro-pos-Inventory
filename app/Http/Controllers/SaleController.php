@@ -15,6 +15,7 @@ use App\Unit;
 use App\Tax;
 use App\Sale;
 use App\Delivery;
+use App\Message;
 use App\PosSetting;
 use App\Product_Sale;
 use App\Product_Warehouse;
@@ -78,8 +79,9 @@ class SaleController extends Controller
             $lims_pos_setting_data = PosSetting::latest()->first();
             $lims_warehouse_list = Warehouse::where('is_active', true)->get();
             $lims_account_list = Account::where('is_active', true)->get();
+            $lims_biller_list = Biller::where('is_active', true)->get();
 
-            return view('sale.index',compact('starting_date', 'ending_date', 'warehouse_id', 'lims_gift_card_list', 'lims_pos_setting_data', 'lims_account_list', 'lims_warehouse_list', 'all_permission'));
+            return view('sale.index',compact('starting_date','lims_biller_list', 'ending_date', 'warehouse_id', 'lims_gift_card_list', 'lims_pos_setting_data', 'lims_account_list', 'lims_warehouse_list', 'all_permission'));
         }
         else
             return redirect()->back()->with('not_permitted', 'Sorry! You are not allowed to access this module');
@@ -190,11 +192,11 @@ class SaleController extends Controller
                 $nestedData['customer'] = $sale->customer->name;
 
                 if($sale->sale_status == 1){
-                    $nestedData['sale_status'] = '<div class="badge badge-success">'.trans('file.Completed').'</div>';
+                    $nestedData['sale_status'] = '<div class="bg-green-600 text-white p-2 rounded  leading-none">'.trans('file.Completed').'</div>';
                     $sale_status = trans('file.Completed');
                 }
                 elseif($sale->sale_status == 2){
-                    $nestedData['sale_status'] = '<div class="badge badge-danger">'.trans('file.Pending').'</div>';
+                    $nestedData['sale_status'] = '<div class="bg-red-600 text-white p-2 rounded  leading-none">'.trans('file.Pending').'</div>';
                     $sale_status = trans('file.Pending');
                 }
                 else{
@@ -203,13 +205,13 @@ class SaleController extends Controller
                 }
 
                 if($sale->payment_status == 1)
-                    $nestedData['payment_status'] = '<div class="badge badge-danger">'.trans('file.Pending').'</div>';
+                    $nestedData['payment_status'] = '<div class="bg-red-600 text-white p-2 rounded  leading-none">'.trans('file.Pending').'</div>';
                 elseif($sale->payment_status == 2)
-                    $nestedData['payment_status'] = '<div class="badge badge-danger">'.trans('file.Due').'</div>';
+                    $nestedData['payment_status'] = '<div class="bg-yellow-600 text-white p-2 rounded  leading-none">'.trans('file.Due').'</div>';
                 elseif($sale->payment_status == 3)
                     $nestedData['payment_status'] = '<div class="badge badge-warning">'.trans('file.Partial').'</div>';
                 else
-                    $nestedData['payment_status'] = '<div class="badge badge-success">'.trans('file.Paid').'</div>';
+                    $nestedData['payment_status'] = '<div class="bg-green-600 text-white p-2 rounded  leading-none">'.trans('file.Paid').'</div>';
 
                 $nestedData['grand_total'] = number_format($sale->grand_total, 2);
                 $nestedData['paid_amount'] = number_format($sale->paid_amount, 2);
@@ -241,6 +243,9 @@ class SaleController extends Controller
                     <li>
                         <button type="button" class="get-payment btn btn-link" data-id = "'.$sale->id.'"><i class="fa fa-money"></i> '.trans('file.View Payment').'</button>
                     </li>
+                    <li>
+                    <button type="button" class="add-message btn btn-link" data-id = "'.$sale->id.'"><i class="fa fa-envelope"></i> '.trans('file.Add Message').'</button>
+                   </li>
                     <li>
                         <button type="button" class="add-delivery btn btn-link" data-id = "'.$sale->id.'"><i class="fa fa-truck"></i> '.trans('file.Add Delivery').'</button>
                     </li>';
@@ -2090,6 +2095,7 @@ class SaleController extends Controller
             $lims_sale_data = Sale::find($id);
             $lims_product_sale_data = Product_Sale::where('sale_id', $id)->get();
             $lims_delivery_data = Delivery::where('sale_id',$id)->first();
+            $lims_message_data = Message::where('sale_id',$id)->first();
             if($lims_sale_data->sale_status == 3)
                 $message = 'Draft deleted successfully';
             else
@@ -2169,6 +2175,8 @@ class SaleController extends Controller
             }
             if($lims_delivery_data)
                 $lims_delivery_data->delete();
+            if($lims_message_data)
+            $lims_message_data->delete();
             if($lims_sale_data->coupon_id) {
                 $lims_coupon_data = Coupon::find($lims_sale_data->coupon_id);
                 $lims_coupon_data->used -= 1;
@@ -2185,6 +2193,7 @@ class SaleController extends Controller
         $lims_sale_data = Sale::find($id);
         $lims_product_sale_data = Product_Sale::where('sale_id', $id)->get();
         $lims_delivery_data = Delivery::where('sale_id',$id)->first();
+        $lims_message_data = Message::where('sale_id',$id)->first();
         if($lims_sale_data->sale_status == 3)
             $message = 'Draft deleted successfully';
         else
@@ -2264,6 +2273,8 @@ class SaleController extends Controller
         }
         if($lims_delivery_data)
             $lims_delivery_data->delete();
+        if($lims_message_data)
+           $lims_message_data->delete();
         if($lims_sale_data->coupon_id) {
             $lims_coupon_data = Coupon::find($lims_sale_data->coupon_id);
             $lims_coupon_data->used -= 1;

@@ -48,7 +48,7 @@
             <ul id="product" class="collapse list-unstyled ">
               <li id="category-menu"><a href="{{route('category.index')}}">{{__('file.category')}}</a></li>
               @if($index_permission_active)
-              <li id="product-list-menu"><a href="{{route('products.index')}}">{{__('file.product_list')}}</a></li>
+              <li id="product-list-menu"><a href="{{route('products.index')}}">{{__('file.Product List')}}</a></li>
               <?php 
                 $add_permission = DB::table('permissions')->where('name', 'products-add')->first();
                 $add_permission_active = DB::table('role_has_permissions')->where([
@@ -770,7 +770,7 @@
                                             @if($lims_pos_setting_data)
                                             <input type="hidden" name="warehouse_id_hidden" value="{{$lims_pos_setting_data->warehouse_id}}">
                                             @endif
-                                            <select required id="warehouse_id" name="warehouse_id" class="selectpicker form-control" data-live-search="true" data-live-search-style="begins" title="Select warehouse...">
+                                            <select required id="warehouse_id" name="warehouse_id" class="selectpicker form-control" data-live-search="true" data-live-search-style="begins" title="{{trans('file.Select warehouse...')}}">
                                                 @foreach($lims_warehouse_list as $warehouse)
                                                 <option value="{{$warehouse->id}}">{{$warehouse->name}}</option>
                                                 @endforeach
@@ -1159,7 +1159,7 @@
                             @endif
                             @if(($alert_product + count(\Auth::user()->unreadNotifications)) > 0)
                             <li class="nav-item" id="notification-icon">
-                                  <a rel="nofollow" data-target="#" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link dropdown-item"><i class="dripicons-bell"></i><span class="badge badge-danger notification-number">{{$alert_product + count(\Auth::user()->unreadNotifications)}}</span>
+                                  <a rel="nofollow" data-target="#" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link dropdown-item"><i class="dripicons-bell"></i><span class="bg-red-600 text-white p-2 rounded  leading-none notification-number">{{$alert_product + count(\Auth::user()->unreadNotifications)}}</span>
                                       <span class="caret"></span>
                                       <span class="sr-only">Toggle Dropdown</span>
                                   </a>
@@ -1539,7 +1539,7 @@
                         <div class="row">
                           <div class="col-md-6 form-group warehouse-section">
                               <label>{{trans('file.Warehouse')}} *</strong> </label>
-                              <select required name="warehouse_id" class="selectpicker form-control" data-live-search="true" data-live-search-style="begins" title="Select warehouse...">
+                              <select required name="warehouse_id" class="selectpicker form-control" data-live-search="true" data-live-search-style="begins" title="{{trans('file.Select warehouse...')}}">
                                   @foreach($lims_warehouse_list as $warehouse)
                                   <option value="{{$warehouse->id}}">{{$warehouse->name}}</option>
                                   @endforeach

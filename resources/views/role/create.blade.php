@@ -16,7 +16,7 @@
         <a href="#" data-toggle="modal" data-target="#createModal" class="btn btn-info"><i class="dripicons-plus"></i> {{trans('file.Add Role')}} </a>
     </div>
     <div class="table-responsive">
-        <table id="role-table" class="table table-hover">
+        <table id="role-table" class="table table-hover" style="width: 100%">
             <thead>
                 <tr>
                     <th class="not-exported"></th>

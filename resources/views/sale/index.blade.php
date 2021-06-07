@@ -7,55 +7,49 @@
 @endif
 
 <section>
-    <div class="container-fluid">
-        <div class="card">
-            <div class="card-header mt-2">
-                <h3 class="text-center">{{trans('file.Sale List')}}</h3>
-            </div>
-            {!! Form::open(['route' => 'sales.index', 'method' => 'get']) !!}
-            <div class="row mb-3">
-                <div class="col-md-4 offset-md-2 mt-3">
-                    <div class="form-group row">
-                        <label class="d-tc mt-2"><strong>{{trans('file.Choose Your Date')}}</strong> &nbsp;</label>
-                        <div class="d-tc">
-                            <div class="input-group">
-                                <input type="text" class="daterangepicker-field form-control" value="{{$starting_date}} To {{$ending_date}}" required />
-                                <input type="hidden" name="starting_date" value="{{$starting_date}}" />
-                                <input type="hidden" name="ending_date" value="{{$ending_date}}" />
-                            </div>
-                        </div>
-                    </div>
+    <div class="flex flex-wrap px-3 mx-auto">
+        <div class="w-full mt-2">
+            <div class="brand-text float-left">
+               <h3 >{{trans('file.Sale List')}}</h3>
+           </div>
+            @if(in_array("sales-add", $all_permission))
+                <div class="float-right">
+                    <a href="{{route('sales.create')}}" class="align-middle text-center select-none border font-normal whitespace-no-wrap rounded py-1 px-3 leading-normal no-underline bg-blue-600 text-white hover:bg-blue-600"><i class="dripicons-plus"></i> {{trans('file.Add Sale')}}</a>&nbsp;
+                    <a href="{{url('sales/sale_by_csv')}}" class="align-middle text-center select-none border font-normal whitespace-no-wrap rounded py-1 px-3 leading-normal no-underline bg-blue-600 text-white hover:bg-blue-600"><i class="dripicons-copy"></i> {{trans('file.Import Sale')}}</a>
                 </div>
-                <div class="col-md-4 mt-3 @if(\Auth::user()->role_id > 2){{'d-none'}}@endif">
-                    <div class="form-group row">
-                        <label class="d-tc mt-2"><strong>{{trans('file.Choose Warehouse')}}</strong> &nbsp;</label>
-                        <div class="d-tc">
-                            <select id="warehouse_id" name="warehouse_id" class="selectpicker form-control" data-live-search="true" data-live-search-style="begins" >
-                                <option value="0">{{trans('file.All Warehouse')}}</option>
-                                @foreach($lims_warehouse_list as $warehouse)
-                                    @if($warehouse->id == $warehouse_id)
-                                        <option selected value="{{$warehouse->id}}">{{$warehouse->name}}</option>
-                                    @else
-                                        <option value="{{$warehouse->id}}">{{$warehouse->name}}</option>
-                                    @endif
-                                @endforeach
-                            </select>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-2 mt-3">
-                    <div class="form-group">
-                        <button class="btn btn-primary" id="filter-btn" type="submit">{{trans('file.submit')}}</button>
-                    </div>
-                </div>
-            </div>
-            {!! Form::close() !!}
+            @endif
         </div>
-        @if(in_array("sales-add", $all_permission))
-            <a href="{{route('sales.create')}}" class="btn btn-info"><i class="dripicons-plus"></i> {{trans('file.Add Sale')}}</a>&nbsp;
-            <a href="{{url('sales/sale_by_csv')}}" class="btn btn-primary"><i class="dripicons-copy"></i> {{trans('file.Import Sale')}}</a>
-        @endif
     </div>
+            {!! Form::open(['route' => 'sales.index', 'method' => 'get']) !!}
+            <div class="sm:grid sm:grid-flow-row sm:gap-4 sm:grid-cols-3 px-3 mt-2 bg-white">
+            <div class="flex flex-col justify-center px-2 py-2">
+                <label for=""> {{trans('file.Choose Your Date')}}
+                        <div class="input-group">
+                            <input type="text" class="form-control daterangepicker-field" value="{{$starting_date}} To {{$ending_date}}" required />
+                            <input type="hidden" name="starting_date" value="{{$starting_date}}" />
+                            <input type="hidden" name="ending_date" value="{{$ending_date}}" />
+                        </div>
+                </label>
+            </div>
+            <div class="flex flex-col justify-center px-2 py-2">
+                <label for="warehouse_id" @if(\Auth::user()->role_id > 2){{'d-none'}}@endif>{{trans('file.Choose Warehouse')}}
+                <select id="warehouse_id" name="warehouse_id" class="selectpicker form-control" data-live-search="true" data-live-search-style="begins" >
+                    <option value="0">{{trans('file.All Warehouse')}}</option>
+                    @foreach($lims_warehouse_list as $warehouse)
+                        @if($warehouse->id == $warehouse_id)
+                            <option selected value="{{$warehouse->id}}">{{$warehouse->name}}</option>
+                        @else
+                            <option value="{{$warehouse->id}}">{{$warehouse->name}}</option>
+                        @endif
+                    @endforeach
+                </select>
+                </label>
+            </div>
+            <div class="flex flex-col justify-center px-2 py-2">
+                <button class="align-middle text-center select-none border font-normal whitespace-no-wrap rounded py-1 px-3 leading-normal no-underline bg-blue-600 text-white hover:bg-blue-600" id="filter-btn" type="submit">{{trans('file.submit')}}</button>
+            </div>
+        </div>
+            {!! Form::close() !!}
     <div class="table-responsive">
         <table id="sale-table" class="table sale-list" style="width: 100%">
             <thead>
@@ -338,11 +332,11 @@
                 <div class="row">
                     <div class="col-md-6 form-group">
                         <label>{{trans('file.Delivery Reference')}}</label>
-                        <p id="dr"></p>
+                        <p id="delivery_reference"></p>
                     </div>
                     <div class="col-md-6 form-group">
                         <label>{{trans('file.Sale Reference')}}</label>
-                        <p id="sr"></p>
+                        <p id="sale_reference"></p>
                     </div>
                     <div class="col-md-12 form-group">
                         <label>{{trans('file.Status')}} *</label>
@@ -362,7 +356,7 @@
                     </div>
                     <div class="col-md-6 form-group">
                         <label>{{trans('file.customer')}} *</label>
-                        <p id="customer"></p>
+                        <p id="customer_id"></p>
                     </div>
                     <div class="col-md-6 form-group">
                         <label>{{trans('file.Attach File')}}</label>
@@ -375,6 +369,63 @@
                     <div class="col-md-6 form-group">
                         <label>{{trans('file.Note')}}</label>
                         <textarea rows="3" name="note" class="form-control"></textarea>
+                    </div>
+                </div>
+                <input type="hidden" name="reference_no">
+                <input type="hidden" name="sale_id">
+                <button type="submit" class="btn btn-primary">{{trans('file.submit')}}</button>
+                {{ Form::close() }}
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="add-message" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" class="modal fade text-left">
+    <div role="document" class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 id="exampleModalLabel" class="modal-title">{{trans('file.Add Message')}}</h5>
+                <button type="button" data-dismiss="modal" aria-label="Close" class="close"><span aria-hidden="true"><i class="dripicons-cross"></i></span></button>
+            </div>
+            <div class="modal-body">
+                {!! Form::open(['route' => 'message.store', 'method' => 'post', 'files' => true]) !!}
+                <div class="row">
+                    <div class="col-md-6 form-group">
+                        <label>{{trans('file.Message Reference')}}</label>
+                        <p id="dr"></p>
+                    </div>
+                    <div class="col-md-6 form-group">
+                        <label>{{trans('file.Sale Reference')}}</label>
+                        <p id="sr"></p>
+                    </div>
+                    <div class="col-md-6 form-group">
+                        <label>{{trans('file.Status')}} *</label>
+                        <select name="status" required class="form-control selectpicker">
+                            <option value="1">{{trans('file.Packing')}}</option>
+                            <option value="2">{{trans('file.Delivering')}}</option>
+                            <option value="3">{{trans('file.Delivered')}}</option>
+                        </select>
+                    </div>
+                    <div class="col-md-6 form-group">
+                        <label>{{trans('file.Biller')}} *</label>
+                        <select required name="biller_id" class="selectpicker form-control" data-live-search="true" data-live-search-style="begins" title="Select Biller...">
+                            @foreach($lims_biller_list as $biller)
+                            <option value="{{$biller->id}}">{{$biller->name . ' (' . $biller->company_name . ')'}}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <div class="col-md-6 form-group">
+                        <label>{{trans('file.customer')}} *</label>
+                        <p id="customer"></p>
+                    </div>
+                    <div class="col-md-6 form-group">
+                        <label>{{trans('file.Attach File')}}</label>
+                        <input type="file" name="file" class="form-control">
+                    </div>
+                  
+                    <div class="col-md-12 form-group">
+                        <label>{{trans('file.Message')}}</label>
+                        <textarea rows="3" name="message" class="form-control"></textarea>
                     </div>
                 </div>
                 <input type="hidden" name="reference_no">
@@ -694,20 +745,38 @@
     $(document).on("click", "table.sale-list tbody .add-delivery", function(event) {
         var id = $(this).data('id').toString();
         $.get('delivery/create/'+id, function(data) {
-            $('#dr').text(data[0]);
-            $('#sr').text(data[1]);
+            $('#delivery_reference').text(data[0]);
+            $('#sale_reference').text(data[1]);
             if(data[2]){
                 $('select[name="status"]').val(data[2]);
                 $('.selectpicker').selectpicker('refresh');
             }
             $('input[name="delivered_by"]').val(data[3]);
             $('input[name="recieved_by"]').val(data[4]);
-            $('#customer').text(data[5]);
+            $('#customer_id').text(data[5]);
             $('textarea[name="address"]').val(data[6]);
             $('textarea[name="note"]').val(data[7]);
             $('input[name="reference_no"]').val(data[0]);
             $('input[name="sale_id"]').val(id);
             $('#add-delivery').modal('show');
+        });
+    });
+
+    $(document).on("click", "table.sale-list tbody .add-message", function(event) {
+        var id = $(this).data('id').toString();
+        $.get('message/create/'+id, function(data) {
+            $('#dr').text(data[0]);
+            $('#sr').text(data[1]);
+            if(data[2]){
+                $('select[name="status"]').val(data[2]);
+                $('.selectpicker').selectpicker('refresh');
+            }
+            $('#biller').text(data[4]);
+            $('#customer').text(data[5]);
+            $('textarea[name="message"]').val(data[7]);
+            $('input[name="reference_no"]').val(data[0]);
+            $('input[name="sale_id"]').val(id);
+            $('#add-message').modal('show');
         });
     });
 

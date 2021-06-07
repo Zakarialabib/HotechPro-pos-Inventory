@@ -161,6 +161,15 @@ class UserController extends Controller
         return view('user.profile', compact('lims_user_data'));
     }
 
+    public function status(Request $request)
+    {
+
+        $po = User::find($request->user_id);
+        $po->is_active = $request->is_active;
+        $po->save();
+
+        return redirect()->back();
+    }
     public function profileUpdate(Request $request, $id)
     {
         if(!env('USER_VERIFIED'))

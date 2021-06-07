@@ -170,26 +170,26 @@ class PurchaseController extends Controller
                 }
                 $nestedData['supplier'] = $supplier->name;
                 if($purchase->status == 1){
-                    $nestedData['purchase_status'] = '<div class="badge badge-success">'.trans('file.Recieved').'</div>';
+                    $nestedData['purchase_status'] = '<div class="bg-green-600 text-white p-2 rounded  leading-none">'.trans('file.Recieved').'</div>';
                     $purchase_status = trans('file.Recieved');
                 }
                 elseif($purchase->status == 2){
-                    $nestedData['purchase_status'] = '<div class="badge badge-success">'.trans('file.Partial').'</div>';
+                    $nestedData['purchase_status'] = '<div class="bg-yellow-600 text-white p-2 rounded  leading-none">'.trans('file.Partial').'</div>';
                     $purchase_status = trans('file.Partial');
                 }
                 elseif($purchase->status == 3){
-                    $nestedData['purchase_status'] = '<div class="badge badge-danger">'.trans('file.Pending').'</div>';
+                    $nestedData['purchase_status'] = '<div class="bg-yellow-600 text-white p-2 rounded  leading-none">'.trans('file.Pending').'</div>';
                     $purchase_status = trans('file.Pending');
                 }
                 else{
-                    $nestedData['purchase_status'] = '<div class="badge badge-danger">'.trans('file.Ordered').'</div>';
+                    $nestedData['purchase_status'] = '<div class="bg-red-600 text-white p-2 rounded  leading-none">'.trans('file.Ordered').'</div>';
                     $purchase_status = trans('file.Ordered');
                 }
 
                 if($purchase->payment_status == 1)
-                    $nestedData['payment_status'] = '<div class="badge badge-danger">'.trans('file.Due').'</div>';
+                    $nestedData['payment_status'] = '<div class="bg-yellow-600 text-white p-2 rounded  leading-none">'.trans('file.Due').'</div>';
                 else
-                    $nestedData['payment_status'] = '<div class="badge badge-success">'.trans('file.Paid').'</div>';
+                    $nestedData['payment_status'] = '<div class="bg-green-600 text-white p-2 rounded  leading-none">'.trans('file.Paid').'</div>';
 
                 $nestedData['grand_total'] = number_format($purchase->grand_total, 2);
                 $nestedData['paid_amount'] = number_format($purchase->paid_amount, 2);

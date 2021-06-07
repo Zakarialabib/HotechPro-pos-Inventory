@@ -8,6 +8,15 @@
 @endif
 
 <section>
+  <div class="flex flex-wrap px-3 mx-auto">
+    <div class="w-full mt-2">
+        <div class="brand-text float-left">
+            <h3>{{trans("file.Cash Register List")}} </h3>
+        </div>
+        <div class="float-right">
+        </div>
+    </div>
+  </div>
     <div class="table-responsive">
         <table id="cash-register-table" class="table">
             <thead>
@@ -32,10 +41,10 @@
                     <td>{{ date($general_setting->date_format . " h:i:s", strtotime($cash_register->created_at)) }}</td>
                     @if($cash_register->status)
                         <td>N/A</td>
-                        <td><div class="badge badge-success">{{trans('file.Active')}}</div></td>
+                        <td><div class="bg-green-600 text-white p-2 rounded  leading-none">{{trans('file.Active')}}</div></td>
                     @else
                         <td>{{ date($general_setting->date_format . " h:i:s", strtotime($cash_register->updated_at)) }}</td>
-                        <td><div class="badge badge-danger">{{trans('file.Closed')}}</div></td>
+                        <td><div class="bg-red-600 text-white p-2 rounded  leading-none">{{trans('file.Closed')}}</div></td>
                     @endif
                     <td>
                         <div class="btn-group">
@@ -120,7 +129,7 @@
           </div>
         </div>
     </div>
-</seaction>
+</section>
 
 <script type="text/javascript">
 

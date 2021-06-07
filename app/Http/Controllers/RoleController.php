@@ -1000,6 +1000,15 @@ class RoleController extends Controller
         }
         else
             $role->revokePermissionTo('delivery');
+        
+        if($request->has('message')){
+            $permission = Permission::firstOrCreate(['name' => 'message']);
+            if(!$role->hasPermissionTo('message')){
+                $role->givePermissionTo($permission);
+            }
+        }
+        else
+            $role->revokePermissionTo('message');
 
         if($request->has('today_sale')) {
             $permission = Permission::firstOrCreate(['name' => 'today_sale']);

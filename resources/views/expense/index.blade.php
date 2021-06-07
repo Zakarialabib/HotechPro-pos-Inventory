@@ -7,39 +7,36 @@
 @endif
 
 <section>
-    <div class="container-fluid">
-        <div class="card">
-            <div class="card-header mt-2">
-                <h3 class="text-center">{{trans('file.Expense List')}}</h3>
+    <div class="flex flex-wrap px-3 mx-auto">
+        <div class="w-full mt-2">
+            <div class="brand-text float-left">
+                <h3 >{{trans('file.Expense List')}}</h3>
             </div>
-            {!! Form::open(['route' => 'expenses.index', 'method' => 'get']) !!}
-            <div class="row mb-3">
-                <div class="col-md-4 offset-md-2 mt-3">
-                    <div class="form-group row">
-                        <label class="d-tc mt-2"><strong>{{trans('file.Choose Your Date')}}</strong> &nbsp;</label>
-                        <div class="d-tc">
-                            <div class="input-group">
-                                <input type="text" class="daterangepicker-field form-control" value="{{$start_date}} To {{$end_date}}" required />
-                                <input type="hidden" name="start_date" value="{{$start_date}}" />
-                                <input type="hidden" name="end_date" value="{{$end_date}}" />
-                            </div>
-                        </div>
-                    </div>
+            @if(in_array("expenses-add", $all_permission))
+                <div class="float-right">
+                        <button class="align-middle text-center select-none border font-normal whitespace-no-wrap rounded py-1 px-3 leading-normal no-underline bg-blue-600 text-white hover:bg-blue-600" data-toggle="modal" data-target="#expense-modal"><i class="dripicons-plus"></i> {{trans('file.Add Expense')}}</button>
                 </div>
-                <div class="col-md-2 mt-3">
-                    <div class="form-group">
-                        <button class="btn btn-primary" type="submit">{{trans('file.submit')}}</button>
-                    </div>
-                </div>
-            </div>
-            {!! Form::close() !!}
+            @endif
         </div>
-        @if(in_array("expenses-add", $all_permission))
-            <button class="btn btn-info" data-toggle="modal" data-target="#expense-modal"><i class="dripicons-plus"></i> {{trans('file.Add Expense')}}</button>
-        @endif
+    </div>         
+    {!! Form::open(['route' => 'expenses.index', 'method' => 'get']) !!}
+    <div class="sm:grid sm:grid-flow-row sm:gap-4 sm:grid-cols-3 px-3 mt-2 bg-white">
+        <div class="flex flex-col justify-center px-2 py-2">
+            <label for=""> {{trans('file.Choose Your Date')}}
+                    <div class="input-group">
+                        <input type="text" class="daterangepicker-field form-control" value="{{$start_date}} To {{$end_date}}" required />
+                        <input type="hidden" name="start_date" value="{{$start_date}}" />
+                        <input type="hidden" name="end_date" value="{{$end_date}}" />
+                    </label>
+                </div>
+                <div class="flex flex-col justify-center px-2 py-2">
+                <button class="btn btn-primary" type="submit">{{trans('file.submit')}}</button>
+        </div>
     </div>
+    {!! Form::close() !!}
+
     <div class="table-responsive">
-        <table id="expense-table" class="table">
+        <table id="expense-table" class="table" style="width: 100%">
             <thead>
                 <tr>
                     <th class="not-exported"></th>
@@ -140,7 +137,7 @@
                         </div>
                         <div class="col-md-6 form-group">
                             <label>{{trans('file.Warehouse')}} *</label>
-                            <select name="warehouse_id" class="selectpicker form-control" required data-live-search="true" data-live-search-style="begins" title="Select Warehouse...">
+                            <select name="warehouse_id" class="selectpicker form-control" required data-live-search="true" data-live-search-style="begins" title="{{trans('file.Select warehouse...')}}">
                                 @foreach($lims_warehouse_list as $warehouse)
                                 <option value="{{$warehouse->id}}">{{$warehouse->name}}</option>
                                 @endforeach

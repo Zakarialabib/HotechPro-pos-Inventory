@@ -210,14 +210,15 @@
                 </div>
               </div>
             </div>
-            {{--  // calendar // 
+         
               <div class="w-1/2 px-2">
               <div class="relative flex flex-col min-w-0 rounded break-words border bg-white border-1 border-gray-300">
               <div class="response"></div>
               <div id='calendar'></div>  
               </div>
-            </div> --}}
-            <div class="w-3/5 px-3 mt-4">
+            </div> 
+
+            <div class="w-1/2 px-3 mt-4">
               <div class="relative flex flex-col min-w-0 rounded break-words border bg-white border-1 border-gray-300">
                 <div class="py-3 px-6 mb-0 bg-blue-700 border-b-1 border-gray-300 text-white flex justify-between items-center" >
                   <h4>{{trans('file.Recent Transaction')}}</h4>
@@ -477,55 +478,8 @@
         }
     });
     
-
     var all_permission = <?php echo json_encode($all_permission) ?>;
 
-
-    // Show and hide color-switcher
-    $(".color-switcher .switcher-button").on('click', function() {
-        $(".color-switcher").toggleClass("show-color-switcher", "hide-color-switcher", 300);
-    });
-
-    // Color Skins
-    $('a.color').on('click', function() {
-        /*var title = $(this).attr('title');
-        $('#style-colors').attr('href', 'css/skin-' + title + '.css');
-        return false;*/
-        $.get('setting/general_setting/change-theme/' + $(this).data('color'), function(data) {
-        });
-        var style_link= $('#custom-style').attr('href').replace(/([^-]*)$/, $(this).data('color') );
-        $('#custom-style').attr('href', style_link);
-    });
-
-    $(".date-btn").on("click", function() {
-        $(".date-btn").removeClass("active");
-        $(this).addClass("active");
-        var start_date = $(this).data('start_date');
-        var end_date = $(this).data('end_date');
-        $.get('dashboard-filter/' + start_date + '/' + end_date, function(data) {
-            dashboardFilter(data);
-        });
-    });
-
-    function dashboardFilter(data){
-        $('.revenue-data').hide();
-        $('.revenue-data').html(parseFloat(data[0]).toFixed(2));
-        $('.revenue-data').show(500);
-
-        $('.return-data').hide();
-        $('.return-data').html(parseFloat(data[1]).toFixed(2));
-        $('.return-data').show(500);
-
-        $('.profit-data').hide();
-        $('.profit-data').html(parseFloat(data[2]).toFixed(2));
-        $('.profit-data').show(500);
-
-        $('.purchase_return-data').hide();
-        $('.purchase_return-data').html(parseFloat(data[3]).toFixed(2));
-        $('.purchase_return-data').show(500);
-    }
-</script>
-<script type="text/javascript">
 
     $(document).ready(function () {
     var SITEURL = "{{url('/')}}";
@@ -559,7 +513,8 @@
               data: 'title=' + title + '&start=' + start + '&end=' + end,
               type: "POST",
             success: function (data) {
-            alert("Creer avec succes");         }
+            alert("Creer avec succes");         
+          }
      });
      calendar.fullCalendar('renderEvent',
              {
@@ -617,10 +572,60 @@ eventClick: function (event) {
 
 });
 });
+
   function displayMessage(message) {
     $(".response").html("<div class='success'>"+message+"</div>");
     setInterval(function() { $(".success").fadeOut(); }, 1000);
   }
+  
+
+    // Show and hide color-switcher
+    $(".color-switcher .switcher-button").on('click', function() {
+        $(".color-switcher").toggleClass("show-color-switcher", "hide-color-switcher", 300);
+    });
+
+    // Color Skins
+    $('a.color').on('click', function() {
+        /*var title = $(this).attr('title');
+        $('#style-colors').attr('href', 'css/skin-' + title + '.css');
+        return false;*/
+        $.get('setting/general_setting/change-theme/' + $(this).data('color'), function(data) {
+        });
+        var style_link= $('#custom-style').attr('href').replace(/([^-]*)$/, $(this).data('color') );
+        $('#custom-style').attr('href', style_link);
+    });
+
+    $(".date-btn").on("click", function() {
+        $(".date-btn").removeClass("active");
+        $(this).addClass("active");
+        var start_date = $(this).data('start_date');
+        var end_date = $(this).data('end_date');
+        $.get('dashboard-filter/' + start_date + '/' + end_date, function(data) {
+            dashboardFilter(data);
+        });
+    });
+
+    function dashboardFilter(data){
+        $('.revenue-data').hide();
+        $('.revenue-data').html(parseFloat(data[0]).toFixed(2));
+        $('.revenue-data').show(500);
+
+        $('.return-data').hide();
+        $('.return-data').html(parseFloat(data[1]).toFixed(2));
+        $('.return-data').show(500);
+
+        $('.profit-data').hide();
+        $('.profit-data').html(parseFloat(data[2]).toFixed(2));
+        $('.profit-data').show(500);
+
+        $('.purchase_return-data').hide();
+        $('.purchase_return-data').html(parseFloat(data[3]).toFixed(2));
+        $('.purchase_return-data').show(500);
+  
+}
+</script>
+<script type="text/javascript">
+
 </script>
 @endsection
 

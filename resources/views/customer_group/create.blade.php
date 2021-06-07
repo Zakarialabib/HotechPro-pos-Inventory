@@ -12,10 +12,17 @@
 @endif
 
 <section>
-    <div class="container-fluid">
-        <a href="#" data-toggle="modal" data-target="#createModal" class="btn btn-info"><i class="dripicons-plus"></i> {{trans('file.Add Customer Group')}}</a>
-        <a href="#" data-toggle="modal" data-target="#importcustomer_group" class="btn btn-primary"><i class="dripicons-copy"></i> {{trans('file.Import Customer Group')}}</a>
-    </div>
+    <div class="flex flex-wrap px-3 mx-auto">
+        <div class="w-full mt-2">
+            <div class="brand-text float-left">
+                <h3>{{trans("file.Customer Group")}} </h3>
+            </div>
+            <div class="float-right">
+                <a href="#" data-toggle="modal" data-target="#createModal" class="align-middle text-center select-none border font-normal whitespace-no-wrap rounded py-1 px-3 leading-normal no-underline bg-blue-600 text-white hover:bg-blue-600"><i class="dripicons-plus"></i> {{trans('file.Add Customer Group')}}</a>
+                <a href="#" data-toggle="modal" data-target="#importcustomer_group" class="align-middle text-center select-none border font-normal whitespace-no-wrap rounded py-1 px-3 leading-normal no-underline bg-blue-600 text-white hover:bg-blue-600"><i class="dripicons-copy"></i> {{trans('file.Import Customer Group')}}</a>
+            </div>
+        </div>
+      </div>
     <div class="table-responsive">
         <table id="customer-grp-table" class="table">
             <thead>

@@ -11,11 +11,18 @@
 @endif
 
 <section>
-    <div class="container-fluid">
-        <button type="button" class="btn btn-info" data-toggle="modal" data-target="#createModal"><i class="dripicons-plus"></i> {{trans('file.Add Department')}}</button>
-    </div>
+    <div class="flex flex-wrap px-3 mx-auto">
+        <div class="w-full mt-2">
+            <div class="brand-text float-left">
+                <h3>{{trans("file.Departement")}} </h3>
+            </div>
+            <div class="float-right">
+                <button type="button" class="align-middle text-center select-none border font-normal whitespace-no-wrap rounded py-1 px-3 leading-normal no-underline bg-blue-600 text-white hover:bg-blue-600" data-toggle="modal" data-target="#createModal"><i class="dripicons-plus"></i> {{trans('file.Add Department')}}</button>
+            </div>
+        </div>
+      </div>
     <div class="table-responsive">
-        <table id="department-table" class="table">
+        <table id="department-table" class="table" style="width: 100%">
             <thead>
                 <tr>
                     <th class="not-exported"></th>
@@ -52,7 +59,7 @@
             </tbody>
         </table>
     </div>
-</seaction>
+</section>
 
 <!-- Create Modal -->
 <div id="createModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" class="modal fade text-left">

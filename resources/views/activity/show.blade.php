@@ -1,7 +1,7 @@
 @extends('layout.main')
 @section('content')
 <section class="forms">
-    <div class="mx-auto px-2 max-w-full mx-auto">
+    <div class=" px-2 max-w-full mx-auto">
         <div class="flex flex-wrap ">
             <div class="md:w-full pr-4 pl-4">
                 <div class="relative flex flex-col min-w-0 rounded break-words border bg-white border-1 border-gray-300">

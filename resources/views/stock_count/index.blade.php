@@ -7,11 +7,18 @@
 @endif
 
 <section>
-    <div class="container-fluid">
-        <button class="btn btn-info" data-toggle="modal" data-target="#createModal"><i class="dripicons-plus"></i> {{trans('file.Count Stock')}} </button>
-    </div>
+    <div class="flex flex-wrap px-3 mx-auto">
+        <div class="w-full mt-2">
+            <div class="brand-text float-left">
+                <h3>{{trans("file.Stock Count")}} </h3>
+            </div>
+            <div class="float-right">
+                <button class="align-middle text-center select-none border font-normal whitespace-no-wrap rounded py-1 px-3 leading-normal no-underline bg-blue-600 text-white hover:bg-blue-600" data-toggle="modal" data-target="#createModal"><i class="dripicons-plus"></i> {{trans('file.Count Stock')}} </button>
+            </div>
+        </div>
+      </div>
     <div class="table-responsive">
-        <table id="stock-count-table" class="table stock-count-list">
+        <table id="stock-count-table" class="table stock-count-list" style="width: 100%">
             <thead>
                 <tr>
                     <th class="not-exported"></th>
@@ -87,7 +94,7 @@
                     </td>
                     <td>
                         @if($stock_count->final_file)
-                            <div class="badge badge-success final-report" data-stock_count='["{{date($general_setting->date_format, strtotime($stock_count->created_at->toDateString()))}}", "{{$stock_count->reference_no}}", "{{$warehouse->name}}", "{{$type}}", "{{implode(", ", $category_name)}}", "{{implode(", ", $brand_name)}}", "{{$initial_file}}", "{{$final_file}}", "{{$stock_count->id}}"]'>{{trans('file.Final Report')}}
+                            <div class="bg-green-600 text-white p-2 rounded  leading-none final-report" data-stock_count='["{{date($general_setting->date_format, strtotime($stock_count->created_at->toDateString()))}}", "{{$stock_count->reference_no}}", "{{$warehouse->name}}", "{{$type}}", "{{implode(", ", $category_name)}}", "{{implode(", ", $brand_name)}}", "{{$initial_file}}", "{{$final_file}}", "{{$stock_count->id}}"]'>{{trans('file.Final Report')}}
                             </div>
                         @else
                             <div style="cursor: pointer;" class="badge badge-primary finalize" data-id="{{$stock_count->id}}">{{trans('file.Finalize')}}
@@ -126,7 +133,7 @@
             <div class="row">
                 <div class="col-md-6 form-group">
                     <label>{{trans('file.Warehouse')}} *</label>
-                    <select required name="warehouse_id" id="warehouse_id" class="selectpicker form-control" data-live-search="true" data-live-search-style="begins" title="Select warehouse...">
+                    <select required name="warehouse_id" id="warehouse_id" class="selectpicker form-control" data-live-search="true" data-live-search-style="begins" title="{{trans('file.Select warehouse...')}}">
                         @foreach($lims_warehouse_list as $warehouse)
                         <option value="{{$warehouse->id}}">{{$warehouse->name}}</option>
                         @endforeach

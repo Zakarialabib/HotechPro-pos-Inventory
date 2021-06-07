@@ -9,11 +9,17 @@
 @if(session()->has('not_permitted'))
   <div class="alert alert-danger alert-dismissible text-center"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>{{ session()->get('not_permitted') }}</div> 
 @endif
-
 <section>
-    <div class="container-fluid">
-        <button class="btn btn-info" data-toggle="modal" data-target="#gift_card-modal"><i class="dripicons-plus"></i> {{trans('file.Add Gift Card')}}</button>
-    </div>
+    <div class="flex flex-wrap px-3 mx-auto">
+        <div class="w-full mt-2">
+            <div class="brand-text float-left">
+                <h3>{{trans("file.Gift Card")}} </h3>
+            </div>
+            <div class="float-right">
+                <button class="align-middle text-center select-none border font-normal whitespace-no-wrap rounded py-1 px-3 leading-normal no-underline bg-blue-600 text-white hover:bg-blue-600" data-toggle="modal" data-target="#gift_card-modal"><i class="dripicons-plus"></i> {{trans('file.Add Gift Card')}}</button>
+            </div>
+        </div>
+      </div>
     <div class="table-responsive">
         <table id="gift_card-table" class="table">
             <thead>
@@ -53,9 +59,9 @@
                     <td>{{ $gift_card->amount - $gift_card->expense }}</td>
                     <td>{{ $created_by->name }}</td>
                     @if($gift_card->expired_date >= date("Y-m-d"))
-                      <td><div class="badge badge-success">{{date('d-m-Y', strtotime($gift_card->expired_date))}}</div></td>
+                      <td><div class="bg-green-600 text-white p-2 rounded  leading-none">{{date('d-m-Y', strtotime($gift_card->expired_date))}}</div></td>
                     @else
-                      <td><div class="badge badge-danger">{{date('d-m-Y', strtotime($gift_card->expired_date))}}</div></td>
+                      <td><div class="bg-red-600 text-white p-2 rounded  leading-none">{{date('d-m-Y', strtotime($gift_card->expired_date))}}</div></td>
                     @endif
                     <td>
                         <div class="btn-group">

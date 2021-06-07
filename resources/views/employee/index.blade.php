@@ -18,11 +18,18 @@
   <div class="alert alert-danger alert-dismissible text-center"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>{{ session()->get('not_permitted') }}</div> 
 @endif
 <section>
-    @if(in_array("employees-add", $all_permission))
-    <div class="container-fluid">
-        <a href="{{route('employees.create')}}" class="btn btn-info"><i class="dripicons-plus"></i> {{trans('file.Add Employee')}}</a>
-    </div>
-    @endif
+    <div class="flex flex-wrap px-3 mx-auto">
+        <div class="w-full mt-2">
+            <div class="brand-text float-left">
+                <h3>{{trans("file.Employee")}} </h3>
+            </div>
+            @if(in_array("employees-add", $all_permission))
+            <div class="float-right">
+                <a href="{{route('employees.create')}}" class="align-middle text-center select-none border font-normal whitespace-no-wrap rounded py-1 px-3 leading-normal no-underline bg-blue-600 text-white hover:bg-blue-600"><i class="dripicons-plus"></i> {{trans('file.Add Employee')}}</a>
+            </div>
+            @endif
+        </div>
+      </div>
     <div class="table-responsive">
         <table id="employee-table" class="table">
             <thead>

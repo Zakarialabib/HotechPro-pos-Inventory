@@ -7,29 +7,31 @@
 @endif
 
 <section>
-    <div class="container-fluid">
-        <div class="card">
-            <div class="card-header mt-2">
-                <h3 class="text-center">{{trans('file.Purchase List')}}</h3>
-            </div>
-            {!! Form::open(['route' => 'purchases.index', 'method' => 'get']) !!}
-            <div class="row mb-3">
-                <div class="col-md-4 offset-md-2 mt-3">
-                    <div class="form-group row">
-                        <label class="d-tc mt-2"><strong>{{trans('file.Choose Your Date')}}</strong> &nbsp;</label>
-                        <div class="d-tc">
-                            <div class="input-group">
-                                <input type="text" class="daterangepicker-field form-control" value="{{$starting_date}} To {{$ending_date}}" required />
-                                <input type="hidden" name="starting_date" value="{{$starting_date}}" />
-                                <input type="hidden" name="ending_date" value="{{$ending_date}}" />
-                            </div>
-                        </div>
-                    </div>
+    <div class="flex flex-wrap px-3 mx-auto">
+        <div class="w-full mt-2">
+            <div class="brand-text float-left">
+               <h3 >{{trans('file.Purchase List')}}</h3>
+           </div>
+           @if(in_array("purchases-add", $all_permission))
+                <div class="float-right">
+                    <a href="{{route('purchases.create')}}" class="align-middle text-center select-none border font-normal whitespace-no-wrap rounded py-1 px-3 leading-normal no-underline bg-blue-600 text-white hover:bg-blue-600"><i class="dripicons-plus"></i> {{trans('file.Add Purchase')}}</a>&nbsp;
+                    <a href="{{url('purchases/purchase_by_csv')}}" class="align-middle text-center select-none border font-normal whitespace-no-wrap rounded py-1 px-3 leading-normal no-underline bg-blue-600 text-white hover:bg-blue-600"><i class="dripicons-copy"></i> {{trans('file.Import Purchase')}}</a>
                 </div>
-                <div class="col-md-4 mt-3 @if(\Auth::user()->role_id > 2){{'d-none'}}@endif">
-                    <div class="form-group row">
-                        <label class="d-tc mt-2"><strong>{{trans('file.Choose Warehouse')}}</strong> &nbsp;</label>
-                        <div class="d-tc">
+            @endif
+        </div>
+    </div>
+            {!! Form::open(['route' => 'purchases.index', 'method' => 'get']) !!}
+            <div class="sm:grid sm:grid-flow-row sm:gap-4 sm:grid-cols-3 px-3 mt-2 bg-white">
+                <div class="flex flex-col justify-center px-2 py-2">
+                        <label for=""> {{trans('file.Choose Your Date')}}
+                            <div class="input-group">
+                                <input type="date" name="starting_date" class="form-control" value="{{$starting_date}}" />
+                                <input type="date" name="ending_date" class="form-control" value="{{$ending_date}}" />    
+                            </div>
+                        </label>
+                </div>
+                <div class="flex flex-col justify-center px-2 py-2 @if(\Auth::user()->role_id > 2){{'d-none'}}@endif">
+                        <label for=""> {{trans('file.Choose Warehouse')}}
                             <select id="warehouse_id" name="warehouse_id" class="selectpicker form-control" data-live-search="true" data-live-search-style="begins" >
                                 <option value="0">{{trans('file.All Warehouse')}}</option>
                                 @foreach($lims_warehouse_list as $warehouse)
@@ -40,22 +42,13 @@
                                     @endif
                                 @endforeach
                             </select>
-                        </div>
-                    </div>
+                        </label>
                 </div>
-                <div class="col-md-2 mt-3">
-                    <div class="form-group">
-                        <button class="btn btn-primary" id="filter-btn" type="submit">{{trans('file.submit')}}</button>
-                    </div>
+                <div class="flex flex-col justify-center px-2 py-2">
+                        <button class="align-middle text-center select-none border font-normal whitespace-no-wrap rounded py-1 px-3 leading-normal no-underline bg-blue-600 text-white hover:bg-blue-600" id="filter-btn" type="submit">{{trans('file.submit')}}</button>
                 </div>
             </div>
             {!! Form::close() !!}
-        </div>
-        @if(in_array("purchases-add", $all_permission))
-            <a href="{{route('purchases.create')}}" class="btn btn-info"><i class="dripicons-plus"></i> {{trans('file.Add Purchase')}}</a>&nbsp;
-            <a href="{{url('purchases/purchase_by_csv')}}" class="btn btn-primary"><i class="dripicons-copy"></i> {{trans('file.Import Purchase')}}</a>
-        @endif
-    </div>
     <div class="table-responsive">
         <table id="purchase-table" class="table purchase-list" style="width: 100%">
             <thead>

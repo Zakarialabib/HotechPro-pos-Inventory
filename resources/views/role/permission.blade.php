@@ -1246,6 +1246,18 @@
 								                </div>
 								            </div>
 						            	</span>
+										<span>
+						            		<div aria-checked="false" aria-disabled="false">
+								                <div class="checkbox">
+							                    	@if(in_array("message", $all_permission))
+							                    	<input type="checkbox" value="1" id="message" name="message" checked>
+							                    	@else
+							                    	<input type="checkbox" value="1" id="message" name="message">
+							                    	@endif
+								                    <label for="message" class="padding05">{{trans('file.Message')}} &nbsp;&nbsp;</label>
+								                </div>
+								            </div>
+						            	</span>
 						            	<span>
 						                    <div aria-checked="false" aria-disabled="false">
 								                <div class="checkbox">

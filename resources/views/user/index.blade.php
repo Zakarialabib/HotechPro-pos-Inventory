@@ -13,13 +13,20 @@
 @endif
 
 <section>
-    @if(in_array("users-add", $all_permission))
-        <div class="container-fluid">
-            <a href="{{route('user.create')}}" class="btn btn-info"><i class="dripicons-plus"></i> {{trans('file.Add User')}}</a>
+    <div class="flex flex-wrap px-3 mx-auto">
+        <div class="w-full mt-2">
+            <div class="brand-text float-left">
+                <h3>{{trans("file.User")}} </h3>
+            </div>
+            @if(in_array("users-add", $all_permission))
+            <div class="float-right">
+                <a href="{{route('user.create')}}" class="align-middle text-center select-none border font-normal whitespace-no-wrap rounded py-1 px-3 leading-normal no-underline bg-blue-600 text-white hover:bg-blue-600"><i class="dripicons-plus"></i> {{trans('file.Add User')}}</a>
+            </div>
+            @endif
         </div>
-    @endif
+      </div>
     <div class="table-responsive">
-        <table id="user-table" class="table">
+        <table id="user-table" class="table" style="width:100%">
             <thead>
                 <tr>
                     <th class="not-exported"></th>
@@ -42,11 +49,26 @@
                     <td>{{ $user->phone}}</td>
                     <?php $role = DB::table('roles')->find($user->role_id);?>
                     <td>{{ $role->name }}</td>
-                    @if($user->is_active)
-                    <td><div class="badge badge-success">Active</div></td>
+                  
+                  {{--   @if($user->is_active)
+                    <td><div class="bg-green-600 text-white p-2 rounded  leading-none">Active</div></td>
                     @else
-                    <td><div class="badge badge-danger">Inactive</div></td>
-                    @endif
+                    <td><div class="bg-red-600 text-white p-2 rounded  leading-none">Inactive</div></td>
+                    @endif--}}
+                    
+                <td>     <form id="statusForm{{$user->id}}" class="inline-block" action="{{route('user.status')}}" method="post">
+                        @csrf
+                        <input type="hidden" name="user_id" value="{{$user->id}}">
+                        <select class="form-control" data-style="{{($user->is_active === 1) ? 'btn-success' : 'btn-danger'}}"
+                        
+                        
+                          name="is_active" onchange="document.getElementById('statusForm{{$user->id}}').submit();">
+                          <option value="1" {{$user->is_active == '1' ? 'selected' : ''}}>Active</option>
+                          <option value="0" {{$user->is_active == '0' ? 'selected' : ''}}>Inactive</option>
+                        </select>
+                      </form> 
+                </td>
+
                     <td>
                         <div class="btn-group">
                             <button type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{trans('file.action')}}

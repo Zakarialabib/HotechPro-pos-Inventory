@@ -25,7 +25,7 @@ display:none;    }
   <meta name="csrf-token" content="{{ csrf_token() }}">
 </head>
 <body>
-  <div class="container mx-auto sm:px-4 max-w-full mx-auto sm:px-4">
+  <div class="container max-w-full mx-auto sm:px-4">
       <div class="response"></div>
       <div id='calendar'></div>  
   </div>

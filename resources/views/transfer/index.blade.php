@@ -7,12 +7,19 @@
 @endif
 
 <section>
-    <div class="container-fluid">
-        @if(in_array("transfers-add", $all_permission))
-            <a href="{{route('transfers.create')}}" class="btn btn-info"><i class="dripicons-plus"></i> {{trans('file.add')}} {{trans('file.Transfer')}}</a>
-            <a href="{{url('transfers/transfer_by_csv')}}" class="btn btn-primary"><i class="dripicons-copy"></i> {{trans('file.import')}} {{trans('file.Transfer')}}</a>
-        @endif
-    </div>
+    <div class="flex flex-wrap px-3 mx-auto">
+        <div class="w-full mt-2">
+            <div class="brand-text float-left">
+                <h3>{{trans("file.Transfer")}} </h3>
+            </div>
+            @if(in_array("transfers-add", $all_permission))
+            <div class="float-right">
+              <a href="{{route('transfers.create')}}" class="align-middle text-center select-none border font-normal whitespace-no-wrap rounded py-1 px-3 leading-normal no-underline bg-blue-600 text-white hover:bg-blue-600"><i class="dripicons-plus"></i> {{trans('file.add')}} {{trans('file.Transfer')}}</a>
+              <a href="{{url('transfers/transfer_by_csv')}}" class="align-middle text-center select-none border font-normal whitespace-no-wrap rounded py-1 px-3 leading-normal no-underline bg-blue-600 text-white hover:bg-blue-600"><i class="dripicons-copy"></i> {{trans('file.import')}} {{trans('file.Transfer')}}</a>
+           </div>
+          @endif
+        </div>
+      </div>
     <div class="table-responsive">
         <table id="transfer-table" class="table transfer-list">
             <thead>
@@ -49,9 +56,9 @@
                     <td class="total-tax">{{ $transfer->total_tax }}</td>
                     <td class="grand-total">{{ $transfer->grand_total }}</td>
                     @if($transfer->status == 1)
-                        <td><div class="badge badge-success">{{$status}}</div></td>
+                        <td><div class="bg-green-600 text-white p-2 rounded  leading-none">{{$status}}</div></td>
                     @elseif($transfer->status == 2)
-                        <td><div class="badge badge-danger">{{$status}}</div></td>
+                        <td><div class="bg-red-600 text-white p-2 rounded  leading-none">{{$status}}</div></td>
                     @else
                         <td><div class="badge badge-warning">{{$status}}</div></td>
                     @endif
