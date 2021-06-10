@@ -61,6 +61,7 @@
                     <th>{{trans('file.customer')}}</th>
                     <th>{{trans('file.Sale Status')}}</th>
                     <th>{{trans('file.Payment Status')}}</th>
+                    <th>{{trans('file.Pay Now')}}</th>
                     <th>{{trans('file.grand total')}}</th>
                     <th>{{trans('file.Paid')}}</th>
                     <th>{{trans('file.Due')}}</th>
@@ -71,6 +72,7 @@
             <tfoot class="tfoot active">
                 <th></th>
                 <th>{{trans('file.Total')}}</th>
+                <th></th>
                 <th></th>
                 <th></th>
                 <th></th>
@@ -184,10 +186,7 @@
                             <label>{{trans('file.Paid By')}}</label>
                             <select name="paid_by_id" class="form-control">
                                 <option value="1">Cash</option>
-                                <option value="2">Gift Card</option>
-                                <option value="3">Credit Card</option>
                                 <option value="4">Cheque</option>
-                                <option value="5">Paypal</option>
                                 <option value="6">Deposit</option>
                             </select>
                         </div>
@@ -239,6 +238,53 @@
                     <input type="hidden" name="sale_id">
 
                     <button type="submit" class="btn btn-primary">{{trans('file.submit')}}</button>
+                {{ Form::close() }}
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="quick-payment" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" class="modal fade text-left">
+    <div role="document" class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 id="exampleModalLabel" class="modal-title">{{trans('file.Pay All')}}</h5>
+                <button type="button" data-dismiss="modal" aria-label="Close" class="close"><span aria-hidden="true"><i class="dripicons-cross"></i></span></button>
+            </div>
+            <div class="modal-body">
+                {!! Form::open(['route' => 'sale.add-payment', 'method' => 'post', 'files' => true, 'class' => 'payment-form' ]) !!}
+                    <div class="row">
+                        <input type="hidden" name="balance">
+                        <input type="hidden" name="paid_by_id" value="1">
+                        <input type="hidden" name="payment_note" >
+
+                        <div class="col-md-6">
+                            <label>{{trans('file.Recieved Amount')}} *</label>
+                            <input type="text" id="paying_amount"  name="paying_amount" readonly class="form-control numkey" step="any" required>
+                        </div>
+                        <div class="col-md-6">
+                            <label>{{trans('file.Paying Amount')}} *</label>
+                            <input type="text" id="amount" name="amount" readonly class="form-control"  step="any" required>
+                        </div>
+                        <div class="col-md-6 mt-1">
+                            <label>{{trans('file.Change')}} : </label>
+                            <p class="change ml-2">0.00</p>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label> {{trans('file.Account')}}</label>
+                        <select class="form-control selectpicker" name="account_id">
+                        @foreach($lims_account_list as $account)
+                            @if($account->is_default)
+                            <option selected value="{{$account->id}}">{{$account->name}} [{{$account->account_no}}]</option>
+                            @else
+                            <option value="{{$account->id}}">{{$account->name}} [{{$account->account_no}}]</option>
+                            @endif
+                        @endforeach
+                        </select>
+                    </div>
+                    <input type="hidden" name="sale_id">
+                    <button type="submit" class="btn btn-primary">{{trans('file.Pay now')}}</button>
                 {{ Form::close() }}
             </div>
         </div>
@@ -482,6 +528,7 @@
     $(".card-element").hide();
     $("#cheque").hide();
     $('#view-payment').modal('hide');
+    
 
     $(document).on("click", "tr.sale-link td:not(:first-child, :last-child)", function() {
         var sale = $(this).parent().data('sale');
@@ -513,9 +560,21 @@
         var sale_id = $(this).data('id').toString();
         var balance = $('table.sale-list tbody tr:nth-child(' + (rowindex + 1) + ')').find('td:nth-child(10)').text();
         balance = parseFloat(balance.replace(/,/g, ''));
-        $('input[name="paying_amount"]').val(balance);
+        $('#add-payment input[name="paying_amount"]').val(balance);
         $('#add-payment input[name="balance"]').val(balance);
-        $('input[name="amount"]').val(balance);
+        $('#add-payment input[name="amount"]').val(balance);
+        $('input[name="sale_id"]').val(sale_id);
+    });
+
+    $(document).on("click", "table.sale-list tbody .quick-payment", function() {
+        $('.selectpicker').selectpicker('refresh');
+        rowindex = $(this).closest('tr').index();
+        var sale_id = $(this).data('id').toString();
+        var balance = $('table.sale-list tbody tr:nth-child(' + (rowindex + 1) + ')').find('td:nth-child(10)').text();
+        balance = parseFloat(balance.replace(/,/g, ''));
+        $('#quick-payment input[id="paying_amount"]').val(balance);
+        $('#quick-payment input[ide="balance"]').val(balance);
+        $('#quick-payment input[id="amount"]').val(balance);
         $('input[name="sale_id"]').val(sale_id);
     });
 
@@ -652,12 +711,12 @@
         }
     });
 
-    $('input[name="paying_amount"]').on("input", function() {
-        $(".change").text(parseFloat( $(this).val() - $('input[name="amount"]').val() ).toFixed(2));
+    $('#add-payment input[name="paying_amount"]').on("input", function() {
+        $(".change").text(parseFloat( $(this).val() - $('#add-payment input[name="amount"]').val() ).toFixed(2));
     });
 
-    $('input[name="amount"]').on("input", function() {
-        if( $(this).val() > parseFloat($('input[name="paying_amount"]').val()) ) {
+    $('#add-payment input[name="amount"]').on("input", function() {
+        if( $(this).val() > parseFloat($('#add-payment input[name="paying_amount"]').val()) ) {
             alert('Paying amount cannot be bigger than recieved amount');
             $(this).val('');
         }
@@ -670,6 +729,29 @@
         var amount = $(this).val();
         if(id == 2){
             id = $('#add-payment select[name="gift_card_id"]').val();
+            if(amount > balance[id])
+                alert('Amount exceeds card balance! Gift Card balance: '+ balance[id]);
+        }
+        else if(id == 6){
+            if(amount > parseFloat(deposit))
+                alert('Amount exceeds customer deposit! Customer deposit : ' + deposit);
+        }
+    });
+
+    $('#quick-payment input[name="amount"]').on("input", function() {
+        if( $(this).val() > parseFloat($('#quick-payment input[id="paying_amount"]').val()) ) {
+            alert('Paying amount cannot be bigger than recieved amount');
+            $(this).val('');
+        }
+        else if( $(this).val() > parseFloat($('#quick-payment input[name="balance"]').val()) ) {
+            alert('Paying amount cannot be bigger than due amount');
+            $(this).val('');
+        }
+        $(".change").text(parseFloat($('#quick-payment input[id="paying_amount"]').val() - $(this).val()).toFixed(2));
+        var id = $('#quick-payment select[name="paid_by_id"]').val();
+        var amount = $(this).val();
+        if(id == 2){
+            id = $('#quick-payment select[name="gift_card_id"]').val();
             if(amount > balance[id])
                 alert('Amount exceeds card balance! Gift Card balance: '+ balance[id]);
         }
@@ -812,6 +894,7 @@
             {"data": "customer"},
             {"data": "sale_status"},
             {"data": "payment_status"},
+            {"data": "pay_now"},
             {"data": "grand_total"},
             {"data": "paid_amount"},
             {"data": "due"},
@@ -910,6 +993,39 @@
                             $.ajax({
                                 type:'POST',
                                 url:'sales/deletebyselection',
+                                data:{
+                                    saleIdArray: sale_id
+                                },
+                                success:function(data){
+                                    alert(data);
+                                    //dt.rows({ page: 'current', selected: true }).deselect();
+                                    dt.rows({ page: 'current', selected: true }).remove().draw(false);
+                                }
+                            });
+                        }
+                        else if(!sale_id.length)
+                            alert('Nothing is selected!');
+                    }
+                    else
+                        alert('This feature is disable for demo!');
+                }
+            },
+            {
+                text: '{{trans("file.Pay")}}',
+                className: 'buttons-delete',
+                action: function ( e, dt, node, config ) {
+                    if(user_verified == '1') {
+                        sale_id.length = 0;
+                        $(':checkbox:checked').each(function(i){
+                            if(i){
+                                var sale = $(this).closest('tr').data('sale');
+                                sale_id[i-1] = sale[13];
+                            }
+                        });
+                        if(sale_id.length && confirm("Are you sure want to pay?")) {
+                            $.ajax({
+                                type:'POST',
+                                url:'sales/paybyselection',
                                 data:{
                                     saleIdArray: sale_id
                                 },
@@ -1086,7 +1202,7 @@
 </script>
 @endsection
 
-@section('scripts')
+@section('partials.scripts')
 <script type="text/javascript" src="https://js.stripe.com/v3/"></script>
 
 @endsection

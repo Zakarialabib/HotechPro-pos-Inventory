@@ -213,6 +213,9 @@ class SaleController extends Controller
                 else
                     $nestedData['payment_status'] = '<div class="bg-green-600 text-white p-2 rounded  leading-none">'.trans('file.Paid').'</div>';
 
+                $nestedData ['pay_now'] = '<button type="button" class="quick-payment bg-green-500 text-white p-2 rounded " data-id = "'.$sale->id.'" data-toggle="modal" data-target="#quick-payment"><i class="fa fa-money"></i></button>';
+
+
                 $nestedData['grand_total'] = number_format($sale->grand_total, 2);
                 $nestedData['paid_amount'] = number_format($sale->paid_amount, 2);
                 $nestedData['due'] = number_format($sale->grand_total - $sale->paid_amount, 2);
@@ -2087,7 +2090,42 @@ class SaleController extends Controller
         $data['profit'] = $profit - $data['expense_amount'];
         return $data;
     }
+    public function PayBySelection(Request $request)
+    {
+        $sale_id = $request['saleIdArray'];
+        foreach ($sale_id as $id) {
+       //     $lims_sale_data = Sale::find($id);           
+            $lims_sale_data = Sale::find($data['sale_id']);
+            $lims_customer_data = Customer::find($lims_sale_data->customer_id);
+            $lims_sale_data->paid_amount += $data['amount'];
+            $balance = $lims_sale_data->grand_total - $lims_sale_data->paid_amount;
+            if($balance > 0 || $balance < 0)
+                $lims_sale_data->payment_status = 2;
+            elseif ($balance == 0)
+                $lims_sale_data->payment_status = 4;
 
+            $lims_payment_data = new Payment();
+            $lims_payment_data->user_id = Auth::id();
+            $lims_payment_data->sale_id = $lims_sale_data->id;
+            if($cash_register_data)
+                $lims_payment_data->cash_register_id = $cash_register_data->id;
+            $lims_payment_data->account_id = $data['account_id'];
+            $data['payment_reference'] = 'spr-' . date("Ymd") . '-'. date("his");
+            $lims_payment_data->payment_reference = $data['payment_reference'];
+            $lims_payment_data->amount = $data['amount'];
+            $lims_payment_data->change = $data['paying_amount'] - $data['amount'];
+            $lims_payment_data->paying_method = $paying_method;
+            $lims_payment_data->payment_note = $data['payment_note'];
+            $lims_payment_data->save();
+            $lims_sale_data->save();
+
+            $lims_payment_data = Payment::latest()->first();
+            $data['payment_id'] = $lims_payment_data->id;
+
+            }
+                return 'Sale deleted successfully!';
+
+    }
     public function deleteBySelection(Request $request)
     {
         $sale_id = $request['saleIdArray'];

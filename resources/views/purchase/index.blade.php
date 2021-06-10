@@ -786,7 +786,7 @@
 
     
 </script>
-@endsection @section('scripts')
+@endsection @section('partials.scripts')
 <script type="text/javascript" src="https://js.stripe.com/v3/"></script>
 
 @endsection

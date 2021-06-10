@@ -115,6 +115,7 @@ Route::group(['middleware' => ['auth', 'active']], function() {
 	Route::post('sales/updatepayment', 'SaleController@updatePayment')->name('sale.update-payment');
 	Route::post('sales/deletepayment', 'SaleController@deletePayment')->name('sale.delete-payment');
 	Route::get('sales/{id}/create', 'SaleController@createSale');
+	Route::post('sales/paybyselection', 'SaleController@PayBySelection');
 	Route::post('sales/deletebyselection', 'SaleController@deleteBySelection');
 	Route::get('sales/print-last-reciept', 'SaleController@printLastReciept')->name('sales.printLastReciept');
 	Route::get('sales/today-sale', 'SaleController@todaySale');

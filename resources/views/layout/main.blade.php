@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="{{ app()->getLocale() }}">
+<html lang="{{ app()->getLocale() }}" :class="{ 'theme-dark': dark }" x-data="data()" >
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -33,67 +33,28 @@
     <link rel="stylesheet" type="text/css" href="{{ asset('public/vendor/datatable/dataTables.bootstrap4.min.css') }}">
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/fixedheader/3.1.6/css/fixedHeader.bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/responsive/2.2.3/css/responsive.bootstrap.min.css">
-    <link rel="stylesheet" href="{{ asset('/public/css/adminlte.min.css') }}">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fullcalendar@5.7.2/main.min.css" integrity="sha256-u40zn9KeZYpMjgYaxWJccb4HnP0i8XI17xkXrEklevE=" crossorigin="anonymous">
     <link rel="stylesheet" href="{{ asset('public/css/style.default.css') }}" id="theme-stylesheet" type="text/css">
     <link rel="stylesheet" href="{{ asset('public/css/dropzone.css') }}">
     <link rel="stylesheet" href="{{ asset('public/css/style.css') }}">
 
-    <!-- Tweaks for older IEs--><!--[if lt IE 9]>
-        <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
-        <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script><![endif]-->
+       @include('partials.scripts')
 
-    <script type="text/javascript" src="{{ asset('public/vendor/jquery/jquery.min.js') }}"></script>    
-    <script type="text/javascript" src="{{ asset('public/vendor/jquery/jquery-ui.min.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('public/vendor/jquery/bootstrap-datepicker.min.js') }}"></script>       
-    <script type="text/javascript" src="{{ asset('public/vendor/jquery/jquery.timepicker.min.js') }}"></script>       
-    <script type="text/javascript" src="{{ asset('public/vendor/popper.js/umd/popper.min.js') }}"></script>      
-    <script type="text/javascript" src="{{ asset('public/vendor/bootstrap/js/bootstrap.min.js') }}"></script>      
-    <script type="text/javascript" src="{{ asset('public/vendor/bootstrap-toggle/js/bootstrap-toggle.min.js') }}"></script>       
-    <script type="text/javascript" src="{{ asset('public/vendor/bootstrap/js/bootstrap-select.min.js') }}"></script>      
-    <script type="text/javascript" src="{{ asset('public/vendor/keyboard/js/jquery.keyboard.js') }}"></script>  
-    <script type="text/javascript" src="{{ asset('public/vendor/keyboard/js/jquery.keyboard.extension-autocomplete.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('public/js/grasp_mobile_progress_circle-1.0.0.min.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('public/vendor/jquery.cookie/jquery.cookie.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('public/vendor/chart.js/Chart.min.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('public/vendor/jquery-validation/jquery.validate.min.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('public/vendor/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.concat.min.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('public/js/charts-custom.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('public/js/front.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('public/vendor/daterange/js/moment.min.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('public/vendor/daterange/js/knockout-3.4.2.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('public/vendor/daterange/js/daterangepicker.min.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('public/vendor/tinymce/js/tinymce/tinymce.min.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('public/js/dropzone.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('public/js/adminlte.min.js') }}"></script>
-    <!-- table sorter js-->
-    <script type="text/javascript" src="{{ asset('public/vendor/datatable/pdfmake.min.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('public/vendor/datatable/vfs_fonts.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('public/vendor/datatable/jquery.dataTables.min.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('public/vendor/datatable/dataTables.bootstrap4.min.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('public/vendor/datatable/dataTables.buttons.min.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('public/vendor/datatable/buttons.bootstrap4.min.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('public/vendor/datatable/buttons.colVis.min.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('public/vendor/datatable/buttons.html5.min.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('public/vendor/datatable/buttons.print.min.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('public/vendor/datatable/sum().js') }}"></script>
-    <script type="text/javascript" src="{{ asset('public/vendor/datatable/dataTables.checkboxes.min.js') }}"></script>
-    <script type="text/javascript" src="https://cdn.datatables.net/fixedheader/3.1.6/js/dataTables.fixedHeader.min.js"></script>
-    <script type="text/javascript" src="https://cdn.datatables.net/responsive/2.2.3/js/dataTables.responsive.min.js"></script>
-    <script type="text/javascript" src="https://cdn.datatables.net/responsive/2.2.3/js/responsive.bootstrap.min.js"></script> 
-    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.7.2/main.min.js" integrity="sha256-yirUYbNvdsLHfZcQDyDMB51pfQ0Mn8siGDZOvtBgCFw=" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.7.2/locales-all.min.js" integrity="sha256-6TW9hevn9VV+Dk6OtclSzIjH05B6f2WWhJ/PQgy7m7s=" crossorigin="anonymous"></script>
+
     {{-- <script type="text/javascript" src="https://cdn.datatables.net/v/bs4/jszip-2.5.0/dt-1.10.24/b-1.7.0/b-colvis-1.7.0/b-html5-1.7.0/b-print-1.7.0/r-2.2.7/sl-1.3.3/datatables.min.js" async></script> --}}
     <link href="{{ asset('public/css/app.css') }}" rel="stylesheet">
     <!-- Custom stylesheet - for your changes-->
     <link rel="stylesheet" href="{{ asset('public/css/custom-'.$general_setting->theme) }}" type="text/css" id="custom-style">
   </head>
   
-  <body onload="myFunction()">
-    <div id="loader"></div>
+  <body >
+    <div
+      class="flex h-screen bg-gray-50 dark:bg-gray-900"
+      :class="{ 'overflow-hidden': isSideMenuOpen }"
+    >
       <!-- Side Navbar -->
-      <nav class="side-navbar">
-        <div class="side-navbar-wrapper">
+      <aside class="side-navbar">
+        <div class="z-20 flex-shrink-0 hidden overflow-y-auto bg-white dark:bg-gray-800 md:block">
           <!-- Sidebar Header    -->
           <!-- Sidebar Navigation Menus-->
           <div class="main-menu">
@@ -789,117 +750,371 @@
             </ul>
           </div>
         </div>
-      </nav>
-      <!-- navbar-->
-      <header class="header">
-        <nav class="navbar">
-          <div class="container-fluid">
-            <div class="navbar-holder d-flex align-items-center justify-content-between">
-              <a id="toggle-btn" href="#" class="menu-btn"><i class="fa fa-bars"> </i></a>
-              <span class="brand-big">@if($general_setting->site_logo)<img src="{{url('public/logo', $general_setting->site_logo)}}" width="50">&nbsp;&nbsp;@endif<a href="{{url('/')}}"><h1 class="d-inline">{{$general_setting->site_title}}</h1></a></span>
-              
-              <ul class="nav-menu list-unstyled d-flex flex-md-row align-items-md-center">
-                <?php 
-                  $add_permission = DB::table('permissions')->where('name', 'sales-add')->first();
-                  $add_permission_active = DB::table('role_has_permissions')->where([
-                      ['permission_id', $add_permission->id],
-                      ['role_id', $role->id]
-                  ])->first();
+      </aside>
+      <div class="flex flex-col flex-1 w-full">
+      <header class="z-10 py-4 bg-white shadow-md dark:bg-gray-800">
+        <div
+          class="flex items-center justify-between h-full px-6 mx-auto text-purple-600 dark:text-purple-300"
+        >
+          <?php 
+          $add_permission = DB::table('permissions')->where('name', 'sales-add')->first();
+          $add_permission_active = DB::table('role_has_permissions')->where([
+              ['permission_id', $add_permission->id],
+              ['role_id', $role->id]
+          ])->first();
 
-                  $empty_database_permission = DB::table('permissions')->where('name', 'empty_database')->first();
-                  $empty_database_permission_active = DB::table('role_has_permissions')->where([
-                      ['permission_id', $empty_database_permission->id],
-                      ['role_id', $role->id]
-                  ])->first();
-                ?>
-                @if($add_permission_active)
-                <li class="nav-item"><a class="dropdown-item btn-pos btn-sm" href="{{route('sale.pos')}}"><i class="dripicons-shopping-bag"></i><span> POS</span></a></li>
-                @endif      
-                <li class="nav-item"><a id="btnFullscreen"><i class="dripicons-expand"></i></a></li>
-                @if(\Auth::user()->role_id <= 2)
-                  <li class="nav-item"><a href="{{route('cashRegister.index')}}" title="{{trans('file.Cash Register List')}}"><i class="dripicons-archive"></i></a></li>
-                @endif
-                @if($product_qty_alert_active)
-                  @if(($alert_product + count(\Auth::user()->unreadNotifications)) > 0)
-                  <li class="nav-item" id="notification-icon">
-                        <a rel="nofollow" data-target="#" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link dropdown-item"><i class="dripicons-bell"></i><span class="bg-red-600 text-white p-2 rounded  leading-none notification-number">{{$alert_product + count(\Auth::user()->unreadNotifications)}}</span>
-                        </a>
-                        <ul class="dropdown-menu edit-options dropdown-menu-right dropdown-default notifications" user="menu">
-                            <li class="notifications">
-                              <a href="{{route('report.qtyAlert')}}" class="btn btn-link"> {{$alert_product}} product exceeds alert quantity</a>
-                            </li>
-                            @foreach(\Auth::user()->unreadNotifications as $key => $notification)
-                                <li class="notifications">
-                                    <a href="#" class="btn btn-link">{{ $notification->data['message'] }}</a>
-                                </li>
-                            @endforeach
-                        </ul>
-                  </li>
-                  @elseif(count(\Auth::user()->unreadNotifications) > 0)
-                  <li class="nav-item" id="notification-icon">
-                        <a rel="nofollow" data-target="#" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link dropdown-item"><i class="dripicons-bell"></i><span class="bg-red-600 text-white p-2 rounded  leading-none notification-number">{{count(\Auth::user()->unreadNotifications)}}</span>
-                        </a>
-                        <ul class="dropdown-menu edit-options dropdown-menu-right dropdown-default notifications" user="menu">
-                            @foreach(\Auth::user()->unreadNotifications as $key => $notification)
-                                <li class="notifications">
-                                    <a href="#" class="btn btn-link">{{ $notification->data['message'] }}</a>
-                                </li>
-                            @endforeach
-                        </ul>
-                  </li>
-                  @endif
-                @endif
-                <li class="nav-item">
-                      <a rel="nofollow" data-target="#" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link dropdown-item"><i class="dripicons-web"></i> <span>{{__('file.language')}}</span> <i class="fa fa-angle-down"></i></a>
-                      <ul class="dropdown-menu edit-options dropdown-menu-right dropdown-default" user="menu">
-                        <li>
-                          <a href="{{ url('language_switch/fr') }}" class="btn btn-link"> Français</a>
-                        </li>
-                        <li>
-                          <a href="{{ url('language_switch/ar') }}" class="btn btn-link"> عربى</a>
-                          </li>
-                          <li>
-                            <a href="{{ url('language_switch/en') }}" class="btn btn-link"> English</a>
-                          </li>
-                      </ul>
-                </li>
-                <li class="nav-item">
-                  <a rel="nofollow" data-target="#" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link dropdown-item"><i class="dripicons-user"></i> <span>{{ucfirst(Auth::user()->name)}}</span> <i class="fa fa-angle-down"></i>
-                  </a>
-                  <ul class="dropdown-menu edit-options dropdown-menu-right dropdown-default" user="menu">
-                      <li> 
-                        <a href="{{route('user.profile', ['id' => Auth::id()])}}"><i class="dripicons-user"></i> {{trans('file.profile')}}</a>
-                      </li>
-                      @if($general_setting_permission_active)
-                      <li> 
-                        <a href="{{route('setting.general')}}"><i class="dripicons-gear"></i> {{trans('file.settings')}}</a>
-                      </li>
-                      @endif
-                      <li> 
-                        <a href="{{url('my-transactions/'.date('Y').'/'.date('m'))}}"><i class="dripicons-swap"></i> {{trans('file.My Transaction')}}</a>
-                      </li>
-                      @if(Auth::user()->role_id != 5)
-                      <li> 
-                        <a href="{{url('holidays/my-holiday/'.date('Y').'/'.date('m'))}}"><i class="dripicons-vibrate"></i> {{trans('file.My Holiday')}}</a>
-                      </li>
-                      @endif
-                      <li>
-                        <a href="{{ route('logout') }}"
-                           onclick="event.preventDefault();
-                                         document.getElementById('logout-form').submit();"><i class="dripicons-power"></i>
-                            {{trans('file.logout')}}
-                        </a>
-                        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                            @csrf
-                        </form>
-                      </li>
-                  </ul>
-                </li> 
-              </ul>
+          $empty_database_permission = DB::table('permissions')->where('name', 'empty_database')->first();
+          $empty_database_permission_active = DB::table('role_has_permissions')->where([
+              ['permission_id', $empty_database_permission->id],
+              ['role_id', $role->id]
+          ])->first();
+        ?>
+          <!-- Mobile hamburger -->
+          <button
+            class="p-1 mr-5 -ml-1 rounded-md focus:outline-none focus:shadow-outline-purple"
+            @click="toggleSideMenu"
+            aria-label="Menu"
+            id="toggle-btn"
+          >
+            <svg
+              class="w-6 h-6"
+              aria-hidden="true"
+              fill="currentColor"
+              viewBox="0 0 20 20"
+            >
+              <path
+                fill-rule="evenodd"
+                d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z"
+                clip-rule="evenodd"
+              ></path>
+            </svg>
+          </button>
+          
+          <!-- Search input -->
+          <div class="flex justify-center flex-1 lg:mr-32">
+            <div
+              class="relative w-full max-w-xl mr-6 focus-within:text-purple-500"
+            >
+           
             </div>
           </div>
-        </nav>
+          <ul class="flex items-center flex-shrink-0 space-x-6">
+            <!-- Theme toggler -->
+            <li class="flex">
+              <button
+                class="rounded-md focus:outline-none focus:shadow-outline-purple"
+                @click="toggleTheme"
+                aria-label="Toggle color mode"
+              >
+                <template x-if="!dark">
+                  <svg
+                    class="w-5 h-5"
+                    aria-hidden="true"
+                    fill="currentColor"
+                    viewBox="0 0 20 20"
+                  >
+                    <path
+                      d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"
+                    ></path>
+                  </svg>
+                </template>
+                <template x-if="dark">
+                  <svg
+                    class="w-5 h-5"
+                    aria-hidden="true"
+                    fill="currentColor"
+                    viewBox="0 0 20 20"
+                  >
+                    <path
+                      fill-rule="evenodd"
+                      d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z"
+                      clip-rule="evenodd"
+                    ></path>
+                  </svg>
+                </template>
+              </button>
+            </li>
+            <!-- Notifications menu -->
+            <li class="relative">
+              <button
+                class="relative align-middle rounded-md focus:outline-none focus:shadow-outline-purple"
+                @click="toggleNotificationsMenu"
+                @keydown.escape="closeNotificationsMenu"
+                aria-label="Notifications"
+                aria-haspopup="true"
+              >
+                <svg
+                  class="w-5 h-5"
+                  aria-hidden="true"
+                  fill="currentColor"
+                  viewBox="0 0 20 20"
+                >
+                  <path
+                    d="M10 2a6 6 0 00-6 6v3.586l-.707.707A1 1 0 004 14h12a1 1 0 00.707-1.707L16 11.586V8a6 6 0 00-6-6zM10 18a3 3 0 01-3-3h6a3 3 0 01-3 3z"
+                  ></path>
+                </svg>
+                <!-- Notification badge -->
+                <span
+                  aria-hidden="true"
+                  class="absolute top-0 right-0 inline-block w-3 h-3 transform translate-x-1 -translate-y-1 bg-red-600 border-2 border-white rounded-full dark:border-gray-800"
+                ></span>
+              </button>
+              <template x-if="isNotificationsMenuOpen">
+                <ul
+                  x-transition:leave="transition ease-in duration-150"
+                  x-transition:leave-start="opacity-100"
+                  x-transition:leave-end="opacity-0"
+                  @click.away="closeNotificationsMenu"
+                  @keydown.escape="closeNotificationsMenu"
+                  class="absolute right-0 w-56 p-2 mt-2 space-y-2 text-gray-600 bg-white border border-gray-100 rounded-md shadow-md dark:text-gray-300 dark:border-gray-700 dark:bg-gray-700"
+                >
+                  @if($product_qty_alert_active)
+                   @if(($alert_product + count(\Auth::user()->unreadNotifications)) > 0)
+                    <li class="flex">
+                      <a
+                        class="inline-flex items-center justify-between w-full px-2 py-1 text-sm font-semibold transition-colors duration-150 rounded-md hover:bg-gray-100 hover:text-gray-800 dark:hover:bg-gray-800 dark:hover:text-gray-200"
+                        href="{{route('report.qtyAlert')}}"
+                      >
+                      <span> {{$alert_product}} product exceeds alert quantity</span>
+                      </a>
+                    </li>
+                    @foreach(\Auth::user()->unreadNotifications as $key => $notification)
+                        <li class="flex">
+                          <a
+                            class="inline-flex items-center justify-between w-full px-2 py-1 text-sm font-semibold transition-colors duration-150 rounded-md hover:bg-gray-100 hover:text-gray-800 dark:hover:bg-gray-800 dark:hover:text-gray-200"
+                          >
+                          <span> {{ $notification->data['message'] }}</span>
+                          </a>
+                        </li>
+                      @endforeach
+                      @elseif(count(\Auth::user()->unreadNotifications) > 0)
+                          @foreach(\Auth::user()->unreadNotifications as $key => $notification)
+                          <li class="flex">
+                            <a
+                              class="inline-flex items-center justify-between w-full px-2 py-1 text-sm font-semibold transition-colors duration-150 rounded-md hover:bg-gray-100 hover:text-gray-800 dark:hover:bg-gray-800 dark:hover:text-gray-200"
+                            >
+                            <span>{{ $notification->data['message'] }}</span>
+                            </a>
+                          </li>
+                          @endforeach
+                      @endif
+                    @endif
+                    </a>
+                  </li>
+                </ul>
+              </template>
+            </li>
+             <!-- Language menu -->
+             <li class="relative">
+              <button
+                class="align-middle rounded-full focus:shadow-outline-purple focus:outline-none"
+                @click="toggleLanguageMenu"
+                @keydown.escape="closeLanguageMenu"
+                aria-label="Account"
+                aria-haspopup="true"
+              >
+                <svg
+                class="w-5 h-5"
+                aria-hidden="true"
+                fill="none"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"
+                ></path>
+                <path d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+              </svg>
+              </button>
+              <template x-if="isLanguageMenuOpen">
+                <ul
+                  x-transition:leave="transition ease-in duration-150"
+                  x-transition:leave-start="opacity-100"
+                  x-transition:leave-end="opacity-0"
+                  @click.away="closeLanguageMenu"
+                  @keydown.escape="closeLanguageMenu"
+                  class="absolute right-0 w-56 p-2 mt-2 space-y-2 text-gray-600 bg-white border border-gray-100 rounded-md shadow-md dark:border-gray-700 dark:text-gray-300 dark:bg-gray-700"
+                  aria-label="submenu"
+                >
+                  <li class="flex">
+                    <a
+                      class="inline-flex items-center w-full px-2 py-1 text-sm font-semibold transition-colors duration-150 rounded-md hover:bg-gray-100 hover:text-gray-800 dark:hover:bg-gray-800 dark:hover:text-gray-200"
+                      href="{{ url('language_switch/fr') }}"
+                    >
+                      <span>Français</span>
+                    </a>
+                  </li>
+                  <li class="flex">
+                    <a
+                      class="inline-flex items-center w-full px-2 py-1 text-sm font-semibold transition-colors duration-150 rounded-md hover:bg-gray-100 hover:text-gray-800 dark:hover:bg-gray-800 dark:hover:text-gray-200"
+                      href="{{ url('language_switch/ar') }}"
+                    >
+                      <span>Arab</span>
+                    </a>
+                  </li>
+                  <li class="flex">
+                    <a
+                      class="inline-flex items-center w-full px-2 py-1 text-sm font-semibold transition-colors duration-150 rounded-md hover:bg-gray-100 hover:text-gray-800 dark:hover:bg-gray-800 dark:hover:text-gray-200"
+                      href="{{ url('language_switch/en') }}">
+                      <span> English</span>
+                    </a>
+                  </li>
+                </ul>
+              </template>
+            </li>
+            <!-- Profile menu -->
+            <li class="relative">
+              <button
+                class="align-middle rounded-full focus:shadow-outline-purple focus:outline-none"
+                @click="toggleProfileMenu"
+                @keydown.escape="closeProfileMenu"
+                aria-label="Account"
+                aria-haspopup="true"
+              >
+              {{ucfirst(Auth::user()->name)}}
+              </button>
+              <template x-if="isProfileMenuOpen">
+                <ul
+                  x-transition:leave="transition ease-in duration-150"
+                  x-transition:leave-start="opacity-100"
+                  x-transition:leave-end="opacity-0"
+                  @click.away="closeProfileMenu"
+                  @keydown.escape="closeProfileMenu"
+                  class="absolute right-0 w-56 p-2 mt-2 space-y-2 text-gray-600 bg-white border border-gray-100 rounded-md shadow-md dark:border-gray-700 dark:text-gray-300 dark:bg-gray-700"
+                  aria-label="submenu"
+                >
+                  <li class="flex">
+                    <a
+                      class="inline-flex items-center w-full px-2 py-1 text-sm font-semibold transition-colors duration-150 rounded-md hover:bg-gray-100 hover:text-gray-800 dark:hover:bg-gray-800 dark:hover:text-gray-200"
+                      href="{{route('user.profile', ['id' => Auth::id()])}}"
+                    >
+                      <svg
+                        class="w-4 h-4 mr-3"
+                        aria-hidden="true"
+                        fill="none"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                      >
+                        <path
+                          d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"
+                        ></path>
+                      </svg>
+                      <span>Profile</span>
+                    </a>
+                  </li>
+                  @if(Auth::user()->role_id != 5)
+                  <li class="flex">
+                    <a
+                      class="inline-flex items-center w-full px-2 py-1 text-sm font-semibold transition-colors duration-150 rounded-md hover:bg-gray-100 hover:text-gray-800 dark:hover:bg-gray-800 dark:hover:text-gray-200"
+                      href="{{url('holidays/my-holiday/'.date('Y').'/'.date('m'))}}"
+                    >
+                      <svg
+                        class="w-4 h-4 mr-3"
+                        aria-hidden="true"
+                        fill="none"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                      >
+                        <path
+                          d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"
+                        ></path>
+                        <path d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                      </svg>
+                      <span>My Holidays</span>
+                    </a>
+                  </li>
+                  @endif
+                  <li class="flex">
+                    <a
+                      class="inline-flex items-center w-full px-2 py-1 text-sm font-semibold transition-colors duration-150 rounded-md hover:bg-gray-100 hover:text-gray-800 dark:hover:bg-gray-800 dark:hover:text-gray-200"
+                      href="{{url('my-transactions/'.date('Y').'/'.date('m'))}}"
+                    >
+                      <svg
+                        class="w-4 h-4 mr-3"
+                        aria-hidden="true"
+                        fill="none"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                      >
+                        <path
+                          d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"
+                        ></path>
+                        <path d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                      </svg>
+                      <span>My Transactions</span>
+                    </a>
+                  </li>
+                  @if($general_setting_permission_active)
+                  <li class="flex">
+                    <a
+                      class="inline-flex items-center w-full px-2 py-1 text-sm font-semibold transition-colors duration-150 rounded-md hover:bg-gray-100 hover:text-gray-800 dark:hover:bg-gray-800 dark:hover:text-gray-200"
+                      href="{{route('setting.general')}}"
+                    >
+                      <svg
+                        class="w-4 h-4 mr-3"
+                        aria-hidden="true"
+                        fill="none"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                      >
+                        <path
+                          d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"
+                        ></path>
+                        <path d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                      </svg>
+                      <span>Settings</span>
+                    </a>
+                  </li>
+                  @endif
+                  <li class="flex">
+                    <a
+                      class="inline-flex items-center w-full px-2 py-1 text-sm font-semibold transition-colors duration-150 rounded-md hover:bg-gray-100 hover:text-gray-800 dark:hover:bg-gray-800 dark:hover:text-gray-200"
+                      href="{{ route('logout') }}"
+                      onclick="event.preventDefault();
+                      document.getElementById('logout-form').submit();">
+                      <svg
+                        class="w-4 h-4 mr-3"
+                        aria-hidden="true"
+                        fill="none"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                      >
+                        <path
+                          d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1"
+                        ></path>
+                      </svg>
+                      <span> {{trans('file.logout')}}</span>
+                      <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                        @csrf
+                       </form>
+                    </a>
+                  </li>
+                </ul>
+              </template>
+
+            </li>
+          </ul>
+        </div>
       </header>
+    
     <div class="page">
 
       <!-- notification modal -->
@@ -1306,10 +1521,11 @@
         </div>
     </div>
 </div>
-      
-      <div style="display:none" id="content" class="animate-bottom">
+    <main class="h-full overflow-y-auto">
+      <div class="animate-bottom container px-6 mx-auto grid">
           @yield('content')
       </div>
+    </main>
 
       <footer class="main-footer">
         <div class="container max-w-full mx-auto sm:px-4">
@@ -1321,23 +1537,19 @@
         </div>
       </footer>
     </div>
-    @yield('scripts')
- 
+  </div>
+</div>
+    @push('scripts')
+        
     <script type="text/javascript">
       
       var alert_product = <?php echo json_encode($alert_product) ?>;
 
+
       if ($(window).outerWidth() > 1199) {
           $('nav.side-navbar').removeClass('shrink');
       }
-      function myFunction() {
-          setTimeout(showPage, 150);
-      }
-      function showPage() {
-        document.getElementById("loader").style.display = "none";
-        document.getElementById("content").style.display = "block";
-      }
-
+     
       $("div.alert").delay(3000).slideUp(750);
 
       function confirmDelete() {
@@ -1443,5 +1655,7 @@
           style: 'btn-link',
       });
     </script>
+    @endpush
+
   </body>
 </html>
