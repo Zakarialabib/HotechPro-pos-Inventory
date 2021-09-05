@@ -13,7 +13,16 @@
 
 <section>
     <div class="container-fluid">
-        <a href="#" data-toggle="modal" data-target="#createModal" class="btn btn-info"><i class="dripicons-plus"></i> {{trans('file.Add Role')}} </a>
+        <div class="flex flex-wrap px-3 mx-auto">
+            <div class="w-full mt-2">
+                <div class="brand-text float-left">
+                    <h3>{{ trans('file.Roles & Permissions') }} </h3>
+                </div>
+                    <div class="float-right">
+                        <a href="#" data-toggle="modal" data-target="#createModal" class="align-middle text-center select-none border font-normal whitespace-no-wrap rounded py-1 px-3 leading-normal no-underline bg-blue-600 text-white hover:bg-blue-600"><i class="dripicons-plus"></i> {{trans('file.Add Role')}} </a>
+                    </div>
+            </div>
+        </div>
     </div>
     <div class="table-responsive">
         <table id="role-table" class="table table-hover" style="width: 100%">
@@ -189,16 +198,16 @@
         dom: '<"row"lfB>rtip',
         buttons: [
             {
-                extend: 'pdf',
-                text: '{{trans("file.PDF")}}',
+                extend: 'pdfHtml5',
+                text: '<i class="fa fa-file-pdf">',
                 exportOptions: {
                     columns: ':visible:Not(.not-exported)',
                     rows: ':visible'
                 },
             },
             {
-                extend: 'csv',
-                text: '{{trans("file.CSV")}}',
+                extend: 'excelHtml5',
+                text: '<i class="fa fa-file-excel">',
                 exportOptions: {
                     columns: ':visible:Not(.not-exported)',
                     rows: ':visible'
@@ -206,7 +215,7 @@
             },
             {
                 extend: 'print',
-                text: '{{trans("file.Print")}}',
+                text: '<i class="fa fa-print">',
                 exportOptions: {
                     columns: ':visible:Not(.not-exported)',
                     rows: ':visible'

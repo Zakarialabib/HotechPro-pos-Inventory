@@ -15,7 +15,14 @@
 @endif
 <section class="forms">
     <div class="container-fluid">
-        <div class="row">
+        <div class="flex flex-wrap px-3 mx-auto">
+            <div class="w-full mt-2">
+                <div class="brand-text float-left">
+                    <h3>{{ trans('file.User Profile') }} </h3>
+                </div>
+            </div>
+        </div>
+        <div class="row mt-2">
             <div class="col-md-6">
                 <div class="card">
                     <div class="card-header d-flex align-items-center">

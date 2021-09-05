@@ -8,12 +8,16 @@
 @endif
 <section class="forms">
     <div class="container-fluid">
-        <div class="row">
+        <div class="flex flex-wrap px-3 mx-auto">
+            <div class="w-full mt-2">
+                <div class="brand-text float-left">
+                    <h3>{{ trans('file.General Setting') }} </h3>
+                </div>
+            </div>
+        </div>
+        <div class="row mt-2">
             <div class="col-md-12">
                 <div class="card">
-                    <div class="card-header d-flex align-items-center">
-                        <h4>{{trans('file.General Setting')}}</h4>
-                    </div>
                     <div class="card-body">
                         <p class="italic"><small>{{trans('file.The field labels marked with * are required input fields')}}.</small></p>
                         {!! Form::open(['route' => 'setting.generalStore', 'files' => true, 'method' => 'post']) !!}

@@ -421,7 +421,7 @@
         dom: '<"row"lfB>rtip',
         buttons: [
             {
-                extend: 'pdf',
+                extend: 'pdfHtml5',
                 exportOptions: {
                     columns: ':visible:Not(.not-exported-sale)',
                     rows: ':visible'
@@ -434,14 +434,14 @@
                 footer:true
             },
             {
-                extend: 'csv',
+                extend: 'excelHtml5',
                 exportOptions: {
                     columns: ':visible:Not(.not-exported-sale)',
                     rows: ':visible'
                 },
                 action: function(e, dt, button, config) {
                     datatable_sum_sale(dt, true);
-                    $.fn.dataTable.ext.buttons.csvHtml5.action.call(this, e, dt, button, config);
+                    $.fn.dataTable.ext.buttons.excelHtml5.action.call(this, e, dt, button, config);
                     datatable_sum_sale(dt, false);
                 },
                 footer:true
@@ -513,7 +513,7 @@
         dom: '<"row"lfB>rtip',
         buttons: [
             {
-                extend: 'pdf',
+                extend: 'pdfHtml5',
                 exportOptions: {
                     columns: ':visible:Not(.not-exported-purchase)',
                     rows: ':visible'
@@ -526,14 +526,14 @@
                 footer:true
             },
             {
-                extend: 'csv',
+                extend: 'excelHtml5',
                 exportOptions: {
                     columns: ':visible:Not(.not-exported-purchase)',
                     rows: ':visible'
                 },
                 action: function(e, dt, button, config) {
                     datatable_sum_purchase(dt, true);
-                    $.fn.dataTable.ext.buttons.csvHtml5.action.call(this, e, dt, button, config);
+                    $.fn.dataTable.ext.buttons.excelHtml5.action.call(this, e, dt, button, config);
                     datatable_sum_purchase(dt, false);
                 },
                 footer:true
@@ -605,7 +605,7 @@
         dom: '<"row"lfB>rtip',
         buttons: [
             {
-                extend: 'pdf',
+                extend: 'pdfHtml5',
                 exportOptions: {
                     columns: ':visible:Not(.not-exported-quotation)',
                     rows: ':visible'
@@ -618,14 +618,14 @@
                 footer:true
             },
             {
-                extend: 'csv',
+                extend: 'excelHtml5',
                 exportOptions: {
                     columns: ':visible:Not(.not-exported)',
                     rows: ':visible'
                 },
                 action: function(e, dt, button, config) {
                     datatable_sum_quotation(dt, true);
-                    $.fn.dataTable.ext.buttons.csvHtml5.action.call(this, e, dt, button, config);
+                    $.fn.dataTable.ext.buttons.excelHtml5.action.call(this, e, dt, button, config);
                     datatable_sum_quotation(dt, false);
                 },
                 footer:true
@@ -693,7 +693,7 @@
         dom: '<"row"lfB>rtip',
         buttons: [
             {
-                extend: 'pdf',
+                extend: 'pdfHtml5',
                 exportOptions: {
                     columns: ':visible:Not(.not-exported-return)',
                     rows: ':visible'
@@ -706,14 +706,14 @@
                 footer:true
             },
             {
-                extend: 'csv',
+                extend: 'excelHtml5',
                 exportOptions: {
                     columns: ':visible:Not(.not-exported)',
                     rows: ':visible'
                 },
                 action: function(e, dt, button, config) {
                     datatable_sum_return(dt, true);
-                    $.fn.dataTable.ext.buttons.csvHtml5.action.call(this, e, dt, button, config);
+                    $.fn.dataTable.ext.buttons.excelHtml5.action.call(this, e, dt, button, config);
                     datatable_sum_return(dt, false);
                 },
                 footer:true
@@ -781,7 +781,7 @@
         dom: '<"row"lfB>rtip',
         buttons: [
             {
-                extend: 'pdf',
+                extend: 'pdfHtml5',
                 exportOptions: {
                     columns: ':visible:Not(.not-exported-expense)',
                     rows: ':visible'
@@ -794,14 +794,14 @@
                 footer:true
             },
             {
-                extend: 'csv',
+                extend: 'excelHtml5',
                 exportOptions: {
                     columns: ':visible:Not(.not-exported)',
                     rows: ':visible'
                 },
                 action: function(e, dt, button, config) {
                     datatable_sum_expense(dt, true);
-                    $.fn.dataTable.ext.buttons.csvHtml5.action.call(this, e, dt, button, config);
+                    $.fn.dataTable.ext.buttons.excelHtml5.action.call(this, e, dt, button, config);
                     datatable_sum_expense(dt, false);
                 },
                 footer:true

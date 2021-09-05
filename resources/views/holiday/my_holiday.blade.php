@@ -1,7 +1,13 @@
 @extends('layout.main')
 @section('content')
 <section>
-	<h4 class="text-center">{{trans('file.My Holiday')}}</h4>
+	<div class="flex flex-wrap px-3 mx-auto">
+		<div class="w-full mt-2">
+			<div class="brand-text float-left">
+				<h3>{{ trans('file.My Holiday') }} </h3>
+			</div>
+		</div>
+	</div>
 	<div class="table-responsive mt-3">
 		<table class="table table-bordered" style="border-top: 1px solid #dee2e6; border-bottom: 1px solid #dee2e6;">
 			<thead>
@@ -13,13 +19,13 @@
 			</thead>
 		    <tbody>
 			    <tr>
-				    <td><strong>Sunday</strong></td>
-				    <td><strong>Monday</strong></td>
-				    <td><strong>Tuesday</strong></td>
-				    <td><strong>Wednesday</strong></td>
-				    <td><strong>Thrusday</strong></td>
-				    <td><strong>Friday</strong></td>
-				    <td><strong>Saturday</strong></td>
+				    <td><strong>{{ trans('file.Sunday') }}</strong></td>
+				    <td><strong>{{ trans('file.Monday') }}</strong></td>
+				    <td><strong>{{ trans('file.Tuesday') }}</strong></td>
+				    <td><strong>{{ trans('file.Wednesday') }}</strong></td>
+				    <td><strong>{{ trans('file.Thrusday') }}</strong></td>
+				    <td><strong>{{ trans('file.Friday') }}</strong></td>
+				    <td><strong>{{ trans('file.Saturday') }}</strong></td>
 			    </tr>
 			    <?php 
 			    	$i = 1;

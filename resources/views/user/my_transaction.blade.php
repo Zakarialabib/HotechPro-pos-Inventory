@@ -1,7 +1,13 @@
 @extends('layout.main')
 @section('content')
 <section>
-	<h4 class="text-center">{{trans('file.My Transactions')}}</h4>
+	<div class="flex flex-wrap px-3 mx-auto">
+		<div class="w-full mt-2">
+			<div class="brand-text float-left">
+				<h3>{{ trans('file.My Transactions') }} </h3>
+			</div>
+		</div>
+	</div>
 	<div class="table-responsive mt-3">
 		<table class="table table-bordered" style="border-top: 1px solid #dee2e6; border-bottom: 1px solid #dee2e6;">
 			<thead>

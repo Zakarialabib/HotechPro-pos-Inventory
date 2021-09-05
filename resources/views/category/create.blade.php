@@ -20,8 +20,8 @@
                 <h3>{{trans("file.category")}} </h3>
             </div>
             <div class="float-right">
-              <button type="button" class="inline-block align-middle text-center select-none border font-normal whitespace-no-wrap rounded py-1 px-3 leading-normal no-underline date-btn  text-white bg-blue-700 border-blue-600 hover:bg-blue-400" data-toggle="modal" data-target="#createModal"><i class="dripicons-plus"></i> {{trans("file.Add Category")}}</button>&nbsp;
-              <button class="inline-block align-middle text-center select-none border font-normal whitespace-no-wrap rounded py-1 px-3 leading-normal no-underline date-btn  text-white bg-blue-700 border-blue-600 hover:bg-blue-400" data-toggle="modal" data-target="#importCategory"><i class="dripicons-copy"></i> {{trans('file.Import Category')}}</button>
+              <button type="button" class="inline-block align-middle text-center select-none border font-normal whitespace-no-wrap rounded py-1 px-3 leading-normal no-underline date-btn  text-white bg-blue-700 border-blue-600" data-toggle="modal" data-target="#createModal"><i class="dripicons-plus"></i> {{trans("file.Add Category")}}</button>&nbsp;
+              <button class="inline-block align-middle text-center select-none border font-normal whitespace-no-wrap rounded py-1 px-3 leading-normal no-underline date-btn  text-white bg-blue-700 border-blue-600" data-toggle="modal" data-target="#importCategory"><i class="dripicons-copy"></i> {{trans('file.Import Category')}}</button>
             </div>
         </div>
       </div>
@@ -241,8 +241,8 @@
         dom: '<"row"lfB>rtip',
         buttons: [
             {
-                extend: 'pdf',
-                text: '{{trans("file.PDF")}}',
+                extend: 'pdfHtml5',
+                text: '<i class="fa fa-file-pdf">',
                 exportOptions: {
                     columns: ':visible:Not(.not-exported)',
                     rows: ':visible'
@@ -250,8 +250,8 @@
                 footer:true
             },
             {
-                extend: 'csv',
-                text: '{{trans("file.CSV")}}',
+                extend: 'excelHtml5',
+                text: '<i class="fa fa-file-excel">',
                 exportOptions: {
                     columns: ':visible:Not(.not-exported)',
                     rows: ':visible'
@@ -260,7 +260,7 @@
             },
             {
                 extend: 'print',
-                text: '{{trans("file.Print")}}',
+                text: '<i class="fa fa-print">',
                 exportOptions: {
                     columns: ':visible:Not(.not-exported)',
                     rows: ':visible'
@@ -268,7 +268,7 @@
                 footer:true
             },
             {
-                text: '{{trans("file.delete")}}',
+                text: '<i class="fa fa-trash">',
                 className: 'buttons-delete',
                 action: function ( e, dt, node, config ) {
                     if(user_verified == '1') {

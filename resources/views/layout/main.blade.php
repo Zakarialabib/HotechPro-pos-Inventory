@@ -1,1661 +1,1819 @@
 <!DOCTYPE html>
-<html lang="{{ app()->getLocale() }}" :class="{ 'theme-dark': dark }" x-data="data()" >
-  <head>
+<html lang="{{ app()->getLocale() }}">
+
+<head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <link rel="icon" type="image/png" href="{{url('public/logo', $general_setting->site_logo)}}" />
-    <title>{{$general_setting->site_title}}</title>
+    <link rel="icon" type="image/png" href="{{ url('public/logo', $general_setting->site_logo) }}" />
+    <title>{{ $general_setting->site_title }}</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="robots" content="all,follow">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <!-- Bootstrap CSS-->
     <link rel="stylesheet" href="{{ asset('public/vendor/bootstrap/css/bootstrap.min.css') }}" type="text/css">
-    <link rel="stylesheet" href="{{ asset('public/vendor/bootstrap-toggle/css/bootstrap-toggle.min.css') }}" type="text/css">
-    <link rel="stylesheet" href="{{ asset('public/vendor/bootstrap/css/bootstrap-datepicker.min.css') }}" type="text/css">
-    <link rel="stylesheet" href="{{ asset('public/vendor/jquery-timepicker/jquery.timepicker.min.css') }}" type="text/css">
+    <link rel="stylesheet" href="{{ asset('public/vendor/bootstrap-toggle/css/bootstrap-toggle.min.css') }}"
+        type="text/css">
+    <link rel="stylesheet" href="{{ asset('public/vendor/bootstrap/css/bootstrap-datepicker.min.css') }}"
+        type="text/css">
+    <link rel="stylesheet" href="{{ asset('public/vendor/jquery-timepicker/jquery.timepicker.min.css') }}"
+        type="text/css">
     <link rel="stylesheet" href="{{ asset('public/vendor/bootstrap/css/bootstrap-select.min.css') }}" type="text/css">
     <!-- Font Awesome CSS-->
-    <link rel="stylesheet" href="{{ asset('public/vendor/font-awesome/css/font-awesome.min.css') }}" type="text/css">
-    <!-- Drip icon font-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />    <!-- Drip icon font-->
     <link rel="stylesheet" href="{{ asset('public/vendor/dripicons/webfont.css') }}" type="text/css">
     <!-- Google fonts - Roboto -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito:400,500,700">
     <!-- jQuery Circle-->
-    <link rel="stylesheet" href="{{ asset('public/css/grasp_mobile_progress_circle-1.0.0.min.css') }}" type="text/css">
+    <link rel="stylesheet" type="text/css" href="{{ asset('public/css/grasp_mobile_progress_circle-1.0.0.min.css') }}">
     <!-- Custom Scrollbar-->
-    <link rel="stylesheet" href="{{ asset('public/vendor/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.css') }}" type="text/css">
+    <link rel="stylesheet" type="text/css" href="{{ asset('public/vendor/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.css') }}">
     <!-- virtual keybord stylesheet-->
-    <link rel="stylesheet" href="{{ asset('public/vendor/keyboard/css/keyboard.css') }}" type="text/css">
+    <link rel="stylesheet" type="text/css" href="{{ asset('public/vendor/keyboard/css/keyboard.css') }}" >
     <!-- date range stylesheet-->
-    <link rel="stylesheet" href="{{ asset('public/vendor/daterange/css/daterangepicker.min.css') }}" type="text/css">
+    <link rel="stylesheet" type="text/css" href="{{ asset('public/vendor/daterange/css/daterangepicker.min.css') }}" >
     <!-- table sorter stylesheet-->
-    <link rel="stylesheet" type="text/css" href="{{ asset('public/vendor/datatable/dataTables.bootstrap4.min.css') }}">
-    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/fixedheader/3.1.6/css/fixedHeader.bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs4/jszip-2.5.0/dt-1.11.1/b-2.0.0/b-colvis-2.0.0/b-html5-2.0.0/b-print-2.0.0/fh-3.1.9/r-2.2.9/datatables.min.css"/>
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/responsive/2.2.3/css/responsive.bootstrap.min.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fullcalendar@5.7.2/main.min.css" integrity="sha256-u40zn9KeZYpMjgYaxWJccb4HnP0i8XI17xkXrEklevE=" crossorigin="anonymous">
-    <link rel="stylesheet" href="{{ asset('public/css/style.default.css') }}" id="theme-stylesheet" type="text/css">
-    <link rel="stylesheet" href="{{ asset('public/css/dropzone.css') }}">
-    <link rel="stylesheet" href="{{ asset('public/css/style.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('public/css/style.default.css') }}" >
+    <link rel="stylesheet" type="text/css" href="{{ asset('public/css/custom-default.css') }}" >
+    <link rel="stylesheet" type="text/css" href="{{ asset('public/css/dropzone.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('public/css/style.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('public/css/app.css') }}" >
+    <link rel="stylesheet" type="text/css" href="{{ asset('/public/css/adminlte.min.css') }}">
+    @include('partials.scripts')
 
-       @include('partials.scripts')
+</head>
 
-
-    {{-- <script type="text/javascript" src="https://cdn.datatables.net/v/bs4/jszip-2.5.0/dt-1.10.24/b-1.7.0/b-colvis-1.7.0/b-html5-1.7.0/b-print-1.7.0/r-2.2.7/sl-1.3.3/datatables.min.js" async></script> --}}
-    <link href="{{ asset('public/css/app.css') }}" rel="stylesheet">
-    <!-- Custom stylesheet - for your changes-->
-    <link rel="stylesheet" href="{{ asset('public/css/custom-'.$general_setting->theme) }}" type="text/css" id="custom-style">
-  </head>
-  
-  <body >
-    <div
-      class="flex h-screen bg-gray-50 dark:bg-gray-900"
-      :class="{ 'overflow-hidden': isSideMenuOpen }"
-    >
-      <!-- Side Navbar -->
-      <aside class="side-navbar">
-        <div class="z-20 flex-shrink-0 hidden overflow-y-auto bg-white dark:bg-gray-800 md:block">
-          <!-- Sidebar Header    -->
-          <!-- Sidebar Navigation Menus-->
-          <div class="main-menu">
-            <ul id="side-main-menu" class="side-menu list-unstyled">                  
-              <li><a href="{{url('/')}}"> <i class="dripicons-meter"></i><span>{{ __('file.dashboard') }}</span></a></li>
-               <?php
-                  $role = DB::table('roles')->find(Auth::user()->role_id);
-                  $category_permission_active = DB::table('permissions')
-                      ->join('role_has_permissions', 'permissions.id', '=', 'role_has_permissions.permission_id')
-                      ->where([
-                        ['permissions.name', 'category'],
-                        ['role_id', $role->id] ])->first();
-                  $index_permission = DB::table('permissions')->where('name', 'products-index')->first();
-                  $index_permission_active = DB::table('role_has_permissions')->where([
-                      ['permission_id', $index_permission->id],
-                      ['role_id', $role->id]
-                  ])->first();
-
-                  $stock_count = DB::table('permissions')->where('name', 'stock_count')->first();
-                      $stock_count_active = DB::table('role_has_permissions')->where([
-                          ['permission_id', $stock_count->id],
-                          ['role_id', $role->id]
-                      ])->first();
-
-                    $adjustment = DB::table('permissions')->where('name', 'adjustment')->first();
-                    $adjustment_active = DB::table('role_has_permissions')->where([
-                        ['permission_id', $adjustment->id],
-                        ['role_id', $role->id]
-                    ])->first();
-                    ?>
-              @if($category_permission_active || $index_permission_active || $print_barcode_active || $stock_count_active || $adjustment_active)
-              <li><a href="#product" aria-expanded="false" data-toggle="collapse"> <i class="dripicons-list"></i><span>{{__('file.product')}}</span><span></a>
-                <ul id="product" class="hidden list-unstyled ">
-                  @if($category_permission_active)
-                  <li id="category-menu"><a href="{{route('category.index')}}">{{__('file.category')}}</a></li>
-                  @endif
-                  @if($index_permission_active)
-                  <li id="product-list-menu"><a href="{{route('products.index')}}">{{__('file.Product List')}}</a></li>
-                  <?php 
-                    $add_permission = DB::table('permissions')->where('name', 'products-add')->first();
-                    $add_permission_active = DB::table('role_has_permissions')->where([
-                        ['permission_id', $add_permission->id],
-                        ['role_id', $role->id]
-                    ])->first();
-                  ?>
-                  @if($add_permission_active)
-                  <li id="product-create-menu"><a href="{{route('products.create')}}">{{__('file.add_product')}}</a></li>
-                  @endif
-                  @endif
-                  @if($adjustment_active)
-                    <li id="adjustment-list-menu"><a href="{{route('qty_adjustment.index')}}">{{trans('file.Adjustment List')}}</a></li>
-                    <li id="adjustment-create-menu"><a href="{{route('qty_adjustment.create')}}">{{trans('file.Add Adjustment')}}</a></li>
-                  @endif
-                  @if($stock_count_active)
-                    <li id="stock-count-menu"><a href="{{route('stock-count.index')}}">{{trans('file.Stock Count')}}</a></li>
-                  @endif
-                </ul>
-              </li>
-              @endif
-              <?php 
-                $index_permission = DB::table('permissions')->where('name', 'purchases-index')->first();
-                  $index_permission_active = DB::table('role_has_permissions')->where([
-                        ['permission_id', $index_permission->id],
-                        ['role_id', $role->id]
-                    ])->first();
-              ?>
-              @if($index_permission_active)
-              <li><a href="#purchase" aria-expanded="false" data-toggle="collapse"> <i class="dripicons-card"></i><span>{{trans('file.Purchase')}}</span></a>
-                <ul id="purchase" class="hidden list-unstyled ">
-                  <li id="purchase-list-menu"><a href="{{route('purchases.index')}}">{{trans('file.Purchase List')}}</a></li>
-                  <?php 
-                    $add_permission = DB::table('permissions')->where('name', 'purchases-add')->first();
-                    $add_permission_active = DB::table('role_has_permissions')->where([
-                        ['permission_id', $add_permission->id],
-                        ['role_id', $role->id]
-                    ])->first();
-                  ?>
-                  @if($add_permission_active)
-                  <li id="purchase-create-menu"><a href="{{route('purchases.create')}}">{{trans('file.Add Purchase')}}</a></li>
-                  <li id="purchase-import-menu"><a href="{{url('purchases/purchase_by_csv')}}">{{trans('file.Import Purchase By CSV')}}</a></li>
-                  @endif
-                </ul>
-              </li>
-              @endif
-              <?php 
-                $index_permission = DB::table('permissions')->where('name', 'quotes-index')->first();
-                $index_permission_active = DB::table('role_has_permissions')->where([
-                        ['permission_id', $index_permission->id],
-                        ['role_id', $role->id]
-                    ])->first();
-              ?>
-              @if($index_permission_active)
-              <li><a href="#quotation" aria-expanded="false" data-toggle="collapse"> <i class="dripicons-document"></i><span>{{trans('file.Quotation')}}</span><span></a>
-                <ul id="quotation" class="hidden list-unstyled ">
-                  <li id="quotation-list-menu"><a href="{{route('quotations.index')}}">{{trans('file.Quotation List')}}</a></li>
-                  <?php 
-                    $add_permission = DB::table('permissions')->where('name', 'quotes-add')->first();
-                    $add_permission_active = DB::table('role_has_permissions')->where([
-                        ['permission_id', $add_permission->id],
-                        ['role_id', $role->id]
-                    ])->first();
-                  ?>
-                  @if($add_permission_active)
-                  <li id="quotation-create-menu"><a href="{{route('quotations.create')}}">{{trans('file.Add Quotation')}}</a></li>
-                  @endif
-                </ul>
-              </li>
-              @endif
-              <?php 
-                $sale_index_permission = DB::table('permissions')->where('name', 'sales-index')->first();
-                $sale_index_permission_active = DB::table('role_has_permissions')->where([
-                        ['permission_id', $sale_index_permission->id],
-                        ['role_id', $role->id]
-                    ])->first();
-
-
-                $delivery_permission_active = DB::table('permissions')
-                      ->join('role_has_permissions', 'permissions.id', '=', 'role_has_permissions.permission_id')
-                      ->where([
-                        ['permissions.name', 'delivery'],
-                        ['role_id', $role->id] ])->first();
-                
-                $message_permission_active = DB::table('permissions')
-              ->join('role_has_permissions', 'permissions.id', '=', 'role_has_permissions.permission_id')
-              ->where([
-                ['permissions.name', 'message'],
-                ['role_id', $role->id] ])->first();
-
-                $sale_add_permission = DB::table('permissions')->where('name', 'sales-add')->first();
-                $sale_add_permission_active = DB::table('role_has_permissions')->where([
-                    ['permission_id', $sale_add_permission->id],
-                    ['role_id', $role->id]
-                ])->first();
-              ?>
-              @if($sale_index_permission_active || $delivery_permission_active || $message_permission_active )
-              <li><a href="#sale" aria-expanded="false" data-toggle="collapse"> <i class="dripicons-cart"></i><span>{{trans('file.Sale')}}</span></a>
-                <ul id="sale" class="hidden list-unstyled ">
-                  @if($sale_index_permission_active)
-                  <li id="sale-list-menu"><a href="{{route('sales.index')}}">{{trans('file.Sale List')}}</a></li>
-                    @if($sale_add_permission_active)
-                    <li id="sale-create-menu"><a href="{{route('sales.create')}}">{{trans('file.Add Sale')}}</a></li>
-                    <li id="sale-import-menu"><a href="{{url('sales/sale_by_csv')}}">{{trans('file.Import Sale By CSV')}}</a></li>
-                    @endif
-                  @endif
-
-                  @if($delivery_permission_active)
-                  <li id="delivery-menu"><a href="{{route('delivery.index')}}">{{trans('file.Delivery List')}}</a></li>
-                  @endif
-
-                  @if($message_permission_active)
-                  <li id="message-menu"><a href="{{route('message.index')}}">{{trans('file.Message List')}}</a></li>
-                  @endif
-                </ul>
-              </li>
-              @endif
-
-              <?php 
-                $index_permission = DB::table('permissions')->where('name', 'expenses-index')->first();
-                $index_permission_active = DB::table('role_has_permissions')->where([
-                        ['permission_id', $index_permission->id],
-                        ['role_id', $role->id]
-                    ])->first();
-              ?>
-              @if($index_permission_active)
-              <li><a href="#expense" aria-expanded="false" data-toggle="collapse"> <i class="dripicons-wallet"></i><span>{{trans('file.Expense')}}</span></a>
-                <ul id="expense" class="hidden list-unstyled ">
-                  <li id="exp-cat-menu"><a href="{{route('expense_categories.index')}}">{{trans('file.Expense Category')}}</a></li>
-                  <li id="exp-list-menu"><a href="{{route('expenses.index')}}">{{trans('file.Expense List')}}</a></li>
-                  <?php 
-                    $add_permission = DB::table('permissions')->where('name', 'expenses-add')->first();
-                    $add_permission_active = DB::table('role_has_permissions')->where([
-                        ['permission_id', $add_permission->id],
-                        ['role_id', $role->id]
-                    ])->first();
-                  ?>
-                  @if($add_permission_active)
-                  <li><a id="add-expense" href=""> {{trans('file.Add Expense')}}</a></li>
-                  @endif
-                </ul>
-              </li>
-              @endif
-            
-       
-              <?php 
-                $index_permission = DB::table('permissions')->where('name', 'account-index')->first();
-                $index_permission_active = DB::table('role_has_permissions')->where([
-                        ['permission_id', $index_permission->id],
-                        ['role_id', $role->id]
-                    ])->first();
-
-                $money_transfer_permission = DB::table('permissions')->where('name', 'money-transfer')->first();
-                $money_transfer_permission_active = DB::table('role_has_permissions')->where([
-                        ['permission_id', $money_transfer_permission->id],
-                        ['role_id', $role->id]
-                    ])->first();
-
-                $balance_sheet_permission = DB::table('permissions')->where('name', 'balance-sheet')->first();
-                $balance_sheet_permission_active = DB::table('role_has_permissions')->where([
-                        ['permission_id', $balance_sheet_permission->id],
-                        ['role_id', $role->id]
-                    ])->first();
-
-                $account_statement_permission = DB::table('permissions')->where('name', 'account-statement')->first();
-                $account_statement_permission_active = DB::table('role_has_permissions')->where([
-                        ['permission_id', $account_statement_permission->id],
-                        ['role_id', $role->id]
-                    ])->first();
-
-              ?>
-              @if($index_permission_active || $balance_sheet_permission_active || $account_statement_permission_active)
-              <li class=""><a href="#account" aria-expanded="false" data-toggle="collapse"> <i class="dripicons-briefcase"></i><span>{{trans('file.Accounting')}}</span></a>
-                <ul id="account" class="hidden list-unstyled ">
-                  @if($index_permission_active)
-                  <li id="account-list-menu"><a href="{{route('accounts.index')}}">{{trans('file.Account List')}}</a></li>
-                  <li><a id="add-account" href="">{{trans('file.Add Account')}}</a></li>
-                  @endif
-                  @if($money_transfer_permission_active)
-                  <li id="money-transfer-menu"><a href="{{route('money-transfers.index')}}">{{trans('file.Money Transfer')}}</a></li>
-                  @endif
-                  @if($balance_sheet_permission_active)
-                  <li id="balance-sheet-menu"><a href="{{route('accounts.balancesheet')}}">{{trans('file.Balance Sheet')}}</a></li>
-                  @endif
-                  @if($account_statement_permission_active)
-                  <li id="account-statement-menu"><a id="account-statement" href="">{{trans('file.Account Statement')}}</a></li>
-                  @endif
-                </ul>
-              </li>
-              @endif
-              <?php 
-                $department = DB::table('permissions')->where('name', 'department')->first();
-                $department_active = DB::table('role_has_permissions')->where([
-                        ['permission_id', $department->id],
-                        ['role_id', $role->id]
-                    ])->first();
-                $index_employee = DB::table('permissions')->where('name', 'employees-index')->first();
-                $index_employee_active = DB::table('role_has_permissions')->where([
-                        ['permission_id', $index_employee->id],
-                        ['role_id', $role->id]
-                    ])->first();
-                $attendance = DB::table('permissions')->where('name', 'attendance')->first();
-                $attendance_active = DB::table('role_has_permissions')->where([
-                        ['permission_id', $attendance->id],
-                        ['role_id', $role->id]
-                    ])->first();
-                $activity = DB::table('permissions')->where('name', 'activity')->first();
-                $activity_active = DB::table('role_has_permissions')->where([
-             //           ['permission_id', $activity->id],
-                        ['role_id', $role->id]
-                    ])->first();
-                $resume = DB::table('permissions')->where('name', 'resume')->first();
-                $resume_active = DB::table('role_has_permissions')->where([
-             //           ['permission_id', $resume->id],
-                        ['role_id', $role->id]
-                    ])->first();
-                $payroll = DB::table('permissions')->where('name', 'payroll')->first();
-                $payroll_active = DB::table('role_has_permissions')->where([
-                        ['permission_id', $payroll->id],
-                        ['role_id', $role->id]
-                    ])->first();
-              ?>
-
-              @if(Auth::user()->role_id != 5)
-              <li class=""><a href="#hrm" aria-expanded="false" data-toggle="collapse"> <i class="dripicons-user-group"></i><span>{{trans('file.HRM')}}</span></a>
-                <ul id="hrm" class="hidden list-unstyled ">
-                  @if($department_active)
-                  <li id="dept-menu"><a href="{{route('departments.index')}}">{{trans('file.Department')}}</a></li>
-                  @endif
-                  @if($index_employee_active)
-                  <li id="employee-menu"><a href="{{route('employees.index')}}">{{trans('file.Employee')}}</a></li>
-                  @endif
-                  @if($attendance_active)
-                  <li id="attendance-menu"><a href="{{route('attendance.index')}}">{{trans('file.Attendance')}}</a></li>
-                  @endif
-                  @if($payroll_active)
-                  <li id="payroll-menu"><a href="{{route('payroll.index')}}">{{trans('file.Payroll')}}</a></li>
-                  @endif
-                  <li id="holiday-menu"><a href="{{route('holidays.index')}}">{{trans('file.Holiday')}}</a></li>
-                  @if($activity_active)
-                  <li id="activity-menu"><a href="{{route('activity.index')}}">{{trans('file.Activity')}}</a></li>
-                  @endif
-                  @if($resume_active)
-                  <li id="resume-menu"><a href="{{route('resume.index')}}">{{trans('file.Resume')}}</a></li>
-                  @endif
-                </ul>
-              </li>
-              @endif
-              
-              <?php 
-                  $user_index_permission_active = DB::table('permissions')
-                      ->join('role_has_permissions', 'permissions.id', '=', 'role_has_permissions.permission_id')
-                      ->where([
-                        ['permissions.name', 'users-index'],
-                        ['role_id', $role->id] ])->first();
-
-                  $customer_index_permission = DB::table('permissions')->where('name', 'customers-index')->first();
-                  
-                  $customer_index_permission_active = DB::table('role_has_permissions')->where([
-                            ['permission_id', $customer_index_permission->id],
-                            ['role_id', $role->id]
-                        ])->first();
-
-                  $customer_group_permission = DB::table('permissions')->where('name', 'customer_group')->first();
-                  $customer_group_permission_active = DB::table('role_has_permissions')->where([
-                              ['permission_id', $customer_group_permission->id],
-                               ['role_id', $role->id]
-                          ])->first();
-
-                  $biller_index_permission = DB::table('permissions')->where('name', 'billers-index')->first();
-                  
-                  $biller_index_permission_active = DB::table('role_has_permissions')->where([
-                            ['permission_id', $biller_index_permission->id],
-                            ['role_id', $role->id]
-                        ])->first();
-
-                  $supplier_index_permission = DB::table('permissions')->where('name', 'suppliers-index')->first();
-                  
-                  $supplier_index_permission_active = DB::table('role_has_permissions')->where([
-                            ['permission_id', $supplier_index_permission->id],
-                            ['role_id', $role->id]
-                        ])->first();
-              ?>
-              @if($user_index_permission_active || $customer_index_permission_active || $biller_index_permission_active || $supplier_index_permission_active)
-              <li><a href="#people" aria-expanded="false" data-toggle="collapse"> <i class="dripicons-user"></i><span>{{trans('file.People')}}</span></a>
-                <ul id="people" class="hidden list-unstyled ">
-                  
-                  @if($user_index_permission_active)
-                  <li id="user-list-menu"><a href="{{route('user.index')}}">{{trans('file.User List')}}</a></li>
-                  <?php $user_add_permission_active = DB::table('permissions')
+<body class="hold-transition layout-fixed layout-navbar-fixed">
+    <!-- Side Navbar -->
+    <aside class="main-sidebar elevation-4 sidebar-dark-primary">
+      <a class="brand-link" href="{{ url('/') }}"> <span class="brand-text font-weight-light"> {{ $general_setting->site_title }} </span></a>
+        <section class="sidebar pt-0 mt-0">
+            <nav class="mt-6">
+              <ul class="nav nav-pills nav-sidebar flex-column nav-flat nav-compact nav-collapse-hide-child" data-widget="treeview" role="menu" data-accordion="false">                  
+                    <li class="nav-item menu-open"><a class="nav-link active" href="{{ url('/') }}"><i class="nav-icon dripicons-meter"></i>
+                            <span>{{ __('Dashboard') }}</span></a></li>
+                    <?php
+                    $role = DB::table('roles')->find(Auth::user()->role_id);
+                    $category_permission_active = DB::table('permissions')
                         ->join('role_has_permissions', 'permissions.id', '=', 'role_has_permissions.permission_id')
-                        ->where([
-                          ['permissions.name', 'users-add'],
-                          ['role_id', $role->id] ])->first();
-                  ?>
-                  @if($user_add_permission_active)
-                  <li id="user-create-menu"><a href="{{route('user.create')}}">{{trans('file.Add User')}}</a></li>
-                  @endif
-                  @endif
-                  
-                  @if($customer_index_permission_active)
-                  <li id="customer-list-menu"><a href="{{route('customer.index')}}">{{trans('file.Customer List')}}</a></li>
-                  <?php 
-                    $customer_add_permission = DB::table('permissions')->where('name', 'customers-add')->first();
-                    $customer_add_permission_active = DB::table('role_has_permissions')->where([
-                        ['permission_id', $customer_add_permission->id],
-                        ['role_id', $role->id]
-                    ])->first();
-                  ?>
-                  @if($customer_add_permission_active)
-                  <li id="customer-create-menu"><a href="{{route('customer.create')}}">{{trans('file.Add Customer')}}</a></li>
-                  @endif
-                  @endif
-                  @if($customer_group_permission_active)
-                  <li id="customer-group-menu"><a href="{{route('customer_group.index')}}">{{trans('file.Customer Group')}}</a></li>
-                  @endif
-                  @if($biller_index_permission_active)
-                  <li id="biller-list-menu"><a href="{{route('biller.index')}}">{{trans('file.Biller List')}}</a></li>
-                  <?php 
-                    $biller_add_permission = DB::table('permissions')->where('name', 'billers-add')->first();
-                    $biller_add_permission_active = DB::table('role_has_permissions')->where([
-                        ['permission_id', $biller_add_permission->id],
-                        ['role_id', $role->id]
-                    ])->first();
-                  ?>
-                  @if($biller_add_permission_active)
-                  <li id="biller-create-menu"><a href="{{route('biller.create')}}">{{trans('file.Add Biller')}}</a></li>
-                  @endif
-                  @endif
-                  
-                  @if($supplier_index_permission_active)
-                  <li id="supplier-list-menu"><a href="{{route('supplier.index')}}">{{trans('file.Supplier List')}}</a></li>
-                  <?php 
-                    $supplier_add_permission = DB::table('permissions')->where('name', 'suppliers-add')->first();
-                    $supplier_add_permission_active = DB::table('role_has_permissions')->where([
-                        ['permission_id', $supplier_add_permission->id],
-                        ['role_id', $role->id]
-                    ])->first();
-                  ?>
-                  @if($supplier_add_permission_active)
-                  <li id="supplier-create-menu"><a href="{{route('supplier.create')}}">{{trans('file.Add Supplier')}}</a></li>
-                  @endif
-                  @endif
-                </ul>
-              </li>
-              @endif
-
-              <?php
-                $profit_loss_active = DB::table('permissions')
-                      ->join('role_has_permissions', 'permissions.id', '=', 'role_has_permissions.permission_id')
-                      ->where([
-                        ['permissions.name', 'profit-loss'],
-                        ['role_id', $role->id] ])->first();
-                $best_seller_active = DB::table('permissions')
-                      ->join('role_has_permissions', 'permissions.id', '=', 'role_has_permissions.permission_id')
-                      ->where([
-                        ['permissions.name', 'best-seller'],
-                        ['role_id', $role->id] ])->first();
-                $warehouse_report_active = DB::table('permissions')
-                      ->join('role_has_permissions', 'permissions.id', '=', 'role_has_permissions.permission_id')
-                      ->where([
-                        ['permissions.name', 'warehouse-report'],
-                        ['role_id', $role->id] ])->first();
-                $warehouse_stock_report_active = DB::table('permissions')
-                      ->join('role_has_permissions', 'permissions.id', '=', 'role_has_permissions.permission_id')
-                      ->where([
-                        ['permissions.name', 'warehouse-stock-report'],
-                        ['role_id', $role->id] ])->first();
-                $product_report_active = DB::table('permissions')
-                      ->join('role_has_permissions', 'permissions.id', '=', 'role_has_permissions.permission_id')
-                      ->where([
-                        ['permissions.name', 'product-report'],
-                        ['role_id', $role->id] ])->first();
-                $daily_sale_active = DB::table('permissions')
-                      ->join('role_has_permissions', 'permissions.id', '=', 'role_has_permissions.permission_id')
-                      ->where([
-                        ['permissions.name', 'daily-sale'],
-                        ['role_id', $role->id] ])->first();
-                $monthly_sale_active = DB::table('permissions')
-                      ->join('role_has_permissions', 'permissions.id', '=', 'role_has_permissions.permission_id')
-                      ->where([
-                        ['permissions.name', 'monthly-sale'],
-                        ['role_id', $role->id]])->first();
-                $daily_purchase_active = DB::table('permissions')
-                      ->join('role_has_permissions', 'permissions.id', '=', 'role_has_permissions.permission_id')
-                      ->where([
-                        ['permissions.name', 'daily-purchase'],
-                        ['role_id', $role->id] ])->first();
-                $monthly_purchase_active = DB::table('permissions')
-                      ->join('role_has_permissions', 'permissions.id', '=', 'role_has_permissions.permission_id')
-                      ->where([
-                        ['permissions.name', 'monthly-purchase'],
-                        ['role_id', $role->id] ])->first();
-                $purchase_report_active = DB::table('permissions')
-                      ->join('role_has_permissions', 'permissions.id', '=', 'role_has_permissions.permission_id')
-                      ->where([
-                        ['permissions.name', 'purchase-report'],
-                        ['role_id', $role->id] ])->first();
-                $sale_report_active = DB::table('permissions')
-                      ->join('role_has_permissions', 'permissions.id', '=', 'role_has_permissions.permission_id')
-                      ->where([
-                        ['permissions.name', 'sale-report'],
-                        ['role_id', $role->id] ])->first();
-                $payment_report_active = DB::table('permissions')
-                      ->join('role_has_permissions', 'permissions.id', '=', 'role_has_permissions.permission_id')
-                      ->where([
-                        ['permissions.name', 'payment-report'],
-                        ['role_id', $role->id] ])->first();
-                $product_qty_alert_active = DB::table('permissions')
-                      ->join('role_has_permissions', 'permissions.id', '=', 'role_has_permissions.permission_id')
-                      ->where([
-                        ['permissions.name', 'product-qty-alert'],
-                        ['role_id', $role->id] ])->first();
-                $user_report_active = DB::table('permissions')
-                      ->join('role_has_permissions', 'permissions.id', '=', 'role_has_permissions.permission_id')
-                      ->where([
-                        ['permissions.name', 'user-report'],
-                        ['role_id', $role->id] ])->first();
-
-                $customer_report_active = DB::table('permissions')
-                      ->join('role_has_permissions', 'permissions.id', '=', 'role_has_permissions.permission_id')
-                      ->where([
-                        ['permissions.name', 'customer-report'],
-                        ['role_id', $role->id] ])->first();
-                $supplier_report_active = DB::table('permissions')
-                      ->join('role_has_permissions', 'permissions.id', '=', 'role_has_permissions.permission_id')
-                      ->where([
-                        ['permissions.name', 'supplier-report'], 
-                        ['role_id', $role->id] ])->first();
-                $due_report_active = DB::table('permissions')
-                      ->join('role_has_permissions', 'permissions.id', '=', 'role_has_permissions.permission_id')
-                      ->where([
-                        ['permissions.name', 'due-report'],
-                        ['role_id', $role->id] ])->first();
-              ?>
-              @if($profit_loss_active || $best_seller_active || $warehouse_report_active || $warehouse_stock_report_active || $product_report_active || $daily_sale_active || $monthly_sale_active || $daily_purchase_active || $monthly_purchase_active || $purchase_report_active || $sale_report_active || $payment_report_active || $product_qty_alert_active || $user_report_active || $customer_report_active || $supplier_report_active || $due_report_active)
-              <li><a href="#report" aria-expanded="false" data-toggle="collapse"> <i class="dripicons-document-remove"></i><span>{{trans('file.Reports')}}</span></a>
-                <ul id="report" class="hidden list-unstyled ">
-                  @if($profit_loss_active)
-                  <li id="profit-loss-report-menu">
-                    {!! Form::open(['route' => 'report.profitLoss', 'method' => 'post', 'id' => 'profitLoss-report-form']) !!}
-                    <input type="hidden" name="start_date" value="{{date('Y-m').'-'.'01'}}" />
-                    <input type="hidden" name="end_date" value="{{date('Y-m-d')}}" />
-                    <a id="profitLoss-link" href="">{{trans('file.Summary Report')}}</a>
-                    {!! Form::close() !!}
-                  </li>
-                  @endif
-                  @if($best_seller_active)
-                  <li id="best-seller-report-menu">
-                    <a href="{{url('report/best_seller')}}">{{trans('file.Best Seller')}}</a>
-                  </li>
-                  @endif
-                  @if($product_report_active)
-                  <li id="product-report-menu">
-                    {!! Form::open(['route' => 'report.product', 'method' => 'post', 'id' => 'product-report-form']) !!}
-                    <input type="hidden" name="start_date" value="1988-04-18" />
-                    <input type="hidden" name="end_date" value="{{date('Y-m-d')}}" />
-                    <input type="hidden" name="warehouse_id" value="0" />
-                    <a id="report-link" href="">{{trans('file.Product Report')}}</a>
-                    {!! Form::close() !!}
-                  </li>
-                  @endif
-                  @if($daily_sale_active)
-                  <li id="daily-sale-report-menu">
-                    <a href="{{url('report/daily_sale/'.date('Y').'/'.date('m'))}}">{{trans('file.Daily Sale')}}</a>
-                  </li>
-                  @endif
-                  @if($monthly_sale_active)
-                  <li id="monthly-sale-report-menu">
-                    <a href="{{url('report/monthly_sale/'.date('Y'))}}">{{trans('file.Monthly Sale')}}</a>
-                  </li>
-                  @endif
-                  @if($daily_purchase_active)
-                  <li id="daily-purchase-report-menu">
-                    <a href="{{url('report/daily_purchase/'.date('Y').'/'.date('m'))}}">{{trans('file.Daily Purchase')}}</a>
-                  </li>
-                  @endif
-                  @if($monthly_purchase_active)
-                  <li id="monthly-purchase-report-menu">
-                    <a href="{{url('report/monthly_purchase/'.date('Y'))}}">{{trans('file.Monthly Purchase')}}</a>
-                  </li>
-                  @endif
-                  @if($sale_report_active)
-                  <li id="sale-report-menu">
-                    {!! Form::open(['route' => 'report.sale', 'method' => 'post', 'id' => 'sale-report-form']) !!}
-                    <input type="hidden" name="start_date" value="1988-04-18" />
-                    <input type="hidden" name="end_date" value="{{date('Y-m-d')}}" />
-                    <input type="hidden" name="warehouse_id" value="0" />
-                    <a id="sale-report-link" href="">{{trans('file.Sale Report')}}</a>
-                    {!! Form::close() !!}
-                  </li>
-                  @endif
-                  @if($payment_report_active)
-                  <li id="payment-report-menu">
-                    {!! Form::open(['route' => 'report.paymentByDate', 'method' => 'post', 'id' => 'payment-report-form']) !!}
-                    <input type="hidden" name="start_date" value="1988-04-18" />
-                    <input type="hidden" name="end_date" value="{{date('Y-m-d')}}" />
-                    <a id="payment-report-link" href="">{{trans('file.Payment Report')}}</a>
-                    {!! Form::close() !!}
-                  </li>
-                  @endif
-                  @if($purchase_report_active)
-                  <li id="purchase-report-menu">
-                    {!! Form::open(['route' => 'report.purchase', 'method' => 'post', 'id' => 'purchase-report-form']) !!}
-                    <input type="hidden" name="start_date" value="1988-04-18" />
-                    <input type="hidden" name="end_date" value="{{date('Y-m-d')}}" />
-                    <input type="hidden" name="warehouse_id" value="0" />
-                    <a id="purchase-report-link" href="">{{trans('file.Purchase Report')}}</a>
-                    {!! Form::close() !!}
-                  </li>
-                  @endif
-                  @if($warehouse_report_active)
-                  <li id="warehouse-report-menu">
-                    <a id="warehouse-report-link" href="">{{trans('file.Warehouse Report')}}</a>
-                  </li>
-                  @endif
-                  @if($warehouse_stock_report_active)
-                  <li id="warehouse-stock-report-menu">
-                    <a href="{{route('report.warehouseStock')}}">{{trans('file.Warehouse Stock Chart')}}</a>
-                  </li>
-                  @endif
-                  @if($product_qty_alert_active)
-                  <li id="qtyAlert-report-menu">
-                    <a href="{{route('report.qtyAlert')}}">{{trans('file.Product Quantity Alert')}}</a>
-                  </li>
-                  @endif
-                  @if($user_report_active)
-                  <li id="user-report-menu">
-                    <a id="user-report-link" href="">{{trans('file.User Report')}}</a>
-                  </li>
-                  @endif
-                  @if($customer_report_active)
-                  <li id="customer-report-menu">
-                    <a id="customer-report-link" href="">{{trans('file.Customer Report')}}</a>
-                  </li>
-                  @endif
-                  @if($supplier_report_active)
-                  <li id="supplier-report-menu">
-                    <a id="supplier-report-link" href="">{{trans('file.Supplier Report')}}</a>
-                  </li>
-                  @endif
-                  @if($due_report_active)
-                  <li id="due-report-menu">
-                    {!! Form::open(['route' => 'report.dueByDate', 'method' => 'post', 'id' => 'due-report-form']) !!}
-                    <input type="hidden" name="start_date" value="1988-04-18" />
-                    <input type="hidden" name="end_date" value="{{date('Y-m-d')}}" />
-                    <a id="due-report-link" href="">{{trans('file.Due Report')}}</a>
-                    {!! Form::close() !!}
-                  </li>
-                  @endif
-                </ul>
-              </li>
-              @endif
-              <li><a href="#setting" aria-expanded="false" data-toggle="collapse"> <i class="dripicons-gear"></i><span>{{trans('file.settings')}}</span></a>
-                <ul id="setting" class="hidden list-unstyled ">
-                  <?php
-                      $send_notification_permission = DB::table('permissions')->where('name', 'send_notification')->first();
-                      $send_notification_permission_active = DB::table('role_has_permissions')->where([
-                                  ['permission_id', $send_notification_permission->id],
-                                  ['role_id', $role->id]
-                              ])->first();
-
-                      $warehouse_permission = DB::table('permissions')->where('name', 'warehouse')->first();
-                      $warehouse_permission_active = DB::table('role_has_permissions')->where([
-                                  ['permission_id', $warehouse_permission->id],
-                                  ['role_id', $role->id]
-                              ])->first();
-
-                      $brand_permission = DB::table('permissions')->where('name', 'brand')->first();
-                      $brand_permission_active = DB::table('role_has_permissions')->where([
-                                  ['permission_id', $brand_permission->id],
-                                  ['role_id', $role->id]
-                              ])->first();
-
-                      $unit_permission = DB::table('permissions')->where('name', 'unit')->first();
-                      $unit_permission_active = DB::table('role_has_permissions')->where([
-                                  ['permission_id', $unit_permission->id],
-                                  ['role_id', $role->id]
-                              ])->first();
-
-                      $currency_permission = DB::table('permissions')->where('name', 'currency')->first();
-                      $currency_permission_active = DB::table('role_has_permissions')->where([
-                                  ['permission_id', $currency_permission->id],
-                                  ['role_id', $role->id]
-                              ])->first();
-
-                      $tax_permission = DB::table('permissions')->where('name', 'tax')->first();
-                      $tax_permission_active = DB::table('role_has_permissions')->where([
-                                  ['permission_id', $tax_permission->id],
-                                  ['role_id', $role->id]
-                              ])->first();
-
-                      $general_setting_permission = DB::table('permissions')->where('name', 'general_setting')->first();
-                      $general_setting_permission_active = DB::table('role_has_permissions')->where([
-                                  ['permission_id', $general_setting_permission->id],
-                                  ['role_id', $role->id]
-                              ])->first();
-
-                      $backup_database_permission = DB::table('permissions')->where('name', 'backup_database')->first();
-                      $backup_database_permission_active = DB::table('role_has_permissions')->where([
-                                  ['permission_id', $backup_database_permission->id],
-                                  ['role_id', $role->id]
-                              ])->first();
-
-                      $mail_setting_permission = DB::table('permissions')->where('name', 'mail_setting')->first();
-                      $mail_setting_permission_active = DB::table('role_has_permissions')->where([
-                          ['permission_id', $mail_setting_permission->id],
-                          ['role_id', $role->id]
-                      ])->first();
-
-                      $hrm_setting_permission = DB::table('permissions')->where('name', 'hrm_setting')->first();
-                      $hrm_setting_permission_active = DB::table('role_has_permissions')->where([
-                          ['permission_id', $hrm_setting_permission->id],
-                          ['role_id', $role->id]
-                      ])->first();
-                  ?>
-                  @if($role->id <= 2)
-                  <li id="role-menu"><a href="{{route('role.index')}}">{{trans('file.Role Permission')}}</a></li>
-                  @endif
-                  @if($send_notification_permission_active)
-                  <li id="notification-menu">
-                    <a href="" id="send-notification">{{trans('file.Send Notification')}}</a>
-                  </li>
-                  @endif
-                  @if($warehouse_permission_active)
-                  <li id="warehouse-menu"><a href="{{route('warehouse.index')}}">{{trans('file.Warehouse')}}</a></li>
-                  @endif
-                  @if($brand_permission_active)
-                  <li id="brand-menu"><a href="{{route('brand.index')}}">{{trans('file.Brand')}}</a></li>
-                  @endif
-                  @if($unit_permission_active)
-                  <li id="unit-menu"><a href="{{route('unit.index')}}">{{trans('file.Unit')}}</a></li>
-                  @endif
-                  @if($currency_permission_active)
-                  <li id="currency-menu"><a href="{{route('currency.index')}}">{{trans('file.Currency')}}</a></li>
-                  @endif
-                  @if($tax_permission_active)
-                  <li id="tax-menu"><a href="{{route('tax.index')}}">{{trans('file.Tax')}}</a></li>
-                  @endif
-                  <li id="user-menu"><a href="{{route('user.profile', ['id' => Auth::id()])}}">{{trans('file.User Profile')}}</a></li>
-                  @if($backup_database_permission_active)
-                  <li><a href="{{route('setting.backup')}}">{{trans('file.Backup Database')}}</a></li>
-                  @endif
-                  @if($general_setting_permission_active)
-                  <li id="general-setting-menu"><a href="{{route('setting.general')}}">{{trans('file.General Setting')}}</a></li>
-                  @endif
-                  @if($mail_setting_permission_active)
-                  <li id="mail-setting-menu"><a href="{{route('setting.mail')}}">{{trans('file.Mail Setting')}}</a></li>
-                  @endif
-                  @if($hrm_setting_permission_active)
-                  <li id="hrm-setting-menu"><a href="{{route('setting.hrm')}}"> {{trans('file.HRM Setting')}}</a></li>
-                  @endif
-                </ul>
-              </li>
-            </ul>
-          </div>
-        </div>
-      </aside>
-      <div class="flex flex-col flex-1 w-full">
-      <header class="z-10 py-4 bg-white shadow-md dark:bg-gray-800">
-        <div
-          class="flex items-center justify-between h-full px-6 mx-auto text-purple-600 dark:text-purple-300"
-        >
-          <?php 
-          $add_permission = DB::table('permissions')->where('name', 'sales-add')->first();
-          $add_permission_active = DB::table('role_has_permissions')->where([
-              ['permission_id', $add_permission->id],
-              ['role_id', $role->id]
-          ])->first();
-
-          $empty_database_permission = DB::table('permissions')->where('name', 'empty_database')->first();
-          $empty_database_permission_active = DB::table('role_has_permissions')->where([
-              ['permission_id', $empty_database_permission->id],
-              ['role_id', $role->id]
-          ])->first();
-        ?>
-          <!-- Mobile hamburger -->
-          <button
-            class="p-1 mr-5 -ml-1 rounded-md focus:outline-none focus:shadow-outline-purple"
-            @click="toggleSideMenu"
-            aria-label="Menu"
-            id="toggle-btn"
-          >
-            <svg
-              class="w-6 h-6"
-              aria-hidden="true"
-              fill="currentColor"
-              viewBox="0 0 20 20"
-            >
-              <path
-                fill-rule="evenodd"
-                d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z"
-                clip-rule="evenodd"
-              ></path>
-            </svg>
-          </button>
-          
-          <!-- Search input -->
-          <div class="flex justify-center flex-1 lg:mr-32">
-            <div
-              class="relative w-full max-w-xl mr-6 focus-within:text-purple-500"
-            >
-           
-            </div>
-          </div>
-          <ul class="flex items-center flex-shrink-0 space-x-6">
-            <!-- Theme toggler -->
-            <li class="flex">
-              <button
-                class="rounded-md focus:outline-none focus:shadow-outline-purple"
-                @click="toggleTheme"
-                aria-label="Toggle color mode"
-              >
-                <template x-if="!dark">
-                  <svg
-                    class="w-5 h-5"
-                    aria-hidden="true"
-                    fill="currentColor"
-                    viewBox="0 0 20 20"
-                  >
-                    <path
-                      d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"
-                    ></path>
-                  </svg>
-                </template>
-                <template x-if="dark">
-                  <svg
-                    class="w-5 h-5"
-                    aria-hidden="true"
-                    fill="currentColor"
-                    viewBox="0 0 20 20"
-                  >
-                    <path
-                      fill-rule="evenodd"
-                      d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z"
-                      clip-rule="evenodd"
-                    ></path>
-                  </svg>
-                </template>
-              </button>
-            </li>
-            <!-- Notifications menu -->
-            <li class="relative">
-              <button
-                class="relative align-middle rounded-md focus:outline-none focus:shadow-outline-purple"
-                @click="toggleNotificationsMenu"
-                @keydown.escape="closeNotificationsMenu"
-                aria-label="Notifications"
-                aria-haspopup="true"
-              >
-                <svg
-                  class="w-5 h-5"
-                  aria-hidden="true"
-                  fill="currentColor"
-                  viewBox="0 0 20 20"
-                >
-                  <path
-                    d="M10 2a6 6 0 00-6 6v3.586l-.707.707A1 1 0 004 14h12a1 1 0 00.707-1.707L16 11.586V8a6 6 0 00-6-6zM10 18a3 3 0 01-3-3h6a3 3 0 01-3 3z"
-                  ></path>
-                </svg>
-                <!-- Notification badge -->
-                <span
-                  aria-hidden="true"
-                  class="absolute top-0 right-0 inline-block w-3 h-3 transform translate-x-1 -translate-y-1 bg-red-600 border-2 border-white rounded-full dark:border-gray-800"
-                ></span>
-              </button>
-              <template x-if="isNotificationsMenuOpen">
-                <ul
-                  x-transition:leave="transition ease-in duration-150"
-                  x-transition:leave-start="opacity-100"
-                  x-transition:leave-end="opacity-0"
-                  @click.away="closeNotificationsMenu"
-                  @keydown.escape="closeNotificationsMenu"
-                  class="absolute right-0 w-56 p-2 mt-2 space-y-2 text-gray-600 bg-white border border-gray-100 rounded-md shadow-md dark:text-gray-300 dark:border-gray-700 dark:bg-gray-700"
-                >
-                  @if($product_qty_alert_active)
-                   @if(($alert_product + count(\Auth::user()->unreadNotifications)) > 0)
-                    <li class="flex">
-                      <a
-                        class="inline-flex items-center justify-between w-full px-2 py-1 text-sm font-semibold transition-colors duration-150 rounded-md hover:bg-gray-100 hover:text-gray-800 dark:hover:bg-gray-800 dark:hover:text-gray-200"
-                        href="{{route('report.qtyAlert')}}"
-                      >
-                      <span> {{$alert_product}} product exceeds alert quantity</span>
-                      </a>
-                    </li>
-                    @foreach(\Auth::user()->unreadNotifications as $key => $notification)
-                        <li class="flex">
-                          <a
-                            class="inline-flex items-center justify-between w-full px-2 py-1 text-sm font-semibold transition-colors duration-150 rounded-md hover:bg-gray-100 hover:text-gray-800 dark:hover:bg-gray-800 dark:hover:text-gray-200"
-                          >
-                          <span> {{ $notification->data['message'] }}</span>
-                          </a>
-                        </li>
-                      @endforeach
-                      @elseif(count(\Auth::user()->unreadNotifications) > 0)
-                          @foreach(\Auth::user()->unreadNotifications as $key => $notification)
-                          <li class="flex">
-                            <a
-                              class="inline-flex items-center justify-between w-full px-2 py-1 text-sm font-semibold transition-colors duration-150 rounded-md hover:bg-gray-100 hover:text-gray-800 dark:hover:bg-gray-800 dark:hover:text-gray-200"
-                            >
-                            <span>{{ $notification->data['message'] }}</span>
+                        ->where([['permissions.name', 'category'], ['role_id', $role->id]])
+                        ->first();
+                    $index_permission = DB::table('permissions')
+                        ->where('name', 'products-index')
+                        ->first();
+                    $index_permission_active = DB::table('role_has_permissions')
+                        ->where([['permission_id', $index_permission->id], ['role_id', $role->id]])
+                        ->first();
+                    
+                    $brand_permission = DB::table('permissions')
+                        ->where('name', 'brand')
+                        ->first();
+                    $brand_permission_active = DB::table('role_has_permissions')
+                        ->where([['permission_id', $brand_permission->id], ['role_id', $role->id]])
+                        ->first();
+                    
+                    $stock_count = DB::table('permissions')
+                        ->where('name', 'stock_count')
+                        ->first();
+                    $stock_count_active = DB::table('role_has_permissions')
+                        ->where([['permission_id', $stock_count->id], ['role_id', $role->id]])
+                        ->first();
+                    
+                    $adjustment = DB::table('permissions')
+                        ->where('name', 'adjustment')
+                        ->first();
+                    $adjustment_active = DB::table('role_has_permissions')
+                        ->where([['permission_id', $adjustment->id], ['role_id', $role->id]])
+                        ->first();
+                    ?>
+                    @if ($category_permission_active || $index_permission_active || $print_barcode_active || $stock_count_active || $adjustment_active)
+                        <li class="nav-item">
+                            <a href="#product" class="nav-link"><i class="nav-icon dripicons-list"></i> <span>{{ __('file.product') }}</span>
+                                <span class="pull-right-container">
+                                    <i class="nav-icon fa fa-angle-left pull-right"></i>
+                                </span>
                             </a>
-                          </li>
-                          @endforeach
-                      @endif
+                            <ul class="nav nav-treeview" id="product">
+
+                                @if ($brand_permission_active)
+                                    <li class="nav-item" id="brand-menu"><a class="nav-link"
+                                            href="{{ route('brand.index') }}">{{ trans('file.Brand List') }}</a>
+                                    </li>
+                                @endif
+
+                                @if ($category_permission_active)
+                                    <li class="nav-item" id="category-menu"><a class="nav-link"
+                                            href="{{ route('category.index') }}">{{ __('file.Category List') }}</a>
+                                    </li>
+                                @endif
+
+                                @if ($index_permission_active)
+                                    <li class="nav-item" id="product-list-menu"><a class="nav-link"
+                                            href="{{ route('products.index') }}">{{ __('file.Product List') }}</a>
+                                    </li>
+                                @endif
+
+                                @if ($adjustment_active)
+                                    <li class="nav-item" id="adjustment-list-menu"><a class="nav-link"
+                                            href="{{ route('qty_adjustment.index') }}">{{ trans('file.Adjustment List') }}</a>
+                                    </li>
+                                    <li class="nav-item" id="adjustment-create-menu"><a class="nav-link"
+                                            href="{{ route('qty_adjustment.create') }}">{{ trans('file.Add Adjustment') }}</a>
+                                    </li>
+                                @endif
+
+                                @if ($stock_count_active)
+                                    <li class="nav-item" id="stock-count-menu"><a class="nav-link"
+                                            href="{{ route('stock-count.index') }}">{{ trans('file.Stock Count') }}</a>
+                                    </li>
+                                @endif
+                            </ul>
+                        </li>
                     @endif
-                    </a>
-                  </li>
-                </ul>
-              </template>
-            </li>
-             <!-- Language menu -->
-             <li class="relative">
-              <button
-                class="align-middle rounded-full focus:shadow-outline-purple focus:outline-none"
-                @click="toggleLanguageMenu"
-                @keydown.escape="closeLanguageMenu"
-                aria-label="Account"
-                aria-haspopup="true"
-              >
-                <svg
-                class="w-5 h-5"
-                aria-hidden="true"
-                fill="none"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-              >
-                <path
-                  d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"
-                ></path>
-                <path d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
-              </svg>
-              </button>
-              <template x-if="isLanguageMenuOpen">
-                <ul
-                  x-transition:leave="transition ease-in duration-150"
-                  x-transition:leave-start="opacity-100"
-                  x-transition:leave-end="opacity-0"
-                  @click.away="closeLanguageMenu"
-                  @keydown.escape="closeLanguageMenu"
-                  class="absolute right-0 w-56 p-2 mt-2 space-y-2 text-gray-600 bg-white border border-gray-100 rounded-md shadow-md dark:border-gray-700 dark:text-gray-300 dark:bg-gray-700"
-                  aria-label="submenu"
-                >
-                  <li class="flex">
-                    <a
-                      class="inline-flex items-center w-full px-2 py-1 text-sm font-semibold transition-colors duration-150 rounded-md hover:bg-gray-100 hover:text-gray-800 dark:hover:bg-gray-800 dark:hover:text-gray-200"
-                      href="{{ url('language_switch/fr') }}"
-                    >
-                      <span>Français</span>
-                    </a>
-                  </li>
-                  <li class="flex">
-                    <a
-                      class="inline-flex items-center w-full px-2 py-1 text-sm font-semibold transition-colors duration-150 rounded-md hover:bg-gray-100 hover:text-gray-800 dark:hover:bg-gray-800 dark:hover:text-gray-200"
-                      href="{{ url('language_switch/ar') }}"
-                    >
-                      <span>Arab</span>
-                    </a>
-                  </li>
-                  <li class="flex">
-                    <a
-                      class="inline-flex items-center w-full px-2 py-1 text-sm font-semibold transition-colors duration-150 rounded-md hover:bg-gray-100 hover:text-gray-800 dark:hover:bg-gray-800 dark:hover:text-gray-200"
-                      href="{{ url('language_switch/en') }}">
-                      <span> English</span>
-                    </a>
-                  </li>
-                </ul>
-              </template>
-            </li>
-            <!-- Profile menu -->
-            <li class="relative">
-              <button
-                class="align-middle rounded-full focus:shadow-outline-purple focus:outline-none"
-                @click="toggleProfileMenu"
-                @keydown.escape="closeProfileMenu"
-                aria-label="Account"
-                aria-haspopup="true"
-              >
-              {{ucfirst(Auth::user()->name)}}
-              </button>
-              <template x-if="isProfileMenuOpen">
-                <ul
-                  x-transition:leave="transition ease-in duration-150"
-                  x-transition:leave-start="opacity-100"
-                  x-transition:leave-end="opacity-0"
-                  @click.away="closeProfileMenu"
-                  @keydown.escape="closeProfileMenu"
-                  class="absolute right-0 w-56 p-2 mt-2 space-y-2 text-gray-600 bg-white border border-gray-100 rounded-md shadow-md dark:border-gray-700 dark:text-gray-300 dark:bg-gray-700"
-                  aria-label="submenu"
-                >
-                  <li class="flex">
-                    <a
-                      class="inline-flex items-center w-full px-2 py-1 text-sm font-semibold transition-colors duration-150 rounded-md hover:bg-gray-100 hover:text-gray-800 dark:hover:bg-gray-800 dark:hover:text-gray-200"
-                      href="{{route('user.profile', ['id' => Auth::id()])}}"
-                    >
-                      <svg
-                        class="w-4 h-4 mr-3"
-                        aria-hidden="true"
-                        fill="none"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        stroke-width="2"
-                        viewBox="0 0 24 24"
-                        stroke="currentColor"
-                      >
-                        <path
-                          d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"
-                        ></path>
-                      </svg>
-                      <span>Profile</span>
-                    </a>
-                  </li>
-                  @if(Auth::user()->role_id != 5)
-                  <li class="flex">
-                    <a
-                      class="inline-flex items-center w-full px-2 py-1 text-sm font-semibold transition-colors duration-150 rounded-md hover:bg-gray-100 hover:text-gray-800 dark:hover:bg-gray-800 dark:hover:text-gray-200"
-                      href="{{url('holidays/my-holiday/'.date('Y').'/'.date('m'))}}"
-                    >
-                      <svg
-                        class="w-4 h-4 mr-3"
-                        aria-hidden="true"
-                        fill="none"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        stroke-width="2"
-                        viewBox="0 0 24 24"
-                        stroke="currentColor"
-                      >
-                        <path
-                          d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"
-                        ></path>
-                        <path d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
-                      </svg>
-                      <span>My Holidays</span>
-                    </a>
-                  </li>
-                  @endif
-                  <li class="flex">
-                    <a
-                      class="inline-flex items-center w-full px-2 py-1 text-sm font-semibold transition-colors duration-150 rounded-md hover:bg-gray-100 hover:text-gray-800 dark:hover:bg-gray-800 dark:hover:text-gray-200"
-                      href="{{url('my-transactions/'.date('Y').'/'.date('m'))}}"
-                    >
-                      <svg
-                        class="w-4 h-4 mr-3"
-                        aria-hidden="true"
-                        fill="none"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        stroke-width="2"
-                        viewBox="0 0 24 24"
-                        stroke="currentColor"
-                      >
-                        <path
-                          d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"
-                        ></path>
-                        <path d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
-                      </svg>
-                      <span>My Transactions</span>
-                    </a>
-                  </li>
-                  @if($general_setting_permission_active)
-                  <li class="flex">
-                    <a
-                      class="inline-flex items-center w-full px-2 py-1 text-sm font-semibold transition-colors duration-150 rounded-md hover:bg-gray-100 hover:text-gray-800 dark:hover:bg-gray-800 dark:hover:text-gray-200"
-                      href="{{route('setting.general')}}"
-                    >
-                      <svg
-                        class="w-4 h-4 mr-3"
-                        aria-hidden="true"
-                        fill="none"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        stroke-width="2"
-                        viewBox="0 0 24 24"
-                        stroke="currentColor"
-                      >
-                        <path
-                          d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"
-                        ></path>
-                        <path d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
-                      </svg>
-                      <span>Settings</span>
-                    </a>
-                  </li>
-                  @endif
-                  <li class="flex">
-                    <a
-                      class="inline-flex items-center w-full px-2 py-1 text-sm font-semibold transition-colors duration-150 rounded-md hover:bg-gray-100 hover:text-gray-800 dark:hover:bg-gray-800 dark:hover:text-gray-200"
-                      href="{{ route('logout') }}"
-                      onclick="event.preventDefault();
-                      document.getElementById('logout-form').submit();">
-                      <svg
-                        class="w-4 h-4 mr-3"
-                        aria-hidden="true"
-                        fill="none"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        stroke-width="2"
-                        viewBox="0 0 24 24"
-                        stroke="currentColor"
-                      >
-                        <path
-                          d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1"
-                        ></path>
-                      </svg>
-                      <span> {{trans('file.logout')}}</span>
-                      <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                        @csrf
-                       </form>
-                    </a>
-                  </li>
-                </ul>
-              </template>
 
-            </li>
-          </ul>
-        </div>
-      </header>
-    
-    <div class="page">
+                    <?php
+                    $index_permission = DB::table('permissions')
+                        ->where('name', 'purchases-index')
+                        ->first();
+                    $index_permission_active = DB::table('role_has_permissions')
+                        ->where([['permission_id', $index_permission->id], ['role_id', $role->id]])
+                        ->first();
+                    ?>
+                    @if ($index_permission_active)
+                        <li class="nav-item">
+                            <a href="#purchase" class="nav-link"><i class="nav-icon dripicons-card"></i> <span>{{ __('file.Purchase') }}</span>
+                                <span class="pull-right-container">
+                                    <i class="nav-icon fa fa-angle-left pull-right"></i>
+                                </span>
+                            </a>
+                            <ul class="nav nav-treeview" id="purchase">
+                                <li class="nav-item" id="purchase-list-menu"><a class="nav-link"
+                                        href="{{ route('purchases.index') }}">{{ trans('file.Purchase List') }}</a>
+                                </li>
+                                <?php
+                                $add_permission = DB::table('permissions')
+                                    ->where('name', 'purchases-add')
+                                    ->first();
+                                $add_permission_active = DB::table('role_has_permissions')
+                                    ->where([['permission_id', $add_permission->id], ['role_id', $role->id]])
+                                    ->first();
+                                ?>
+                                @if ($add_permission_active)
+                                    <li class="nav-item" id="purchase-import-menu"><a class="nav-link"
+                                            href="{{ url('purchases/purchase_by_csv') }}">{{ trans('file.Import Purchase By CSV') }}</a>
+                                    </li>
+                                @endif
+                            </ul>
+                        </li>
+                    @endif
+                    <?php
+                    $index_permission = DB::table('permissions')
+                        ->where('name', 'quotes-index')
+                        ->first();
+                    $index_permission_active = DB::table('role_has_permissions')
+                        ->where([['permission_id', $index_permission->id], ['role_id', $role->id]])
+                        ->first();
+                    ?>
+                    @if ($index_permission_active)
+                        <li class="nav-item">
+                            <a href="#quotation" class="nav-link"><i class="nav-icon dripicons-card"></i>
+                                <span>{{ __('file.Quotation') }}</span>
+                                <span class="pull-right-container">
+                                    <i class="nav-icon fa fa-angle-left pull-right"></i>
+                                </span>
+                            </a>
+                            <ul class="nav nav-treeview" id="quotation">
 
-      <!-- notification modal -->
-      <div id="notification-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" class="modal opacity-0 text-left">
-        <div role="document" class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 id="exampleModalLabel" class="modal-title">{{trans('file.Send Notification')}}</h5>
-                    <button type="button" data-dismiss="modal" aria-label="Close" class="absolute top-0 bottom-0 right-0 px-4 py-3"><span aria-hidden="true"><i class="dripicons-cross"></i></span></button>
-                </div>
-                <div class="modal-body">
-                  <p class="italic"><small>{{trans('file.The field labels marked with * are required input fields')}}.</small></p>
-                    {!! Form::open(['route' => 'notifications.store', 'method' => 'post']) !!}
-                      <div class="flex flex-wrap ">
-                          <?php 
-                              $lims_user_list = DB::table('users')->where([
-                                ['is_active', true],
-                                ['id', '!=', \Auth::user()->id]
-                              ])->get();
-                          ?>
-                          <div class="md:w-1/2 pr-4 pl-4 mb-4">
-                              <label>{{trans('file.User')}} *</label>
-                              <select name="user_id" class="selectpicker block appearance-none w-full py-1 px-2 mb-1 text-base leading-normal bg-white text-gray-800 border border-gray-200 rounded" required data-live-search="true" data-live-search-style="begins" title="Select user...">
-                                  @foreach($lims_user_list as $user)
-                                  <option value="{{$user->id}}">{{$user->name . ' (' . $user->email. ')'}}</option>
-                                  @endforeach
-                              </select>
-                          </div>
-                          <div class="md:w-full pr-4 pl-4 mb-4">
-                              <label>{{trans('file.Message')}} *</label>
-                              <textarea rows="5" name="message" class="block appearance-none w-full py-1 px-2 mb-1 text-base leading-normal bg-white text-gray-800 border border-gray-200 rounded" required></textarea>
-                          </div>
-                      </div>
-                      <div class="mb-4">
-                          <button type="submit" class="inline-block align-middle text-center select-none border font-normal whitespace-no-wrap rounded py-1 px-3 leading-normal no-underline bg-blue-600 text-white hover:bg-blue-600">{{trans('file.submit')}}</button>
-                      </div>
-                    {{ Form::close() }}
-                </div>
-            </div>
-        </div>
-      </div>
+                                <li class="nav-item" id="quotation-list-menu">
+                                    <a class="nav-link"
+                                        href="{{ route('quotations.index') }}">{{ trans('file.Quotation List') }}</a>
+                                </li>
+                                <?php
+                                $add_permission = DB::table('permissions')
+                                    ->where('name', 'quotes-add')
+                                    ->first();
+                                $add_permission_active = DB::table('role_has_permissions')
+                                    ->where([['permission_id', $add_permission->id], ['role_id', $role->id]])
+                                    ->first();
+                                ?>
+                                @if ($add_permission_active)
+                                    <li class="nav-item" id="quotation-create-menu"><a class="nav-link"
+                                            href="{{ route('quotations.create') }}">{{ trans('file.Add Quotation') }}</a>
+                                    </li>
+                                @endif
+                            </ul>
+                        </li>
+                    @endif
+                    <?php
+                    $sale_index_permission = DB::table('permissions')
+                        ->where('name', 'sales-index')
+                        ->first();
+                    $sale_index_permission_active = DB::table('role_has_permissions')
+                        ->where([['permission_id', $sale_index_permission->id], ['role_id', $role->id]])
+                        ->first();
+                    
+                    $delivery_permission_active = DB::table('permissions')
+                        ->join('role_has_permissions', 'permissions.id', '=', 'role_has_permissions.permission_id')
+                        ->where([['permissions.name', 'delivery'], ['role_id', $role->id]])
+                        ->first();
+                    
+                    $message_permission_active = DB::table('permissions')
+                        ->join('role_has_permissions', 'permissions.id', '=', 'role_has_permissions.permission_id')
+                        ->where([['permissions.name', 'message'], ['role_id', $role->id]])
+                        ->first();
+                    
+                    $sale_add_permission = DB::table('permissions')
+                        ->where('name', 'sales-add')
+                        ->first();
+                    $sale_add_permission_active = DB::table('role_has_permissions')
+                        ->where([['permission_id', $sale_add_permission->id], ['role_id', $role->id]])
+                        ->first();
+                    ?>
+                    @if ($sale_index_permission_active || $delivery_permission_active || $message_permission_active)
+                        <li class="nav-item">
+                            <a href="#sale" class="nav-link"><i class="nav-icon dripicons-cart"></i> <span>{{ __('file.Sale') }}</span>
+                                <span class="pull-right-container">
+                                    <i class="nav-icon fa fa-angle-left pull-right"></i>
+                                </span>
+                            </a>
+                            <ul class="nav nav-treeview" id="sale">
 
-      <!-- expense modal -->
-      <div id="expense-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" class="modal opacity-0 text-left">
-        <div role="document" class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 id="exampleModalLabel" class="modal-title">{{trans('file.Add Expense')}}</h5>
-                    <button type="button" data-dismiss="modal" aria-label="Close" class="absolute top-0 bottom-0 right-0 px-4 py-3"><span aria-hidden="true"><i class="dripicons-cross"></i></span></button>
-                </div>
-                <div class="modal-body">
-                  <p class="italic"><small>{{trans('file.The field labels marked with * are required input fields')}}.</small></p>
-                    {!! Form::open(['route' => 'expenses.store', 'method' => 'post']) !!}
-                    <?php 
-                      $lims_expense_category_list = DB::table('expense_categories')->where('is_active', true)->get();
-                      if(Auth::user()->role_id > 2)
-                        $lims_warehouse_list = DB::table('warehouses')->where([
-                          ['is_active', true],
-                          ['id', Auth::user()->warehouse_id]
-                        ])->get();
-                      else
-                        $lims_warehouse_list = DB::table('warehouses')->where('is_active', true)->get();
-                      $lims_account_list = \App\Account::where('is_active', true)->get();
+                                @if ($sale_index_permission_active)
+                                    <li class="nav-item" id="sale-list-menu"><a class="nav-link"
+                                            href="{{ route('sales.index') }}">{{ trans('file.Sale List') }}</a>
+                                    </li>
+                                    @if ($sale_add_permission_active)
+                                        <li class="nav-item" id="sale-import-menu"><a class="nav-link"
+                                                href="{{ url('sales/sale_by_csv') }}">{{ trans('file.Import Sale By CSV') }}</a>
+                                        </li>
+                                    @endif
+                                @endif
+
+                                @if ($delivery_permission_active)
+                                    <li class="nav-item" id="delivery-menu"><a class="nav-link"
+                                            href="{{ route('delivery.index') }}">{{ trans('file.Delivery List') }}</a>
+                                    </li>
+                                @endif
+
+                                {{-- @if ($message_permission_active)
+                                    <li class="nav-item" id="message-menu"><a class="nav-link"
+                                            href="{{ route('message.index') }}">{{ trans('file.Message List') }}</a></li>
+                                @endif --}}
+                            </ul>
+                        </li>
+                    @endif
+
+                    <?php
+                    $index_permission = DB::table('permissions')
+                        ->where('name', 'expenses-index')
+                        ->first();
+                    $index_permission_active = DB::table('role_has_permissions')
+                        ->where([['permission_id', $index_permission->id], ['role_id', $role->id]])
+                        ->first();
+                    ?>
+                    @if ($index_permission_active)
+                        <li class="nav-item">
+                            <a href="#expense" class="nav-link"><i class="nav-icon dripicons-wallet"></i> <span>{{ __('file.Expense') }}</span>
+                                <span class="pull-right-container">
+                                    <i class="nav-icon fa fa-angle-left pull-right"></i>
+                                </span>
+                            </a>
+                            <ul class="nav nav-treeview" id="expense">
+
+                                <li class="nav-item" id="exp-cat-menu"><a class="nav-link"
+                                        href="{{ route('expense_categories.index') }}">{{ trans('file.Expense Category') }}</a>
+                                </li>
+                                <li class="nav-item" id="exp-list-menu"><a class="nav-link"
+                                        href="{{ route('expenses.index') }}">{{ trans('file.Expense List') }}</a>
+                                </li>
+                                <?php
+                                $add_permission = DB::table('permissions')
+                                    ->where('name', 'expenses-add')
+                                    ->first();
+                                $add_permission_active = DB::table('role_has_permissions')
+                                    ->where([['permission_id', $add_permission->id], ['role_id', $role->id]])
+                                    ->first();
+                                ?>
+                                @if ($add_permission_active)
+                                    <li><a id="add-expense" href=" " class="nav-link"> {{ trans('file.Add Expense') }}</a></li>
+                                @endif
+                            </ul>
+                        </li>
+                    @endif
+
+
+                    <?php
+                    $index_permission = DB::table('permissions')
+                        ->where('name', 'account-index')
+                        ->first();
+                    $index_permission_active = DB::table('role_has_permissions')
+                        ->where([['permission_id', $index_permission->id], ['role_id', $role->id]])
+                        ->first();
+                    
+                    $money_transfer_permission = DB::table('permissions')
+                        ->where('name', 'money-transfer')
+                        ->first();
+                    $money_transfer_permission_active = DB::table('role_has_permissions')
+                        ->where([['permission_id', $money_transfer_permission->id], ['role_id', $role->id]])
+                        ->first();
+                    
+                    $balance_sheet_permission = DB::table('permissions')
+                        ->where('name', 'balance-sheet')
+                        ->first();
+                    $balance_sheet_permission_active = DB::table('role_has_permissions')
+                        ->where([['permission_id', $balance_sheet_permission->id], ['role_id', $role->id]])
+                        ->first();
+                    
+                    $account_statement_permission = DB::table('permissions')
+                        ->where('name', 'account-statement')
+                        ->first();
+                    $account_statement_permission_active = DB::table('role_has_permissions')
+                        ->where([['permission_id', $account_statement_permission->id], ['role_id', $role->id]])
+                        ->first();
                     
                     ?>
-                      <div class="flex flex-wrap ">
-                        <div class="md:w-1/2 pr-4 pl-4 mb-4">
-                            <label>{{trans('file.Expense Category')}} *</label>
-                            <select name="expense_category_id" class="selectpicker block appearance-none w-full py-1 px-2 mb-1 text-base leading-normal bg-white text-gray-800 border border-gray-200 rounded" data-live-search="true" data-live-search-style="begins" title="Select Expense Category...">
-                                @foreach($lims_expense_category_list as $expense_category)
-                                <option value="{{$expense_category->id}}">{{$expense_category->name . ' (' . $expense_category->code. ')'}}</option>
-                                @endforeach
-                            </select>
-                        </div>
-                        <div class="md:w-1/2 pr-4 pl-4 mb-4">
-                            <label>{{trans('file.Warehouse')}} *</label>
-                            <select name="warehouse_id" class="selectpicker block appearance-none w-full py-1 px-2 mb-1 text-base leading-normal bg-white text-gray-800 border border-gray-200 rounded" data-live-search="true" data-live-search-style="begins" title="{{trans('file.Select warehouse...')}}">
-                                @foreach($lims_warehouse_list as $warehouse)
-                                <option value="{{$warehouse->id}}">{{$warehouse->name}}</option>
-                                @endforeach
-                            </select>
-                        </div>
-                        <div class="md:w-1/2 pr-4 pl-4 mb-4">
-                            <label>{{trans('file.Amount')}} *</label>
-                            <input type="number" name="amount" step="any" required class="block appearance-none w-full py-1 px-2 mb-1 text-base leading-normal bg-white text-gray-800 border border-gray-200 rounded">
-                        </div>
-                        <div class="md:w-1/2 pr-4 pl-4 mb-4">
-                            <label> {{trans('file.Account')}}</label>
-                            <select class="block appearance-none w-full py-1 px-2 mb-1 text-base leading-normal bg-white text-gray-800 border border-gray-200 rounded selectpicker" name="account_id">
-                            @foreach($lims_account_list as $account)
-                                @if($account->is_default)
-                                <option selected value="{{$account->id}}">{{$account->name}} [{{$account->account_no}}]</option>
-                                @else
-                                <option value="{{$account->id}}">{{$account->name}} [{{$account->account_no}}]</option>
+                    @if ($index_permission_active || $balance_sheet_permission_active || $account_statement_permission_active)
+                        <li class="nav-item">
+                            <a href="#account" class="nav-link"><i class="nav-icon dripicons-briefcase"></i>
+                                <span>{{ __('file.Accounting') }}</span>
+                                <span class="pull-right-container">
+                                    <i class="nav-icon fa fa-angle-left pull-right"></i>
+                                </span>
+                            </a>
+                            <ul class="nav nav-treeview" id="account">
+                                @if ($index_permission_active)
+                                    <li class="nav-item" id="account-list-menu"><a class="nav-link"
+                                            href="{{ route('accounts.index') }}">{{ trans('file.Account List') }}</a>
+                                    </li>
                                 @endif
-                            @endforeach
-                            </select>
-                        </div>
-                      </div>
-                      <div class="mb-4">
-                          <label>{{trans('file.Note')}}</label>
-                          <textarea name="note" rows="3" class="block appearance-none w-full py-1 px-2 mb-1 text-base leading-normal bg-white text-gray-800 border border-gray-200 rounded"></textarea>
-                      </div>
-                      <div class="mb-4">
-                          <button type="submit" class="inline-block align-middle text-center select-none border font-normal whitespace-no-wrap rounded py-1 px-3 leading-normal no-underline bg-blue-600 text-white hover:bg-blue-600">{{trans('file.submit')}}</button>
-                      </div>
-                    {{ Form::close() }}
-                </div>
-            </div>
-        </div>
-      </div>
+                                @if ($money_transfer_permission_active)
+                                    <li class="nav-item" id="money-transfer-menu"><a class="nav-link"
+                                            href="{{ route('money-transfers.index') }}">{{ trans('file.Money Transfer') }}</a>
+                                    </li>
+                                @endif
+                                @if ($balance_sheet_permission_active)
+                                    <li class="nav-item" id="balance-sheet-menu"><a class="nav-link"
+                                            href="{{ route('accounts.balancesheet') }}">{{ trans('file.Balance Sheet') }}</a>
+                                    </li>
+                                @endif
+                                @if ($account_statement_permission_active)
+                                    <li class="nav-item" id="account-statement-menu"><a class="nav-link"
+                                      id="account-statement" href="">{{ trans('file.Account Statement') }}</a></li>
+                                @endif
+                            </ul>
+                        </li>
+                    @endif
+                    <?php
+                    $department = DB::table('permissions')
+                        ->where('name', 'department')
+                        ->first();
+                    $department_active = DB::table('role_has_permissions')
+                        ->where([['permission_id', $department->id], ['role_id', $role->id]])
+                        ->first();
+                    $index_employee = DB::table('permissions')
+                        ->where('name', 'employees-index')
+                        ->first();
+                    $index_employee_active = DB::table('role_has_permissions')
+                        ->where([['permission_id', $index_employee->id], ['role_id', $role->id]])
+                        ->first();
+                    $attendance = DB::table('permissions')
+                        ->where('name', 'attendance')
+                        ->first();
+                    $attendance_active = DB::table('role_has_permissions')
+                        ->where([['permission_id', $attendance->id], ['role_id', $role->id]])
+                        ->first();
+                    $activity = DB::table('permissions')
+                        ->where('name', 'activity')
+                        ->first();
+                    $activity_active = DB::table('role_has_permissions')
+                        ->where([
+                            //['permission_id', $activity->id],['role_id', $role->id],
+                        ])
+                        ->first();
+                    $resume = DB::table('permissions')
+                        ->where('name', 'resume')
+                        ->first();
+                    $resume_active = DB::table('role_has_permissions')
+                        ->where([
+                            //           ['permission_id', $resume->id],
+                            ['role_id', $role->id],
+                        ])
+                        ->first();
+                    $payroll = DB::table('permissions')
+                        ->where('name', 'payroll')
+                        ->first();
+                    $payroll_active = DB::table('role_has_permissions')
+                        ->where([['permission_id', $payroll->id], ['role_id', $role->id]])
+                        ->first();
+                    ?>
 
-      <!-- account modal -->
-      <div id="account-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" class="modal opacity-0 text-left">
-        <div role="document" class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 id="exampleModalLabel" class="modal-title">{{trans('file.Add Account')}}</h5>
-                    <button type="button" data-dismiss="modal" aria-label="Close" class="absolute top-0 bottom-0 right-0 px-4 py-3"><span aria-hidden="true"><i class="dripicons-cross"></i></span></button>
-                </div>
-                <div class="modal-body">
-                  <p class="italic"><small>{{trans('file.The field labels marked with * are required input fields')}}.</small></p>
-                    {!! Form::open(['route' => 'accounts.store', 'method' => 'post']) !!}
-                      <div class="mb-4">
-                          <label>{{trans('file.Account No')}} *</label>
-                          <input type="text" name="account_no" required class="block appearance-none w-full py-1 px-2 mb-1 text-base leading-normal bg-white text-gray-800 border border-gray-200 rounded">
-                      </div>
-                      <div class="mb-4">
-                          <label>{{trans('file.name')}} *</label>
-                          <input type="text" name="name" required class="block appearance-none w-full py-1 px-2 mb-1 text-base leading-normal bg-white text-gray-800 border border-gray-200 rounded">
-                      </div>
-                      <div class="mb-4">
-                          <label>{{trans('file.Initial Balance')}}</label>
-                          <input type="number" name="initial_balance" step="any" class="block appearance-none w-full py-1 px-2 mb-1 text-base leading-normal bg-white text-gray-800 border border-gray-200 rounded">
-                      </div>
-                      <div class="mb-4">
-                          <label>{{trans('file.Note')}}</label>
-                          <textarea name="note" rows="3" class="block appearance-none w-full py-1 px-2 mb-1 text-base leading-normal bg-white text-gray-800 border border-gray-200 rounded"></textarea>
-                      </div>
-                      <div class="mb-4">
-                          <button type="submit" class="inline-block align-middle text-center select-none border font-normal whitespace-no-wrap rounded py-1 px-3 leading-normal no-underline bg-blue-600 text-white hover:bg-blue-600">{{trans('file.submit')}}</button>
-                      </div>
-                    {{ Form::close() }}
-                </div>
-            </div>
-        </div>
-      </div>
+                    @if (Auth::user()->role_id != 5)
+                        <li class="nav-item">
+                            <a href="#hrm" class="nav-link"><i class="nav-icon dripicons-user-group"></i> <span>{{ __('file.HRM') }}</span>
+                                <span class="pull-right-container">
+                                    <i class="nav-icon fa fa-angle-left pull-right"></i>
+                                </span>
+                            </a>
+                            <ul class="nav nav-treeview" id="hrm">
+                                @if ($department_active)
+                                    <li class="nav-item" id="dept-menu"><a class="nav-link"
+                                            href="{{ route('departments.index') }}">{{ trans('file.Department') }}</a>
+                                    </li>
+                                @endif
+                                @if ($index_employee_active)
+                                    <li class="nav-item" id="employee-menu"><a class="nav-link"
+                                            href="{{ route('employees.index') }}">{{ trans('file.Employee') }}</a>
+                                    </li>
+                                @endif
 
-      <!-- account statement modal -->
-      <div id="account-statement-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" class="modal opacity-0 text-left">
-        <div role="document" class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 id="exampleModalLabel" class="modal-title">{{trans('file.Account Statement')}}</h5>
-                    <button type="button" data-dismiss="modal" aria-label="Close" class="absolute top-0 bottom-0 right-0 px-4 py-3"><span aria-hidden="true"><i class="dripicons-cross"></i></span></button>
+                                @if ($attendance_active)
+                                    <li class="nav-item" id="attendance-menu"><a class="nav-link"
+                                            href="{{ route('attendance.index') }}">{{ trans('file.Attendance') }}</a>
+                                    </li>
+                                @endif
+                                
+                                @if ($payroll_active)
+                                    <li class="nav-item" id="payroll-menu"><a class="nav-link"
+                                            href="{{ route('payroll.index') }}">{{ trans('file.Payroll') }}</a>
+                                    </li>
+                                @endif
+
+                                <li class="nav-item" id="holiday-menu"><a class="nav-link"
+                                        href="{{ route('holidays.index') }}">{{ trans('file.Holiday') }}</a></li>
+
+                                @if ($activity_active)
+                                    <li class="nav-item" id="activity-menu"><a class="nav-link"
+                                            href="{{ route('activity.index') }}">{{ trans('file.Activity') }}</a>
+                                    </li>
+                                @endif
+
+                                @if ($resume_active)
+                                    <li class="nav-item" id="resume-menu"><a class="nav-link"
+                                            href="{{ route('resume.index') }}">{{ trans('file.Resume') }}</a></li>
+                                @endif
+                            </ul>
+                        </li>
+                    @endif
+
+                    <?php
+                    $user_index_permission_active = DB::table('permissions')
+                        ->join('role_has_permissions', 'permissions.id', '=', 'role_has_permissions.permission_id')
+                        ->where([['permissions.name', 'users-index'], ['role_id', $role->id]])
+                        ->first();
+                    
+                    $customer_index_permission = DB::table('permissions')
+                        ->where('name', 'customers-index')
+                        ->first();
+                    
+                    $customer_index_permission_active = DB::table('role_has_permissions')
+                        ->where([['permission_id', $customer_index_permission->id], ['role_id', $role->id]])
+                        ->first();
+                    
+                    $customer_group_permission = DB::table('permissions')
+                        ->where('name', 'customer_group')
+                        ->first();
+                    $customer_group_permission_active = DB::table('role_has_permissions')
+                        ->where([['permission_id', $customer_group_permission->id], ['role_id', $role->id]])
+                        ->first();
+                    
+                    $biller_index_permission = DB::table('permissions')
+                        ->where('name', 'billers-index')
+                        ->first();
+                    
+                    $biller_index_permission_active = DB::table('role_has_permissions')
+                        ->where([['permission_id', $biller_index_permission->id], ['role_id', $role->id]])
+                        ->first();
+                    
+                    $supplier_index_permission = DB::table('permissions')
+                        ->where('name', 'suppliers-index')
+                        ->first();
+                    
+                    $supplier_index_permission_active = DB::table('role_has_permissions')
+                        ->where([['permission_id', $supplier_index_permission->id], ['role_id', $role->id]])
+                        ->first();
+                    ?>
+                    @if ($user_index_permission_active || $customer_index_permission_active || $biller_index_permission_active || $supplier_index_permission_active)
+                        <li class="nav-item">
+                            <a href="#people" class="nav-link"><i class="nav-icon dripicons-user-group"></i>
+                                <span>{{ __('file.People') }}</span>
+                                <span class="pull-right-container">
+                                    <i class="nav-icon fa fa-angle-left pull-right"></i>
+                                </span>
+                            </a>
+                            <ul class="nav nav-treeview" id="people">
+                                @if ($user_index_permission_active)
+                                    <li class="nav-item" id="user-list-menu"><a class="nav-link"
+                                            href="{{ route('user.index') }}">{{ trans('file.User List') }}</a>
+                                    </li>
+                                @endif
+
+                                @if ($customer_index_permission_active)
+                                    <li class="nav-item" id="customer-list-menu"><a class="nav-link"
+                                            href="{{ route('customer.index') }}">{{ trans('file.Customer List') }}</a>
+                                    </li>
+                                @endif
+
+                                @if ($customer_group_permission_active)
+                                    <li class="nav-item" id="customer-group-menu"><a class="nav-link"
+                                            href="{{ route('customer_group.index') }}">{{ trans('file.Customer Group') }}</a>
+                                    </li>
+                                @endif
+
+                                @if ($biller_index_permission_active)
+                                    <li class="nav-item" id="biller-list-menu"><a class="nav-link"
+                                            href="{{ route('biller.index') }}">{{ trans('file.Biller List') }}</a>
+                                    </li>
+                                @endif
+
+                                @if ($supplier_index_permission_active)
+                                    <li class="nav-item" id="supplier-list-menu"><a class="nav-link"
+                                            href="{{ route('supplier.index') }}">{{ trans('file.Supplier List') }}</a>
+                                    </li>
+                                @endif
+
+                            </ul>
+                        </li>
+                    @endif
+
+                    <?php
+                    $profit_loss_active = DB::table('permissions')
+                        ->join('role_has_permissions', 'permissions.id', '=', 'role_has_permissions.permission_id')
+                        ->where([['permissions.name', 'profit-loss'], ['role_id', $role->id]])
+                        ->first();
+                    $best_seller_active = DB::table('permissions')
+                        ->join('role_has_permissions', 'permissions.id', '=', 'role_has_permissions.permission_id')
+                        ->where([['permissions.name', 'best-seller'], ['role_id', $role->id]])
+                        ->first();
+                    $warehouse_report_active = DB::table('permissions')
+                        ->join('role_has_permissions', 'permissions.id', '=', 'role_has_permissions.permission_id')
+                        ->where([['permissions.name', 'warehouse-report'], ['role_id', $role->id]])
+                        ->first();
+                    $warehouse_stock_report_active = DB::table('permissions')
+                        ->join('role_has_permissions', 'permissions.id', '=', 'role_has_permissions.permission_id')
+                        ->where([['permissions.name', 'warehouse-stock-report'], ['role_id', $role->id]])
+                        ->first();
+                    $product_report_active = DB::table('permissions')
+                        ->join('role_has_permissions', 'permissions.id', '=', 'role_has_permissions.permission_id')
+                        ->where([['permissions.name', 'product-report'], ['role_id', $role->id]])
+                        ->first();
+                    $daily_sale_active = DB::table('permissions')
+                        ->join('role_has_permissions', 'permissions.id', '=', 'role_has_permissions.permission_id')
+                        ->where([['permissions.name', 'daily-sale'], ['role_id', $role->id]])
+                        ->first();
+                    $monthly_sale_active = DB::table('permissions')
+                        ->join('role_has_permissions', 'permissions.id', '=', 'role_has_permissions.permission_id')
+                        ->where([['permissions.name', 'monthly-sale'], ['role_id', $role->id]])
+                        ->first();
+                    $daily_purchase_active = DB::table('permissions')
+                        ->join('role_has_permissions', 'permissions.id', '=', 'role_has_permissions.permission_id')
+                        ->where([['permissions.name', 'daily-purchase'], ['role_id', $role->id]])
+                        ->first();
+                    $monthly_purchase_active = DB::table('permissions')
+                        ->join('role_has_permissions', 'permissions.id', '=', 'role_has_permissions.permission_id')
+                        ->where([['permissions.name', 'monthly-purchase'], ['role_id', $role->id]])
+                        ->first();
+                    $purchase_report_active = DB::table('permissions')
+                        ->join('role_has_permissions', 'permissions.id', '=', 'role_has_permissions.permission_id')
+                        ->where([['permissions.name', 'purchase-report'], ['role_id', $role->id]])
+                        ->first();
+                    $sale_report_active = DB::table('permissions')
+                        ->join('role_has_permissions', 'permissions.id', '=', 'role_has_permissions.permission_id')
+                        ->where([['permissions.name', 'sale-report'], ['role_id', $role->id]])
+                        ->first();
+                    $payment_report_active = DB::table('permissions')
+                        ->join('role_has_permissions', 'permissions.id', '=', 'role_has_permissions.permission_id')
+                        ->where([['permissions.name', 'payment-report'], ['role_id', $role->id]])
+                        ->first();
+                    $product_qty_alert_active = DB::table('permissions')
+                        ->join('role_has_permissions', 'permissions.id', '=', 'role_has_permissions.permission_id')
+                        ->where([['permissions.name', 'product-qty-alert'], ['role_id', $role->id]])
+                        ->first();
+                    $user_report_active = DB::table('permissions')
+                        ->join('role_has_permissions', 'permissions.id', '=', 'role_has_permissions.permission_id')
+                        ->where([['permissions.name', 'user-report'], ['role_id', $role->id]])
+                        ->first();
+                    
+                    $customer_report_active = DB::table('permissions')
+                        ->join('role_has_permissions', 'permissions.id', '=', 'role_has_permissions.permission_id')
+                        ->where([['permissions.name', 'customer-report'], ['role_id', $role->id]])
+                        ->first();
+                    $supplier_report_active = DB::table('permissions')
+                        ->join('role_has_permissions', 'permissions.id', '=', 'role_has_permissions.permission_id')
+                        ->where([['permissions.name', 'supplier-report'], ['role_id', $role->id]])
+                        ->first();
+                    $due_report_active = DB::table('permissions')
+                        ->join('role_has_permissions', 'permissions.id', '=', 'role_has_permissions.permission_id')
+                        ->where([['permissions.name', 'due-report'], ['role_id', $role->id]])
+                        ->first();
+                    ?>
+                    @if ($profit_loss_active || $best_seller_active || $warehouse_report_active || $warehouse_stock_report_active || $product_report_active || $daily_sale_active || $monthly_sale_active || $daily_purchase_active || $monthly_purchase_active || $purchase_report_active || $sale_report_active || $payment_report_active || $product_qty_alert_active || $user_report_active || $customer_report_active || $supplier_report_active || $due_report_active)
+                        <li class="nav-item">
+                            <a href="#report" class="nav-link"><i class="nav-icon dripicons-document-remove"></i>
+                                <span>{{ __('file.Reports') }}</span>
+                                <span class="pull-right-container">
+                                    <i class="nav-icon fa fa-angle-left pull-right"></i>
+                                </span>
+                            </a>
+                            <ul class="nav nav-treeview" id="report">
+                                @if ($profit_loss_active)
+                                    <li class="nav-item" id="profit-loss-report-menu">
+                                        {!! Form::open(['route' => 'report.profitLoss', 'method' => 'post', 'id' => 'profitLoss-report-form']) !!}
+                                        <input type="hidden" name="start_date"
+                                            value="{{ date('Y-m') . '-' . '01' }}" />
+                                        <input type="hidden" name="end_date" value="{{ date('Y-m-d') }}" />
+                                        <a id="profitLoss-link" href="" class="nav-link">{{ trans('file.Summary Report') }}</a>
+                                        {!! Form::close() !!}
+                                    </li>
+                                @endif
+                                @if ($best_seller_active)
+                                    <li class="nav-item" id="best-seller-report-menu">
+                                        <a class="nav-link"
+                                            href="{{ url('report/best_seller') }}">{{ trans('file.Best Seller') }}</a>
+                                    </li>
+                                @endif
+                                @if ($product_report_active)
+                                    <li class="nav-item" id="product-report-menu">
+                                        {!! Form::open(['route' => 'report.product', 'method' => 'post', 'id' => 'product-report-form']) !!}
+                                        <input type="hidden" name="start_date" value="2021-01-01" />
+                                        <input type="hidden" name="end_date" value="{{ date('Y-m-d') }}" />
+                                        <input type="hidden" name="warehouse_id" value="0" />
+                                        <a id="report-link" href="" class="nav-link">{{ trans('file.Product Report') }}</a>
+                                        {!! Form::close() !!}
+                                    </li>
+                                @endif
+                                @if ($daily_sale_active)
+                                    <li class="nav-item" id="daily-sale-report-menu">
+                                        <a class="nav-link"
+                                            href="{{ url('report/daily_sale/' . date('Y') . '/' . date('m')) }}">{{ trans('file.Daily Sale') }}</a>
+                                    </li>
+                                @endif
+                                @if ($monthly_sale_active)
+                                    <li class="nav-item" id="monthly-sale-report-menu">
+                                        <a class="nav-link"
+                                            href="{{ url('report/monthly_sale/' . date('Y')) }}">{{ trans('file.Monthly Sale') }}</a>
+                                    </li>
+                                @endif
+                                @if ($daily_purchase_active)
+                                    <li class="nav-item" id="daily-purchase-report-menu">
+                                        <a class="nav-link"
+                                            href="{{ url('report/daily_purchase/' . date('Y') . '/' . date('m')) }}">{{ trans('file.Daily Purchase') }}</a>
+                                    </li>
+                                @endif
+                                @if ($monthly_purchase_active)
+                                    <li class="nav-item" id="monthly-purchase-report-menu">
+                                        <a class="nav-link"
+                                            href="{{ url('report/monthly_purchase/' . date('Y')) }}">{{ trans('file.Monthly Purchase') }}</a>
+                                    </li>
+                                @endif
+                                @if ($sale_report_active)
+                                    <li class="nav-item" id="sale-report-menu">
+                                        {!! Form::open(['route' => 'report.sale', 'method' => 'post', 'id' => 'sale-report-form']) !!}
+                                        <input type="hidden" name="start_date" value="2021-01-01" />
+                                        <input type="hidden" name="end_date" value="{{ date('Y-m-d') }}" />
+                                        <input type="hidden" name="warehouse_id" value="0" />
+                                        <a id="sale-report-link" href="" class="nav-link">{{ trans('file.Sale Report') }}</a>
+                                        {!! Form::close() !!}
+                                    </li>
+                                @endif
+                                @if ($payment_report_active)
+                                    <li class="nav-item" id="payment-report-menu">
+                                        {!! Form::open(['route' => 'report.paymentByDate', 'method' => 'post', 'id' => 'payment-report-form']) !!}
+                                        <input type="hidden" name="start_date" value="2021-01-01" />
+                                        <input type="hidden" name="end_date" value="{{ date('Y-m-d') }}" />
+                                        <a id="payment-report-link" href="" class="nav-link">{{ trans('file.Payment Report') }}</a>
+                                        {!! Form::close() !!}
+                                    </li>
+                                @endif
+                                @if ($purchase_report_active)
+                                    <li class="nav-item" id="purchase-report-menu">
+                                        {!! Form::open(['route' => 'report.purchase', 'method' => 'post', 'id' => 'purchase-report-form']) !!}
+                                        <input type="hidden" name="start_date" value="2021-01-01" />
+                                        <input type="hidden" name="end_date" value="{{ date('Y-m-d') }}" />
+                                        <input type="hidden" name="warehouse_id" value="0" />
+                                        <a id="purchase-report-link" href="" class="nav-link">{{ trans('file.Purchase Report') }}</a>
+                                        {!! Form::close() !!}
+                                    </li>
+                                @endif
+                                @if ($warehouse_report_active)
+                                    <li class="nav-item" id="warehouse-report-menu">
+                                        <a id="warehouse-report-link" class="nav-link"
+                                            href="">{{ trans('file.Warehouse Report') }}</a>
+                                    </li>
+                                @endif
+                                @if ($warehouse_stock_report_active)
+                                    <li class="nav-item" id="warehouse-stock-report-menu">
+                                        <a class="nav-link"
+                                            href="{{ route('report.warehouseStock') }}">{{ trans('file.Warehouse Stock Chart') }}</a>
+                                    </li>
+                                @endif
+                                @if ($product_qty_alert_active)
+                                    <li class="nav-item" id="qtyAlert-report-menu">
+                                        <a class="nav-link"
+                                            href="{{ route('report.qtyAlert') }}">{{ trans('file.Product Quantity Alert') }}</a>
+                                    </li>
+                                @endif
+                                @if ($user_report_active)
+                                    <li class="nav-item" id="user-report-menu">
+                                        <a id="user-report-link" href="" class="nav-link">{{ trans('file.User Report') }}</a>
+                                    </li>
+                                @endif
+                                @if ($customer_report_active)
+                                    <li class="nav-item" id="customer-report-menu">
+                                        <a id="customer-report-link" href="" class="nav-link">{{ trans('file.Customer Report') }}</a>
+                                    </li>
+                                @endif
+                                @if ($supplier_report_active)
+                                    <li class="nav-item" id="supplier-report-menu">
+                                        <a id="supplier-report-link" href="" class="nav-link">{{ trans('file.Supplier Report') }}</a>
+                                    </li>
+                                @endif
+                                @if ($due_report_active)
+                                    <li class="nav-item" id="due-report-menu">
+                                        {!! Form::open(['route' => 'report.dueByDate', 'method' => 'post', 'id' => 'due-report-form']) !!}
+                                        <input type="hidden" name="start_date" value="2021-01-01" />
+                                        <input type="hidden" name="end_date" value="{{ date('Y-m-d') }}" />
+                                        <a id="due-report-link" href="" class="nav-link">{{ trans('file.Due Report') }}</a>
+                                        {!! Form::close() !!}
+                                    </li>
+                                @endif
+                            </ul>
+                        </li>
+                    @endif
+                    <li class="nav-item">
+                        <a href="#setting" class="nav-link"><i class="nav-icon dripicons-gear"></i> <span>{{ __('file.settings') }}</span>
+                            <span class="pull-right-container">
+                                <i class="nav-icon fa fa-angle-left pull-right"></i>
+                            </span>
+                        </a>
+                        <ul class="nav nav-treeview" id="setting">
+
+                            <?php
+                            $send_notification_permission = DB::table('permissions')
+                                ->where('name', 'send_notification')
+                                ->first();
+                            $send_notification_permission_active = DB::table('role_has_permissions')
+                                ->where([['permission_id', $send_notification_permission->id], ['role_id', $role->id]])
+                                ->first();
+                            
+                            $warehouse_permission = DB::table('permissions')
+                                ->where('name', 'warehouse')
+                                ->first();
+                            $warehouse_permission_active = DB::table('role_has_permissions')
+                                ->where([['permission_id', $warehouse_permission->id], ['role_id', $role->id]])
+                                ->first();
+                            
+                            $unit_permission = DB::table('permissions')
+                                ->where('name', 'unit')
+                                ->first();
+                            $unit_permission_active = DB::table('role_has_permissions')
+                                ->where([['permission_id', $unit_permission->id], ['role_id', $role->id]])
+                                ->first();
+                            
+                            $currency_permission = DB::table('permissions')
+                                ->where('name', 'currency')
+                                ->first();
+                            $currency_permission_active = DB::table('role_has_permissions')
+                                ->where([['permission_id', $currency_permission->id], ['role_id', $role->id]])
+                                ->first();
+                            
+                            $tax_permission = DB::table('permissions')
+                                ->where('name', 'tax')
+                                ->first();
+                            $tax_permission_active = DB::table('role_has_permissions')
+                                ->where([['permission_id', $tax_permission->id], ['role_id', $role->id]])
+                                ->first();
+                            
+                            $general_setting_permission = DB::table('permissions')
+                                ->where('name', 'general_setting')
+                                ->first();
+                            $general_setting_permission_active = DB::table('role_has_permissions')
+                                ->where([['permission_id', $general_setting_permission->id], ['role_id', $role->id]])
+                                ->first();
+                            
+                            $backup_database_permission = DB::table('permissions')
+                                ->where('name', 'backup_database')
+                                ->first();
+                            $backup_database_permission_active = DB::table('role_has_permissions')
+                                ->where([['permission_id', $backup_database_permission->id], ['role_id', $role->id]])
+                                ->first();
+                            
+                            $mail_setting_permission = DB::table('permissions')
+                                ->where('name', 'mail_setting')
+                                ->first();
+                            $mail_setting_permission_active = DB::table('role_has_permissions')
+                                ->where([['permission_id', $mail_setting_permission->id], ['role_id', $role->id]])
+                                ->first();
+                            
+                            $hrm_setting_permission = DB::table('permissions')
+                                ->where('name', 'hrm_setting')
+                                ->first();
+                            $hrm_setting_permission_active = DB::table('role_has_permissions')
+                                ->where([['permission_id', $hrm_setting_permission->id], ['role_id', $role->id]])
+                                ->first();
+                            ?>
+                            @if ($general_setting_permission_active)
+                                <li class="nav-item" id="general-setting-menu"><a class="nav-link"
+                                        href="{{ route('setting.general') }}">{{ trans('file.General Setting') }}</a>
+                                </li>
+                            @endif
+                            @if ($mail_setting_permission_active)
+                                <li class="nav-item" id="mail-setting-menu"><a class="nav-link"
+                                        href="{{ route('setting.mail') }}">{{ trans('file.Mail Setting') }}</a>
+                                </li>
+                            @endif
+                            @if ($hrm_setting_permission_active)
+                                <li class="nav-item" id="hrm-setting-menu"><a  class="nav-link"
+                                         href="{{ route('setting.hrm') }}">{{ trans('file.HRM Setting') }}</a></li>
+                            @endif
+                            @if ($role->id <= 2)
+                                <li class="nav-item" id="role-menu"><a class="nav-link"
+                                        href="{{ route('role.index') }}">{{ trans('file.Role Permission') }}</a>
+                                </li>
+                            @endif
+                            @if ($send_notification_permission_active)
+                                <li class="nav-item" id="notification-menu"><a class="nav-link"
+                                    href="" id="send-notification" >{{ trans('file.Send Notification') }}</a>
+                                </li>
+                            @endif
+                            @if ($warehouse_permission_active)
+                                <li class="nav-item" id="warehouse-menu"><a class="nav-link"
+                                        href="{{ route('warehouse.index') }}">{{ trans('file.Warehouse') }}</a>
+                                </li>
+                            @endif
+
+                            @if ($unit_permission_active)
+                                <li class="nav-item" id="unit-menu"><a class="nav-link"
+                                        href="{{ route('unit.index') }}">{{ trans('file.Unit') }}</a></li>
+                            @endif
+                            @if ($currency_permission_active)
+                                <li class="nav-item" id="currency-menu"><a class="nav-link"
+                                        href="{{ route('currency.index') }}">{{ trans('file.Currency') }}</a>
+                                </li>
+                            @endif
+                            @if ($tax_permission_active)
+                                <li class="nav-item" id="tax-menu"><a  class="nav-link"
+                                  href="{{ route('tax.index') }}">{{ trans('file.Tax') }}</a>
+                                </li>
+                            @endif
+                            <li class="nav-item" id ="user-menu"><a class="nav-link"
+                                    href="{{ route('user.profile', ['id' => Auth::id()]) }}">{{ trans('file.User Profile') }}</a>
+                            </li>
+
+                            @if ($backup_database_permission_active)
+                                <li class="nav-item"><a class="nav-link"
+                                        href="{{ route('setting.backup') }}">{{ trans('file.Backup Database') }}</a>
+                                </li>
+                            @endif
+                        </ul>
+                    </li>
+                </ul>
+            </nav>
+        </section>
+    </aside>
+
+    <div class="flex flex-col flex-1 w-full">
+        <header class="main-header bg-white shadow-md">
+            <div class="flex items-center justify-between h-full px-6 mx-auto text-blue-600">
+                <?php
+                $add_permission = DB::table('permissions')
+                    ->where('name', 'sales-add')
+                    ->first();
+                $add_permission_active = DB::table('role_has_permissions')
+                    ->where([['permission_id', $add_permission->id], ['role_id', $role->id]])
+                    ->first();
+                
+                $empty_database_permission = DB::table('permissions')
+                    ->where('name', 'empty_database')
+                    ->first();
+                $empty_database_permission_active = DB::table('role_has_permissions')
+                    ->where([['permission_id', $empty_database_permission->id], ['role_id', $role->id]])
+                    ->first();
+                ?>
+                <!-- Mobile hamburger -->
+                <a class="nav-link" data-widget="pushmenu" href="#" role="button">
+                    <svg class="w-6 h-6" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20">
+                        <path fill-rule="evenodd"
+                            d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z"
+                            clip-rule="evenodd"></path>
+                    </svg>
+                  </a>
+
+                <!-- Search input -->
+                <div class="flex justify-center flex-1 lg:mr-32">
+                    <div class="relative w-full max-w-xl mr-6 focus-within:text-purple-500">
+
+                    </div>
                 </div>
-                <div class="modal-body">
-                  <p class="italic"><small>{{trans('file.The field labels marked with * are required input fields')}}.</small></p>
-                    {!! Form::open(['route' => 'accounts.statement', 'method' => 'post']) !!}
-                      <div class="flex flex-wrap ">
-                        <div class="md:w-1/2 pr-4 pl-4 mb-4">
-                            <label> {{trans('file.Account')}}</label>
-                            <select class="block appearance-none w-full py-1 px-2 mb-1 text-base leading-normal bg-white text-gray-800 border border-gray-200 rounded selectpicker" name="account_id">
-                            @foreach($lims_account_list as $account)
-                                <option value="{{$account->id}}">{{$account->name}} [{{$account->account_no}}]</option>
-                            @endforeach
-                            </select>
-                        </div>
-                        <div class="md:w-1/2 pr-4 pl-4 mb-4">
-                            <label> {{trans('file.Type')}}</label>
-                            <select class="block appearance-none w-full py-1 px-2 mb-1 text-base leading-normal bg-white text-gray-800 border border-gray-200 rounded selectpicker" name="type">
-                                <option value="0">{{trans('file.All')}}</option>
-                                <option value="1">{{trans('file.Debit')}}</option>
-                                <option value="2">{{trans('file.Credit')}}</option>
-                            </select>
-                        </div>
-                        <div class="md:w-full pr-4 pl-4 mb-4">
-                            <label>{{trans('file.Choose Your Date')}}</label>
-                            <div class="relative flex items-stretch w-full">
-                                <input type="text" class="daterangepicker-field block appearance-none w-full py-1 px-2 mb-1 text-base leading-normal bg-white text-gray-800 border border-gray-200 rounded" required />
-                                <input type="hidden" name="start_date" />
-                                <input type="hidden" name="end_date" />
+                <ul class="flex items-center flex-shrink-0 space-x-6">
+                    {{-- <!-- Theme toggler -->
+                    <li class="flex">
+                        <button class="rounded-md focus:outline-none focus:shadow-outline-purple" @click="toggleTheme"
+                            aria-label="Toggle color mode">
+                            <template x-if="!dark">
+                                <svg class="w-5 h-5" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20">
+                                    <path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path>
+                                </svg>
+                            </template>
+                            <template x-if="dark">
+                                <svg class="w-5 h-5" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd"
+                                        d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z"
+                                        clip-rule="evenodd"></path>
+                                </svg>
+                            </template>
+                        </button>
+                    </li> --}}
+                    <!-- Notifications menu -->
+                    <li class="relative pt-2">
+                        <button class="relative align-middle rounded-md focus:outline-none focus:shadow-outline-purple"
+                            @click="toggleNotificationsMenu" @keydown.escape="closeNotificationsMenu"
+                            aria-label="Notifications" aria-haspopup="true">
+                            <svg class="w-5 h-5" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20">
+                                <path
+                                    d="M10 2a6 6 0 00-6 6v3.586l-.707.707A1 1 0 004 14h12a1 1 0 00.707-1.707L16 11.586V8a6 6 0 00-6-6zM10 18a3 3 0 01-3-3h6a3 3 0 01-3 3z">
+                                </path>
+                            </svg>
+                            <!-- Notification badge -->
+                            <span aria-hidden="true"
+                                class="absolute top-0 right-0 inline-block w-3 h-3 transform translate-x-1 -translate-y-1 bg-red-600 border-2 border-white rounded-full"></span>
+                        </button>
+                        <template x-if="isNotificationsMenuOpen">
+                            <ul x-transition:leave="transition ease-in duration-150"
+                                x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0"
+                                @click.away="closeNotificationsMenu" @keydown.escape="closeNotificationsMenu"
+                                class="absolute right-0 w-56 p-2 mt-2 space-y-2 text-gray-600 bg-white border border-gray-100 rounded-md shadow-md">
+                                @if ($product_qty_alert_active)
+                                    @if(($alert_product + count(\Auth::user()->unreadNotifications)) > 0)
+                                    <li class="flex">
+                                        <a class="inline-flex items-center justify-between w-full px-2 py-1 text-sm font-semibold transition-colors duration-150 rounded-md "
+                                            href="{{ route('report.qtyAlert') }}">
+                                            <span> {{ $alert_product }} product exceeds alert quantity</span>
+                                        </a>
+                                    </li>
+                                    @foreach (\Auth::user()->unreadNotifications as $key => $notification)
+                                        <li class="flex">
+                                            <a
+                                                class="inline-flex items-center justify-between w-full px-2 py-1 text-sm font-semibold transition-colors duration-150 rounded-md ">
+                                                <span> {{ $notification->data['message'] }}</span>
+                                            </a>
+                                        </li>
+                                    @endforeach
+                                @elseif(count(\Auth::user()->unreadNotifications) > 0)
+                                    @foreach (\Auth::user()->unreadNotifications as $key => $notification)
+                                        <li class="flex">
+                                            <a
+                                                class="inline-flex items-center justify-between w-full px-2 py-1 text-sm font-semibold transition-colors duration-150 rounded-md ">
+                                                <span>{{ $notification->data['message'] }}</span>
+                                            </a>
+                                        </li>
+                                    @endforeach
+                                @endif
+                                @endif
+                                </a>
+                    </li>
+                </ul>
+                </template>
+                </li>
+                <!-- Language menu -->
+                <li class="relative pt-2">
+                    <button class="align-middle rounded-full focus:shadow-outline-purple focus:outline-none"
+                        @click="toggleLanguageMenu" @keydown.escape="closeLanguageMenu" aria-label="Account"
+                        aria-haspopup="true">
+                        <svg class="w-5 h-5" aria-hidden="true" fill="currentColor" stroke-linecap="round"
+                            stroke-linejoin="round" stroke-width="2" viewBox="0 0 512 512" stroke="currentColor">
+                            <path d="M256,0C114.7,0,0,114.7,0,256s114.7,256,256,256s256-114.7,256-256S397.3,0,256,0z M433.3,153.6h-75.9
+  c-8.5-32.2-19.9-62.6-35.1-91C369.8,78.7,408.7,110.9,433.3,153.6z M256,52.1c20.9,30.3,37.9,64.5,49.3,101.5h-98.6
+  C218.1,116.6,235.1,82.5,256,52.1z M57.8,307.2C54,291.1,51.2,274,51.2,256s2.8-35.1,6.6-51.2h86.3c-1.9,17.1-3.8,34.1-3.8,51.2
+  c0,17.1,1.9,34.1,3.8,51.2H57.8z M78.7,358.4h75.9c8.5,32.2,19.9,62.6,35.1,91C142.2,433.3,103.3,401.1,78.7,358.4z M154.5,153.6
+  H78.7c24.7-42.7,63.5-74.9,110.9-91C174.5,91,162.1,121.4,154.5,153.6z M256,459.9c-20.9-30.3-37.9-64.5-49.3-101.5h97.7
+  C293.9,395.4,276.9,429.5,256,459.9z M315.7,307.2H196.3c-1.9-17.1-3.8-34.1-3.8-51.2s1.9-34.1,3.8-51.2h119.5
+  c1.9,17.1,3.8,34.1,3.8,51.2C319.5,273.1,318.6,290.1,315.7,307.2z M322.4,449.4c15.2-28.4,27.5-58.8,35.1-91h75.9
+  C408.7,401.1,369.8,433.3,322.4,449.4z M367.9,307.2c1.9-17.1,3.8-34.1,3.8-51.2s-1.9-34.1-3.8-51.2h86.3
+  c3.8,16.1,6.6,33.2,6.6,51.2s-2.8,35.1-6.6,51.2H367.9z" />
+                        </svg>
+                    </button>
+                    <template x-if="isLanguageMenuOpen">
+                        <ul x-transition:leave="transition ease-in duration-150" x-transition:leave-start="opacity-100"
+                            x-transition:leave-end="opacity-0" @click.away="closeLanguageMenu"
+                            @keydown.escape="closeLanguageMenu"
+                            class="absolute right-0 w-56 p-2 mt-2 space-y-2 text-gray-600 bg-white border border-gray-100 rounded-md shadow-md"
+                            aria-label="submenu">
+                            <li class="flex">
+                                <a class="inline-flex items-center w-full px-2 py-1 text-sm font-semibold transition-colors duration-150 rounded-md "
+                                    href="{{ url('language_switch/fr') }}">
+                                    <span>Français</span>
+                                </a>
+                            </li>
+                            <li class="flex">
+                                <a class="inline-flex items-center w-full px-2 py-1 text-sm font-semibold transition-colors duration-150 rounded-md "
+                                    href="{{ url('language_switch/ar') }}">
+                                    <span>Arab</span>
+                                </a>
+                            </li>
+                            <li class="flex">
+                                <a class="inline-flex items-center w-full px-2 py-1 text-sm font-semibold transition-colors duration-150 rounded-md "
+                                    href="{{ url('language_switch/en') }}">
+                                    <span> English</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </template>
+                </li>
+                <!-- Profile menu -->
+                <li class="relative pt-2">
+                    <button class="align-middle rounded-full focus:shadow-outline-purple focus:outline-none"
+                        @click="toggleProfileMenu" @keydown.escape="closeProfileMenu" aria-label="Account"
+                        aria-haspopup="true">
+                        {{ ucfirst(Auth::user()->name) }}
+                    </button>
+                    <template x-if="isProfileMenuOpen">
+                        <ul x-transition:leave="transition ease-in duration-150" x-transition:leave-start="opacity-100"
+                            x-transition:leave-end="opacity-0" @click.away="closeProfileMenu"
+                            @keydown.escape="closeProfileMenu"
+                            class="absolute right-0 w-56 p-2 mt-2 space-y-2 text-gray-600 bg-white border border-gray-100 rounded-md shadow-md"
+                            aria-label="submenu">
+                            <li class="flex">
+                                <a class="inline-flex items-center w-full px-2 py-1 text-sm font-semibold transition-colors duration-150 rounded-md "
+                                    href="{{ route('user.profile', ['id' => Auth::id()]) }}">
+                                    <svg class="w-4 h-4 mr-3" aria-hidden="true" fill="none" stroke-linecap="round"
+                                        stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24"
+                                        stroke="currentColor">
+                                        <path d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z">
+                                        </path>
+                                    </svg>
+                                    <span>Profile</span>
+                                </a>
+                            </li>
+                            @if (Auth::user()->role_id != 5)
+                                <li class="flex">
+                                    <a class="inline-flex items-center w-full px-2 py-1 text-sm font-semibold transition-colors duration-150 rounded-md "
+                                        href="{{ url('holidays/my-holiday/' . date('Y') . '/' . date('m')) }}">
+                                        <svg class="w-4 h-4 mr-3" aria-hidden="true" fill="none"
+                                            stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            viewBox="0 0 24 24" stroke="currentColor">
+                                            <path
+                                                d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z">
+                                            </path>
+                                            <path d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                                        </svg>
+                                        <span>My Holidays</span>
+                                    </a>
+                                </li>
+                            @endif
+                            <li class="flex">
+                                <a class="inline-flex items-center w-full px-2 py-1 text-sm font-semibold transition-colors duration-150 rounded-md "
+                                    href="{{ url('my-transactions/' . date('Y') . '/' . date('m')) }}">
+                                    <svg class="w-4 h-4 mr-3" aria-hidden="true" fill="none" stroke-linecap="round"
+                                        stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24"
+                                        stroke="currentColor">
+                                        <path
+                                            d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z">
+                                        </path>
+                                        <path d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                                    </svg>
+                                    <span>My Transactions</span>
+                                </a>
+                            </li>
+                            @if ($general_setting_permission_active)
+                                <li class="flex">
+                                    <a class="inline-flex items-center w-full px-2 py-1 text-sm font-semibold transition-colors duration-150 rounded-md "
+                                        href="{{ route('setting.general') }}">
+                                        <svg class="w-4 h-4 mr-3" aria-hidden="true" fill="none"
+                                            stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            viewBox="0 0 24 24" stroke="currentColor">
+                                            <path
+                                                d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z">
+                                            </path>
+                                            <path d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                                        </svg>
+                                        <span>Settings</span>
+                                    </a>
+                                </li>
+                            @endif
+                            <li class="flex">
+                                <a class="inline-flex items-center w-full px-2 py-1 text-sm font-semibold transition-colors duration-150 rounded-md "
+                                    href="{{ route('logout') }}" onclick="event.preventDefault();
+                      document.getElementById('logout-form').submit();">
+                                    <svg class="w-4 h-4 mr-3" aria-hidden="true" fill="none" stroke-linecap="round"
+                                        stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24"
+                                        stroke="currentColor">
+                                        <path
+                                            d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1">
+                                        </path>
+                                    </svg>
+                                    <span> {{ trans('file.logout') }}</span>
+                                    <form id="logout-form" action="{{ route('logout') }}" method="POST"
+                                        style="display: none;">
+                                        @csrf
+                                    </form>
+                                </a>
+                            </li>
+                        </ul>
+                    </template>
+
+                </li>
+                </ul>
+            </div>
+        </header>
+
+        <div>
+            <div class="content-wrapper">
+                <div class="animate-bottom px-6 mx-auto grid">
+                    @yield('content')
+                </div>
+
+                <!-- notification modal -->
+                <div id="notification-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+                    aria-hidden="true" class="modal opacity-0 text-left">
+                    <div role="document" class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 id="exampleModalLabel" class="modal-title">
+                                    {{ trans('file.Send Notification') }}
+                                </h5>
+                                <button type="button" data-dismiss="modal" aria-label="Close"
+                                    class="absolute top-0 bottom-0 right-0 px-4 py-3"><span aria-hidden="true"><i
+                                            class="dripicons-cross"></i></span></button>
+                            </div>
+                            <div class="modal-body">
+                                <p class="italic">
+                                    <small>{{ trans('file.The field labels marked with * are required input fields') }}.</small>
+                                </p>
+                                {!! Form::open(['route' => 'notifications.store', 'method' => 'post']) !!}
+                                <div class="flex flex-wrap ">
+                                    <?php
+                                    $lims_user_list = DB::table('users')
+                                        ->where([['is_active', true], ['id', '!=', \Auth::user()->id]])
+                                        ->get();
+                                    ?>
+                                    <div class="md:w-1/2 pr-4 pl-4 mb-4">
+                                        <label>{{ trans('file.User') }} *</label>
+                                        <select name="user_id"
+                                            class="selectpicker block appearance-none w-full py-1 px-2 mb-1 text-base leading-normal bg-white text-gray-800 border border-gray-200 rounded"
+                                            required data-live-search="true" data-live-search-style="begins"
+                                            title="Select user...">
+                                            @foreach ($lims_user_list as $user)
+                                                <option value="{{ $user->id }}">
+                                                    {{ $user->name . ' (' . $user->email . ')' }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                    <div class="md:w-full pr-4 pl-4 mb-4">
+                                        <label>{{ trans('file.Message') }} *</label>
+                                        <textarea rows="5" name="message"
+                                            class="block appearance-none w-full py-1 px-2 mb-1 text-base leading-normal bg-white text-gray-800 border border-gray-200 rounded"
+                                            required></textarea>
+                                    </div>
+                                </div>
+                                <div class="mb-4">
+                                    <button type="submit"
+                                        class="inline-block align-middle text-center select-none border font-normal whitespace-no-wrap rounded py-1 px-3 leading-normal no-underline bg-blue-600 text-white hover:bg-blue-600">{{ trans('file.submit') }}</button>
+                                </div>
+                                {{ Form::close() }}
                             </div>
                         </div>
-                      </div>
-                      <div class="mb-4">
-                          <button type="submit" class="inline-block align-middle text-center select-none border font-normal whitespace-no-wrap rounded py-1 px-3 leading-normal no-underline bg-blue-600 text-white hover:bg-blue-600">{{trans('file.submit')}}</button>
-                      </div>
-                    {{ Form::close() }}
+                    </div>
                 </div>
+
+                <!-- expense modal -->
+                <div id="expense-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+                    aria-hidden="true" class="modal opacity-0 text-left">
+                    <div role="document" class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 id="exampleModalLabel" class="modal-title">{{ trans('file.Add Expense') }}
+                                </h5>
+                                <button type="button" data-dismiss="modal" aria-label="Close"
+                                    class="absolute top-0 bottom-0 right-0 px-4 py-3"><span aria-hidden="true"><i
+                                            class="dripicons-cross"></i></span></button>
+                            </div>
+                            <div class="modal-body">
+                                <p class="italic">
+                                    <small>{{ trans('file.The field labels marked with * are required input fields') }}.</small>
+                                </p>
+                                {!! Form::open(['route' => 'expenses.store', 'method' => 'post']) !!}
+                                <?php
+                                $lims_expense_category_list = DB::table('expense_categories')
+                                    ->where('is_active', true)
+                                    ->get();
+                                if (Auth::user()->role_id > 2) {
+                                    $lims_warehouse_list = DB::table('warehouses')
+                                        ->where([['is_active', true], ['id', Auth::user()->warehouse_id]])
+                                        ->get();
+                                } else {
+                                    $lims_warehouse_list = DB::table('warehouses')
+                                        ->where('is_active', true)
+                                        ->get();
+                                }
+                                $lims_account_list = \App\Account::where('is_active', true)->get();
+                                
+                                ?>
+                                <div class="flex flex-wrap ">
+                                    <div class="md:w-1/2 pr-4 pl-4 mb-4">
+                                        <label>{{ trans('file.Expense Category') }} *</label>
+                                        <select name="expense_category_id"
+                                            class="selectpicker block appearance-none w-full py-1 px-2 mb-1 text-base leading-normal bg-white text-gray-800 border border-gray-200 rounded"
+                                            data-live-search="true" data-live-search-style="begins"
+                                            title="Select Expense Category...">
+                                            @foreach ($lims_expense_category_list as $expense_category)
+                                                <option value="{{ $expense_category->id }}">
+                                                    {{ $expense_category->name . ' (' . $expense_category->code . ')' }}
+                                                </option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                    <div class="md:w-1/2 pr-4 pl-4 mb-4">
+                                        <label>{{ trans('file.Warehouse') }} *</label>
+                                        <select name="warehouse_id"
+                                            class="selectpicker block appearance-none w-full py-1 px-2 mb-1 text-base leading-normal bg-white text-gray-800 border border-gray-200 rounded"
+                                            data-live-search="true" data-live-search-style="begins"
+                                            title="{{ trans('file.Select warehouse...') }}">
+                                            @foreach ($lims_warehouse_list as $warehouse)
+                                                <option value="{{ $warehouse->id }}">{{ $warehouse->name }}
+                                                </option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                    <div class="md:w-1/2 pr-4 pl-4 mb-4">
+                                        <label>{{ trans('file.Amount') }} *</label>
+                                        <input type="number" name="amount" step="any" required
+                                            class="block appearance-none w-full py-1 px-2 mb-1 text-base leading-normal bg-white text-gray-800 border border-gray-200 rounded">
+                                    </div>
+                                    <div class="md:w-1/2 pr-4 pl-4 mb-4">
+                                        <label> {{ trans('file.Account') }}</label>
+                                        <select
+                                            class="block appearance-none w-full py-1 px-2 mb-1 text-base leading-normal bg-white text-gray-800 border border-gray-200 rounded selectpicker"
+                                            name="account_id">
+                                            @foreach ($lims_account_list as $account)
+                                                @if ($account->is_default)
+                                                    <option selected value="{{ $account->id }}">
+                                                        {{ $account->name }}
+                                                        [{{ $account->account_no }}]</option>
+                                                @else
+                                                    <option value="{{ $account->id }}">{{ $account->name }}
+                                                        [{{ $account->account_no }}]</option>
+                                                @endif
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="mb-4">
+                                    <label>{{ trans('file.Note') }}</label>
+                                    <textarea name="note" rows="3"
+                                        class="block appearance-none w-full py-1 px-2 mb-1 text-base leading-normal bg-white text-gray-800 border border-gray-200 rounded"></textarea>
+                                </div>
+                                <div class="mb-4">
+                                    <button type="submit"
+                                        class="inline-block align-middle text-center select-none border font-normal whitespace-no-wrap rounded py-1 px-3 leading-normal no-underline bg-blue-600 text-white hover:bg-blue-600">{{ trans('file.submit') }}</button>
+                                </div>
+                                {{ Form::close() }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- account modal -->
+                <div id="account-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+                    aria-hidden="true" class="modal opacity-0 text-left">
+                    <div role="document" class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 id="exampleModalLabel" class="modal-title">{{ trans('file.Add Account') }}
+                                </h5>
+                                <button type="button" data-dismiss="modal" aria-label="Close"
+                                    class="absolute top-0 bottom-0 right-0 px-4 py-3"><span aria-hidden="true"><i
+                                            class="dripicons-cross"></i></span></button>
+                            </div>
+                            <div class="modal-body">
+                                <p class="italic">
+                                    <small>{{ trans('file.The field labels marked with * are required input fields') }}.</small>
+                                </p>
+                                {!! Form::open(['route' => 'accounts.store', 'method' => 'post']) !!}
+                                <div class="mb-4">
+                                    <label>{{ trans('file.Account No') }} *</label>
+                                    <input type="text" name="account_no" required
+                                        class="block appearance-none w-full py-1 px-2 mb-1 text-base leading-normal bg-white text-gray-800 border border-gray-200 rounded">
+                                </div>
+                                <div class="mb-4">
+                                    <label>{{ trans('file.name') }} *</label>
+                                    <input type="text" name="name" required
+                                        class="block appearance-none w-full py-1 px-2 mb-1 text-base leading-normal bg-white text-gray-800 border border-gray-200 rounded">
+                                </div>
+                                <div class="mb-4">
+                                    <label>{{ trans('file.Initial Balance') }}</label>
+                                    <input type="number" name="initial_balance" step="any"
+                                        class="block appearance-none w-full py-1 px-2 mb-1 text-base leading-normal bg-white text-gray-800 border border-gray-200 rounded">
+                                </div>
+                                <div class="mb-4">
+                                    <label>{{ trans('file.Note') }}</label>
+                                    <textarea name="note" rows="3"
+                                        class="block appearance-none w-full py-1 px-2 mb-1 text-base leading-normal bg-white text-gray-800 border border-gray-200 rounded"></textarea>
+                                </div>
+                                <div class="mb-4">
+                                    <button type="submit"
+                                        class="inline-block align-middle text-center select-none border font-normal whitespace-no-wrap rounded py-1 px-3 leading-normal no-underline bg-blue-600 text-white hover:bg-blue-600">{{ trans('file.submit') }}</button>
+                                </div>
+                                {{ Form::close() }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- account statement modal -->
+                <div id="account-statement-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+                    aria-hidden="true" class="modal opacity-0 text-left">
+                    <div role="document" class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 id="exampleModalLabel" class="modal-title">
+                                    {{ trans('file.Account Statement') }}
+                                </h5>
+                                <button type="button" data-dismiss="modal" aria-label="Close"
+                                    class="absolute top-0 bottom-0 right-0 px-4 py-3"><span aria-hidden="true"><i
+                                            class="dripicons-cross"></i></span></button>
+                            </div>
+                            <div class="modal-body">
+                                <p class="italic">
+                                    <small>{{ trans('file.The field labels marked with * are required input fields') }}.</small>
+                                </p>
+                                {!! Form::open(['route' => 'accounts.statement', 'method' => 'post']) !!}
+                                <div class="flex flex-wrap ">
+                                    <div class="md:w-1/2 pr-4 pl-4 mb-4">
+                                        <label> {{ trans('file.Account') }}</label>
+                                        <select
+                                            class="block appearance-none w-full py-1 px-2 mb-1 text-base leading-normal bg-white text-gray-800 border border-gray-200 rounded selectpicker"
+                                            name="account_id">
+                                            @foreach ($lims_account_list as $account)
+                                                <option value="{{ $account->id }}">{{ $account->name }}
+                                                    [{{ $account->account_no }}]</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                    <div class="md:w-1/2 pr-4 pl-4 mb-4">
+                                        <label> {{ trans('file.Type') }}</label>
+                                        <select
+                                            class="block appearance-none w-full py-1 px-2 mb-1 text-base leading-normal bg-white text-gray-800 border border-gray-200 rounded selectpicker"
+                                            name="type">
+                                            <option value="0">{{ trans('file.All') }}</option>
+                                            <option value="1">{{ trans('file.Debit') }}</option>
+                                            <option value="2">{{ trans('file.Credit') }}</option>
+                                        </select>
+                                    </div>
+                                    <div class="md:w-full pr-4 pl-4 mb-4">
+                                        <label>{{ trans('file.Choose Your Date') }}</label>
+                                        <div class="relative flex items-stretch w-full">
+                                            <input type="text"
+                                                class="daterangepicker-field block appearance-none w-full py-1 px-2 mb-1 text-base leading-normal bg-white text-gray-800 border border-gray-200 rounded"
+                                                required />
+                                            <input type="hidden" name="start_date" />
+                                            <input type="hidden" name="end_date" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="mb-4">
+                                    <button type="submit"
+                                        class="inline-block align-middle text-center select-none border font-normal whitespace-no-wrap rounded py-1 px-3 leading-normal no-underline bg-blue-600 text-white hover:bg-blue-600">{{ trans('file.submit') }}</button>
+                                </div>
+                                {{ Form::close() }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- warehouse modal -->
+                <div id="warehouse-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+                    aria-hidden="true" class="modal opacity-0 text-left">
+                    <div role="document" class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 id="exampleModalLabel" class="modal-title">
+                                    {{ trans('file.Warehouse Report') }}
+                                </h5>
+                                <button type="button" data-dismiss="modal" aria-label="Close"
+                                    class="absolute top-0 bottom-0 right-0 px-4 py-3"><span aria-hidden="true"><i
+                                            class="dripicons-cross"></i></span></button>
+                            </div>
+                            <div class="modal-body">
+                                <p class="italic">
+                                    <small>{{ trans('file.The field labels marked with * are required input fields') }}.</small>
+                                </p>
+                                {!! Form::open(['route' => 'report.warehouse', 'method' => 'post']) !!}
+                                <?php
+                                $lims_warehouse_list = DB::table('warehouses')
+                                    ->where('is_active', true)
+                                    ->get();
+                                ?>
+                                <div class="mb-4">
+                                    <label>{{ trans('file.Warehouse') }} *</label>
+                                    <select name="warehouse_id"
+                                        class="selectpicker block appearance-none w-full py-1 px-2 mb-1 text-base leading-normal bg-white text-gray-800 border border-gray-200 rounded"
+                                        required data-live-search="true" id="warehouse-id"
+                                        data-live-search-style="begins"
+                                        title="{{ trans('file.Select warehouse...') }}">
+                                        @foreach ($lims_warehouse_list as $warehouse)
+                                            <option value="{{ $warehouse->id }}">{{ $warehouse->name }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+
+                                <input type="hidden" name="start_date" value="2021-01-01" />
+                                <input type="hidden" name="end_date" value="{{ date('Y-m-d') }}" />
+
+                                <div class="mb-4">
+                                    <button type="submit"
+                                        class="inline-block align-middle text-center select-none border font-normal whitespace-no-wrap rounded py-1 px-3 leading-normal no-underline bg-blue-600 text-white hover:bg-blue-600">{{ trans('file.submit') }}</button>
+                                </div>
+                                {{ Form::close() }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- user modal -->
+                <div id="user-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true"
+                    class="modal opacity-0 text-left">
+                    <div role="document" class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 id="exampleModalLabel" class="modal-title">{{ trans('file.User Report') }}
+                                </h5>
+                                <button type="button" data-dismiss="modal" aria-label="Close"
+                                    class="absolute top-0 bottom-0 right-0 px-4 py-3"><span aria-hidden="true"><i
+                                            class="dripicons-cross"></i></span></button>
+                            </div>
+                            <div class="modal-body">
+                                <p class="italic">
+                                    <small>{{ trans('file.The field labels marked with * are required input fields') }}.</small>
+                                </p>
+                                {!! Form::open(['route' => 'report.user', 'method' => 'post']) !!}
+                                <?php
+                                $lims_user_list = DB::table('users')
+                                    ->where('is_active', true)
+                                    ->get();
+                                ?>
+                                <div class="mb-4">
+                                    <label>{{ trans('file.User') }} *</label>
+                                    <select name="user_id"
+                                        class="selectpicker block appearance-none w-full py-1 px-2 mb-1 text-base leading-normal bg-white text-gray-800 border border-gray-200 rounded"
+                                        required data-live-search="true" id="user-id" data-live-search-style="begins"
+                                        title="Select user...">
+                                        @foreach ($lims_user_list as $user)
+                                            <option value="{{ $user->id }}">
+                                                {{ $user->name . ' (' . $user->phone . ')' }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+
+                                <input type="hidden" name="start_date" value="2021-01-01" />
+                                <input type="hidden" name="end_date" value="{{ date('Y-m-d') }}" />
+
+                                <div class="mb-4">
+                                    <button type="submit"
+                                        class="inline-block align-middle text-center select-none border font-normal whitespace-no-wrap rounded py-1 px-3 leading-normal no-underline bg-blue-600 text-white hover:bg-blue-600">{{ trans('file.submit') }}</button>
+                                </div>
+                                {{ Form::close() }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- customer modal -->
+                <div id="customer-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+                    aria-hidden="true" class="modal opacity-0 text-left">
+                    <div role="document" class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 id="exampleModalLabel" class="modal-title">
+                                    {{ trans('file.Customer Report') }}
+                                </h5>
+                                <button type="button" data-dismiss="modal" aria-label="Close"
+                                    class="absolute top-0 bottom-0 right-0 px-4 py-3"><span aria-hidden="true"><i
+                                            class="dripicons-cross"></i></span></button>
+                            </div>
+                            <div class="modal-body">
+                                <p class="italic">
+                                    <small>{{ trans('file.The field labels marked with * are required input fields') }}.</small>
+                                </p>
+                                {!! Form::open(['route' => 'report.customer', 'method' => 'post']) !!}
+                                <?php
+                                $lims_customer_list = DB::table('customers')
+                                    ->where('is_active', true)
+                                    ->get();
+                                ?>
+                                <div class="mb-4">
+                                    <label>{{ trans('file.customer') }} *</label>
+                                    <select name="customer_id"
+                                        class="selectpicker block appearance-none w-full py-1 px-2 mb-1 text-base leading-normal bg-white text-gray-800 border border-gray-200 rounded"
+                                        required data-live-search="true" id="customer-id"
+                                        data-live-search-style="begins" title="Select customer...">
+                                        @foreach ($lims_customer_list as $customer)
+                                            <option value="{{ $customer->id }}">
+                                                {{ $customer->name . ' (' . $customer->phone_number . ')' }}
+                                            </option>
+                                        @endforeach
+                                    </select>
+                                </div>
+
+                                <input type="hidden" name="start_date" value="2021-01-01" />
+                                <input type="hidden" name="end_date" value="{{ date('Y-m-d') }}" />
+
+                                <div class="mb-4">
+                                    <button type="submit"
+                                        class="inline-block align-middle text-center select-none border font-normal whitespace-no-wrap rounded py-1 px-3 leading-normal no-underline bg-blue-600 text-white hover:bg-blue-600">{{ trans('file.submit') }}</button>
+                                </div>
+                                {{ Form::close() }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- supplier modal -->
+                <div id="supplier-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+                    aria-hidden="true" class="modal opacity-0 text-left">
+                    <div role="document" class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 id="exampleModalLabel" class="modal-title">
+                                    {{ trans('file.Supplier Report') }}
+                                </h5>
+                                <button type="button" data-dismiss="modal" aria-label="Close"
+                                    class="absolute top-0 bottom-0 right-0 px-4 py-3"><span aria-hidden="true"><i
+                                            class="dripicons-cross"></i></span></button>
+                            </div>
+                            <div class="modal-body">
+                                <p class="italic">
+                                    <small>{{ trans('file.The field labels marked with * are required input fields') }}.</small>
+                                </p>
+                                {!! Form::open(['route' => 'report.supplier', 'method' => 'post']) !!}
+                                <?php
+                                $lims_supplier_list = DB::table('suppliers')
+                                    ->where('is_active', true)
+                                    ->get();
+                                ?>
+                                <div class="mb-4">
+                                    <label>{{ trans('file.Supplier') }} *</label>
+                                    <select name="supplier_id"
+                                        class="selectpicker block appearance-none w-full py-1 px-2 mb-1 text-base leading-normal bg-white text-gray-800 border border-gray-200 rounded"
+                                        required data-live-search="true" id="supplier-id"
+                                        data-live-search-style="begins" title="Select Supplier...">
+                                        @foreach ($lims_supplier_list as $supplier)
+                                            <option value="{{ $supplier->id }}">
+                                                {{ $supplier->name . ' (' . $supplier->phone_number . ')' }}
+                                            </option>
+                                        @endforeach
+                                    </select>
+                                </div>
+
+                                <input type="hidden" name="start_date" value="2021-01-01" />
+                                <input type="hidden" name="end_date" value="{{ date('Y-m-d') }}" />
+
+                                <div class="mb-4">
+                                    <button type="submit"
+                                        class="inline-block align-middle text-center select-none border font-normal whitespace-no-wrap rounded py-1 px-3 leading-normal no-underline bg-blue-600 text-white hover:bg-blue-600">{{ trans('file.submit') }}</button>
+                                </div>
+                                {{ Form::close() }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- activity modal -->
+                <div id="activity-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+                    aria-hidden="true" class="modal opacity-0 text-left">
+                    <div role="document" class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 id="exampleModalLabel" class="modal-title">{{ trans('file.Add Activity') }}
+                                </h5>
+                                <button type="button" data-dismiss="modal" aria-label="Close"
+                                    class="absolute top-0 bottom-0 right-0 px-4 py-3"><span aria-hidden="true"><i
+                                            class="dripicons-cross"></i></span></button>
+                            </div>
+                            <div class="modal-body">
+                                <p class="italic">
+                                    <small>{{ trans('file.The field labels marked with * are required input fields') }}.</small>
+                                </p>
+                                {!! Form::open(['route' => 'activity.store', 'method' => 'post', 'files' => true]) !!}
+                                <?php
+                                $lims_employee_list = DB::table('employees')
+                                    ->where('is_active', true)
+                                    ->get();
+                                ?>
+                                <div class="flex flex-wrap ">
+                                    <div class="md:w-1/2 pr-4 pl-4 mb-4">
+                                        <label>{{ trans('file.Employee') }} *</label>
+                                        <select
+                                            class="block appearance-none w-full py-1 px-2 mb-1 text-base leading-normal bg-white text-gray-800 border border-gray-200 rounded selectpicker"
+                                            name="employee_id[]" required data-live-search="true"
+                                            data-live-search-style="begins" title="Selection..." multiple>
+                                            @foreach ($lims_employee_list as $employee)
+                                                <option value="{{ $employee->id }}">{{ $employee->name }}
+                                                </option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                    <div class="md:w-1/2 pr-4 pl-4 mb-4">
+                                        <label>{{ trans('file.Date') }} *</label>
+                                        <input type="text" name="date"
+                                            class="block appearance-none w-full py-1 px-2 mb-1 text-base leading-normal bg-white text-gray-800 border border-gray-200 rounded date"
+                                            value="{{ date($general_setting->date_format) }}" required>
+                                    </div>
+                                    <div class="md:w-1/2 pr-4 pl-4 mb-4">
+                                        <label>{{ trans('file.Hour') }} *</label>
+                                        <input type="text" id="hour" name="hour"
+                                            class="block appearance-none w-full py-1 px-2 mb-1 text-base leading-normal bg-white text-gray-800 border border-gray-200 rounded time"
+                                            required>
+                                    </div>
+                                    <div class="md:w-1/2 pr-4 pl-4 mb-4">
+                                        <label>{{ trans('file.customer') }} *</label>
+                                        <select
+                                            class="block appearance-none w-full py-1 px-2 mb-1 text-base leading-normal bg-white text-gray-800 border border-gray-200 rounded selectpicker"
+                                            name="customer_id[]" required data-live-search="true"
+                                            data-live-search-style="begins" title="Selection..." multiple>
+                                            @foreach ($lims_customer_list as $customer)
+                                                <option value="{{ $customer->id }}">{{ $customer->name }}
+                                                </option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                    <div class="md:w-1/2 pr-4 pl-4 mb-4">
+                                        <label>{{ trans('file.Object') }} *</label>
+                                        <input type="text" id="object" name="object"
+                                            class="block appearance-none w-full py-1 px-2 mb-1 text-base leading-normal bg-white text-gray-800 border border-gray-200 rounded"
+                                            required>
+                                    </div>
+                                    <div class="md:w-1/2 pr-4 pl-4 mb-4">
+                                        <label>{{ trans('file.Duration') }} *</label>
+                                        <input type="text" id="duration" name="duration"
+                                            class="block appearance-none w-full py-1 px-2 mb-1 text-base leading-normal bg-white text-gray-800 border border-gray-200 rounded"
+                                            required>
+                                    </div>
+                                    <div class="md:w-1/2 pr-4 pl-4 mb-4">
+                                        <label>{{ trans('file.Transportation') }} *</label>
+                                        <input type="text" id="transportation" name="transportation"
+                                            class="block appearance-none w-full py-1 px-2 mb-1 text-base leading-normal bg-white text-gray-800 border border-gray-200 rounded"
+                                            required>
+                                    </div>
+                                    <div class="md:w-1/2 pr-4 pl-4 mb-4">
+                                        <label>{{ trans('file.Expense') }} *</label>
+                                        <input type="text" id="expense" name="expense"
+                                            class="block appearance-none w-full py-1 px-2 mb-1 text-base leading-normal bg-white text-gray-800 border border-gray-200 rounded"
+                                            required>
+                                    </div>
+                                    <div class="md:w-1/2 pr-4 pl-4 mb-4">
+                                        <label>{{ trans('file.Place') }} *</label>
+                                        <input type="text" id="place" name="place"
+                                            class="block appearance-none w-full py-1 px-2 mb-1 text-base leading-normal bg-white text-gray-800 border border-gray-200 rounded"
+                                            required>
+                                    </div>
+                                    <div class="md:w-full pr-4 pl-4 mb-4">
+                                        <label>{{ trans('file.Note') }}</label>
+                                        <textarea name="note" rows="3"
+                                            class="block appearance-none w-full py-1 px-2 mb-1 text-base leading-normal bg-white text-gray-800 border border-gray-200 rounded"></textarea>
+                                    </div>
+                                </div>
+                                <div class="mb-4">
+                                    <button type="submit"
+                                        class="inline-block align-middle text-center select-none border font-normal whitespace-no-wrap rounded py-1 px-3 leading-normal no-underline bg-blue-600 text-white hover:bg-blue-600">{{ trans('file.submit') }}</button>
+                                </div>
+                                {{ Form::close() }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <footer class="layout-footer-fixed">
+                    <div class="container max-w-full mx-auto sm:px-4">
+                        <div class="flex flex-wrap ">
+                            <div class="sm:w-full pr-4 pl-4">
+                                <p>&copy; {{ $general_setting->site_title }} | {{ trans('file.Developed') }}
+                                    {{ trans('file.By') }} <span class="external">Zakaria Labib</span></p>
+                            </div>
+                        </div>
+                    </div>
+                </footer>
             </div>
         </div>
-      </div>
+</body>
 
-      <!-- warehouse modal -->
-      <div id="warehouse-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" class="modal opacity-0 text-left">
-        <div role="document" class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 id="exampleModalLabel" class="modal-title">{{trans('file.Warehouse Report')}}</h5>
-                    <button type="button" data-dismiss="modal" aria-label="Close" class="absolute top-0 bottom-0 right-0 px-4 py-3"><span aria-hidden="true"><i class="dripicons-cross"></i></span></button>
-                </div>
-                <div class="modal-body">
-                  <p class="italic"><small>{{trans('file.The field labels marked with * are required input fields')}}.</small></p>
-                    {!! Form::open(['route' => 'report.warehouse', 'method' => 'post']) !!}
-                    <?php 
-                      $lims_warehouse_list = DB::table('warehouses')->where('is_active', true)->get();
-                    ?>
-                      <div class="mb-4">
-                          <label>{{trans('file.Warehouse')}} *</label>
-                          <select name="warehouse_id" class="selectpicker block appearance-none w-full py-1 px-2 mb-1 text-base leading-normal bg-white text-gray-800 border border-gray-200 rounded" required data-live-search="true" id="warehouse-id" data-live-search-style="begins" title="{{trans('file.Select warehouse...')}}">
-                              @foreach($lims_warehouse_list as $warehouse)
-                              <option value="{{$warehouse->id}}">{{$warehouse->name}}</option>
-                              @endforeach
-                          </select>
-                      </div>
-
-                      <input type="hidden" name="start_date" value="1988-04-18" />
-                      <input type="hidden" name="end_date" value="{{date('Y-m-d')}}" />
-
-                      <div class="mb-4">
-                          <button type="submit" class="inline-block align-middle text-center select-none border font-normal whitespace-no-wrap rounded py-1 px-3 leading-normal no-underline bg-blue-600 text-white hover:bg-blue-600">{{trans('file.submit')}}</button>
-                      </div>
-                    {{ Form::close() }}
-                </div>
-            </div>
-        </div>
-      </div>
-
-      <!-- user modal -->
-      <div id="user-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" class="modal opacity-0 text-left">
-        <div role="document" class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 id="exampleModalLabel" class="modal-title">{{trans('file.User Report')}}</h5>
-                    <button type="button" data-dismiss="modal" aria-label="Close" class="absolute top-0 bottom-0 right-0 px-4 py-3"><span aria-hidden="true"><i class="dripicons-cross"></i></span></button>
-                </div>
-                <div class="modal-body">
-                  <p class="italic"><small>{{trans('file.The field labels marked with * are required input fields')}}.</small></p>
-                    {!! Form::open(['route' => 'report.user', 'method' => 'post']) !!}
-                    <?php 
-                      $lims_user_list = DB::table('users')->where('is_active', true)->get();
-                    ?>
-                      <div class="mb-4">
-                          <label>{{trans('file.User')}} *</label>
-                          <select name="user_id" class="selectpicker block appearance-none w-full py-1 px-2 mb-1 text-base leading-normal bg-white text-gray-800 border border-gray-200 rounded" required data-live-search="true" id="user-id" data-live-search-style="begins" title="Select user...">
-                              @foreach($lims_user_list as $user)
-                              <option value="{{$user->id}}">{{$user->name . ' (' . $user->phone. ')'}}</option>
-                              @endforeach
-                          </select>
-                      </div>
-
-                      <input type="hidden" name="start_date" value="1988-04-18" />
-                      <input type="hidden" name="end_date" value="{{date('Y-m-d')}}" />
-
-                      <div class="mb-4">
-                          <button type="submit" class="inline-block align-middle text-center select-none border font-normal whitespace-no-wrap rounded py-1 px-3 leading-normal no-underline bg-blue-600 text-white hover:bg-blue-600">{{trans('file.submit')}}</button>
-                      </div>
-                    {{ Form::close() }}
-                </div>
-            </div>
-        </div>
-      </div>
-
-      <!-- customer modal -->
-      <div id="customer-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" class="modal opacity-0 text-left">
-        <div role="document" class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 id="exampleModalLabel" class="modal-title">{{trans('file.Customer Report')}}</h5>
-                    <button type="button" data-dismiss="modal" aria-label="Close" class="absolute top-0 bottom-0 right-0 px-4 py-3"><span aria-hidden="true"><i class="dripicons-cross"></i></span></button>
-                </div>
-                <div class="modal-body">
-                  <p class="italic"><small>{{trans('file.The field labels marked with * are required input fields')}}.</small></p>
-                    {!! Form::open(['route' => 'report.customer', 'method' => 'post']) !!}
-                    <?php 
-                      $lims_customer_list = DB::table('customers')->where('is_active', true)->get();
-                    ?>
-                      <div class="mb-4">
-                          <label>{{trans('file.customer')}} *</label>
-                          <select name="customer_id" class="selectpicker block appearance-none w-full py-1 px-2 mb-1 text-base leading-normal bg-white text-gray-800 border border-gray-200 rounded" required data-live-search="true" id="customer-id" data-live-search-style="begins" title="Select customer...">
-                              @foreach($lims_customer_list as $customer)
-                              <option value="{{$customer->id}}">{{$customer->name . ' (' . $customer->phone_number. ')'}}</option>
-                              @endforeach
-                          </select>
-                      </div>
-
-                      <input type="hidden" name="start_date" value="1988-04-18" />
-                      <input type="hidden" name="end_date" value="{{date('Y-m-d')}}" />
-
-                      <div class="mb-4">
-                          <button type="submit" class="inline-block align-middle text-center select-none border font-normal whitespace-no-wrap rounded py-1 px-3 leading-normal no-underline bg-blue-600 text-white hover:bg-blue-600">{{trans('file.submit')}}</button>
-                      </div>
-                    {{ Form::close() }}
-                </div>
-            </div>
-        </div>
-      </div>
-
-      <!-- supplier modal -->
-      <div id="supplier-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" class="modal opacity-0 text-left">
-        <div role="document" class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 id="exampleModalLabel" class="modal-title">{{trans('file.Supplier Report')}}</h5>
-                    <button type="button" data-dismiss="modal" aria-label="Close" class="absolute top-0 bottom-0 right-0 px-4 py-3"><span aria-hidden="true"><i class="dripicons-cross"></i></span></button>
-                </div>
-                <div class="modal-body">
-                  <p class="italic"><small>{{trans('file.The field labels marked with * are required input fields')}}.</small></p>
-                    {!! Form::open(['route' => 'report.supplier', 'method' => 'post']) !!}
-                    <?php 
-                      $lims_supplier_list = DB::table('suppliers')->where('is_active', true)->get();
-                    ?>
-                      <div class="mb-4">
-                          <label>{{trans('file.Supplier')}} *</label>
-                          <select name="supplier_id" class="selectpicker block appearance-none w-full py-1 px-2 mb-1 text-base leading-normal bg-white text-gray-800 border border-gray-200 rounded" required data-live-search="true" id="supplier-id" data-live-search-style="begins" title="Select Supplier...">
-                              @foreach($lims_supplier_list as $supplier)
-                              <option value="{{$supplier->id}}">{{$supplier->name . ' (' . $supplier->phone_number. ')'}}</option>
-                              @endforeach
-                          </select>
-                      </div>
-
-                      <input type="hidden" name="start_date" value="1988-04-18" />
-                      <input type="hidden" name="end_date" value="{{date('Y-m-d')}}" />
-
-                      <div class="mb-4">
-                          <button type="submit" class="inline-block align-middle text-center select-none border font-normal whitespace-no-wrap rounded py-1 px-3 leading-normal no-underline bg-blue-600 text-white hover:bg-blue-600">{{trans('file.submit')}}</button>
-                      </div>
-                    {{ Form::close() }}
-                </div>
-            </div>
-        </div>
-      </div>
-
-      <!-- activity modal -->
-      <div id="activity-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" class="modal opacity-0 text-left">
-    <div role="document" class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 id="exampleModalLabel" class="modal-title">{{trans('file.Add Activity')}}</h5>
-                <button type="button" data-dismiss="modal" aria-label="Close" class="absolute top-0 bottom-0 right-0 px-4 py-3"><span aria-hidden="true"><i class="dripicons-cross"></i></span></button>
-            </div>
-            <div class="modal-body">
-              <p class="italic"><small>{{trans('file.The field labels marked with * are required input fields')}}.</small></p>
-                {!! Form::open(['route' => 'activity.store', 'method' => 'post', 'files' => true]) !!}
-                <?php 
-                      $lims_employee_list = DB::table('employees')->where('is_active', true)->get();
-                    ?>
-                <div class="flex flex-wrap ">
-                    <div class="md:w-1/2 pr-4 pl-4 mb-4">
-                        <label>{{trans('file.Employee')}} *</label>
-                        <select class="block appearance-none w-full py-1 px-2 mb-1 text-base leading-normal bg-white text-gray-800 border border-gray-200 rounded selectpicker" name="employee_id[]" required data-live-search="true" data-live-search-style="begins" title="Selection..." multiple>
-                            @foreach($lims_employee_list as $employee)
-                            <option value="{{$employee->id}}">{{$employee->name}}</option>
-                            @endforeach
-                        </select>
-                    </div>
-                    <div class="md:w-1/2 pr-4 pl-4 mb-4">
-                        <label>{{trans('file.Date')}} *</label>
-                        <input type="text" name="date" class="block appearance-none w-full py-1 px-2 mb-1 text-base leading-normal bg-white text-gray-800 border border-gray-200 rounded date" value="{{date($general_setting->date_format)}}" required>
-                    </div>
-                    <div class="md:w-1/2 pr-4 pl-4 mb-4">
-                        <label>{{trans('file.Hour')}} *</label>
-                        <input type="text" id="hour" name="hour" class="block appearance-none w-full py-1 px-2 mb-1 text-base leading-normal bg-white text-gray-800 border border-gray-200 rounded time" required>
-                    </div>
-                    <div class="md:w-1/2 pr-4 pl-4 mb-4">
-                        <label>{{trans('file.customer')}} *</label>
-                        <select class="block appearance-none w-full py-1 px-2 mb-1 text-base leading-normal bg-white text-gray-800 border border-gray-200 rounded selectpicker" name="customer_id[]" required data-live-search="true" data-live-search-style="begins" title="Selection..." multiple>
-                            @foreach($lims_customer_list as $customer)
-                            <option value="{{$customer->id}}">{{$customer->name}}</option>
-                            @endforeach
-                        </select>
-                    </div>
-                    <div class="md:w-1/2 pr-4 pl-4 mb-4">
-                        <label>{{trans('file.Object')}} *</label>
-                        <input type="text" id="object" name="object" class="block appearance-none w-full py-1 px-2 mb-1 text-base leading-normal bg-white text-gray-800 border border-gray-200 rounded" required>
-                    </div>
-                    <div class="md:w-1/2 pr-4 pl-4 mb-4">
-                        <label>{{trans('file.Duration')}} *</label>
-                        <input type="text" id="duration" name="duration" class="block appearance-none w-full py-1 px-2 mb-1 text-base leading-normal bg-white text-gray-800 border border-gray-200 rounded"  required>
-                    </div>
-                    <div class="md:w-1/2 pr-4 pl-4 mb-4">
-                        <label>{{trans('file.Transportation')}} *</label>
-                        <input type="text" id="transportation" name="transportation" class="block appearance-none w-full py-1 px-2 mb-1 text-base leading-normal bg-white text-gray-800 border border-gray-200 rounded"  required>
-                    </div>
-                    <div class="md:w-1/2 pr-4 pl-4 mb-4">
-                        <label>{{trans('file.Expense')}} *</label>
-                        <input type="text" id="expense" name="expense" class="block appearance-none w-full py-1 px-2 mb-1 text-base leading-normal bg-white text-gray-800 border border-gray-200 rounded" required>
-                    </div>
-                    <div class="md:w-1/2 pr-4 pl-4 mb-4">
-                        <label>{{trans('file.Place')}} *</label>
-                        <input type="text" id="place" name="place" class="block appearance-none w-full py-1 px-2 mb-1 text-base leading-normal bg-white text-gray-800 border border-gray-200 rounded" required>
-                    </div>
-                    <div class="md:w-full pr-4 pl-4 mb-4">
-                        <label>{{trans('file.Note')}}</label>
-                        <textarea name="note" rows="3" class="block appearance-none w-full py-1 px-2 mb-1 text-base leading-normal bg-white text-gray-800 border border-gray-200 rounded"></textarea>
-                    </div>
-                </div>
-                <div class="mb-4">
-                    <button type="submit" class="inline-block align-middle text-center select-none border font-normal whitespace-no-wrap rounded py-1 px-3 leading-normal no-underline bg-blue-600 text-white hover:bg-blue-600">{{trans('file.submit')}}</button>
-                </div>
-                {{ Form::close() }}
-            </div>
-        </div>
-    </div>
-</div>
-    <main class="h-full overflow-y-auto">
-      <div class="animate-bottom container px-6 mx-auto grid">
-          @yield('content')
-      </div>
-    </main>
-
-      <footer class="main-footer">
-        <div class="container max-w-full mx-auto sm:px-4">
-          <div class="flex flex-wrap ">
-            <div class="sm:w-full pr-4 pl-4">
-              <p>&copy; {{$general_setting->site_title}} | {{trans('file.Developed')}} {{trans('file.By')}} <span class="external">Zakaria Labib</span></p>
-            </div>
-          </div>
-        </div>
-      </footer>
-    </div>
-  </div>
-</div>
-    @push('scripts')
-        
-    <script type="text/javascript">
-      
-      var alert_product = <?php echo json_encode($alert_product) ?>;
-
-
-      if ($(window).outerWidth() > 1199) {
-          $('nav.side-navbar').removeClass('shrink');
-      }
-     
-      $("div.alert").delay(3000).slideUp(750);
-
-      function confirmDelete() {
-          if (confirm("Are you sure want to delete?")) {
-              return true;
-          }
-          return false;
-      }
-
-      $("li#notification-icon").on("click", function (argument) {
-          $.get('notifications/mark-as-read', function(data) {
-              $("span.notification-number").text(alert_product);
-          });
-      });
-      
-      $("a#add-activity").click(function(e){
-        e.preventDefault();
-        $('#activity-modal').modal();
-      });
-
-      $("a#add-expense").click(function(e){
-        e.preventDefault();
-        $('#expense-modal').modal();
-      });
-
-      $("a#send-notification").click(function(e){
-        e.preventDefault();
-        $('#notification-modal').modal();
-      });
-
-      $("a#add-account").click(function(e){
-        e.preventDefault();
-        $('#account-modal').modal();
-      });
-
-      $("a#account-statement").click(function(e){
-        e.preventDefault();
-        $('#account-statement-modal').modal();
-      });
-
-      $("a#profitLoss-link").click(function(e){
-        e.preventDefault();
-        $("#profitLoss-report-form").submit();
-      });
-
-      $("a#report-link").click(function(e){
-        e.preventDefault();
-        $("#product-report-form").submit();
-      });
-
-      $("a#purchase-report-link").click(function(e){
-        e.preventDefault();
-        $("#purchase-report-form").submit();
-      });
-
-      $("a#sale-report-link").click(function(e){
-        e.preventDefault();
-        $("#sale-report-form").submit();
-      });
-
-      $("a#payment-report-link").click(function(e){
-        e.preventDefault();
-        $("#payment-report-form").submit();
-      });
-
-      $("a#warehouse-report-link").click(function(e){
-        e.preventDefault();
-        $('#warehouse-modal').modal();
-      });
-
-      $("a#user-report-link").click(function(e){
-        e.preventDefault();
-        $('#user-modal').modal();
-      });
-
-      $("a#customer-report-link").click(function(e){
-        e.preventDefault();
-        $('#customer-modal').modal();
-      });
-
-      $("a#supplier-report-link").click(function(e){
-        e.preventDefault();
-        $('#supplier-modal').modal();
-      });
-
-      $("a#due-report-link").click(function(e){
-        e.preventDefault();
-        $("#due-report-form").submit();
-      });
-
-      $(".daterangepicker-field").daterangepicker({
-          callback: function(startDate, endDate, period){
-            var start_date = startDate.format('YYYY-MM-DD');
-            var end_date = endDate.format('YYYY-MM-DD');
-            var title = start_date + ' To ' + end_date;
-            $(this).val(title);
-            $('#account-statement-modal input[name="start_date"]').val(start_date);
-            $('#account-statement-modal input[name="end_date"]').val(end_date);
-          }
-      });
-
-      $('.selectpicker').selectpicker({
-          style: 'btn-link',
-      });
-    </script>
-    @endpush
-
-  </body>
 </html>
+
+@push('scripts')
+
+    <script type="text/javascript">
+        var alert_product = <?php echo json_encode($alert_product); ?>;
+
+
+        if ($(window).outerWidth() > 1199) {
+            $('nav.side-navbar').removeClass('shrink');
+        }
+
+        $("div.alert").delay(3000).slideUp(750);
+
+        function confirmDelete() {
+            if (confirm("Are you sure want to delete?")) {
+                return true;
+            }
+            return false;
+        }
+
+        $("li#notification-icon").on("click", function(argument) {
+            $.get('notifications/mark-as-read', function(data) {
+                $("span.notification-number").text(alert_product);
+            });
+        });
+
+        $("a#add-activity").click(function(e) {
+            e.preventDefault();
+            $('#activity-modal').modal();
+        });
+
+        $("a#add-expense").click(function(e) {
+            e.preventDefault();
+            $('#expense-modal').modal();
+        });
+
+        $("a#send-notification").click(function(e) {
+            e.preventDefault();
+            $('#notification-modal').modal();
+        });
+
+        $("a#add-account").click(function(e) {
+            e.preventDefault();
+            $('#account-modal').modal();
+        });
+
+        $("a#account-statement").click(function(e) {
+            e.preventDefault();
+            $('#account-statement-modal').modal();
+        });
+
+        $("a#profitLoss-link").click(function(e) {
+            e.preventDefault();
+            $("#profitLoss-report-form").submit();
+        });
+
+        $("a#report-link").click(function(e) {
+            e.preventDefault();
+            $("#product-report-form").submit();
+        });
+
+        $("a#purchase-report-link").click(function(e) {
+            e.preventDefault();
+            $("#purchase-report-form").submit();
+        });
+
+        $("a#sale-report-link").click(function(e) {
+            e.preventDefault();
+            $("#sale-report-form").submit();
+        });
+
+        $("a#payment-report-link").click(function(e) {
+            e.preventDefault();
+            $("#payment-report-form").submit();
+        });
+
+        $("a#warehouse-report-link").click(function(e) {
+            e.preventDefault();
+            $('#warehouse-modal').modal();
+        });
+
+        $("a#user-report-link").click(function(e) {
+            e.preventDefault();
+            $('#user-modal').modal();
+        });
+
+        $("a#customer-report-link").click(function(e) {
+            e.preventDefault();
+            $('#customer-modal').modal();
+        });
+
+        $("a#supplier-report-link").click(function(e) {
+            e.preventDefault();
+            $('#supplier-modal').modal();
+        });
+
+        $("a#due-report-link").click(function(e) {
+            e.preventDefault();
+            $("#due-report-form").submit();
+        });
+
+        $(".daterangepicker-field").daterangepicker({
+            callback: function(startDate, endDate, period) {
+                var start_date = startDate.format('YYYY-MM-DD');
+                var end_date = endDate.format('YYYY-MM-DD');
+                var title = start_date + ' To ' + end_date;
+                $(this).val(title);
+                $('#account-statement-modal input[name="start_date"]').val(start_date);
+                $('#account-statement-modal input[name="end_date"]').val(end_date);
+            }
+        });
+
+        $('.selectpicker').selectpicker({
+            style: 'btn-link',
+        });
+    </script>
+
+@endpush

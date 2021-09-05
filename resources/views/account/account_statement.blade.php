@@ -201,16 +201,16 @@
         dom: '<"row"lfB>rtip',
         buttons: [
             {
-                extend: 'pdf',
-                text: '{{trans("file.PDF")}}',
+                extend: 'pdfHtml5',
+                text: '<i class="fa fa-file-pdf">',
                 exportOptions: {
                     columns: ':visible:Not(.not-exported)',
                     rows: ':visible'
                 }
             },
             {
-                extend: 'csv',
-                text: '{{trans("file.CSV")}}',
+                extend: 'excelHtml5',
+                text: '<i class="fa fa-file-excel">',
                 exportOptions: {
                     columns: ':visible:Not(.not-exported)',
                     rows: ':visible'
@@ -218,7 +218,7 @@
             },
             {
                 extend: 'print',
-                text: '{{trans("file.Print")}}',
+                text: '<i class="fa fa-print">',
                 exportOptions: {
                     columns: ':visible:Not(.not-exported)',
                     rows: ':visible'

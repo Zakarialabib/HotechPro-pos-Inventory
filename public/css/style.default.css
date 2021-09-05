@@ -413,9 +413,6 @@ nav.navbar a.menu-btn i[class*='icon-'] {
 * ==========================================================
 */
 
-.side-navbar {
-    padding: 0 0 0 5px;}
-
 .side-navbar:focus,
 .side-navbar:hover,
 .side-navbar:active>
@@ -457,7 +454,6 @@ width:350px;
     font-size: 17px;
     font-weight: 500;
     text-transform: uppercase;
-    color: #303030;
     display: block;
     padding: 9px 0 0px 10px;
     white-space: nowrap;
@@ -465,10 +461,11 @@ width:350px;
 
 
 .side-navbar li a i {
-    color: #300ED7;
+    color: #1C64F2;
     font-size: 30px;
     line-height: 10px;
     width: 75px;
+    padding-left: 10px;
 }
 
 
@@ -503,7 +500,7 @@ width:350px;
     font-size: 15px;
     font-weight: 500;
     padding: 5px;
-    margin-left: 35px;
+    margin-left: 50px;
 }
 
 .side-navbar .sidenav-header img {
@@ -1446,7 +1443,7 @@ button {
 .register-page a.forgot-pass:focus,
 .register-page a.signup:hover,
 .register-page a.signup:focus {
-    color: #300ED7;
+    color: #1C64F2;
     text-decoration: none;
 }
 
@@ -1953,7 +1950,7 @@ STYLE SWITCHER FOR DEMO
 .btn-default {
     color: color-yiq(#ced4da);
     background-color: #ced4da;
-    border-color: #300ED7;
+    border-color: #1C64F2;
 }
 
 .btn-default:hover {
@@ -2659,8 +2656,8 @@ a.text-dark:hover {
 }
 
 .badge-info {
-    color: color-yiq(#300ED7);
-    background-color: #300ED7 !important;
+    color: color-yiq(#1C64F2);
+    background-color: #1C64F2 !important;
 }
 
 .badge-info[href]:focus,
@@ -2745,12 +2742,6 @@ a>code {
 .nav-link.pos {
     border-left: 1px solid #e9e8ef;
     border-right: 1px solid #e9e8ef;
-}
-
-@media all and (max-width: 600px){
-    .nav-link span {
-        display: none
-    }
 }
 
 .nav-link.disabled {
@@ -2933,7 +2924,7 @@ border-top-right-radius: 0.3rem;
 margin-bottom: 0;
 font-size: 1rem;
 color: #2C2C2C;
-background-color: #300ED7;
+background-color: #1C64F2;
 border-bottom: 1px solid #5E50EE;
 border-top-left-radius: calc(0.6rem - 1px);
 border-top-right-radius: calc(0.6rem - 1px);
@@ -2951,7 +2942,7 @@ border-top-right-radius: calc(0.6rem - 1px);
         font-size: 30px;
     }
     .fc-widget-header{
-        background-color: #300ED7;
+        background-color: #1C64F2;
         color: white;
         height: 40px;
         line-height: 40px;

@@ -2,7 +2,13 @@
 
 <section class="forms">
     <div class="container-fluid">
-	    <h4 class="text-center">{{trans('file.Product Quantity Alert')}}</h4>
+        <div class="flex flex-wrap px-3 mx-auto">
+            <div class="w-full mt-2">
+                <div class="brand-text float-left">
+                    <h3>{{ trans('file.Product Quantity Alert') }} </h3>
+                </div>
+            </div>
+        </div>
     </div>
     <div class="table-responsive mb-4">
         <table id="report-table" class="table table-hover">
@@ -80,16 +86,16 @@
         dom: '<"row"lfB>rtip',
         buttons: [
             {
-                extend: 'pdf',
-                text: '{{trans("file.PDF")}}',
+                extend: 'pdfHtml5',
+                text: '<i class="fa fa-file-pdf">',
                 exportOptions: {
                     columns: ':visible:Not(.not-exported)',
                     rows: ':visible'
                 },
             },
             {
-                extend: 'csv',
-                text: '{{trans("file.CSV")}}',
+                extend: 'excelHtml5',
+                text: '<i class="fa fa-file-excel">',
                 exportOptions: {
                     columns: ':visible:Not(.not-exported)',
                     rows: ':visible'
@@ -97,7 +103,7 @@
             },
             {
                 extend: 'print',
-                text: '{{trans("file.Print")}}',
+                text: '<i class="fa fa-print">',
                 exportOptions: {
                     columns: ':visible:Not(.not-exported)',
                     rows: ':visible'

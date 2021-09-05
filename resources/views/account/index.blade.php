@@ -14,10 +14,10 @@
     <div class="flex flex-wrap px-3 mx-auto">
         <div class="w-full mt-2">
             <div class="brand-text float-left">
-                <h3>{{trans("file.account")}} </h3>
+                <h3>{{trans("file.Account List")}} </h3>
             </div>
             <div class="float-right">
-              <button class="inline-block align-middle text-center select-none border font-normal whitespace-no-wrap rounded py-1 px-3 leading-normal no-underline date-btn  text-white bg-blue-700 border-blue-600 hover:bg-blue-400" data-toggle="modal" data-target="#account-modal"><i class="dripicons-plus"></i> {{trans('file.Add Account')}}</button>
+              <button class="inline-block align-middle text-center select-none border font-normal whitespace-no-wrap rounded py-1 px-3 leading-normal no-underline date-btn  text-white bg-blue-700 border-blue-600" data-toggle="modal" data-target="#account-modal"><i class="dripicons-plus"></i> {{trans('file.Add Account')}}</button>
             </div>
         </div>
       </div>
@@ -200,8 +200,8 @@ function confirmDelete() {
         dom: '<"row"lfB>rtip',
         buttons: [
             {
-                extend: 'pdf',
-                text: '{{trans("file.PDF")}}',
+                extend: 'pdfHtml5',
+                text: '<i class="fa fa-file-pdf">',
                 exportOptions: {
                     columns: ':visible:Not(.not-exported)',
                     rows: ':visible'
@@ -214,22 +214,22 @@ function confirmDelete() {
                 footer:true
             },
             {
-                extend: 'csv',
-                text: '{{trans("file.CSV")}}',
+                extend: 'excelHtml5',
+                text: '<i class="fa fa-file-excel">',
                 exportOptions: {
                     columns: ':visible:Not(.not-exported)',
                     rows: ':visible'
                 },
                 action: function(e, dt, button, config) {
                     datatable_sum(dt, true);
-                    $.fn.dataTable.ext.buttons.csvHtml5.action.call(this, e, dt, button, config);
+                    $.fn.dataTable.ext.buttons.excelHtml5.action.call(this, e, dt, button, config);
                     datatable_sum(dt, false);
                 },
                 footer:true
             },
             {
                 extend: 'print',
-                text: '{{trans("file.Print")}}',
+                text: '<i class="fa fa-print">',
                 exportOptions: {
                     columns: ':visible:Not(.not-exported)',
                     rows: ':visible'

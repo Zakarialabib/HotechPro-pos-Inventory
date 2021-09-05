@@ -262,8 +262,8 @@ function confirmDelete() {
         dom: '<"row"lfB>rtip',
         buttons: [
             {
-                extend: 'pdf',
-                text: '{{trans("file.PDF")}}',
+                extend: 'pdfHtml5',
+                text: '<i class="fa fa-file-pdf">',
                 exportOptions: {
                     columns: ':visible:Not(.not-exported)',
                     rows: ':visible'
@@ -276,22 +276,22 @@ function confirmDelete() {
                 footer:true
             },
             {
-                extend: 'csv',
-                text: '{{trans("file.CSV")}}',
+                extend: 'excelHtml5',
+                text: '<i class="fa fa-file-excel">',
                 exportOptions: {
                     columns: ':visible:Not(.not-exported)',
                     rows: ':visible'
                 },
                 action: function(e, dt, button, config) {
                     datatable_sum(dt, true);
-                    $.fn.dataTable.ext.buttons.csvHtml5.action.call(this, e, dt, button, config);
+                    $.fn.dataTable.ext.buttons.excelHtml5.action.call(this, e, dt, button, config);
                     datatable_sum(dt, false);
                 },
                 footer:true
             },
             {
                 extend: 'print',
-                text: '{{trans("file.Print")}}',
+                text: '<i class="fa fa-print">',
                 exportOptions: {
                     columns: ':visible:Not(.not-exported)',
                     rows: ':visible'
@@ -304,7 +304,7 @@ function confirmDelete() {
                 footer:true
             },
             {
-                text: '{{trans("file.delete")}}',
+                text: '<i class="fa fa-trash">',
                 className: 'buttons-delete',
                 action: function ( e, dt, node, config ) {
                     if(user_verified == '1') {

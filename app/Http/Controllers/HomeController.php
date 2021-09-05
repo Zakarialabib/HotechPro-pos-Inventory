@@ -223,8 +223,7 @@ class HomeController extends Controller
             $start = strtotime("+1 month", $start);
         }
 
-    $count_customers = Customer::query()
-        ->count();
+    $count_customers = Customer::query()->count();
 
     $count_sales = Sale::query()
     ->count();

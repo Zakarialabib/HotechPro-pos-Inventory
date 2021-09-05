@@ -174,11 +174,11 @@ class PurchaseController extends Controller
                     $purchase_status = trans('file.Recieved');
                 }
                 elseif($purchase->status == 2){
-                    $nestedData['purchase_status'] = '<div class="bg-yellow-600 text-white p-2 rounded  leading-none">'.trans('file.Partial').'</div>';
+                    $nestedData['purchase_status'] = '<div class="bg-yellow-300 text-white p-2 rounded  leading-none">'.trans('file.Partial').'</div>';
                     $purchase_status = trans('file.Partial');
                 }
                 elseif($purchase->status == 3){
-                    $nestedData['purchase_status'] = '<div class="bg-yellow-600 text-white p-2 rounded  leading-none">'.trans('file.Pending').'</div>';
+                    $nestedData['purchase_status'] = '<div class="bg-yellow-300 text-white p-2 rounded  leading-none">'.trans('file.Pending').'</div>';
                     $purchase_status = trans('file.Pending');
                 }
                 else{
@@ -187,7 +187,7 @@ class PurchaseController extends Controller
                 }
 
                 if($purchase->payment_status == 1)
-                    $nestedData['payment_status'] = '<div class="bg-yellow-600 text-white p-2 rounded  leading-none">'.trans('file.Due').'</div>';
+                    $nestedData['payment_status'] = '<div class="bg-yellow-300 text-white p-2 rounded  leading-none">'.trans('file.Due').'</div>';
                 else
                     $nestedData['payment_status'] = '<div class="bg-green-600 text-white p-2 rounded  leading-none">'.trans('file.Paid').'</div>';
 
