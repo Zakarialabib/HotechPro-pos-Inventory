@@ -9,7 +9,7 @@
 <section>
     <div class="flex flex-wrap px-3 mx-auto">
         <div class="w-full mt-2">
-            <div class="brand-text float-left">
+            <div class="font-bold uppercase text-blue-600 float-left">
                 <h3>{{trans("file.Purchase Return")}} </h3>
             </div>
             @if(in_array("purchase-return-add", $all_permission))
@@ -96,7 +96,6 @@
             <div class="container mt-3 pb-2 border-bottom">
             <div class="row">
                 <div class="col-md-3">
-                    <button id="print-btn" type="button" class="btn btn-default btn-sm d-print-none"><i class="dripicons-print"></i> {{trans('file.Print')}}</button>
                     {{ Form::open(['route' => 'return-purchase.sendmail', 'method' => 'post', 'class' => 'sendmail-form'] ) }}
                         <input type="hidden" name="return_id">
                         <button class="btn btn-default btn-sm d-print-none"><i class="dripicons-mail"></i> {{trans('file.Email')}}</button>
@@ -288,7 +287,7 @@
             },
             {
                 extend: 'colvis',
-                text: '{{trans("file.Column visibility")}}',
+                text: '<i class="fa fa-eye">',
                 columns: ':gt(0)'
             },
         ],

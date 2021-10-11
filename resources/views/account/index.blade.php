@@ -13,16 +13,16 @@
 <section>
     <div class="flex flex-wrap px-3 mx-auto">
         <div class="w-full mt-2">
-            <div class="brand-text float-left">
+            <div class="font-bold uppercase text-blue-600 float-left">
                 <h3>{{trans("file.Account List")}} </h3>
             </div>
             <div class="float-right">
-              <button class="inline-block align-middle text-center select-none border font-normal whitespace-no-wrap rounded py-1 px-3 leading-normal no-underline date-btn  text-white bg-blue-700 border-blue-600" data-toggle="modal" data-target="#account-modal"><i class="dripicons-plus"></i> {{trans('file.Add Account')}}</button>
+              <button class="inline-block align-middle text-center select-none border font-normal whitespace-no-wrap rounded py-1 px-3 leading-normal no-underline date-btn  text-white bg-blue-600 border-blue-600" data-toggle="modal" data-target="#account-modal"><i class="dripicons-plus"></i> {{trans('file.Add Account')}}</button>
             </div>
         </div>
       </div>
     <div class="table-responsive">
-        <table id="account-table" class="table">
+        <table id="account-table" class="table bg-white">
             <thead>
                 <tr>
                     <th class="not-exported"></th>
@@ -243,7 +243,7 @@ function confirmDelete() {
             },
             {
                 extend: 'colvis',
-                text: '{{trans("file.Column visibility")}}',
+                text: '<i class="fa fa-eye">',
                 columns: ':gt(0)'
             },
         ],

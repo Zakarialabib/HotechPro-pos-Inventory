@@ -12,7 +12,7 @@
 <section>
     <div class="flex flex-wrap px-3 mx-auto">
         <div class="w-full mt-2">
-            <div class="brand-text float-left">
+            <div class="font-bold uppercase text-blue-600 float-left">
                 <h3>{{trans("file.Gift Card")}} </h3>
             </div>
             <div class="float-right">
@@ -21,7 +21,7 @@
         </div>
       </div>
     <div class="table-responsive">
-        <table id="gift_card-table" class="table">
+        <table id="gift_card-table" class="table bg-white">
             <thead>
                 <tr>
                     <th class="not-exported"></th>
@@ -104,8 +104,7 @@
   <div role="document" class="modal-dialog">
       <div class="modal-content">
           <div class="modal-header">
-              <h5 id="exampleModalLabel" class="modal-title d-print-none"> {{trans('file.Card Details')}} &nbsp;&nbsp;</h5>
-              <button id="print-btn" type="button" class="btn btn-default btn-sm d-print-none"><i class="dripicons-print"></i> {{trans('file.Print')}}</button>
+              <h5 id="exampleModalLabel" class="modal-title"> {{trans('file.Card Details')}} &nbsp;&nbsp;</h5>
               <button type="button" data-dismiss="modal" aria-label="Close" class="close d-print-none" id="close-btn"><span aria-hidden="true"><i class="dripicons-cross"></i></span></button>
           </div>
           <div class="modal-body">
@@ -528,7 +527,7 @@ function confirmDelete() {
             },
             {
                 extend: 'colvis',
-                text: '{{trans("file.Column visibility")}}',
+                text: '<i class="fa fa-eye">',
                 columns: ':gt(0)'
             },
         ],

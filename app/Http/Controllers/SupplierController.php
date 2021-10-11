@@ -26,7 +26,7 @@ class SupplierController extends Controller
             return view('supplier.index',compact('lims_supplier_all', 'all_permission'));
         }
         else
-            return redirect()->back()->with('not_permitted', 'Sorry! You are not allowed to access this module');
+            return redirect()->back()->with('not_permitted', __('Sorry! You are not allowed to access this module!'));
     }
 
     public function create()
@@ -36,7 +36,7 @@ class SupplierController extends Controller
             return view('supplier.create');
         }
         else
-            return redirect()->back()->with('not_permitted', 'Sorry! You are not allowed to access this module');
+            return redirect()->back()->with('not_permitted', __('Sorry! You are not allowed to access this module!'));
     }
 
     public function store(Request $request)
@@ -89,7 +89,7 @@ class SupplierController extends Controller
             return view('supplier.edit',compact('lims_supplier_data'));
         }
         else
-            return redirect()->back()->with('not_permitted', 'Sorry! You are not allowed to access this module');
+            return redirect()->back()->with('not_permitted', __('Sorry! You are not allowed to access this module!'));
     }
 
     public function update(Request $request, $id)

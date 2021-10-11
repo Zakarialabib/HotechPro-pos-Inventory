@@ -1,4 +1,5 @@
-@extends('layout.top-head') @section('content')
+@extends('layout.top-head') 
+@section('content')
 @if($errors->has('phone_number'))
 <div class="alert alert-danger alert-dismissible text-center">
     <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>{{ $errors->first('phone_number') }}</div>
@@ -103,18 +104,6 @@
                     ['permission_id', $index_permission->id],
                     ['role_id', $role->id]
                 ])->first();
-
-            $gift_card_permission = DB::table('permissions')->where('name', 'gift_card')->first();
-            $gift_card_permission_active = DB::table('role_has_permissions')->where([
-                    ['permission_id', $gift_card_permission->id],
-                    ['role_id', $role->id]
-                ])->first();
-
-            $coupon_permission = DB::table('permissions')->where('name', 'coupon')->first();
-            $coupon_permission_active = DB::table('role_has_permissions')->where([
-                    ['permission_id', $coupon_permission->id],
-                    ['role_id', $role->id]
-                ])->first();
           ?>
           
           <li><a href="#sale" aria-expanded="false" data-toggle="collapse"> <i class="dripicons-cart"></i><span>{{trans('file.Sale')}}</span></a>
@@ -133,12 +122,6 @@
               <li id="sale-create-menu"><a href="{{route('sales.create')}}">{{trans('file.Add Sale')}}</a></li>
               <li id="sale-import-menu"><a href="{{url('sales/sale_by_csv')}}">{{trans('file.Import Sale By CSV')}}</a></li>
               @endif
-              @endif
-              @if($gift_card_permission_active)
-              <li id="gift-card-menu"><a href="{{route('gift_cards.index')}}">{{trans('file.Gift Card List')}}</a> </li>
-              @endif
-              @if($coupon_permission_active)
-              <li id="coupon-menu"><a href="{{route('coupons.index')}}">{{trans('file.Coupon List')}}</a> </li>
               @endif
               <li id="delivery-menu"><a href="{{route('delivery.index')}}">{{trans('file.Delivery List')}}</a></li>
             </ul>
@@ -782,7 +765,7 @@
                                             @if($lims_pos_setting_data)
                                             <input type="hidden" name="biller_id_hidden" value="{{$lims_pos_setting_data->biller_id}}">
                                             @endif
-                                            <select required id="biller_id" name="biller_id" class="selectpicker form-control" data-live-search="true" data-live-search-style="begins" title="Select Biller...">
+                                            <select required id="biller_id" name="biller_id" class="selectpicker form-control" data-live-search="true" data-live-search-style="begins" title="{{trans('file.Select Biller*...')}}">
                                             @foreach($lims_biller_list as $biller)
                                             <option value="{{$biller->id}}">{{$biller->name . ' (' . $biller->company_name . ')'}}</option>
                                             @endforeach
@@ -891,9 +874,6 @@
                                             <span class="totals-title">{{trans('file.Discount')}} <button type="button" class="btn btn-link btn-sm" data-toggle="modal" data-target="#order-discount-modal"> <i class="dripicons-document-edit"></i></button></span><span id="discount">0.00</span>
                                         </div>
                                         <div class="col-sm-4">
-                                            <span class="totals-title">{{trans('file.Coupon')}} <button type="button" class="btn btn-link btn-sm" data-toggle="modal" data-target="#coupon-modal"><i class="dripicons-document-edit"></i></button></span><span id="coupon-text">0.00</span>
-                                        </div>
-                                        <div class="col-sm-4">
                                             <span class="totals-title">{{trans('file.Tax')}} <button type="button" class="btn btn-link btn-sm" data-toggle="modal" data-target="#order-tax"><i class="dripicons-document-edit"></i></button></span><span id="tax">0.00</span>
                                         </div>
                                         <div class="col-sm-4">
@@ -908,32 +888,32 @@
                         <h2>{{trans('file.grand total')}} <span id="grand-total">0.00</span></h2>
                     </div>
                     <div class="payment-options">
-                        <div class="column-5">
+                        {{-- <div class="column-5">
                             <button style="background: #0984e3" type="button" class="btn btn-custom payment-btn" data-toggle="modal" data-target="#add-payment" id="credit-card-btn"><i class="fa fa-credit-card"></i> Card</button>   
-                        </div>
+                        </div> --}}
                         <div class="column-5">
-                            <button style="background: #00cec9" type="button" class="btn btn-custom payment-btn" data-toggle="modal" data-target="#add-payment" id="cash-btn"><i class="fa fa-money"></i> Cash</button>
+                            <button style="background: #00cec9" type="button" class="btn btn-custom payment-btn" data-toggle="modal" data-target="#add-payment" id="cash-btn"><i class="fa fa-money"></i> {{trans('file.Cash')}}</button>
                         </div>
-                        <div class="column-5">
+                        {{-- <div class="column-5">
                             <button style="background-color: #213170" type="button" class="btn btn-custom payment-btn" data-toggle="modal" data-target="#add-payment" id="paypal-btn"><i class="fa fa-paypal"></i> Paypal</button>
                         </div>
                         <div class="column-5">
-                            <button style="background-color: #e28d02" type="button" class="btn btn-custom" id="draft-btn"><i class="dripicons-flag"></i> Draft</button>
-                        </div>
+                            <button style="background-color: #e28d02" type="button" class="btn btn-custom" id="draft-btn"><i class="dripicons-flag"></i> {{trans('file.Recent transaction')}}</button>
+                        </div> --}}
                         <div class="column-5">
-                            <button style="background-color: #fd7272" type="button" class="btn btn-custom payment-btn" data-toggle="modal" data-target="#add-payment" id="cheque-btn"><i class="fa fa-money"></i> Cheque</button>
+                            <button style="background-color: #fd7272" type="button" class="btn btn-custom payment-btn" data-toggle="modal" data-target="#add-payment" id="cheque-btn"><i class="fa fa-money"></i> {{trans('file.Cheque')}}</button>
                         </div>
-                        <div class="column-5">
+                        {{-- <div class="column-5">
                             <button style="background-color: #5f27cd" type="button" class="btn btn-custom payment-btn" data-toggle="modal" data-target="#add-payment" id="gift-card-btn"><i class="fa fa-credit-card-alt"></i> GiftCard</button>
+                        </div> --}}
+                        <div class="column-5">
+                            <button style="background-color: #b33771" type="button" class="btn btn-custom payment-btn" data-toggle="modal" data-target="#add-payment" id="deposit-btn"><i class="fa fa-university"></i> {{trans('file.Deposit')}}</button>
                         </div>
                         <div class="column-5">
-                            <button style="background-color: #b33771" type="button" class="btn btn-custom payment-btn" data-toggle="modal" data-target="#add-payment" id="deposit-btn"><i class="fa fa-university"></i> Deposit</button>
+                            <button style="background-color: #d63031;" type="button" class="btn btn-custom" id="cancel-btn" onclick="return confirmCancel()"><i class="fa fa-close"></i> {{trans('file.Cancel')}}</button>
                         </div>
                         <div class="column-5">
-                            <button style="background-color: #d63031;" type="button" class="btn btn-custom" id="cancel-btn" onclick="return confirmCancel()"><i class="fa fa-close"></i> Cancel</button>
-                        </div>
-                        <div class="column-5">
-                            <button style="background-color: #ffc107;" type="button" class="btn btn-custom" data-toggle="modal" data-target="#recentTransaction"><i class="dripicons-clock"></i> Recent transaction</button>
+                            <button style="background-color: #ffc107;" type="button" class="btn btn-custom" data-toggle="modal" data-target="#recentTransaction"><i class="dripicons-clock"></i> {{trans('file.Recent transaction')}}</button>
                         </div>
                     </div>
                 </div>
@@ -967,10 +947,7 @@
                                             <label>{{trans('file.Paid By')}}</label>
                                             <select name="paid_by_id_select" class="form-control selectpicker">
                                                 <option value="1">Cash</option>
-                                                <option value="2">Gift Card</option>
-                                                <option value="3">Credit Card</option>
                                                 <option value="4">Cheque</option>
-                                                <option value="5">Paypal</option>
                                                 <option value="6">Deposit</option>
                                             </select>
                                         </div>
@@ -1175,9 +1152,7 @@
                                   </ul>
                             </li>
                             @endif
-                            <li class="nav-item"> 
-                                <a class="dropdown-item" href="{{ url('read_me') }}" target="_blank"><i class="dripicons-information"></i> {{trans('file.Help')}}</a>
-                            </li>&nbsp;
+                            
                             <li class="nav-item">
                                   <a rel="nofollow" data-target="#" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link dropdown-item"><i class="dripicons-user"></i> <span>{{ucfirst(Auth::user()->name)}}</span> <i class="fa fa-angle-down"></i>
                                   </a>
@@ -1446,7 +1421,7 @@
                         <div class="tab-content">
                           <div role="tabpanel" class="tab-pane show active" id="sale-latest">
                               <div class="table-responsive">
-                                <table class="table">
+                                <table class="table bg-white">
                                   <thead>
                                     <tr>
                                       <th>{{trans('file.date')}}</th>
@@ -1484,7 +1459,7 @@
                           </div>
                           <div role="tabpanel" class="tab-pane fade" id="draft-latest">
                               <div class="table-responsive">
-                                <table class="table">
+                                <table class="table bg-white">
                                   <thead>
                                     <tr>
                                       <th>{{trans('file.date')}}</th>
@@ -1589,20 +1564,8 @@
                                           <td id="cash_payment" class="text-right"></td>
                                         </tr>
                                         <tr>
-                                          <td>{{trans('file.Credit Card Payment')}}:</td>
-                                          <td id="credit_card_payment" class="text-right"></td>
-                                        </tr>
-                                        <tr>
                                           <td>{{trans('file.Cheque Payment')}}:</td>
                                           <td id="cheque_payment" class="text-right"></td>
-                                        </tr>
-                                        <tr>
-                                          <td>{{trans('file.Gift Card Payment')}}:</td>
-                                          <td id="gift_card_payment" class="text-right"></td>
-                                        </tr>
-                                        <tr>
-                                          <td>{{trans('file.Paypal Payment')}}:</td>
-                                          <td id="paypal_payment" class="text-right"></td>
                                         </tr>
                                         <tr>
                                           <td>{{trans('file.Total Sale Return')}}:</td>
@@ -1654,20 +1617,8 @@
                                           <td class="cash_payment text-right"></td>
                                         </tr>
                                         <tr>
-                                          <td>{{trans('file.Credit Card Payment')}}:</td>
-                                          <td class="credit_card_payment text-right"></td>
-                                        </tr>
-                                        <tr>
                                           <td>{{trans('file.Cheque Payment')}}:</td>
                                           <td class="cheque_payment text-right"></td>
-                                        </tr>
-                                        <tr>
-                                          <td>{{trans('file.Gift Card Payment')}}:</td>
-                                          <td class="gift_card_payment text-right"></td>
-                                        </tr>
-                                        <tr>
-                                          <td>{{trans('file.Paypal Payment')}}:</td>
-                                          <td class="paypal_payment text-right"></td>
                                         </tr>
                                         <tr>
                                           <td>{{trans('file.Total Payment')}}:</td>

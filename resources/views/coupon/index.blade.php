@@ -15,7 +15,7 @@
         <button class="align-middle text-center select-none border font-normal whitespace-no-wrap rounded py-1 px-3 leading-normal no-underline bg-blue-600 text-white hover:bg-blue-600" data-toggle="modal" data-target="#create-modal"><i class="dripicons-plus"></i> {{trans('file.Add Coupon')}}</button>
     </div>
     <div class="table-responsive">
-        <table id="coupon-table" class="table">
+        <table id="coupon-table" class="table bg-white">
             <thead>
                 <tr>
                     <th class="not-exported"></th>
@@ -401,7 +401,7 @@ function confirmDelete() {
             },
             {
                 extend: 'colvis',
-                text: '{{trans("file.Column visibility")}}',
+                text: '<i class="fa fa-eye">',
                 columns: ':gt(0)'
             },
         ]

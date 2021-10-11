@@ -37,7 +37,7 @@ class TransferController extends Controller
             return view('transfer.index', compact('lims_transfer_all', 'all_permission'));
         }
         else
-            return redirect()->back()->with('not_permitted', 'Sorry! You are not allowed to access this module');
+            return redirect()->back()->with('not_permitted', __('Sorry! You are not allowed to access this module!'));
     }
 
     public function create()
@@ -48,7 +48,7 @@ class TransferController extends Controller
             return view('transfer.create', compact('lims_warehouse_list'));
         }
         else
-            return redirect()->back()->with('not_permitted', 'Sorry! You are not allowed to access this module');
+            return redirect()->back()->with('not_permitted', __('Sorry! You are not allowed to access this module!'));
     }
 
     public function getProduct($id)
@@ -332,7 +332,7 @@ class TransferController extends Controller
             return view('transfer.import', compact('lims_warehouse_list'));
         }
         else
-            return redirect()->back()->with('not_permitted', 'Sorry! You are not allowed to access this module');
+            return redirect()->back()->with('not_permitted', __('Sorry! You are not allowed to access this module!'));
     }
 
     public function importTransfer(Request $request)
@@ -478,7 +478,7 @@ class TransferController extends Controller
             return view('transfer.edit', compact('lims_warehouse_list', 'lims_transfer_data', 'lims_product_transfer_data'));
         }
         else
-            return redirect()->back()->with('not_permitted', 'Sorry! You are not allowed to access this module');
+            return redirect()->back()->with('not_permitted', __('Sorry! You are not allowed to access this module!'));
     }
 
     public function update(Request $request, $id)

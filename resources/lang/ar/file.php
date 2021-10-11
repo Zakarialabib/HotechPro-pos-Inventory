@@ -666,5 +666,9 @@ return [
 	"System Title" => "عنوان النظام",
 	"System Logo" => "شعار النظام",
 	"Backup Database" => "حفظ قاعدة البيانات" ,
+	"Customers" => "زبائن",
+	"Sales" => "مبيعات",
+	"Products" => "منتجات",
+	"Purchases" => "مشتريات",
 	];
 ?>

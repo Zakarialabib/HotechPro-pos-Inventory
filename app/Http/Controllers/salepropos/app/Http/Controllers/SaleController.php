@@ -67,7 +67,7 @@ class SaleController extends Controller
             return view('sale.index',compact('lims_sale_all', 'lims_gift_card_list', 'lims_pos_setting_data', 'lims_account_list', 'all_permission'));
         }
         else
-            return redirect()->back()->with('not_permitted', 'Sorry! You are not allowed to access this module');
+            return redirect()->back()->with('not_permitted', __('Sorry! You are not allowed to access this module!'));
     }
 
     public function saleData(Request $request)
@@ -272,7 +272,7 @@ class SaleController extends Controller
             return view('sale.create',compact('lims_customer_list', 'lims_warehouse_list', 'lims_biller_list', 'lims_pos_setting_data', 'lims_tax_list'));
         }
         else
-            return redirect()->back()->with('not_permitted', 'Sorry! You are not allowed to access this module');
+            return redirect()->back()->with('not_permitted', __('Sorry! You are not allowed to access this module!'));
     }
 
     public function store(Request $request)
@@ -853,7 +853,7 @@ class SaleController extends Controller
             return view('sale.pos', compact('all_permission', 'lims_customer_list', 'lims_customer_group_all', 'lims_warehouse_list', 'lims_product_list', 'product_number', 'lims_tax_list', 'lims_biller_list', 'lims_pos_setting_data', 'lims_brand_list', 'lims_category_list', 'recent_sale', 'recent_draft', 'lims_coupon_list', 'flag'));
         }
         else
-            return redirect()->back()->with('not_permitted', 'Sorry! You are not allowed to access this module');
+            return redirect()->back()->with('not_permitted', __('Sorry! You are not allowed to access this module!'));
     }
 
     public function getProductByFilter($category_id, $brand_id)
@@ -1073,7 +1073,7 @@ class SaleController extends Controller
             return view('sale.import',compact('lims_customer_list', 'lims_warehouse_list', 'lims_biller_list', 'lims_tax_list'));
         }
         else
-            return redirect()->back()->with('not_permitted', 'Sorry! You are not allowed to access this module');
+            return redirect()->back()->with('not_permitted', __('Sorry! You are not allowed to access this module!'));
     }
 
     public function importSale(Request $request)
@@ -1261,7 +1261,7 @@ class SaleController extends Controller
             return view('sale.create_sale',compact('lims_biller_list', 'lims_customer_list', 'lims_warehouse_list', 'lims_tax_list', 'lims_sale_data','lims_product_sale_data', 'lims_pos_setting_data', 'lims_brand_list', 'lims_category_list', 'lims_coupon_list', 'lims_product_list', 'product_number', 'lims_customer_group_all'));
         }
         else
-            return redirect()->back()->with('not_permitted', 'Sorry! You are not allowed to access this module');
+            return redirect()->back()->with('not_permitted', __('Sorry! You are not allowed to access this module!'));
     }
 
     public function edit($id)
@@ -1277,7 +1277,7 @@ class SaleController extends Controller
             return view('sale.edit',compact('lims_customer_list', 'lims_warehouse_list', 'lims_biller_list', 'lims_tax_list', 'lims_sale_data','lims_product_sale_data'));
         }
         else
-            return redirect()->back()->with('not_permitted', 'Sorry! You are not allowed to access this module');
+            return redirect()->back()->with('not_permitted', __('Sorry! You are not allowed to access this module!'));
     }
 
     public function update(Request $request, $id)

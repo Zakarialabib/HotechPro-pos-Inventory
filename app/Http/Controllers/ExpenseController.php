@@ -40,7 +40,7 @@ class ExpenseController extends Controller
             return view('expense.index', compact('lims_account_list', 'lims_expense_all', 'all_permission', 'start_date', 'end_date'));
         }
         else
-            return redirect()->back()->with('not_permitted', 'Sorry! You are not allowed to access this module');
+            return redirect()->back()->with('not_permitted', __('Sorry! You are not allowed to access this module!'));
     }
 
     public function create()
@@ -70,7 +70,7 @@ class ExpenseController extends Controller
             return $lims_expense_data;
         }
         else
-            return redirect()->back()->with('not_permitted', 'Sorry! You are not allowed to access this module');
+            return redirect()->back()->with('not_permitted', __('Sorry! You are not allowed to access this module!'));
     }
 
     public function update(Request $request, $id)

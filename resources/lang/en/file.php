@@ -688,7 +688,14 @@ return [
 	"Show Activity" => "Show Activity",
 	"Show" => "Show",
 	"Show Resume" => "Show Resume",
-
-
+	"Customers" => "Customers",
+	"Sales" => "Sales",
+	"Products" => "Products",
+	"Purchases" => "Purchases",
+	"Sorry! You are not allowed to access this module" => "Sorry! You are not allowed to access this module",
+	"Recent transaction" => "Recent transaction",
+	"Cash" => "Cash",
+	"Cheque" => 	"Cheque" ,
+	"Cancel"=> 	"Cancel",
 ];
 ?>

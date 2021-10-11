@@ -10,7 +10,7 @@
     <div class="container-fluid">
         <div class="flex flex-wrap px-3 mx-auto">
             <div class="w-full mt-2">
-                <div class="brand-text float-left">
+                <div class="font-bold uppercase text-blue-600 float-left">
                     <h3>{{ trans('file.General Setting') }} </h3>
                 </div>
             </div>

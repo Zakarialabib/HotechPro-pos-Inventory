@@ -29,7 +29,7 @@ class DeliveryController extends Controller
     		return view('delivery.index', compact('lims_delivery_all'));
         }
         else
-            return redirect()->back()->with('not_permitted', 'Sorry! You are not allowed to access this module');
+            return redirect()->back()->with('not_permitted', __('Sorry! You are not allowed to access this module!'));
 	}
     public function create($id){
     	$lims_delivery_data = Delivery::where('sale_id', $id)->first();

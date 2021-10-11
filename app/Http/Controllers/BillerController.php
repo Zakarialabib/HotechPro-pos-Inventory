@@ -27,7 +27,7 @@ class BillerController extends Controller
             return view('biller.index',compact('lims_biller_all', 'all_permission'));
         }
         else
-            return redirect()->back()->with('not_permitted', 'Sorry! You are not allowed to access this module');
+            return redirect()->back()->with('not_permitted', __('Sorry! You are not allowed to access this module!'));
     }
 
     public function create()
@@ -36,7 +36,7 @@ class BillerController extends Controller
         if($role->hasPermissionTo('billers-add'))
             return view('biller.create');
         else
-            return redirect()->back()->with('not_permitted', 'Sorry! You are not allowed to access this module');
+            return redirect()->back()->with('not_permitted', __('Sorry! You are not allowed to access this module!'));
     }
 
     public function store(Request $request)
@@ -95,7 +95,7 @@ class BillerController extends Controller
             return view('biller.edit',compact('lims_biller_data'));
         }
         else
-            return redirect()->back()->with('not_permitted', 'Sorry! You are not allowed to access this module');
+            return redirect()->back()->with('not_permitted', __('Sorry! You are not allowed to access this module!'));
     }
 
     public function update(Request $request, $id)

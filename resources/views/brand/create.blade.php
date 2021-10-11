@@ -16,7 +16,7 @@
 <section>
     <div class="flex flex-wrap px-3 mx-auto">
         <div class="w-full mt-2">
-            <div class="brand-text float-left">
+            <div class="font-bold uppercase text-blue-600 float-left">
                 <h3>{{trans("file.Brand")}} </h3>
             </div>
             <div class="float-right">
@@ -26,7 +26,7 @@
         </div>
       </div>
     <div class="table-responsive">
-        <table id="biller-table" class="table">
+        <table id="biller-table" class="table bg-white">
             <thead>
                 <tr>
                     <th class="not-exported"></th>
@@ -341,7 +341,7 @@
             },
             {
                 extend: 'colvis',
-                text: '{{trans("file.Column visibility")}}',
+                text: '<i class="fa fa-eye">',
                 columns: ':gt(0)'
             },
         ],

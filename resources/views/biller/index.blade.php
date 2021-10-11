@@ -9,7 +9,7 @@
  
     <div class="flex flex-wrap px-3 mx-auto">
         <div class="w-full mt-2">
-            <div class="brand-text float-left">
+            <div class="font-bold uppercase text-blue-600 float-left">
                 <h3>{{trans("file.Biller")}} </h3>
             </div>
             @if(in_array("billers-add", $all_permission))
@@ -21,7 +21,7 @@
         </div>
       </div>
     <div class="table-responsive">
-        <table id="biller-table" class="table" style="width: 100%">
+        <table id="biller-table" class="table bg-white" style="width: 100%">
             <thead>
                 <tr>
                     <th class="not-exported"></th>
@@ -266,7 +266,7 @@
             },
             {
                 extend: 'colvis',
-                text: '{{trans("file.Column visibility")}}',
+                text: '<i class="fa fa-eye">',
                 columns: ':gt(0)'
             },
         ],

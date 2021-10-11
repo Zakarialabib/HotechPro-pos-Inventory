@@ -29,7 +29,7 @@
         <div class="container-fluid">
             <div class="flex flex-wrap px-3 mx-auto">
                 <div class="w-full mt-2">
-                    <div class="brand-text float-left">
+                    <div class="font-bold uppercase text-blue-600 float-left">
                         <h3>{{ trans('file.Product List') }} </h3>
                     </div>
                     @if (in_array('products-add', $all_permission))
@@ -45,7 +45,7 @@
                 </div>
             </div>
             <div class="table-responsive">
-                <table id="product-data-table" class="table" style="width: 100%">
+                <table id="product-data-table" class="table bg-white w-screen" style="width: 100%">
                     <thead>
                         <tr>
                             <th class="not-exported"></th>
@@ -112,8 +112,6 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 id="exampleModalLabel" class="modal-title">{{ trans('file.Product Details') }}</h5>
-                    <button id="print-btn" type="button" class="btn btn-default btn-sm ml-3"><i class="dripicons-print"></i>
-                        {{ trans('file.Print') }}</button>
                     <button type="button" id="close-btn" data-dismiss="modal" aria-label="Close"
                         class="close"><span aria-hidden="true"><i class="dripicons-cross"></i></span></button>
                 </div>
@@ -121,7 +119,7 @@
                     <div class="row">
                         <div class="col-md-5" id="slider-content"></div>
                         <div class="col-md-5 offset-1" id="product-content"></div>
-                        <div class="col-md-5 mt-2" id="product-warehouse-section">
+                        <div class="w-full mt-2" id="product-warehouse-section">
                             <h5>{{ trans('file.Warehouse Quantity') }}</h5>
                             <table class="table table-bordered table-hover product-warehouse-list">
                                 <thead>

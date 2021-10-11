@@ -772,7 +772,7 @@
                                             @if($lims_pos_setting_data)
                                             <input type="hidden" name="biller_id_hidden" value="{{$lims_sale_data->biller_id}}">
                                             @endif
-                                            <select required id="biller_id" name="biller_id" class="selectpicker form-control" data-live-search="true" data-live-search-style="begins" title="Select Biller...">
+                                            <select required id="biller_id" name="biller_id" class="selectpicker form-control" data-live-search="true" data-live-search-style="begins" title="{{trans('file.Select Biller*...')}}">
                                             @foreach($lims_biller_list as $biller)
                                             <option value="{{$biller->id}}">{{$biller->name . ' (' . $biller->company_name . ')'}}</option>
                                             @endforeach
@@ -1196,10 +1196,7 @@
                                             <input type="hidden" name="paid_by_id">
                                             <select class="form-control payment-option">
                                                 <option value="1">Cash</option>
-                                                <option value="2">Gift Card</option>
-                                                <option value="3">Credit Card</option>
                                                 <option value="4">Cheque</option>
-                                                <option value="5">Paypal</option>
                                                 <option value="6">Deposit</option>
                                             </select>
                                         </div>

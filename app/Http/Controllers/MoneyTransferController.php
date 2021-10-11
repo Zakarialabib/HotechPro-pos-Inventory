@@ -20,7 +20,7 @@ class MoneyTransferController extends Controller
             return view('money_transfer.index', compact('lims_money_transfer_all', 'lims_account_list'));
         }
         else
-            return redirect()->back()->with('not_permitted', 'Sorry! You are not allowed to access this module');
+            return redirect()->back()->with('not_permitted', __('Sorry! You are not allowed to access this module!'));
     }
 
     public function create()

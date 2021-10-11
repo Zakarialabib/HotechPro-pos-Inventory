@@ -19,7 +19,7 @@ class CustomerGroupController extends Controller
             return view('customer_group.create',compact('lims_customer_group_all'));
         }
         else
-            return redirect()->back()->with('not_permitted', 'Sorry! You are not allowed to access this module');
+            return redirect()->back()->with('not_permitted', __('Sorry! You are not allowed to access this module!'));
     }
 
     public function store(Request $request)

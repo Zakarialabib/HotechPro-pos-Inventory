@@ -1013,6 +1013,7 @@ nav.navbar .nav-item li.notifications a i{
 table#product-table.dataTable {
 	border-collapse: separate !important;
 	margin: 15px 0 !important;
+	width: 100% !important;
 }
 
 #product-table_paginate {

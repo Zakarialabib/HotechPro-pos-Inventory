@@ -50,7 +50,7 @@
                                         <div class="form-group">
                                             <label>{{trans('file.Biller')}} *</label>
                                             <input type="hidden" name="biller_id_hidden" value="{{$lims_sale_data->biller_id}}" />
-                                            <select required name="biller_id" class="selectpicker form-control" data-live-search="true" data-live-search-style="begins" title="Select Biller...">
+                                            <select required name="biller_id" class="selectpicker form-control" data-live-search="true" data-live-search-style="begins" title="{{trans('file.Select Biller*...')}}">
                                                 @foreach($lims_biller_list as $biller)
                                                 <option value="{{$biller->id}}">{{$biller->name . ' (' . $biller->company_name . ')'}}</option>
                                                 @endforeach

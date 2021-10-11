@@ -8,9 +8,9 @@
   <div class="relative px-3 py-3 mb-4 border rounded bg-green-200 border-green-300 text-green-800  text-center"><button type="button" class="absolute top-0 bottom-0 right-0 px-4 py-3" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>{{ session()->get('message') }}</div> 
 @endif
 <div class="flex flex-wrap ">
-  <div class="mx-auto px-2 max-w-full mx-auto">
+  <div class="mx-auto px-2 max-w-full">
     <div class="md:w-full pr-4 pl-4">
-      <div class="brand-text float-left mt-4">
+      <div class="font-bold uppercase text-blue-600 float-left mt-4">
           <h3>{{trans('file.welcome')}} <span>{{Auth::user()->name}}</span> </h3>
       </div>
     </div>
@@ -19,7 +19,7 @@
 <!-- Counts Section -->
 <section class="dashboard-counts">
   
-  <div class="mx-auto px-2 max-w-full mx-auto">
+  <div class="mx-auto px-2 max-w-full">
     <div class="flex flex-wrap ">
       <div class="md:w-full pr-4 pl-4">
         <div class="relative flex flex-col min-w-0 rounded break-words border bg-white border-1 border-gray-300">
@@ -40,7 +40,7 @@
           </ul>
 
           <div class="tab-content">
-            <div role="tabpanel" class="tab-pane opacity-0 opacity-100 block active" id="customer-sale">
+            <div role="tabpanel" class="tab-pane block active" id="customer-sale">
                 <div class="block w-full overflow-auto scrolling-touch">
                   <table id="sale-table" class="w-full max-w-full mb-4 bg-transparent">
                     <thead>
@@ -283,7 +283,7 @@
                         <button id="sale-print-btn" type="button" class="inline-block align-middle text-center select-none border font-normal whitespace-no-wrap rounded  no-underline btn-default py-1 px-2 leading-tight text-xs  print:hidden"><i class="dripicons-print"></i> {{trans('file.Print')}}</button>
                     </div>
                     <div class="md:w-1/2 pr-4 pl-4">
-                        <h3 id="exampleModalLabel" class="modal-title text-center mx-auto px-2 max-w-full mx-auto">{{$general_setting->site_title}}</h3>
+                        <h3 id="exampleModalLabel" class="modal-title text-center mx-auto px-2 max-w-full">{{$general_setting->site_title}}</h3>
                     </div>
                     <div class="md:w-1/4 pr-4 pl-4">
                         <button type="button" id="close-btn" data-dismiss="modal" aria-label="Close" class="absolute top-0 bottom-0 right-0 px-4 py-3 print:hidden"><span aria-hidden="true"><i class="dripicons-cross"></i></span></button>
@@ -323,7 +323,7 @@
                     <button id="quotation-print-btn" type="button" class="inline-block align-middle text-center select-none border font-normal whitespace-no-wrap rounded  no-underline btn-default py-1 px-2 leading-tight text-xs  print:hidden"><i class="dripicons-print"></i> {{trans('file.Print')}}</button>
                 </div>
                 <div class="md:w-1/2 pr-4 pl-4">
-                    <h3 id="exampleModalLabel" class="modal-title text-center mx-auto px-2 max-w-full mx-auto">{{$general_setting->site_title}}</h3>
+                    <h3 id="exampleModalLabel" class="modal-title text-center mx-auto px-2 max-w-full">{{$general_setting->site_title}}</h3>
                 </div>
                 <div class="md:w-1/4 pr-4 pl-4">
                     <button type="button" id="close-btn" data-dismiss="modal" aria-label="Close" class="absolute top-0 bottom-0 right-0 px-4 py-3 print:hidden"><span aria-hidden="true"><i class="dripicons-cross"></i></span></button>
@@ -359,11 +359,8 @@
       <div class="modal-content">
         <div class="container mx-auto sm:px-4 mt-3 pb-2 border-b">
         <div class="flex flex-wrap ">
-            <div class="md:w-1/4 pr-4 pl-4">
-                <button id="print-btn" type="button" class="inline-block align-middle text-center select-none border font-normal whitespace-no-wrap rounded  no-underline btn-default py-1 px-2 leading-tight text-xs  print:hidden"><i class="dripicons-print"></i> {{trans('file.Print')}}</button>
-            </div>
             <div class="md:w-1/2 pr-4 pl-4">
-                <h3 id="exampleModalLabel" class="modal-title text-center mx-auto px-2 max-w-full mx-auto">{{$general_setting->site_title}}</h3>
+                <h3 id="exampleModalLabel" class="modal-title text-center mx-auto px-2 max-w-full">{{$general_setting->site_title}}</h3>
             </div>
             <div class="md:w-1/4 pr-4 pl-4">
                 <button type="button" id="close-btn" data-dismiss="modal" aria-label="Close" class="absolute top-0 bottom-0 right-0 px-4 py-3 print:hidden"><span aria-hidden="true"><i class="dripicons-cross"></i></span></button>
@@ -910,7 +907,7 @@
             },
             {
                 extend: 'colvis',
-                text: '{{trans("file.Column visibility")}}',
+                text: '<i class="fa fa-eye">',
                 columns: ':gt(0)'
             },
         ],
@@ -1001,7 +998,7 @@
             },
             {
                 extend: 'colvis',
-                text: '{{trans("file.Column visibility")}}',
+                text: '<i class="fa fa-eye">',
                 columns: ':gt(0)'
             },
         ],

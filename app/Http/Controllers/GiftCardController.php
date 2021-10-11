@@ -28,7 +28,7 @@ class GiftCardController extends Controller
             return view('gift_card.index', compact('lims_customer_list', 'lims_user_list', 'lims_gift_card_all'));
         }
         else
-            return redirect()->back()->with('not_permitted', 'Sorry! You are not allowed to access this module');
+            return redirect()->back()->with('not_permitted', __('Sorry! You are not allowed to access this module!'));
     }
 
     public function create()

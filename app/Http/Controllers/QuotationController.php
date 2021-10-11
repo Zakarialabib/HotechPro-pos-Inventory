@@ -46,7 +46,7 @@ class QuotationController extends Controller
             return view('quotation.index', compact('lims_quotation_all', 'all_permission'));
         }
         else
-            return redirect()->back()->with('not_permitted', 'Sorry! You are not allowed to access this module');
+            return redirect()->back()->with('not_permitted', __('Sorry! You are not allowed to access this module!'));
     }
 
     public function create()
@@ -55,13 +55,14 @@ class QuotationController extends Controller
         if($role->hasPermissionTo('quotes-add')){
             $lims_warehouse_list = Warehouse::where('is_active', true)->get();
             $lims_customer_list = Customer::where('is_active', true)->get();
+            $lims_biller_list = Biller::where('is_active', true)->get();
             $lims_supplier_list = Supplier::where('is_active', true)->get();
             $lims_tax_list = Tax::where('is_active', true)->get();
 
-            return view('quotation.create', compact('lims_warehouse_list', 'lims_customer_list', 'lims_supplier_list', 'lims_tax_list'));
+            return view('quotation.create', compact('lims_warehouse_list','lims_biller_list', 'lims_customer_list', 'lims_supplier_list', 'lims_tax_list'));
         }
         else
-            return redirect()->back()->with('not_permitted', 'Sorry! You are not allowed to access this module');
+            return redirect()->back()->with('not_permitted', __('Sorry! You are not allowed to access this module!'));
     }
 
     public function store(Request $request)
@@ -210,7 +211,7 @@ class QuotationController extends Controller
             }
         }
         else
-            $message = 'Customer doesnt have email!';
+            $message =  __('Customer doesnt have email!');
         
         return redirect()->back()->with('message', $message);
     }
@@ -394,7 +395,7 @@ class QuotationController extends Controller
             return view('quotation.edit',compact('lims_customer_list', 'lims_biller_list','lims_warehouse_list', 'lims_tax_list', 'lims_quotation_data','lims_product_quotation_data', 'lims_supplier_list'));
         }
         else
-            return redirect()->back()->with('not_permitted', 'Sorry! You are not allowed to access this module');
+            return redirect()->back()->with('not_permitted', __('Sorry! You are not allowed to access this module!'));
     }
 
     public function update(Request $request, $id)

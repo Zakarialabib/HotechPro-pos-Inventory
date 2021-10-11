@@ -10,37 +10,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="robots" content="all,follow">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <!-- Bootstrap CSS-->
-    <link rel="stylesheet" href="{{ asset('public/vendor/bootstrap/css/bootstrap.min.css') }}" type="text/css">
-    <link rel="stylesheet" href="{{ asset('public/vendor/bootstrap-toggle/css/bootstrap-toggle.min.css') }}"
-        type="text/css">
-    <link rel="stylesheet" href="{{ asset('public/vendor/bootstrap/css/bootstrap-datepicker.min.css') }}"
-        type="text/css">
-    <link rel="stylesheet" href="{{ asset('public/vendor/jquery-timepicker/jquery.timepicker.min.css') }}"
-        type="text/css">
-    <link rel="stylesheet" href="{{ asset('public/vendor/bootstrap/css/bootstrap-select.min.css') }}" type="text/css">
-    <!-- Font Awesome CSS-->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />    <!-- Drip icon font-->
-    <link rel="stylesheet" href="{{ asset('public/vendor/dripicons/webfont.css') }}" type="text/css">
-    <!-- Google fonts - Roboto -->
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito:400,500,700">
-    <!-- jQuery Circle-->
-    <link rel="stylesheet" type="text/css" href="{{ asset('public/css/grasp_mobile_progress_circle-1.0.0.min.css') }}">
-    <!-- Custom Scrollbar-->
-    <link rel="stylesheet" type="text/css" href="{{ asset('public/vendor/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.css') }}">
-    <!-- virtual keybord stylesheet-->
-    <link rel="stylesheet" type="text/css" href="{{ asset('public/vendor/keyboard/css/keyboard.css') }}" >
-    <!-- date range stylesheet-->
-    <link rel="stylesheet" type="text/css" href="{{ asset('public/vendor/daterange/css/daterangepicker.min.css') }}" >
-    <!-- table sorter stylesheet-->
-    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs4/jszip-2.5.0/dt-1.11.1/b-2.0.0/b-colvis-2.0.0/b-html5-2.0.0/b-print-2.0.0/fh-3.1.9/r-2.2.9/datatables.min.css"/>
-    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/responsive/2.2.3/css/responsive.bootstrap.min.css">
-    <link rel="stylesheet" type="text/css" href="{{ asset('public/css/style.default.css') }}" >
-    <link rel="stylesheet" type="text/css" href="{{ asset('public/css/custom-default.css') }}" >
-    <link rel="stylesheet" type="text/css" href="{{ asset('public/css/dropzone.css') }}">
-    <link rel="stylesheet" type="text/css" href="{{ asset('public/css/style.css') }}">
-    <link rel="stylesheet" type="text/css" href="{{ asset('public/css/app.css') }}" >
-    <link rel="stylesheet" type="text/css" href="{{ asset('/public/css/adminlte.min.css') }}">
+
+    @include('partials.styles')
+    
     @include('partials.scripts')
 
 </head>
@@ -907,213 +879,100 @@
                     </div>
                 </div>
                 <ul class="flex items-center flex-shrink-0 space-x-6">
-                    {{-- <!-- Theme toggler -->
-                    <li class="flex">
-                        <button class="rounded-md focus:outline-none focus:shadow-outline-purple" @click="toggleTheme"
-                            aria-label="Toggle color mode">
-                            <template x-if="!dark">
-                                <svg class="w-5 h-5" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20">
-                                    <path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path>
-                                </svg>
-                            </template>
-                            <template x-if="dark">
-                                <svg class="w-5 h-5" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20">
-                                    <path fill-rule="evenodd"
-                                        d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z"
-                                        clip-rule="evenodd"></path>
-                                </svg>
-                            </template>
-                        </button>
-                    </li> --}}
-                    <!-- Notifications menu -->
-                    <li class="relative pt-2">
-                        <button class="relative align-middle rounded-md focus:outline-none focus:shadow-outline-purple"
-                            @click="toggleNotificationsMenu" @keydown.escape="closeNotificationsMenu"
-                            aria-label="Notifications" aria-haspopup="true">
-                            <svg class="w-5 h-5" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20">
-                                <path
-                                    d="M10 2a6 6 0 00-6 6v3.586l-.707.707A1 1 0 004 14h12a1 1 0 00.707-1.707L16 11.586V8a6 6 0 00-6-6zM10 18a3 3 0 01-3-3h6a3 3 0 01-3 3z">
-                                </path>
-                            </svg>
-                            <!-- Notification badge -->
-                            <span aria-hidden="true"
-                                class="absolute top-0 right-0 inline-block w-3 h-3 transform translate-x-1 -translate-y-1 bg-red-600 border-2 border-white rounded-full"></span>
-                        </button>
-                        <template x-if="isNotificationsMenuOpen">
-                            <ul x-transition:leave="transition ease-in duration-150"
-                                x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0"
-                                @click.away="closeNotificationsMenu" @keydown.escape="closeNotificationsMenu"
-                                class="absolute right-0 w-56 p-2 mt-2 space-y-2 text-gray-600 bg-white border border-gray-100 rounded-md shadow-md">
-                                @if ($product_qty_alert_active)
-                                    @if(($alert_product + count(\Auth::user()->unreadNotifications)) > 0)
-                                    <li class="flex">
-                                        <a class="inline-flex items-center justify-between w-full px-2 py-1 text-sm font-semibold transition-colors duration-150 rounded-md "
-                                            href="{{ route('report.qtyAlert') }}">
-                                            <span> {{ $alert_product }} product exceeds alert quantity</span>
-                                        </a>
+                        <?php 
+                          $add_permission = DB::table('permissions')->where('name', 'sales-add')->first();
+                          $add_permission_active = DB::table('role_has_permissions')->where([
+                              ['permission_id', $add_permission->id],
+                              ['role_id', $role->id]
+                          ])->first();
+        
+                          $empty_database_permission = DB::table('permissions')->where('name', 'empty_database')->first();
+                          $empty_database_permission_active = DB::table('role_has_permissions')->where([
+                              ['permission_id', $empty_database_permission->id],
+                              ['role_id', $role->id]
+                          ])->first();
+                        ?>
+                        <li class="nav-item"><a class="btn btn-sm btn-danger" href="{{route('sale.pos')}}"><i class="dripicons-shopping-bag"></i><span> POS</span></a></li>
+                        <li class="nav-item"><a id="btnFullscreen"><i class="dripicons-expand"></i></a></li>
+                        @if(\Auth::user()->role_id <= 2)
+                          <li class="nav-item"><a href="{{route('cashRegister.index')}}" title="{{trans('file.Cash Register List')}}"><i class="dripicons-archive"></i></a></li>
+                        @endif
+                        @if($product_qty_alert_active)
+                          @if(($alert_product + count(\Auth::user()->unreadNotifications)) > 0)
+                          <li class="nav-item" id="notification-icon">
+                                <a rel="nofollow" data-target="#" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link dropdown-item"><i class="dripicons-bell"></i><span class="badge badge-danger notification-number">{{$alert_product + count(\Auth::user()->unreadNotifications)}}</span>
+                                </a>
+                                <ul class="dropdown-menu edit-options dropdown-menu-right dropdown-default notifications" user="menu">
+                                    <li class="notifications">
+                                      <a href="{{route('report.qtyAlert')}}" class="btn btn-link"> {{$alert_product}} product exceeds alert quantity</a>
                                     </li>
-                                    @foreach (\Auth::user()->unreadNotifications as $key => $notification)
-                                        <li class="flex">
-                                            <a
-                                                class="inline-flex items-center justify-between w-full px-2 py-1 text-sm font-semibold transition-colors duration-150 rounded-md ">
-                                                <span> {{ $notification->data['message'] }}</span>
-                                            </a>
+                                    @foreach(\Auth::user()->unreadNotifications as $key => $notification)
+                                        <li class="notifications">
+                                            <a href="#" class="btn btn-link">{{ $notification->data['message'] }}</a>
                                         </li>
                                     @endforeach
-                                @elseif(count(\Auth::user()->unreadNotifications) > 0)
-                                    @foreach (\Auth::user()->unreadNotifications as $key => $notification)
-                                        <li class="flex">
-                                            <a
-                                                class="inline-flex items-center justify-between w-full px-2 py-1 text-sm font-semibold transition-colors duration-150 rounded-md ">
-                                                <span>{{ $notification->data['message'] }}</span>
-                                            </a>
+                                </ul>
+                          </li>
+                          @elseif(count(\Auth::user()->unreadNotifications) > 0)
+                          <li class="nav-item" id="notification-icon">
+                                <a rel="nofollow" data-target="#" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link dropdown-item"><i class="dripicons-bell"></i><span class="badge badge-danger notification-number">{{count(\Auth::user()->unreadNotifications)}}</span>
+                                </a>
+                                <ul class="dropdown-menu edit-options dropdown-menu-right dropdown-default notifications" user="menu">
+                                    @foreach(\Auth::user()->unreadNotifications as $key => $notification)
+                                        <li class="notifications">
+                                            <a href="#" class="btn btn-link">{{ $notification->data['message'] }}</a>
                                         </li>
                                     @endforeach
-                                @endif
-                                @endif
-                                </a>
-                    </li>
-                </ul>
-                </template>
-                </li>
-                <!-- Language menu -->
-                <li class="relative pt-2">
-                    <button class="align-middle rounded-full focus:shadow-outline-purple focus:outline-none"
-                        @click="toggleLanguageMenu" @keydown.escape="closeLanguageMenu" aria-label="Account"
-                        aria-haspopup="true">
-                        <svg class="w-5 h-5" aria-hidden="true" fill="currentColor" stroke-linecap="round"
-                            stroke-linejoin="round" stroke-width="2" viewBox="0 0 512 512" stroke="currentColor">
-                            <path d="M256,0C114.7,0,0,114.7,0,256s114.7,256,256,256s256-114.7,256-256S397.3,0,256,0z M433.3,153.6h-75.9
-  c-8.5-32.2-19.9-62.6-35.1-91C369.8,78.7,408.7,110.9,433.3,153.6z M256,52.1c20.9,30.3,37.9,64.5,49.3,101.5h-98.6
-  C218.1,116.6,235.1,82.5,256,52.1z M57.8,307.2C54,291.1,51.2,274,51.2,256s2.8-35.1,6.6-51.2h86.3c-1.9,17.1-3.8,34.1-3.8,51.2
-  c0,17.1,1.9,34.1,3.8,51.2H57.8z M78.7,358.4h75.9c8.5,32.2,19.9,62.6,35.1,91C142.2,433.3,103.3,401.1,78.7,358.4z M154.5,153.6
-  H78.7c24.7-42.7,63.5-74.9,110.9-91C174.5,91,162.1,121.4,154.5,153.6z M256,459.9c-20.9-30.3-37.9-64.5-49.3-101.5h97.7
-  C293.9,395.4,276.9,429.5,256,459.9z M315.7,307.2H196.3c-1.9-17.1-3.8-34.1-3.8-51.2s1.9-34.1,3.8-51.2h119.5
-  c1.9,17.1,3.8,34.1,3.8,51.2C319.5,273.1,318.6,290.1,315.7,307.2z M322.4,449.4c15.2-28.4,27.5-58.8,35.1-91h75.9
-  C408.7,401.1,369.8,433.3,322.4,449.4z M367.9,307.2c1.9-17.1,3.8-34.1,3.8-51.2s-1.9-34.1-3.8-51.2h86.3
-  c3.8,16.1,6.6,33.2,6.6,51.2s-2.8,35.1-6.6,51.2H367.9z" />
-                        </svg>
-                    </button>
-                    <template x-if="isLanguageMenuOpen">
-                        <ul x-transition:leave="transition ease-in duration-150" x-transition:leave-start="opacity-100"
-                            x-transition:leave-end="opacity-0" @click.away="closeLanguageMenu"
-                            @keydown.escape="closeLanguageMenu"
-                            class="absolute right-0 w-56 p-2 mt-2 space-y-2 text-gray-600 bg-white border border-gray-100 rounded-md shadow-md"
-                            aria-label="submenu">
-                            <li class="flex">
-                                <a class="inline-flex items-center w-full px-2 py-1 text-sm font-semibold transition-colors duration-150 rounded-md "
-                                    href="{{ url('language_switch/fr') }}">
-                                    <span>Français</span>
-                                </a>
-                            </li>
-                            <li class="flex">
-                                <a class="inline-flex items-center w-full px-2 py-1 text-sm font-semibold transition-colors duration-150 rounded-md "
-                                    href="{{ url('language_switch/ar') }}">
-                                    <span>Arab</span>
-                                </a>
-                            </li>
-                            <li class="flex">
-                                <a class="inline-flex items-center w-full px-2 py-1 text-sm font-semibold transition-colors duration-150 rounded-md "
-                                    href="{{ url('language_switch/en') }}">
-                                    <span> English</span>
-                                </a>
-                            </li>
-                        </ul>
-                    </template>
-                </li>
-                <!-- Profile menu -->
-                <li class="relative pt-2">
-                    <button class="align-middle rounded-full focus:shadow-outline-purple focus:outline-none"
-                        @click="toggleProfileMenu" @keydown.escape="closeProfileMenu" aria-label="Account"
-                        aria-haspopup="true">
-                        {{ ucfirst(Auth::user()->name) }}
-                    </button>
-                    <template x-if="isProfileMenuOpen">
-                        <ul x-transition:leave="transition ease-in duration-150" x-transition:leave-start="opacity-100"
-                            x-transition:leave-end="opacity-0" @click.away="closeProfileMenu"
-                            @keydown.escape="closeProfileMenu"
-                            class="absolute right-0 w-56 p-2 mt-2 space-y-2 text-gray-600 bg-white border border-gray-100 rounded-md shadow-md"
-                            aria-label="submenu">
-                            <li class="flex">
-                                <a class="inline-flex items-center w-full px-2 py-1 text-sm font-semibold transition-colors duration-150 rounded-md "
-                                    href="{{ route('user.profile', ['id' => Auth::id()]) }}">
-                                    <svg class="w-4 h-4 mr-3" aria-hidden="true" fill="none" stroke-linecap="round"
-                                        stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24"
-                                        stroke="currentColor">
-                                        <path d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z">
-                                        </path>
-                                    </svg>
-                                    <span>Profile</span>
-                                </a>
-                            </li>
-                            @if (Auth::user()->role_id != 5)
-                                <li class="flex">
-                                    <a class="inline-flex items-center w-full px-2 py-1 text-sm font-semibold transition-colors duration-150 rounded-md "
-                                        href="{{ url('holidays/my-holiday/' . date('Y') . '/' . date('m')) }}">
-                                        <svg class="w-4 h-4 mr-3" aria-hidden="true" fill="none"
-                                            stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                            viewBox="0 0 24 24" stroke="currentColor">
-                                            <path
-                                                d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z">
-                                            </path>
-                                            <path d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
-                                        </svg>
-                                        <span>My Holidays</span>
-                                    </a>
+                                </ul>
+                          </li>
+                          @endif
+                        @endif
+                        <li class="nav-item">
+                              <a rel="nofollow" data-target="#" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link dropdown-item"><i class="dripicons-web"></i> <span>{{__('file.language')}}</span> <i class="fa fa-angle-down"></i></a>
+                              <ul class="dropdown-menu edit-options dropdown-menu-right dropdown-default" user="menu">
+                                <li>
+                                  <a href="{{ url('language_switch/fr') }}" class="btn btn-link"> Français</a>
                                 </li>
-                            @endif
-                            <li class="flex">
-                                <a class="inline-flex items-center w-full px-2 py-1 text-sm font-semibold transition-colors duration-150 rounded-md "
-                                    href="{{ url('my-transactions/' . date('Y') . '/' . date('m')) }}">
-                                    <svg class="w-4 h-4 mr-3" aria-hidden="true" fill="none" stroke-linecap="round"
-                                        stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24"
-                                        stroke="currentColor">
-                                        <path
-                                            d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z">
-                                        </path>
-                                        <path d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
-                                    </svg>
-                                    <span>My Transactions</span>
+                                <li>
+                                  <a href="{{ url('language_switch/ar') }}" class="btn btn-link"> عربى</a>
+                                  </li>
+                                  <li>
+                                    <a href="{{ url('language_switch/en') }}" class="btn btn-link"> English</a>
+                                  </li>
+                              </ul>
+                        </li>
+                        <li class="nav-item">
+                          <a rel="nofollow" data-target="#" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link dropdown-item"><i class="dripicons-user"></i> <span>{{ucfirst(Auth::user()->name)}}</span> <i class="fa fa-angle-down"></i>
+                          </a>
+                          <ul class="dropdown-menu edit-options dropdown-menu-right dropdown-default" user="menu">
+                              <li> 
+                                <a href="{{route('user.profile', ['id' => Auth::id()])}}"><i class="dripicons-user"></i> {{trans('file.profile')}}</a>
+                              </li>
+                              @if($general_setting_permission_active)
+                              <li> 
+                                <a href="{{route('setting.general')}}"><i class="dripicons-gear"></i> {{trans('file.settings')}}</a>
+                              </li>
+                              @endif
+                              <li> 
+                                <a href="{{url('my-transactions/'.date('Y').'/'.date('m'))}}"><i class="dripicons-swap"></i> {{trans('file.My Transaction')}}</a>
+                              </li>
+                              @if(Auth::user()->role_id != 5)
+                              <li> 
+                                <a href="{{url('holidays/my-holiday/'.date('Y').'/'.date('m'))}}"><i class="dripicons-vibrate"></i> {{trans('file.My Holiday')}}</a>
+                              </li>
+                              @endif
+                              <li>
+                                <a href="{{ route('logout') }}"
+                                   onclick="event.preventDefault();
+                                                 document.getElementById('logout-form').submit();"><i class="dripicons-power"></i>
+                                    {{trans('file.logout')}}
                                 </a>
-                            </li>
-                            @if ($general_setting_permission_active)
-                                <li class="flex">
-                                    <a class="inline-flex items-center w-full px-2 py-1 text-sm font-semibold transition-colors duration-150 rounded-md "
-                                        href="{{ route('setting.general') }}">
-                                        <svg class="w-4 h-4 mr-3" aria-hidden="true" fill="none"
-                                            stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                            viewBox="0 0 24 24" stroke="currentColor">
-                                            <path
-                                                d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z">
-                                            </path>
-                                            <path d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
-                                        </svg>
-                                        <span>Settings</span>
-                                    </a>
-                                </li>
-                            @endif
-                            <li class="flex">
-                                <a class="inline-flex items-center w-full px-2 py-1 text-sm font-semibold transition-colors duration-150 rounded-md "
-                                    href="{{ route('logout') }}" onclick="event.preventDefault();
-                      document.getElementById('logout-form').submit();">
-                                    <svg class="w-4 h-4 mr-3" aria-hidden="true" fill="none" stroke-linecap="round"
-                                        stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24"
-                                        stroke="currentColor">
-                                        <path
-                                            d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1">
-                                        </path>
-                                    </svg>
-                                    <span> {{ trans('file.logout') }}</span>
-                                    <form id="logout-form" action="{{ route('logout') }}" method="POST"
-                                        style="display: none;">
-                                        @csrf
-                                    </form>
-                                </a>
-                            </li>
-                        </ul>
-                    </template>
-
-                </li>
+                                <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                    @csrf
+                                </form>
+                              </li>
+                          </ul>
+                        </li> 
                 </ul>
             </div>
         </header>

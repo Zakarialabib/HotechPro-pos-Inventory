@@ -15,7 +15,7 @@
     <div class="container-fluid">
         <div class="flex flex-wrap px-3 mx-auto">
             <div class="w-full mt-2">
-                <div class="brand-text float-left">
+                <div class="font-bold uppercase text-blue-600 float-left">
                     <h3>{{ trans('file.Roles & Permissions') }} </h3>
                 </div>
                     <div class="float-right">
@@ -223,7 +223,7 @@
             },
             {
                 extend: 'colvis',
-                text: '{{trans("file.Column visibility")}}',
+                text: '<i class="fa fa-eye">',
                 columns: ':gt(0)'
             },
         ],

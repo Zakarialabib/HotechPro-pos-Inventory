@@ -22,7 +22,7 @@ class CategoryController extends Controller
             return view('category.create',compact('lims_categories', 'lims_category_all'));
         }
         else
-            return redirect()->back()->with('not_permitted', 'Sorry! You are not allowed to access this module');
+            return redirect()->back()->with('not_permitted', __('Sorry! You are not allowed to access this module!'));
     }
 
     public function categoryData(Request $request)

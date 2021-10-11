@@ -9,7 +9,7 @@
 <section>
     <div class="flex flex-wrap px-3 mx-auto">
         <div class="w-full mt-2">
-            <div class="brand-text float-left">
+            <div class="font-bold uppercase text-blue-600 float-left">
                 <h3>{{trans("file.Stock Count")}} </h3>
             </div>
             <div class="float-right">
@@ -205,9 +205,6 @@
         <div class="modal-content">
             <div class="container mt-3 pb-3">
                 <div class="row border-bottom pb-2">
-                    <div class="col-md-3">
-                        <button id="print-btn" type="button" class="btn btn-default btn-sm d-print-none"><i class="dripicons-print"></i> {{trans('file.Print')}}</button>
-                    </div>
                     <div class="col-md-6">
                         <h3 id="exampleModalLabel" class="modal-title text-center container-fluid">{{$general_setting->site_title}}</h3>
                     </div>
@@ -391,7 +388,7 @@
             },
             {
                 extend: 'colvis',
-                text: '{{trans("file.Column visibility")}}',
+                text: '<i class="fa fa-eye">',
                 columns: ':gt(0)'
             },
         ],

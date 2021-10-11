@@ -19,7 +19,7 @@ class RoleController extends Controller
             return view('role.create', compact('lims_role_all'));
         }
         else
-            return redirect()->back()->with('not_permitted', 'Sorry! You are not allowed to access this module');
+            return redirect()->back()->with('not_permitted', __('Sorry! You are not allowed to access this module!'));
     }
 
     
@@ -51,7 +51,7 @@ class RoleController extends Controller
             return $lims_role_data;
         }
         else
-            return redirect()->back()->with('not_permitted', 'Sorry! You are not allowed to access this module');
+            return redirect()->back()->with('not_permitted', __('Sorry! You are not allowed to access this module!'));
     }
 
     public function update(Request $request, $id)
@@ -83,7 +83,7 @@ class RoleController extends Controller
             return view('role.permission', compact('lims_role_data', 'all_permission'));
         }
         else
-            return redirect()->back()->with('not_permitted', 'Sorry! You are not allowed to access this module');
+            return redirect()->back()->with('not_permitted', __('Sorry! You are not allowed to access this module!'));
     }
 
     public function setPermission(Request $request)

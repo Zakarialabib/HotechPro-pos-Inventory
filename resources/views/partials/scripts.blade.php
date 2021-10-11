@@ -1,10 +1,7 @@
  <!-- Tweaks for older IEs--><!--[if lt IE 9]>
         <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
         <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script><![endif]-->
-        <script
-        src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js"
-        defer ></script>
-        <script type="text/javascript" src="{{ asset('public/js/init-alpine.js') }}"></script>
+        
 
     <script type="text/javascript" src="{{ asset('public/vendor/jquery/jquery.min.js') }}"></script>    
     <script type="text/javascript" src="{{ asset('public/vendor/jquery/jquery-ui.min.js') }}"></script>
@@ -28,7 +25,8 @@
     <script type="text/javascript" src="{{ asset('public/vendor/daterange/js/daterangepicker.min.js') }}"></script>
     <script type="text/javascript" src="{{ asset('public/vendor/tinymce/js/tinymce/tinymce.min.js') }}"></script>
     <script type="text/javascript" src="{{ asset('public/js/dropzone.js') }}"></script>
-    <script src="{{ asset('/public/js/adminlte.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('public/js/adminlte.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('public/js/all.min.js') }}"></script>
     <!-- table sorter js-->
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/pdfmake.min.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/vfs_fonts.js"></script>
@@ -36,6 +34,9 @@
     <script type="text/javascript" src="{{ asset('public/vendor/datatable/sum().js') }}"></script>
     <script type="text/javascript" src="{{ asset('public/vendor/datatable/dataTables.checkboxes.min.js') }}"></script>
     <script type="text/javascript" src="https://cdn.datatables.net/responsive/2.2.3/js/responsive.bootstrap.min.js"></script> 
-
+    <script
+    src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js"
+    defer ></script>
+    {{-- <script type="text/javascript" src="{{ asset('public/js/init-alpine.js') }}"></script> --}}
 
 @stack('scripts')

@@ -58,7 +58,7 @@
               </div>
               <div class="mt-2" id="biller-id">
                 <label for="passowrd" class="block text-sm font-medium leading-5 text-gray-700">{{trans('file.Biller')}} *</label>
-                <select name="biller_id" class="selectpicker block appearance-none w-full py-1 px-2 mb-1 text-base leading-normal bg-white text-gray-800 border border-gray-200 rounded" data-live-search="true" data-live-search-style="begins" title="Select Biller*...">
+                <select name="biller_id" class="selectpicker block appearance-none w-full py-1 px-2 mb-1 text-base leading-normal bg-white text-gray-800 border border-gray-200 rounded" data-live-search="true" data-live-search-style="begins" title="{{trans('file.Select Biller*...')}}">
                   @foreach($lims_biller_list as $biller)
                       <option value="{{$biller->id}}">{{$biller->name}} ({{$biller->phone_number}})</option>
                   @endforeach
@@ -66,7 +66,7 @@
               </div>
               <div class="mt-2" id="warehouse-id">
                 <label for="passowrd" class="block text-sm font-medium leading-5 text-gray-700">{{trans('file.Warehouse')}} *</label>
-                <select name="warehouse_id" class="selectpicker block appearance-none w-full py-1 px-2 mb-1 text-base leading-normal bg-white text-gray-800 border border-gray-200 rounded" data-live-search="true" data-live-search-style="begins" title="Select Warehouse*...">
+                <select name="warehouse_id" class="selectpicker block appearance-none w-full py-1 px-2 mb-1 text-base leading-normal bg-white text-gray-800 border border-gray-200 rounded" data-live-search="true" data-live-search-style="begins" title="{{trans('file.Select Warehouse*...')}}">
                   @foreach($lims_warehouse_list as $warehouse)
                       <option value="{{$warehouse->id}}">{{$warehouse->name}}</option>
                   @endforeach

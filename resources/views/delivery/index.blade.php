@@ -8,7 +8,7 @@
 
 <section>
     <div class="table-responsive">
-        <table id="delivery-table" class="table" style="width: 100%">
+        <table id="delivery-table" class="table bg-white" style="width: 100%">
             <thead>
                 <tr>
                     <th class="not-exported"></th>
@@ -80,8 +80,6 @@
         <div class="container mt-3 pb-2 border-bottom">
             <div class="row">
                 <div class="col-md-3">
-                    <button id="print-btn" type="button" class="btn btn-default btn-sm d-print-none"><i class="dripicons-print"></i> {{trans('file.Print')}}</button>
-
                     {{ Form::open(['route' => 'delivery.sendMail', 'method' => 'post', 'class' => 'sendmail-form'] ) }}
                         <input type="hidden" name="delivery_id">
                         <button class="btn btn-default btn-sm d-print-none"><i class="dripicons-mail"></i> {{trans('file.Email')}}</button>
@@ -382,7 +380,7 @@
             },
             {
                 extend: 'colvis',
-                text: '{{trans("file.Column visibility")}}',
+                text: '<i class="fa fa-eye">',
                 columns: ':gt(0)'
             },
         ],

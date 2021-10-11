@@ -10,7 +10,7 @@
 <section>
   <div class="flex flex-wrap px-3 mx-auto">
     <div class="w-full mt-2">
-        <div class="brand-text float-left">
+        <div class="font-bold uppercase text-blue-600 float-left">
             <h3>{{trans("file.Cash Register List")}} </h3>
         </div>
         <div class="float-right">
@@ -18,7 +18,7 @@
     </div>
   </div>
     <div class="table-responsive">
-        <table id="cash-register-table" class="table">
+        <table id="cash-register-table" class="table bg-white">
             <thead>
                 <tr>
                     <th class="not-exported"></th>
@@ -87,20 +87,8 @@
                                   <td id="cash_payment" class="text-right"></td>
                                 </tr>
                                 <tr>
-                                  <td>{{trans('file.Credit Card Payment')}}:</td>
-                                  <td id="credit_card_payment" class="text-right"></td>
-                                </tr>
-                                <tr>
                                   <td>{{trans('file.Cheque Payment')}}:</td>
                                   <td id="cheque_payment" class="text-right"></td>
-                                </tr>
-                                <tr>
-                                  <td>{{trans('file.Gift Card Payment')}}:</td>
-                                  <td id="gift_card_payment" class="text-right"></td>
-                                </tr>
-                                <tr>
-                                  <td>{{trans('file.Paypal Payment')}}:</td>
-                                  <td id="paypal_payment" class="text-right"></td>
                                 </tr>
                                 <tr>
                                   <td>{{trans('file.Total Sale Return')}}:</td>
@@ -232,7 +220,7 @@
             },
             {
                 extend: 'colvis',
-                text: '{{trans("file.Column visibility")}}',
+                text: '<i class="fa fa-eye">',
                 columns: ':gt(0)'
             },
         ],

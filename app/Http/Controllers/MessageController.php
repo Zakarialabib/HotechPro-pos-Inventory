@@ -33,7 +33,7 @@ class MessageController extends Controller
     		return view('message.index', compact('lims_message_all','lims_biller_list'));
         }
         else
-            return redirect()->back()->with('not_permitted', 'Sorry! You are not allowed to access this module');
+            return redirect()->back()->with('not_permitted', __('Sorry! You are not allowed to access this module!'));
 	}
     public function create($id){
     	$lims_message_data = Message::where('sale_id', $id)->first();

@@ -26,7 +26,6 @@
         "twilio/sdk": "^6.10"
     },
     "require-dev": {
-        "barryvdh/laravel-debugbar": "^3.6",
         "facade/ignition": "^1.4",
         "fzaninotto/faker": "^1.9.1",
         "laravel/ui": "1.0",

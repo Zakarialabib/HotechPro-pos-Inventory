@@ -51,7 +51,7 @@
                                         <div class="form-group">
                                             <label>{{trans('file.Biller')}} *</label>
                                             <input type="hidden" name="biller_id_hidden" value="{{$lims_quotation_data->biller_id}}" />
-                                            <select required name="biller_id" class="selectpicker form-control" data-live-search="true" data-live-search-style="begins" title="Select Biller...">
+                                            <select required name="biller_id" class="selectpicker form-control" data-live-search="true" data-live-search-style="begins" title="{{trans('file.Select Biller*...')}}">
                                                 @foreach($lims_biller_list as $biller)
                                                 <option value="{{$biller->id}}">{{$biller->name . ' (' . $biller->company_name . ')'}}</option>
                                                 @endforeach
@@ -292,10 +292,7 @@
                                                 <label>{{trans('file.Paid By')}}</label>
                                                 <select name="paid_by_id" class="form-control">
                                                     <option value="1">Cash</option>
-                                                    <option value="2">Gift Card</option>
-                                                    <option value="3">Credit Card</option>
                                                     <option value="4">Cheque</option>
-                                                    <option value="5">Paypal</option>
                                                     <option value="6">Deposit</option>
                                                 </select>
                                             </div>

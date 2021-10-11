@@ -1285,30 +1285,6 @@
 						                <span>
 						                    <div aria-checked="false" aria-disabled="false">
 								                <div class="checkbox">
-							                    	@if(in_array("gift_card", $all_permission))
-							                    	<input type="checkbox" value="1" id="gift_card" name="gift_card" checked>
-							                    	@else
-							                    	<input type="checkbox" value="1" id="gift_card" name="gift_card">
-							                    	@endif
-								                    <label for="gift_card" class="padding05">{{trans('file.Gift Card')}} &nbsp;&nbsp;</label>
-								                </div>
-								            </div>
-						                </span>
-						                <span>
-						                    <div aria-checked="false" aria-disabled="false">
-								                <div class="checkbox">
-							                    	@if(in_array("coupon", $all_permission))
-							                    	<input type="checkbox" value="1" id="coupon" name="coupon" checked>
-							                    	@else
-							                    	<input type="checkbox" value="1" id="coupon" name="coupon">
-							                    	@endif
-								                    <label for="coupon" class="padding05">{{trans('file.Coupon')}} &nbsp;&nbsp;</label>
-								                </div>
-								            </div>
-						                </span>
-						                <span>
-						                    <div aria-checked="false" aria-disabled="false">
-								                <div class="checkbox">
 							                    	@if(in_array("print_barcode", $all_permission))
 							                    	<input type="checkbox" value="1" id="print_barcode" name="print_barcode" checked>
 							                    	@else

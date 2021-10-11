@@ -23,7 +23,7 @@
     <section>
         <div class="flex flex-wrap px-3 mx-auto">
             <div class="w-full mt-2">
-                <div class="brand-text float-left">
+                <div class="font-bold uppercase text-blue-600 float-left">
                     <h3>{{ trans('file.User') }} </h3>
                 </div>
                 @if (in_array('users-add', $all_permission))
@@ -36,7 +36,7 @@
             </div>
         </div>
         <div class="table-responsive">
-            <table id="user-table" class="table" style="width:100%">
+            <table id="user-table" class="table bg-white" style="width:100%">
                 <thead>
                     <tr>
                         <th class="not-exported"></th>

@@ -29,7 +29,7 @@ class CustomerController extends Controller
             return view('customer.index', compact('lims_customer_all', 'all_permission'));
         }
         else
-            return redirect()->back()->with('not_permitted', 'Sorry! You are not allowed to access this module');
+            return redirect()->back()->with('not_permitted', __('Sorry! You are not allowed to access this module!'));
     }
 
     public function create()
@@ -40,7 +40,7 @@ class CustomerController extends Controller
             return view('customer.create', compact('lims_customer_group_all'));
         }
         else
-            return redirect()->back()->with('not_permitted', 'Sorry! You are not allowed to access this module');
+            return redirect()->back()->with('not_permitted', __('Sorry! You are not allowed to access this module!'));
     }
 
     public function store(Request $request)
@@ -115,7 +115,7 @@ class CustomerController extends Controller
             return view('customer.edit', compact('lims_customer_data','lims_customer_group_all'));
         }
         else
-            return redirect()->back()->with('not_permitted', 'Sorry! You are not allowed to access this module');
+            return redirect()->back()->with('not_permitted', __('Sorry! You are not allowed to access this module!'));
     }
 
     public function update(Request $request, $id)
@@ -226,7 +226,7 @@ class CustomerController extends Controller
             return redirect('customer')->with('import_message', $message);
         }
         else
-            return redirect()->back()->with('not_permitted', 'Sorry! You are not allowed to access this module');
+            return redirect()->back()->with('not_permitted', __('Sorry! You are not allowed to access this module!'));
     }
 
     public function getDeposit($id)

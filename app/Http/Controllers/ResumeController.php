@@ -31,7 +31,7 @@ class ResumeController extends Controller
       return view('resume.index',compact('lims_resume_all','lims_employee_list','lims_customer_list'));
     }
     else
-        return redirect()->back()->with('not_permitted', 'Sorry! You are not allowed to access this module');  
+        return redirect()->back()->with('not_permitted', __('Sorry! You are not allowed to access this module!'));  
     }
 
     public function store(Request $request)

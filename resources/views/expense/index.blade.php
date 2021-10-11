@@ -9,7 +9,7 @@
 <section>
     <div class="flex flex-wrap px-3 mx-auto">
         <div class="w-full mt-2">
-            <div class="brand-text float-left">
+            <div class="font-bold uppercase text-blue-600 float-left">
                 <h3 >{{trans('file.Expense List')}}</h3>
             </div>
             @if(in_array("expenses-add", $all_permission))
@@ -36,7 +36,7 @@
     {!! Form::close() !!}
 
     <div class="table-responsive">
-        <table id="expense-table" class="table" style="width: 100%">
+        <table id="expense-table" class="table bg-white" style="width: 100%">
             <thead>
                 <tr>
                     <th class="not-exported"></th>
@@ -336,7 +336,7 @@ function confirmDelete() {
             },
             {
                 extend: 'colvis',
-                text: '{{trans("file.Column visibility")}}',
+                text: '<i class="fa fa-eye">',
                 columns: ':gt(0)'
             },
         ],

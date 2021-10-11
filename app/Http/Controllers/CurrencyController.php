@@ -18,7 +18,7 @@ class CurrencyController extends Controller
             return view('currency.index', compact('lims_currency_all'));
         }
         else
-            return redirect()->back()->with('not_permitted', 'Sorry! You are not allowed to access this module');
+            return redirect()->back()->with('not_permitted', __('Sorry! You are not allowed to access this module!'));
     }
 
     public function create()

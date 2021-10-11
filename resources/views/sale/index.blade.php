@@ -9,7 +9,7 @@
 <section>
     <div class="flex flex-wrap px-3 mx-auto">
         <div class="w-full mt-2">
-            <div class="brand-text float-left">
+            <div class="font-bold uppercase text-blue-600 float-left">
                <h3 >{{trans('file.Sale List')}}</h3>
            </div>
             @if(in_array("sales-add", $all_permission))
@@ -90,9 +90,7 @@
         <div class="modal-content">
             <div class="container mt-3 pb-2 border-bottom">
                 <div class="row">
-                    <div class="col-md-3">
-                        <button id="print-btn" type="button" class="btn btn-default btn-sm d-print-none"><i class="dripicons-print"></i> {{trans('file.Print')}}</button>
-                        
+                    <div class="col-md-3">                        
                         {{ Form::open(['route' => 'sale.sendmail', 'method' => 'post', 'class' => 'sendmail-form'] ) }}
                             <input type="hidden" name="sale_id">
                             <button class="btn btn-default btn-sm d-print-none"><i class="dripicons-mail"></i> {{trans('file.Email')}}</button>
@@ -184,10 +182,7 @@
                             <label>{{trans('file.Paid By')}}</label>
                             <select name="paid_by_id" class="form-control">
                                 <option value="1">Cash</option>
-                                <option value="2">Gift Card</option>
-                                <option value="3">Credit Card</option>
                                 <option value="4">Cheque</option>
-                                <option value="5">Paypal</option>
                                 <option value="6">Deposit</option>
                             </select>
                         </div>
@@ -271,10 +266,7 @@
                             <label>{{trans('file.Paid By')}}</label>
                             <select name="edit_paid_by_id" class="form-control selectpicker">
                                 <option value="1">Cash</option>
-                                <option value="2">Gift Card</option>
-                                <option value="3">Credit Card</option>
                                 <option value="4">Cheque</option>
-                                <option value="5">Paypal</option>
                                 <option value="6">Deposit</option>
                             </select>
                         </div>
@@ -408,7 +400,7 @@
                     </div>
                     <div class="col-md-6 form-group">
                         <label>{{trans('file.Biller')}} *</label>
-                        <select required name="biller_id" class="selectpicker form-control" data-live-search="true" data-live-search-style="begins" title="Select Biller...">
+                        <select required name="biller_id" class="selectpicker form-control" data-live-search="true" data-live-search-style="begins" title="{{trans('file.Select Biller*...')}}">
                             @foreach($lims_biller_list as $biller)
                             <option value="{{$biller->id}}">{{$biller->name . ' (' . $biller->company_name . ')'}}</option>
                             @endforeach
@@ -929,7 +921,7 @@
             },
             {
                 extend: 'colvis',
-                text: '{{trans("file.Column visibility")}}',
+                text: '<i class="fa fa-eye">',
                 columns: ':gt(0)'
             },
         ],

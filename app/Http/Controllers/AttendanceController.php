@@ -27,7 +27,7 @@ class AttendanceController extends Controller
             return view('attendance.index', compact('lims_employee_list', 'lims_hrm_setting_data', 'lims_attendance_all'));
         }
         else
-            return redirect()->back()->with('not_permitted', 'Sorry! You are not allowed to access this module');
+            return redirect()->back()->with('not_permitted', __('Sorry! You are not allowed to access this module!'));
     }
 
     

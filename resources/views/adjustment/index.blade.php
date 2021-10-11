@@ -10,7 +10,7 @@
 <section>
     <div class="flex flex-wrap px-3 mx-auto">
         <div class="w-full mt-2">
-            <div class="brand-text float-left">
+            <div class="font-bold uppercase text-blue-600 float-left">
                 <h3>{{trans("file.Adjustment")}} </h3>
             </div>
             <div class="float-right">
@@ -19,7 +19,7 @@
         </div>
       </div>
     <div class="table-responsive">
-        <table id="adjustment-table" class="table purchase-list" style="width: 100%">
+        <table id="adjustment-table" class="table bg-white purchase-list">
             <thead>
                 <tr>
                     <th class="not-exported"></th>
@@ -195,7 +195,7 @@
             },
             {
                 extend: 'colvis',
-                text: '{{trans("file.Column visibility")}}',
+                text: '<i class="fa fa-eye">',
                 columns: ':gt(0)'
             },
         ],

@@ -27,7 +27,7 @@ class AccountsController extends Controller
             return view('account.index', compact('lims_account_all'));
         }
         else
-            return redirect()->back()->with('not_permitted', 'Sorry! You are not allowed to access this module');
+            return redirect()->back()->with('not_permitted', __('Sorry! You are not allowed to access this module!'));
     }
 
     public function create()
@@ -124,7 +124,7 @@ class AccountsController extends Controller
             return view('account.balance_sheet', compact('lims_account_list', 'debit', 'credit'));
         }
         else
-            return redirect()->back()->with('not_permitted', 'Sorry! You are not allowed to access this module');
+            return redirect()->back()->with('not_permitted', __('Sorry! You are not allowed to access this module!'));
     }
 
     public function accountStatement(Request $request)

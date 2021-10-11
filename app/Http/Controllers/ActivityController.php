@@ -28,7 +28,7 @@ class ActivityController extends Controller
             return view('activity.index', compact('lims_employee_list', 'lims_customer_list', 'lims_activity_all'));
         }
         else
-            return redirect()->back()->with('not_permitted', 'Sorry! You are not allowed to access this module');
+            return redirect()->back()->with('not_permitted', __('Sorry! You are not allowed to access this module!'));
     }
 
     

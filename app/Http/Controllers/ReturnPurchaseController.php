@@ -41,7 +41,7 @@ class ReturnPurchaseController extends Controller
             return view('return_purchase.index', compact('lims_return_all', 'all_permission'));
         }
         else
-            return redirect()->back()->with('not_permitted', 'Sorry! You are not allowed to access this module');
+            return redirect()->back()->with('not_permitted', __('Sorry! You are not allowed to access this module!'));
     }
 
     public function create()
@@ -55,7 +55,7 @@ class ReturnPurchaseController extends Controller
             return view('return_purchase.create', compact('lims_warehouse_list', 'lims_supplier_list', 'lims_tax_list', 'lims_account_list'));
         }
         else
-            return redirect()->back()->with('not_permitted', 'Sorry! You are not allowed to access this module');
+            return redirect()->back()->with('not_permitted', __('Sorry! You are not allowed to access this module!'));
     }
 
     public function getProduct($id)
@@ -417,7 +417,7 @@ class ReturnPurchaseController extends Controller
             return view('return_purchase.edit',compact('lims_supplier_list', 'lims_warehouse_list', 'lims_tax_list', 'lims_account_list', 'lims_return_data','lims_product_return_data'));
         }
         else
-            return redirect()->back()->with('not_permitted', 'Sorry! You are not allowed to access this module');;
+            return redirect()->back()->with('not_permitted', __('Sorry! You are not allowed to access this module!'));;
     }
 
     public function update(Request $request, $id)

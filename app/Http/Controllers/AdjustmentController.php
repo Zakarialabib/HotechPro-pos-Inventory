@@ -28,7 +28,7 @@ class AdjustmentController extends Controller
             return view('adjustment.index', compact('lims_adjustment_all'));
         }
         else
-            return redirect()->back()->with('not_permitted', 'Sorry! You are not allowed to access this module');
+            return redirect()->back()->with('not_permitted', __('Sorry! You are not allowed to access this module!'));
     }
 
     public function getProduct($id)

@@ -13,7 +13,7 @@
 <section>
     <div class="flex flex-wrap px-3 mx-auto">
         <div class="w-full mt-2">
-            <div class="brand-text float-left">
+            <div class="font-bold uppercase text-blue-600 float-left">
                 <h3>{{trans("file.Departement")}} </h3>
             </div>
             <div class="float-right">
@@ -22,7 +22,7 @@
         </div>
       </div>
     <div class="table-responsive">
-        <table id="department-table" class="table" style="width: 100%">
+        <table id="department-table" class="table bg-white" style="width: 100%">
             <thead>
                 <tr>
                     <th class="not-exported"></th>
@@ -234,7 +234,7 @@ $(document).ready(function() {
             },
             {
                 extend: 'colvis',
-                text: '{{trans("file.Column visibility")}}',
+                text: '<i class="fa fa-eye">',
                 columns: ':gt(0)'
             },
         ],
